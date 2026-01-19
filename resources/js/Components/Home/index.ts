@@ -1,0 +1,12 @@
+export { default as Navbar } from './Navbar';
+export { default as HeroSection } from './HeroSection';
+export { default as FeatureCard } from './FeatureCard';
+export { default as FeaturesSection } from './FeaturesSection';
+export { default as MotivationSection } from './MotivationSection';
+export { default as CommunitySection } from './CommunitySection';
+export { default as CourseCard } from './CourseCard';
+export { default as CoursesSection } from './CoursesSection';
+export { default as TestimonialCard } from './TestimonialCard';
+export { default as TestimonialsSection } from './TestimonialsSection';
+export { default as CTASection } from './CTASection';
+export { default as Footer } from './Footer';

@@ -98,13 +98,13 @@ export default function ModuleCard({ module, onDetailClick }: ModuleCardProps) {
                     </div>
 
                     {/* Detail Button */}
-                    <button
-                        onClick={() => onDetailClick?.(module)}
+                    <a
+                        href='/modul/1'
                         className="flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
                     >
                         Detail
                         <Icon name="arrow_forward" size={16} />
-                    </button>
+                    </a>
                 </div>
             </div>
         </article>

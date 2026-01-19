@@ -18,20 +18,20 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
 
     const defaultNavItems: NavItem[] = [
         {
-            label: 'Dashboard',
-            href: route('dashboard'),
-            active: route().current('dashboard'),
+            label: 'Home',
+            href: '/home',
+            active: route().current('home'),
         },
         {
-            label: 'Modul Saya',
+            label: 'Modul',
             href: route('user.modul.index'),
             active: route().current('user.modul.*'),
         },
-        {
-            label: 'Community',
-            href: '#',
-            active: false,
-        },
+        // {
+        //     label: 'Dashboard',
+        //     href: '#',
+        //     active: false,
+        // },
     ];
 
     const navigation = navItems ?? defaultNavItems;
@@ -68,11 +68,10 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    className={`text-sm font-medium transition-colors ${
-                                        item.active
+                                    className={`text-sm font-medium transition-colors ${item.active
                                             ? 'border-b-2 border-primary pb-0.5 text-gray-900'
                                             : 'text-gray-600 hover:text-primary'
-                                    }`}
+                                        }`}
                                 >
                                     {item.label}
                                 </Link>
@@ -81,37 +80,32 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
 
                         {/* Profile Actions */}
                         <div className="flex items-center gap-4">
-                            <button className="relative rounded-full p-2 text-gray-500 transition-colors hover:bg-primary-light hover:text-primary">
+                            {/* <button className="relative rounded-full p-2 text-gray-500 transition-colors hover:bg-primary-light hover:text-primary">
                                 <Icon name="notifications" size={24} />
                                 <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-red-500" />
-                            </button>
+                            </button> */}
 
-                            {user && (
-                                <div className="flex items-center gap-3 border-l border-gray-200 pl-2">
-                                    <div className="hidden text-right sm:block">
-                                        <p className="text-sm font-bold leading-tight text-gray-900">
-                                            {user.name}
-                                        </p>
-                                        <p className="text-xs text-gray-500">
-                                            Student
-                                        </p>
-                                    </div>
-                                    <div
-                                        className="size-10 rounded-full bg-gray-200 bg-cover bg-center ring-2 ring-primary ring-offset-2"
-                                        style={{
-                                            backgroundImage: user.avatar
-                                                ? `url('${user.avatar}')`
-                                                : undefined,
-                                        }}
+                            {user ? (
+                                <Link
+                                    href={route('dashboard')}
+                                    className="hidden rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark sm:block"
+                                >
+                                    Dashboard
+                                </Link>
+                            ) : (
+                                <div className="hidden items-center gap-3 sm:flex">
+                                    <Link
+                                        href={route('login')}
+                                        className="text-sm font-semibold text-gray-600 transition-colors hover:text-primary"
                                     >
-                                        {!user.avatar && (
-                                            <div className="flex h-full w-full items-center justify-center font-semibold text-gray-500">
-                                                {user.name
-                                                    ?.charAt(0)
-                                                    .toUpperCase()}
-                                            </div>
-                                        )}
-                                    </div>
+                                        Masuk
+                                    </Link>
+                                    <Link
+                                        href={route('register')}
+                                        className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                    >
+                                        Daftar
+                                    </Link>
                                 </div>
                             )}
 
@@ -137,11 +131,10 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    className={`block py-2 text-sm font-medium ${
-                                        item.active
+                                    className={`block py-2 text-sm font-medium ${item.active
                                             ? 'text-primary'
                                             : 'text-gray-600'
-                                    }`}
+                                        }`}
                                 >
                                     {item.label}
                                 </Link>

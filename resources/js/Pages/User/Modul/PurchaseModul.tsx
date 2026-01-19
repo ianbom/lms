@@ -43,10 +43,10 @@ export default function PurchaseModul() {
 
                     {/* Action Button */}
                     <div className="pt-2">
-                        <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-lg font-bold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark active:scale-[0.99]">
+                        <a href='/video/1/study' className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-lg font-bold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark active:scale-[0.99]">
                             <span>Kirim Bukti Pembayaran</span>
                             <Icon name="send" size={20} />
-                        </button>
+                        </a>
                         <p className="mt-4 flex items-center justify-center gap-1 text-center text-xs text-gray-400">
                             <Icon name="lock" size={14} />
                             Data Anda dienkripsi dan diproses dengan aman.

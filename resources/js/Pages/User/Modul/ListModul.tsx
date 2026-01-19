@@ -158,8 +158,8 @@ export default function ListModul({
 
     const handleModuleClick = (module: Module) => {
         // Navigate to module detail
-        console.log('Navigating to module:', module.id);
-        // router.visit(route('user.modul.show', module.id));
+        // console.log('Navigating to module:', module.id);
+        // route.visit('/modul/1');
     };
 
     const handlePageChange = (newPage: number) => {

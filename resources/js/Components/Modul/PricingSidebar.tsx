@@ -103,24 +103,24 @@ export default function PricingSidebar({
 
             {/* Buttons */}
             <div className="py-2">
-                <button
-                    onClick={onBuy}
+                <a  href = '/modul/1/purchase'
+                    // onClick={onBuy}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-primary/40"
                 >
                     Beli Modul Sekarang
                     <Icon name="arrow_forward" size={20} />
-                </button>
+                </a>
             </div>
 
             {/* Guarantee */}
-            <div className="mt-5 flex items-center justify-center gap-2 text-xs font-medium text-gray-400">
+            {/* <div className="mt-5 flex items-center justify-center gap-2 text-xs font-medium text-gray-400">
                 <Icon
                     name="verified_user"
                     size={16}
                     className="text-gray-400"
                 />
                 Garansi 30 hari uang kembali
-            </div>
+            </div> */}
         </div>
     );
 }
