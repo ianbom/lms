@@ -1,6 +1,17 @@
 export interface Instructor {
     name: string;
     avatarUrl: string;
+    title?: string;
+    company?: string;
+}
+
+export interface Lesson {
+    id: number;
+    title: string;
+    duration: string;
+    type: 'video' | 'quiz' | 'article';
+    isPreview?: boolean;
+    isLocked?: boolean;
 }
 
 export interface Module {
@@ -15,6 +26,18 @@ export interface Module {
     duration: string;
     videoCount?: number;
     instructor: Instructor;
+}
+
+export interface ModuleDetail extends Module {
+    originalPrice?: number;
+    discount?: number;
+    level: 'beginner' | 'intermediate' | 'advanced';
+    accessType: 'lifetime' | 'limited';
+    tags: string[];
+    longDescription: string;
+    learningPoints: string[];
+    lessons: Lesson[];
+    previewVideoUrl?: string;
 }
 
 export type FilterTab = 'all' | 'free' | 'paid';

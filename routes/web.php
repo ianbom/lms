@@ -28,6 +28,27 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {
             return Inertia::render('User/Modul/ListModul');
         })->name('index');
+
+        Route::get('/{id}', function ($id) {
+            return Inertia::render('User/Modul/DetailModul', [
+                'moduleId' => $id,
+            ]);
+        })->name('show');
+
+        Route::get('/{id}/purchase', function ($id) {
+            return Inertia::render('User/Modul/PurchaseModul', [
+                'moduleId' => $id,
+            ]);
+        })->name('purchase');
+    });
+
+    // User Video Routes
+    Route::prefix('video')->name('user.video.')->group(function () {
+        Route::get('/{id}/study', function ($id) {
+            return Inertia::render('User/Video/Study', [
+                'videoId' => $id,
+            ]);
+        })->name('study');
     });
 });
 
