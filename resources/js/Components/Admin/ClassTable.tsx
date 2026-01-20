@@ -3,10 +3,9 @@ import ClassTableRow from './ClassTableRow';
 
 interface ClassTableProps {
     classes: ClassItem[];
-    onMenuClick?: (id: number) => void;
 }
 
-export default function ClassTable({ classes, onMenuClick }: ClassTableProps) {
+export default function ClassTable({ classes }: ClassTableProps) {
     return (
         <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
@@ -37,7 +36,6 @@ export default function ClassTable({ classes, onMenuClick }: ClassTableProps) {
                         <ClassTableRow
                             key={classItem.id}
                             classItem={classItem}
-                            onMenuClick={onMenuClick}
                         />
                     ))}
                 </tbody>

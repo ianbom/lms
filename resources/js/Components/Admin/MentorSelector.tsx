@@ -1,17 +1,19 @@
 import Icon from '@/Components/Icon';
+import React from 'react';
 import Avatar from './Avatar';
 
 interface Mentor {
     id: number;
     name: string;
-    role: string;
+    role?: string;
     avatar?: string;
 }
 
 interface MentorSelectorProps {
     label?: string;
     selectedMentors: Mentor[];
-    onAddMentor?: () => void;
+    availableMentors: Mentor[];
+    onAddMentor?: (mentor: Mentor) => void;
     onRemoveMentor?: (id: number) => void;
     onSearchChange?: (value: string) => void;
     searchPlaceholder?: string;
@@ -21,12 +23,33 @@ interface MentorSelectorProps {
 export default function MentorSelector({
     label = 'Instructors & Mentors',
     selectedMentors,
+    availableMentors = [],
     onAddMentor,
     onRemoveMentor,
     onSearchChange,
     searchPlaceholder = 'Search mentors by name...',
     className = '',
 }: MentorSelectorProps) {
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [isFocused, setIsFocused] = React.useState(false);
+
+    // Filter available mentors that are NOT already selected
+    const filteredMentors = availableMentors
+        .filter((m) => !selectedMentors.find((sm) => sm.id === m.id))
+        .filter((m) =>
+            m.name.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
+
+    const handleSearch = (val: string) => {
+        setSearchQuery(val);
+        onSearchChange?.(val);
+    };
+
+    const handleSelect = (mentor: Mentor) => {
+        onAddMentor?.(mentor);
+        setSearchQuery('');
+    };
+
     return (
         <div
             className={`rounded-xl border border-[#e5e7eb] bg-white p-6 ${className}`}
@@ -39,17 +62,10 @@ export default function MentorSelector({
                         {label}
                     </h3>
                 </div>
-                <button
-                    type="button"
-                    onClick={onAddMentor}
-                    className="text-sm font-medium text-primary transition-colors hover:text-[#00622e]"
-                >
-                    Add New
-                </button>
             </div>
 
-            {/* Search Input */}
-            <div className="relative mb-4">
+            {/* Search Input with Dropdown */}
+            <div className="relative z-10 mb-4">
                 <Icon
                     name="search"
                     size={18}
@@ -58,9 +74,59 @@ export default function MentorSelector({
                 <input
                     type="text"
                     placeholder={searchPlaceholder}
-                    onChange={(e) => onSearchChange?.(e.target.value)}
+                    value={searchQuery}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    onFocus={() => setIsFocused(true)}
+                    // Delay blur to allow clicking on dropdown items
+                    onBlur={() => setTimeout(() => setIsFocused(false), 200)}
                     className="h-11 w-full rounded-lg border border-[#dae7e0] bg-white pl-10 pr-4 text-sm text-[#101814] placeholder-[#a0b3a9] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
+
+                {/* Dropdown Results */}
+                {isFocused &&
+                    (searchQuery.length > 0 || filteredMentors.length > 0) && (
+                        <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-lg border border-[#e5e7eb] bg-white shadow-lg">
+                            {filteredMentors.length > 0 ? (
+                                filteredMentors.map((mentor) => (
+                                    <button
+                                        key={mentor.id}
+                                        type="button"
+                                        onClick={() => handleSelect(mentor)}
+                                        className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-[#f9fafb]"
+                                    >
+                                        <Avatar
+                                            src={mentor.avatar}
+                                            initials={mentor.name
+                                                .split(' ')
+                                                .map((n) => n[0])
+                                                .join('')}
+                                            size="sm"
+                                            color="bg-primary/10 text-primary"
+                                        />
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium text-[#101814]">
+                                                {mentor.name}
+                                            </span>
+                                            {mentor.role && (
+                                                <span className="text-xs text-[#a0b3a9]">
+                                                    {mentor.role}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <Icon
+                                            name="add"
+                                            size={16}
+                                            className="ml-auto text-[#a0b3a9]"
+                                        />
+                                    </button>
+                                ))
+                            ) : (
+                                <div className="px-4 py-3 text-sm text-[#a0b3a9]">
+                                    No mentors found.
+                                </div>
+                            )}
+                        </div>
+                    )}
             </div>
 
             {/* Selected Mentors */}
@@ -96,15 +162,6 @@ export default function MentorSelector({
                         </button>
                     </div>
                 ))}
-
-                {/* Add More Button */}
-                <button
-                    type="button"
-                    onClick={onAddMentor}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-dashed border-[#dae7e0] text-[#a0b3a9] transition-colors hover:border-primary hover:text-primary"
-                >
-                    <Icon name="add" size={18} />
-                </button>
             </div>
         </div>
     );

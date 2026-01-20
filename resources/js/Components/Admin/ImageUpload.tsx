@@ -8,6 +8,7 @@ interface ImageUploadProps {
     maxSize?: string;
     accept?: string;
     className?: string;
+    error?: string;
 }
 
 export default function ImageUpload({
@@ -18,6 +19,7 @@ export default function ImageUpload({
     maxSize = '2MB',
     accept = '.jpg,.png',
     className = '',
+    error,
 }: ImageUploadProps) {
     const handleDrop = (e: React.DragEvent) => {
         e.preventDefault();
@@ -43,7 +45,11 @@ export default function ImageUpload({
             )}
 
             {/* Preview Area */}
-            <div className="flex aspect-video items-center justify-center rounded-xl border border-dashed border-[#dae7e0] bg-[#f9fafb]">
+            <div
+                className={`flex aspect-video items-center justify-center rounded-xl border border-dashed bg-[#f9fafb] ${
+                    error ? 'border-red-500' : 'border-[#dae7e0]'
+                }`}
+            >
                 {value ? (
                     <img
                         src={value}
@@ -68,7 +74,11 @@ export default function ImageUpload({
             <label
                 onDrop={handleDrop}
                 onDragOver={(e) => e.preventDefault()}
-                className="flex cursor-pointer flex-col items-center gap-1 rounded-lg border border-dashed border-[#dae7e0] p-6 transition-colors hover:border-primary hover:bg-primary/5"
+                className={`flex cursor-pointer flex-col items-center gap-1 rounded-lg border border-dashed p-6 transition-colors hover:bg-primary/5 ${
+                    error
+                        ? 'border-red-500 hover:border-red-500'
+                        : 'border-[#dae7e0] hover:border-primary'
+                }`}
             >
                 <input
                     type="file"
@@ -83,6 +93,7 @@ export default function ImageUpload({
                     JPG, PNG up to {maxSize}
                 </p>
             </label>
+            {error && <span className="text-sm text-red-500">{error}</span>}
         </div>
     );
 }

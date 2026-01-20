@@ -8,6 +8,7 @@ interface FormSelectProps {
     onChange?: (value: string) => void;
     options: { value: string; label: string }[];
     className?: string;
+    error?: string;
 }
 
 export default function FormSelect({
@@ -18,6 +19,7 @@ export default function FormSelect({
     onChange,
     options,
     className = '',
+    error,
 }: FormSelectProps) {
     return (
         <div className={`flex flex-col gap-2 ${className}`}>
@@ -29,7 +31,11 @@ export default function FormSelect({
                 <select
                     value={value}
                     onChange={(e) => onChange?.(e.target.value)}
-                    className="h-12 w-full appearance-none rounded-lg border border-[#dae7e0] bg-white px-4 pr-10 text-sm text-[#101814] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className={`h-12 w-full appearance-none rounded-lg border bg-white px-4 pr-10 text-sm text-[#101814] transition-all focus:outline-none focus:ring-2 ${
+                        error
+                            ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
+                            : 'border-[#dae7e0] focus:border-primary focus:ring-primary/20'
+                    }`}
                 >
                     <option value="">{placeholder}</option>
                     {options.map((option) => (
@@ -44,6 +50,7 @@ export default function FormSelect({
                     className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#5e6a62]"
                 />
             </div>
+            {error && <span className="text-sm text-red-500">{error}</span>}
         </div>
     );
 }

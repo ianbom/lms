@@ -8,6 +8,7 @@ interface FormInputProps {
     prefix?: string;
     suffix?: string;
     className?: string;
+    error?: string;
 }
 
 export default function FormInput({
@@ -20,6 +21,7 @@ export default function FormInput({
     prefix,
     suffix,
     className = '',
+    error,
 }: FormInputProps) {
     return (
         <div className={`flex flex-col gap-2 ${className}`}>
@@ -48,6 +50,7 @@ export default function FormInput({
                     </span>
                 )}
             </div>
+            {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
     );
 }

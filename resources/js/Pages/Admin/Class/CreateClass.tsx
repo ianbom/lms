@@ -5,61 +5,107 @@ import ImageUpload from '@/Components/Admin/ImageUpload';
 import MentorSelector from '@/Components/Admin/MentorSelector';
 import RichTextEditor from '@/Components/Admin/RichTextEditor';
 import SidebarCard from '@/Components/Admin/SidebarCard';
-import ToggleButtonGroup from '@/Components/Admin/ToggleButtonGroup';
-import ToggleSwitch from '@/Components/Admin/ToggleSwitch';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head, Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler, useEffect, useState } from 'react';
 
-// Sample data
-const categoryOptions = [
-    { value: 'design', label: 'Design' },
-    { value: 'development', label: 'Development' },
-    { value: 'business', label: 'Business' },
-    { value: 'marketing', label: 'Marketing' },
-    { value: 'creative', label: 'Creative Arts' },
-];
+// Define types for props
+interface Category {
+    id: number;
+    name: string;
+}
 
-const difficultyOptions = [
-    { value: 'beginner', label: 'Beginner' },
-    { value: 'intermediate', label: 'Intermediate' },
-    { value: 'advanced', label: 'Advanced' },
-];
+interface Mentor {
+    id: number;
+    name: string;
+    role?: string;
+    avatar?: string;
+}
 
-const sampleMentors = [
-    { id: 1, name: 'Jane Doe', role: 'Lead Designer', avatar: undefined },
-    { id: 2, name: 'John Smith', role: 'Sr. Engineer', avatar: undefined },
-];
+interface Props {
+    categories: Category[];
+    mentors: Mentor[];
+}
 
-export default function CreateClass() {
-    // Form state
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
-    const [difficulty, setDifficulty] = useState('beginner');
-    const [thumbnail, setThumbnail] = useState<string | undefined>();
-    const [price, setPrice] = useState('199');
-    const [discount, setDiscount] = useState('20');
-    const [isPublic, setIsPublic] = useState(true);
-    const [isFeatured, setIsFeatured] = useState(false);
-    const [mentors, setMentors] = useState(sampleMentors);
+export default function CreateClass({ categories, mentors }: Props) {
+    const { data, setData, post, processing, errors, transform } = useForm({
+        title: '',
+        description: '',
+        category_id: '',
+        thumbnail: null as File | null,
+        price: '0',
+        discount: '0',
+        mentors: [] as number[],
+        status: 'published',
+    });
 
-    // Calculate final price
-    const normalPrice = parseFloat(price) || 0;
-    const discountPercent = parseFloat(discount) || 0;
+    console.log(mentors);
+
+    // Convert categories to select options
+    const categoryOptions = categories.map((cat) => ({
+        value: cat.id.toString(),
+        label: cat.name,
+    }));
+
+    // Local state for preview and selected mentors
+    const [thumbnailPreview, setThumbnailPreview] = useState<
+        string | undefined
+    >();
+    const [selectedMentors, setSelectedMentors] = useState<Mentor[]>([]);
+
+    // Calculate final price for display
+    const normalPrice = parseFloat(data.price) || 0;
+    const discountPercent = parseFloat(data.discount) || 0;
     const finalPrice = normalPrice * (1 - discountPercent / 100);
 
     const handleRemoveMentor = (id: number) => {
-        setMentors(mentors.filter((m) => m.id !== id));
+        setSelectedMentors(selectedMentors.filter((m) => m.id !== id));
+        setData(
+            'mentors',
+            data.mentors.filter((mId) => mId !== id),
+        );
+    };
+
+    const handleAddMentor = (mentor: Mentor) => {
+        // Check if mentor already selected
+        if (!selectedMentors.find((m) => m.id === mentor.id)) {
+            setSelectedMentors([...selectedMentors, mentor]);
+            setData('mentors', [...data.mentors, mentor.id]);
+        }
     };
 
     const handleThumbnailChange = (file: File | null) => {
         if (file) {
             const url = URL.createObjectURL(file);
-            setThumbnail(url);
+            setThumbnailPreview(url);
+            setData('thumbnail', file);
+        } else {
+            setThumbnailPreview(undefined);
+            setData('thumbnail', null);
         }
     };
+
+    const handleSaveDraft = () => {
+        transform((data) => ({
+            ...data,
+            status: 'draft',
+        }));
+
+        post(route('admin.classes.store'), {
+            forceFormData: true,
+            preserveScroll: true,
+        });
+    };
+
+    // Cleanup preview URL on unmount
+    useEffect(() => {
+        return () => {
+            if (thumbnailPreview) {
+                URL.revokeObjectURL(thumbnailPreview);
+            }
+        };
+    }, [thumbnailPreview]);
 
     return (
         <AdminLayout
@@ -84,16 +130,12 @@ export default function CreateClass() {
                     </Link>
                     <button
                         type="button"
-                        className="rounded-lg border border-[#dae7e0] bg-white px-4 py-2.5 text-sm font-medium text-[#101814] transition-colors hover:bg-[#f9fafb]"
-                    >
-                        Save Draft
-                    </button>
-                    <button
-                        type="button"
-                        className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e]"
+                        onClick={handleSaveDraft}
+                        disabled={processing}
+                        className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
                     >
                         <Icon name="publish" size={18} />
-                        Publish
+                        {processing ? 'Saving...' : 'Save Draft'}
                     </button>
                 </div>
             </div>
@@ -109,16 +151,18 @@ export default function CreateClass() {
                                 label="Class Title"
                                 required
                                 placeholder="e.g., Advanced System Architecture"
-                                value={title}
-                                onChange={setTitle}
+                                value={data.title}
+                                onChange={(val) => setData('title', val)}
+                                error={errors.title}
                             />
 
                             <RichTextEditor
                                 label="Description"
-                                value={description}
-                                onChange={setDescription}
+                                value={data.description}
+                                onChange={(val) => setData('description', val)}
                                 placeholder="Start typing your class description here..."
                                 maxLength={2000}
+                                error={errors.description}
                             />
 
                             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -126,15 +170,11 @@ export default function CreateClass() {
                                     label="Category"
                                     placeholder="Select a category"
                                     options={categoryOptions}
-                                    value={category}
-                                    onChange={setCategory}
-                                />
-
-                                <ToggleButtonGroup
-                                    label="Difficulty Level"
-                                    options={difficultyOptions}
-                                    value={difficulty}
-                                    onChange={setDifficulty}
+                                    value={data.category_id}
+                                    onChange={(val) =>
+                                        setData('category_id', val)
+                                    }
+                                    error={errors.category_id}
                                 />
                             </div>
                         </div>
@@ -142,8 +182,10 @@ export default function CreateClass() {
 
                     {/* Mentors Card */}
                     <MentorSelector
-                        selectedMentors={mentors}
+                        selectedMentors={selectedMentors}
                         onRemoveMentor={handleRemoveMentor}
+                        availableMentors={mentors}
+                        onAddMentor={handleAddMentor}
                     />
                 </div>
 
@@ -152,8 +194,9 @@ export default function CreateClass() {
                     {/* Thumbnail */}
                     <SidebarCard title="Class Thumbnail">
                         <ImageUpload
-                            value={thumbnail}
+                            value={thumbnailPreview}
                             onChange={handleThumbnailChange}
+                            error={errors.thumbnail}
                         />
                     </SidebarCard>
 
@@ -163,14 +206,16 @@ export default function CreateClass() {
                             <FormInput
                                 label="Normal Price ($)"
                                 type="number"
-                                value={price}
-                                onChange={setPrice}
+                                value={data.price}
+                                onChange={(val) => setData('price', val)}
+                                error={errors.price}
                             />
                             <FormInput
                                 label="Discount (%)"
                                 type="number"
-                                value={discount}
-                                onChange={setDiscount}
+                                value={data.discount}
+                                onChange={(val) => setData('discount', val)}
+                                error={errors.discount}
                             />
 
                             <div className="flex items-center justify-between border-t border-[#f0f5f2] pt-4">
@@ -190,30 +235,6 @@ export default function CreateClass() {
                             </div>
                         </div>
                     </SidebarCard>
-
-                    {/* Visibility */}
-                    <SidebarCard title="Visibility">
-                        <div className="flex flex-col gap-4">
-                            <ToggleSwitch
-                                label="Public"
-                                description="Visible to all students"
-                                checked={isPublic}
-                                onChange={setIsPublic}
-                            />
-                            <ToggleSwitch
-                                label="Featured"
-                                description="Show on homepage"
-                                checked={isFeatured}
-                                onChange={setIsFeatured}
-                            />
-                        </div>
-                    </SidebarCard>
-
-                    {/* Autosave Status */}
-                    <div className="flex items-center justify-center gap-2 text-xs text-[#a0b3a9]">
-                        <Icon name="schedule" size={14} />
-                        Autosaved 2 mins ago
-                    </div>
                 </div>
             </div>
         </AdminLayout>

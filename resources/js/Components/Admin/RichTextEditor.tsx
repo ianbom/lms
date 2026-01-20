@@ -7,6 +7,7 @@ interface RichTextEditorProps {
     placeholder?: string;
     maxLength?: number;
     className?: string;
+    error?: string;
 }
 
 export default function RichTextEditor({
@@ -16,6 +17,7 @@ export default function RichTextEditor({
     placeholder = 'Start typing...',
     maxLength = 2000,
     className = '',
+    error,
 }: RichTextEditorProps) {
     const toolbarButtons = [
         { icon: 'format_bold', action: 'bold' },
@@ -33,7 +35,13 @@ export default function RichTextEditor({
                     {label}
                 </label>
             )}
-            <div className="overflow-hidden rounded-lg border border-[#dae7e0] bg-white transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+            <div
+                className={`overflow-hidden rounded-lg border bg-white transition-all focus-within:ring-2 ${
+                    error
+                        ? 'border-red-500 focus-within:border-red-500 focus-within:ring-red-200'
+                        : 'border-[#dae7e0] focus-within:border-primary focus-within:ring-primary/20'
+                }`}
+            >
                 {/* Toolbar */}
                 <div className="flex items-center gap-1 border-b border-[#f0f5f2] px-3 py-2">
                     {toolbarButtons.map((btn, index) => (
@@ -71,6 +79,7 @@ export default function RichTextEditor({
                     </span>
                 </div>
             </div>
+            {error && <span className="text-sm text-red-500">{error}</span>}
         </div>
     );
 }
