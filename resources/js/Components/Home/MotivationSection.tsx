@@ -67,16 +67,23 @@ export default function MotivationSection({
                         <h2 className="mb-6 text-3xl font-bold text-gray-900 lg:text-4xl">
                             {title}
                         </h2>
-                        <p className="mb-8 text-lg text-gray-600">{description}</p>
+                        <p className="mb-8 text-lg text-gray-600">
+                            {description}
+                        </p>
 
                         {/* Benefits List */}
                         <ul className="mb-8 space-y-4">
                             {benefits.map((benefit, index) => (
-                                <li key={index} className="flex items-center gap-3">
+                                <li
+                                    key={index}
+                                    className="flex items-center gap-3"
+                                >
                                     <span className="flex size-6 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                                         <Icon name="check" size={14} />
                                     </span>
-                                    <span className="text-gray-700">{benefit.text}</span>
+                                    <span className="text-gray-700">
+                                        {benefit.text}
+                                    </span>
                                 </li>
                             ))}
                         </ul>

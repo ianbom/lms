@@ -68,10 +68,11 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    className={`text-sm font-medium transition-colors ${item.active
+                                    className={`text-sm font-medium transition-colors ${
+                                        item.active
                                             ? 'border-b-2 border-primary pb-0.5 text-gray-900'
                                             : 'text-gray-600 hover:text-primary'
-                                        }`}
+                                    }`}
                                 >
                                     {item.label}
                                 </Link>
@@ -131,10 +132,11 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    className={`block py-2 text-sm font-medium ${item.active
+                                    className={`block py-2 text-sm font-medium ${
+                                        item.active
                                             ? 'text-primary'
                                             : 'text-gray-600'
-                                        }`}
+                                    }`}
                                 >
                                     {item.label}
                                 </Link>

@@ -66,9 +66,10 @@ export default function Footer({ columns = defaultColumns }: FooterProps) {
                             </span>
                         </Link>
                         <p className="mb-6 max-w-sm text-sm leading-relaxed text-gray-500">
-                            LMS Platform is a modern online learning platform that helps you gain
-                            in-demand skills through expert-led courses, personalized learning
-                            paths, and a vibrant peer community.
+                            LMS Platform is a modern online learning platform
+                            that helps you gain in-demand skills through
+                            expert-led courses, personalized learning paths, and
+                            a vibrant peer community.
                         </p>
                         <button className="rounded-lg bg-indigo-50 px-6 py-2 text-sm font-bold text-indigo-600 transition-colors hover:bg-indigo-100">
                             Contact Us

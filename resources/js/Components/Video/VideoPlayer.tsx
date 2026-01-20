@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import YouTube, { YouTubePlayer, YouTubeEvent } from 'react-youtube';
 import Icon from '@/Components/Icon';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 
 interface VideoPlayerProps {
     videoId: string;
@@ -54,9 +54,13 @@ export default function VideoPlayer({
     const [isReady, setIsReady] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [showQualityMenu, setShowQualityMenu] = useState(false);
-    const [availableQualities, setAvailableQualities] = useState<QualityLevel[]>([]);
+    const [availableQualities, setAvailableQualities] = useState<
+        QualityLevel[]
+    >([]);
     const [currentQuality, setCurrentQuality] = useState<QualityLevel>('auto');
-    const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+        null,
+    );
 
     // YouTube player options
     const opts = {
@@ -92,7 +96,10 @@ export default function VideoPlayer({
 
         document.addEventListener('fullscreenchange', handleFullscreenChange);
         return () => {
-            document.removeEventListener('fullscreenchange', handleFullscreenChange);
+            document.removeEventListener(
+                'fullscreenchange',
+                handleFullscreenChange,
+            );
         };
     }, []);
 
@@ -253,8 +260,9 @@ export default function VideoPlayer({
     return (
         <div
             ref={containerRef}
-            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${isFullscreen ? 'rounded-none' : ''
-                }`}
+            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${
+                isFullscreen ? 'rounded-none' : ''
+            }`}
             onContextMenu={handleContextMenu}
             style={{ userSelect: 'none' }}
         >
@@ -412,10 +420,11 @@ export default function VideoPlayer({
                                                 onClick={() =>
                                                     changeQuality('auto')
                                                 }
-                                                className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${currentQuality === 'auto'
-                                                    ? 'bg-primary/20 font-semibold text-primary'
-                                                    : 'text-white'
-                                                    }`}
+                                                className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${
+                                                    currentQuality === 'auto'
+                                                        ? 'bg-primary/20 font-semibold text-primary'
+                                                        : 'text-white'
+                                                }`}
                                             >
                                                 <span>Auto</span>
                                                 {currentQuality === 'auto' && (
@@ -435,11 +444,12 @@ export default function VideoPlayer({
                                                                 quality,
                                                             )
                                                         }
-                                                        className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${currentQuality ===
+                                                        className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${
+                                                            currentQuality ===
                                                             quality
-                                                            ? 'bg-primary/20 font-semibold text-primary'
-                                                            : 'text-white'
-                                                            }`}
+                                                                ? 'bg-primary/20 font-semibold text-primary'
+                                                                : 'text-white'
+                                                        }`}
                                                     >
                                                         <span>
                                                             {QUALITY_LABELS[
@@ -448,11 +458,11 @@ export default function VideoPlayer({
                                                         </span>
                                                         {currentQuality ===
                                                             quality && (
-                                                                <Icon
-                                                                    name="check"
-                                                                    size={16}
-                                                                />
-                                                            )}
+                                                            <Icon
+                                                                name="check"
+                                                                size={16}
+                                                            />
+                                                        )}
                                                     </button>
                                                 ))}
                                         </div>

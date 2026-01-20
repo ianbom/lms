@@ -75,7 +75,10 @@ export default function Navbar({
                             onClick={() => setShowMobileMenu(!showMobileMenu)}
                             className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 md:hidden"
                         >
-                            <Icon name={showMobileMenu ? 'close' : 'menu'} size={24} />
+                            <Icon
+                                name={showMobileMenu ? 'close' : 'menu'}
+                                size={24}
+                            />
                         </button>
                     </div>
                 </div>

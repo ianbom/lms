@@ -32,7 +32,9 @@ export default function FeatureCard({
                 <Icon name={icon} size={24} />
             </div>
             <h3 className="mb-2 text-xl font-bold text-gray-900">{title}</h3>
-            <p className="text-sm leading-relaxed text-gray-600">{description}</p>
+            <p className="text-sm leading-relaxed text-gray-600">
+                {description}
+            </p>
         </div>
     );
 }

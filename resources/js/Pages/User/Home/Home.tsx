@@ -1,11 +1,11 @@
 import {
-    HeroSection,
-    FeaturesSection,
-    MotivationSection,
     CommunitySection,
     CoursesSection,
-    TestimonialsSection,
     CTASection,
+    FeaturesSection,
+    HeroSection,
+    MotivationSection,
+    TestimonialsSection,
 } from '@/Components/Home';
 import UserLayout from '@/Layouts/UserLayout';
 import { Head } from '@inertiajs/react';
@@ -22,25 +22,29 @@ export default function Home() {
             icon: 'psychology',
             iconColor: 'orange' as const,
             title: 'Belajar Lebih Cerdas',
-            description: 'Alur belajar berbasis AI yang menyesuaikan dengan kecepatan dan tujuanmu secara otomatis.',
+            description:
+                'Alur belajar berbasis AI yang menyesuaikan dengan kecepatan dan tujuanmu secara otomatis.',
         },
         {
             icon: 'schedule',
             iconColor: 'purple' as const,
             title: 'Jadwal Fleksibel',
-            description: 'Belajar kapan saja, di mana saja. Lanjutkan tepat di bagian terakhirmu, bahkan saat offline.',
+            description:
+                'Belajar kapan saja, di mana saja. Lanjutkan tepat di bagian terakhirmu, bahkan saat offline.',
         },
         {
             icon: 'verified',
             iconColor: 'blue' as const,
             title: 'Belajar dari yang Terbaik',
-            description: 'Kursus yang dipandu oleh profesional top dan praktisi yang tahu apa yang berhasil.',
+            description:
+                'Kursus yang dipandu oleh profesional top dan praktisi yang tahu apa yang berhasil.',
         },
         {
             icon: 'groups',
             iconColor: 'teal' as const,
             title: 'Komunitas',
-            description: 'Gabung grup diskusi, ajukan pertanyaan, dan bangun portofolio bersama yang lain.',
+            description:
+                'Gabung grup diskusi, ajukan pertanyaan, dan bangun portofolio bersama yang lain.',
         },
     ];
 
@@ -125,7 +129,7 @@ export default function Home() {
             rating: 5,
             title: 'LMS Platform membantuku ganti karir!',
             content:
-                "Aku mulai sebagai asisten marketing tanpa pengalaman coding. Berkat kursus web development LMS Platform yang ramah pemula, aku dapat pekerjaan frontend developer pertamaku bulan lalu.",
+                'Aku mulai sebagai asisten marketing tanpa pengalaman coding. Berkat kursus web development LMS Platform yang ramah pemula, aku dapat pekerjaan frontend developer pertamaku bulan lalu.',
             user: {
                 name: 'Aisha R.',
                 role: 'Junior Web Developer',
@@ -136,7 +140,7 @@ export default function Home() {
             rating: 5,
             title: 'Sangat pas dengan jadwal sibukku',
             content:
-                "Sebagai perawat penuh waktu, aku tidak punya banyak waktu luang. Tapi pelajaran LMS Platform yang singkat dan fokus membuatnya mudah untuk belajar saat istirahat. Aku sudah menyelesaikan tiga kursus keuangan pribadi.",
+                'Sebagai perawat penuh waktu, aku tidak punya banyak waktu luang. Tapi pelajaran LMS Platform yang singkat dan fokus membuatnya mudah untuk belajar saat istirahat. Aku sudah menyelesaikan tiga kursus keuangan pribadi.',
             user: {
                 name: 'Carlos M.',
                 role: 'Tenaga Kesehatan',
@@ -147,7 +151,7 @@ export default function Home() {
             rating: 4.5,
             title: 'Meningkatkan karir freelance-ku',
             content:
-                "Saya sudah mengambil banyak kursus online sebelumnya, tapi tidak ada yang sepraktis dan terstruktur seperti LMS Platform. Jalur UI/UX adalah apa yang saya butuhkan. Penghasilan saya sudah dua kali lipat!",
+                'Saya sudah mengambil banyak kursus online sebelumnya, tapi tidak ada yang sepraktis dan terstruktur seperti LMS Platform. Jalur UI/UX adalah apa yang saya butuhkan. Penghasilan saya sudah dua kali lipat!',
             user: {
                 name: 'Nadiya P.',
                 role: 'Freelance Designer',
@@ -160,7 +164,9 @@ export default function Home() {
         <UserLayout>
             <Head title="Home - LMS Platform" />
 
-            <div className="-mt-8 sm:-mt-12"> {/* Negate UserLayout padding for Hero full width */}
+            <div className="-mt-8 sm:-mt-12">
+                {' '}
+                {/* Negate UserLayout padding for Hero full width */}
                 {/* Hero Section */}
                 <HeroSection
                     badge="Kursus Baru Ditambahkan"
@@ -190,14 +196,12 @@ export default function Home() {
                     secondaryButtonText="Jelajahi Kursus"
                     stats={heroStats}
                 />
-
                 {/* Features Section */}
                 <FeaturesSection
                     title="Pembelajaran Cerdas, Hasil Nyata"
                     description="Kami membuat pembelajaran efektif, menyenangkan, dan personal—sehingga Anda tetap termotivasi dan benar-benar menyelesaikan apa yang Anda mulai."
                     features={features}
                 />
-
                 {/* Motivation Section */}
                 <MotivationSection
                     title="Dibuat untuk Menjagamu Tetap Maju"
@@ -205,7 +209,6 @@ export default function Home() {
                     benefits={motivationBenefits}
                     buttonText="Mulai Belajar Gratis"
                 />
-
                 {/* Community Section */}
                 <CommunitySection
                     title="Anda Tidak Belajar Sendirian"
@@ -213,20 +216,17 @@ export default function Home() {
                     secondaryDescription="Baik Anda mendalami AI, desain, atau pemasaran, temukan dukungan, kolaborasi, dan motivasi melalui papan peringkat dan tantangan."
                     buttonText="Gabung Komunitas Kami"
                 />
-
                 {/* Courses Section */}
                 <CoursesSection
                     title="Kursus Paling Dicintai Bulan Ini"
                     description="Sedang tren di kalangan pembelajar kami — lihat apa yang menarik perhatian."
                     courses={courses}
                 />
-
                 {/* Testimonials Section */}
                 <TestimonialsSection
                     title="Cerita dari Pembelajar LMS Platform"
                     testimonials={testimonials}
                 />
-
                 {/* CTA Section */}
                 <CTASection
                     title={

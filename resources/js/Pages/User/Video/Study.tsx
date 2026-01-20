@@ -105,10 +105,16 @@ export default function Study() {
                         className="group inline-flex items-center gap-3 text-gray-500 transition-colors hover:text-primary"
                     >
                         <div className="flex size-10 items-center justify-center rounded-xl bg-gray-100 shadow-sm transition-all group-hover:bg-primary group-hover:shadow-md group-hover:shadow-primary/20">
-                            <Icon name="chevron_left" size={20} className="text-gray-500 transition-colors group-hover:text-white" />
+                            <Icon
+                                name="chevron_left"
+                                size={20}
+                                className="text-gray-500 transition-colors group-hover:text-white"
+                            />
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-xs text-gray-400">Kembali ke</span>
+                            <span className="text-xs text-gray-400">
+                                Kembali ke
+                            </span>
                             <span className="text-sm font-semibold text-gray-700 group-hover:text-primary">
                                 Daftar Modul
                             </span>
@@ -117,8 +123,14 @@ export default function Study() {
 
                     {/* Module info badge */}
                     <div className="flex items-center gap-2 rounded-full bg-primary-light/50 px-4 py-2">
-                        <Icon name="school" size={18} className="text-primary" />
-                        <span className="text-sm font-semibold text-primary">Modul 1: UX Design</span>
+                        <Icon
+                            name="school"
+                            size={18}
+                            className="text-primary"
+                        />
+                        <span className="text-sm font-semibold text-primary">
+                            Modul 1: UX Design
+                        </span>
                     </div>
                 </div>
             </div>
@@ -133,7 +145,9 @@ export default function Study() {
                         onPlay={handlePlay}
                         onPause={() => console.log('Video paused')}
                         onEnd={() => console.log('Video ended')}
-                        onProgress={(progress) => console.log('Progress:', progress)}
+                        onProgress={(progress) =>
+                            console.log('Progress:', progress)
+                        }
                     />
 
                     {/* Navigation Buttons */}

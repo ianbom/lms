@@ -99,7 +99,7 @@ export default function ModuleCard({ module, onDetailClick }: ModuleCardProps) {
 
                     {/* Detail Button */}
                     <a
-                        href='/modul/1'
+                        href="/modul/1"
                         className="flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
                     >
                         Detail

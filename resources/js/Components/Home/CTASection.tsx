@@ -31,7 +31,9 @@ export default function CTASection({
                                 </>
                             )}
                         </h2>
-                        <p className="max-w-md text-lg text-white/80">{description}</p>
+                        <p className="max-w-md text-lg text-white/80">
+                            {description}
+                        </p>
                         <Link
                             href={buttonHref}
                             className="inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary shadow-lg transition-colors hover:bg-gray-100"
@@ -50,7 +52,9 @@ export default function CTASection({
                                     <div className="size-3 rounded-full bg-yellow-400"></div>
                                     <div className="size-3 rounded-full bg-green-400"></div>
                                 </div>
-                                <div className="text-xs text-gray-400">Dashboard</div>
+                                <div className="text-xs text-gray-400">
+                                    Dashboard
+                                </div>
                             </div>
 
                             {/* Dashboard Content */}
@@ -58,16 +62,28 @@ export default function CTASection({
                                 {/* Stats Row */}
                                 <div className="flex gap-4">
                                     <div className="w-1/3 rounded-lg bg-blue-50 p-4">
-                                        <div className="text-2xl font-bold text-blue-600">3</div>
-                                        <div className="text-xs text-gray-500">Courses</div>
+                                        <div className="text-2xl font-bold text-blue-600">
+                                            3
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            Courses
+                                        </div>
                                     </div>
                                     <div className="w-1/3 rounded-lg bg-green-50 p-4">
-                                        <div className="text-2xl font-bold text-green-600">12h</div>
-                                        <div className="text-xs text-gray-500">Learned</div>
+                                        <div className="text-2xl font-bold text-green-600">
+                                            12h
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            Learned
+                                        </div>
                                     </div>
                                     <div className="w-1/3 rounded-lg bg-purple-50 p-4">
-                                        <div className="text-2xl font-bold text-purple-600">85%</div>
-                                        <div className="text-xs text-gray-500">Avg Score</div>
+                                        <div className="text-2xl font-bold text-purple-600">
+                                            85%
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            Avg Score
+                                        </div>
                                     </div>
                                 </div>
 

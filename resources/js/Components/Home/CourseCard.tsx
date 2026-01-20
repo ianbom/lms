@@ -43,12 +43,16 @@ export default function CourseCard({
                 {/* Rating */}
                 <div className="mb-2 flex items-center gap-1">
                     <Icon name="star" size={14} className="text-yellow-400" />
-                    <span className="text-sm font-bold text-gray-900">{rating}</span>
+                    <span className="text-sm font-bold text-gray-900">
+                        {rating}
+                    </span>
                     <span className="text-xs text-gray-500">({reviews})</span>
                 </div>
 
                 {/* Title */}
-                <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900">{title}</h3>
+                <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900">
+                    {title}
+                </h3>
 
                 {/* Footer */}
                 <div className="mt-6 flex items-center justify-between">
@@ -60,8 +64,12 @@ export default function CourseCard({
                             src={instructor.image}
                         />
                         <div>
-                            <p className="text-xs font-bold text-gray-900">{instructor.name}</p>
-                            <p className="text-[10px] text-gray-500">Instructor</p>
+                            <p className="text-xs font-bold text-gray-900">
+                                {instructor.name}
+                            </p>
+                            <p className="text-[10px] text-gray-500">
+                                Instructor
+                            </p>
                         </div>
                     </div>
 

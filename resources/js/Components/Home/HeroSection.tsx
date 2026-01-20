@@ -97,12 +97,17 @@ export default function HeroSection({
                         {/* Stats */}
                         <div className="flex items-center gap-8 pt-4">
                             {stats.map((stat, index) => (
-                                <div key={index} className="flex items-center gap-8">
+                                <div
+                                    key={index}
+                                    className="flex items-center gap-8"
+                                >
                                     <div>
                                         <p className="text-3xl font-bold text-gray-900">
                                             {stat.value}
                                         </p>
-                                        <p className="text-sm text-gray-500">{stat.label}</p>
+                                        <p className="text-sm text-gray-500">
+                                            {stat.label}
+                                        </p>
                                     </div>
                                     {index < stats.length - 1 && (
                                         <div className="h-10 w-px bg-gray-200"></div>
@@ -126,23 +131,31 @@ export default function HeroSection({
                             />
 
                             {/* Floating Card - Certificates */}
-                            <div className="floating-card absolute -left-12 top-12 z-20 w-48 rounded-2xl border border-gray-100 bg-white p-4 shadow-soft">
+                            <div className="floating-card shadow-soft absolute -left-12 top-12 z-20 w-48 rounded-2xl border border-gray-100 bg-white p-4">
                                 <div className="flex items-center gap-3">
                                     <div className="rounded-lg bg-orange-100 p-2 text-orange-600">
                                         <Icon name="emoji_events" size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-gray-500">Certificates Earned</p>
-                                        <p className="text-xl font-bold text-gray-900">12</p>
+                                        <p className="text-xs text-gray-500">
+                                            Certificates Earned
+                                        </p>
+                                        <p className="text-xl font-bold text-gray-900">
+                                            12
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Floating Card - Course Progress */}
-                            <div className="floating-card-delayed absolute -right-8 bottom-24 z-20 w-56 rounded-2xl border border-gray-100 bg-white p-4 shadow-soft">
+                            <div className="floating-card-delayed shadow-soft absolute -right-8 bottom-24 z-20 w-56 rounded-2xl border border-gray-100 bg-white p-4">
                                 <div className="mb-2 flex items-center justify-between">
-                                    <p className="text-sm font-bold text-gray-900">UX Design Basics</p>
-                                    <span className="text-xs font-semibold text-primary">85%</span>
+                                    <p className="text-sm font-bold text-gray-900">
+                                        UX Design Basics
+                                    </p>
+                                    <span className="text-xs font-semibold text-primary">
+                                        85%
+                                    </span>
                                 </div>
                                 <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
                                     <div
@@ -156,7 +169,9 @@ export default function HeroSection({
                                         className="size-6 rounded-full border-2 border-white"
                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_V0jbAVI4M9LQmqhEYbdXiMPMS8kDvXiSuiONzex98tUJwU8K9VUWJJ0AC6Qd6d514QdCiZKyOed_9we8Xfru8xN1kakjwlDRf6nwGFfLFuUjptWfgqP3nnwv3VLEVEL3Ddf27z5U6qQ91waNIgPAAm-T0_lnvvScLYSg4UUujxNNB-TMMiUDVOpO4PvwJ7o1TR_qaCH5FxS7ND2G00V_-LNscFhPZ0B_7xTcHLshZZY4aXYSBAr82HMizBMtEG7R90g5UCirYy8"
                                     />
-                                    <p className="pl-2 text-xs text-gray-500">Instructor: Sarah J.</p>
+                                    <p className="pl-2 text-xs text-gray-500">
+                                        Instructor: Sarah J.
+                                    </p>
                                 </div>
                             </div>
                         </div>

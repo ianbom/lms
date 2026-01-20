@@ -23,7 +23,11 @@ export default function VideoSidebar({
                 <div className="relative">
                     <div className="mb-1 flex items-center gap-2">
                         <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10">
-                            <Icon name="video_library" size={18} className="text-primary" />
+                            <Icon
+                                name="video_library"
+                                size={18}
+                                className="text-primary"
+                            />
                         </div>
                         <h2 className="text-lg font-bold text-gray-900">
                             Daftar Video
