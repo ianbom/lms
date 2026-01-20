@@ -17,7 +17,7 @@ export default function StatCard({
 
     return (
         <div
-            className={`group flex flex-col gap-4 rounded-xl border border-border bg-white p-5 shadow-card transition-all hover:border-primary/30 ${className}`}
+            className={`border-border shadow-card group flex flex-col gap-4 rounded-xl border bg-white p-5 transition-all hover:border-primary/30 ${className}`}
         >
             <div className="flex items-start justify-between">
                 <div className="rounded-lg bg-background-light p-3 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
@@ -39,8 +39,8 @@ export default function StatCard({
                 </span>
             </div>
             <div>
-                <p className="text-sm font-medium text-text-muted">{label}</p>
-                <h3 className="mt-1 text-2xl font-bold text-text-primary">
+                <p className="text-text-muted text-sm font-medium">{label}</p>
+                <h3 className="text-text-primary mt-1 text-2xl font-bold">
                     {value}
                 </h3>
             </div>

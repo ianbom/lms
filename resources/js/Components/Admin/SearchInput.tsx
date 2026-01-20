@@ -15,7 +15,7 @@ export default function SearchInput({
 }: SearchInputProps) {
     return (
         <div className={`relative ${className}`}>
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+            <span className="text-text-muted absolute left-3 top-1/2 -translate-y-1/2">
                 <Icon name="search" size={20} />
             </span>
             <input
@@ -23,7 +23,7 @@ export default function SearchInput({
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => onChange?.(e.target.value)}
-                className="w-full rounded-full border-none bg-background-light py-2 pl-10 pr-4 text-sm text-text-primary placeholder-text-muted ring-1 ring-transparent focus:ring-primary"
+                className="text-text-primary placeholder-text-muted w-full rounded-full border-none bg-background-light py-2 pl-10 pr-4 text-sm ring-1 ring-transparent focus:ring-primary"
             />
         </div>
     );

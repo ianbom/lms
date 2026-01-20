@@ -58,8 +58,22 @@ Route::middleware('auth')->group(function () {
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', function () {
-            return Inertia::render('Admin/Dashboard/index');
+            return Inertia::render('Admin/Dashboard/Dashboard');
         })->name('dashboard');
+
+        Route::get('/classes', function () {
+            return Inertia::render('Admin/Class/ClassManagement');
+        })->name('classes');
+
+        Route::get('/classes/create', function () {
+            return Inertia::render('Admin/Class/CreateClass');
+        })->name('classes.create');
+
+        Route::get('/classes/{classId}/modules/create', function ($classId) {
+            return Inertia::render('Admin/Class/CreateModule', [
+                'classId' => $classId,
+            ]);
+        })->name('classes.modules.create');
     });
 });
 

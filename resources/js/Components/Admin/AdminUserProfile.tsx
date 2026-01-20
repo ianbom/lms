@@ -15,7 +15,7 @@ export default function AdminUserProfile({
     onLogout,
 }: AdminUserProfileProps) {
     return (
-        <div className="border-t border-border p-4">
+        <div className="border-border border-t p-4">
             <div className="flex cursor-pointer items-center gap-3 rounded-xl p-2 transition-colors hover:bg-gray-50">
                 <Avatar
                     src={avatarUrl}
@@ -28,10 +28,10 @@ export default function AdminUserProfile({
                     className="border-2 border-white shadow-sm"
                 />
                 <div className="min-w-0 flex-1 flex-col">
-                    <p className="truncate text-sm font-semibold text-text-primary">
+                    <p className="text-text-primary truncate text-sm font-semibold">
                         {name}
                     </p>
-                    <p className="truncate text-xs text-text-muted">{role}</p>
+                    <p className="text-text-muted truncate text-xs">{role}</p>
                 </div>
                 <button
                     onClick={onLogout}

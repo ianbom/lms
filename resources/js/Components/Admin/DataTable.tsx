@@ -25,7 +25,7 @@ export default function DataTable<T>({
         <div className={`overflow-x-auto ${className}`}>
             <table className="w-full min-w-[600px] border-collapse text-left">
                 <thead>
-                    <tr className="bg-background-light text-xs uppercase tracking-wide text-text-muted">
+                    <tr className="text-text-muted bg-background-light text-xs uppercase tracking-wide">
                         {columns.map((col) => (
                             <th
                                 key={col.key}
@@ -36,7 +36,7 @@ export default function DataTable<T>({
                         ))}
                     </tr>
                 </thead>
-                <tbody className="divide-y divide-border">
+                <tbody className="divide-border divide-y">
                     {data.map((item) => (
                         <tr
                             key={keyExtractor(item)}

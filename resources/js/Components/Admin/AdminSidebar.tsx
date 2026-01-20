@@ -22,7 +22,7 @@ export default function AdminSidebar({
 }: AdminSidebarProps) {
     return (
         <aside
-            className={`hidden h-full w-[260px] shrink-0 flex-col border-r border-border bg-white transition-all duration-300 lg:flex ${className}`}
+            className={`border-border hidden h-full w-[260px] shrink-0 flex-col border-r bg-white transition-all duration-300 lg:flex ${className}`}
         >
             {/* Logo */}
             <div className="flex items-center gap-3 p-6">
@@ -33,7 +33,7 @@ export default function AdminSidebar({
                     <h1 className="text-lg font-bold leading-tight tracking-tight">
                         EduAdmin
                     </h1>
-                    <p className="text-xs font-medium uppercase tracking-wider text-text-muted">
+                    <p className="text-text-muted text-xs font-medium uppercase tracking-wider">
                         LMS Panel
                     </p>
                 </div>

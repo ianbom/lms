@@ -50,3 +50,22 @@ export interface BreadcrumbItem {
     label: string;
     href?: string;
 }
+
+// Class status types
+export type ClassStatus = 'published' | 'draft' | 'reviewing';
+
+// Class item for class management
+export interface ClassItem {
+    id: number;
+    title: string;
+    category: string;
+    price: number;
+    originalPrice?: number;
+    isFree?: boolean;
+    modules: number;
+    status: ClassStatus;
+    thumbnail: string;
+}
+
+// Status badge variant mapping
+export type StatusVariant = 'success' | 'warning' | 'default';

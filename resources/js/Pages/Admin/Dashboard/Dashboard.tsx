@@ -164,7 +164,7 @@ export default function Dashboard() {
             key: 'id',
             header: 'Order ID',
             render: (order: Order) => (
-                <span className="font-medium text-text-primary">
+                <span className="text-text-primary font-medium">
                     {order.id}
                 </span>
             ),
@@ -173,7 +173,7 @@ export default function Dashboard() {
             key: 'user',
             header: 'User',
             render: (order: Order) => (
-                <div className="flex items-center gap-2 text-text-secondary">
+                <div className="text-text-secondary flex items-center gap-2">
                     <Avatar
                         initials={order.user.initials}
                         size="sm"
@@ -194,7 +194,7 @@ export default function Dashboard() {
             key: 'amount',
             header: 'Amount',
             render: (order: Order) => (
-                <span className="font-medium text-text-primary">
+                <span className="text-text-primary font-medium">
                     {order.amount}
                 </span>
             ),
@@ -226,9 +226,9 @@ export default function Dashboard() {
             {/* Main Grid: Recent Orders & Popular Classes */}
             <div className="grid grid-cols-1 gap-6 pb-8 xl:grid-cols-2">
                 {/* Recent Orders Table */}
-                <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-white shadow-card">
-                    <div className="flex items-center justify-between border-b border-border bg-white px-6 py-5">
-                        <h2 className="text-lg font-bold text-text-primary">
+                <div className="border-border shadow-card flex flex-col overflow-hidden rounded-xl border bg-white">
+                    <div className="border-border flex items-center justify-between border-b bg-white px-6 py-5">
+                        <h2 className="text-text-primary text-lg font-bold">
                             Recent Orders
                         </h2>
                         <Link
@@ -246,12 +246,12 @@ export default function Dashboard() {
                 </div>
 
                 {/* Popular Classes List */}
-                <div className="flex flex-col rounded-xl border border-border bg-white shadow-card">
-                    <div className="flex items-center justify-between border-b border-border px-6 py-5">
-                        <h2 className="text-lg font-bold text-text-primary">
+                <div className="border-border shadow-card flex flex-col rounded-xl border bg-white">
+                    <div className="border-border flex items-center justify-between border-b px-6 py-5">
+                        <h2 className="text-text-primary text-lg font-bold">
                             Popular Classes
                         </h2>
-                        <button className="rounded-md p-1 text-text-muted transition-colors hover:bg-background-light">
+                        <button className="text-text-muted rounded-md p-1 transition-colors hover:bg-background-light">
                             <Icon name="more_horiz" size={24} />
                         </button>
                     </div>

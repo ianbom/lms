@@ -32,9 +32,9 @@ export default function AdminLayout({
         },
         {
             label: 'Classes',
-            href: '#',
+            href: route('admin.classes'),
             icon: 'book_2',
-            active: false,
+            active: route().current('admin.classes'),
         },
         {
             label: 'Mentors',
@@ -73,7 +73,7 @@ export default function AdminLayout({
     ];
 
     return (
-        <div className="flex h-screen overflow-hidden bg-background-light font-display text-text-primary">
+        <div className="text-text-primary flex h-screen overflow-hidden bg-background-light font-display">
             {/* Sidebar */}
             <AdminSidebar
                 navigation={navigation}

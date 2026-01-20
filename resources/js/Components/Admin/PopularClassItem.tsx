@@ -27,16 +27,16 @@ export default function PopularClassItem({
                 style={{ backgroundImage: `url("${thumbnail}")` }}
             />
             <div className="min-w-0 flex-1">
-                <h3 className="truncate text-sm font-semibold text-text-primary transition-colors group-hover:text-primary">
+                <h3 className="text-text-primary truncate text-sm font-semibold transition-colors group-hover:text-primary">
                     {title}
                 </h3>
-                <p className="truncate text-xs text-text-muted">
+                <p className="text-text-muted truncate text-xs">
                     {instructor} • {enrolled} Enrolled
                 </p>
             </div>
             <div className="hidden w-24 shrink-0 flex-col items-end gap-1 sm:flex">
                 <ProgressBar value={progress} />
-                <span className="text-xs font-bold text-text-primary">
+                <span className="text-text-primary text-xs font-bold">
                     {progress}%
                 </span>
             </div>

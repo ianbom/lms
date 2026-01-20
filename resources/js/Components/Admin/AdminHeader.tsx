@@ -15,13 +15,13 @@ export default function AdminHeader({
     showMobileMenu = false,
 }: AdminHeaderProps) {
     return (
-        <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between border-b border-border bg-white px-8">
+        <header className="border-border sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between border-b bg-white px-8">
             {/* Breadcrumbs */}
             <div className="flex items-center gap-2 text-sm">
                 {breadcrumbs.map((item, index) => (
                     <span key={item.label} className="flex items-center gap-2">
                         {index > 0 && (
-                            <span className="text-xs text-border">/</span>
+                            <span className="text-border text-xs">/</span>
                         )}
                         {item.href ? (
                             <Link
@@ -31,7 +31,7 @@ export default function AdminHeader({
                                 {item.label}
                             </Link>
                         ) : (
-                            <span className="font-medium text-text-primary">
+                            <span className="text-text-primary font-medium">
                                 {item.label}
                             </span>
                         )}
@@ -43,7 +43,7 @@ export default function AdminHeader({
             <div className="flex items-center gap-4">
                 <SearchInput className="hidden w-64 sm:block" />
 
-                <button className="relative rounded-full p-2 text-text-muted transition-colors hover:bg-background-light">
+                <button className="text-text-muted relative rounded-full p-2 transition-colors hover:bg-background-light">
                     <Icon name="notifications" size={24} />
                     <span className="absolute right-2 top-2 size-2 rounded-full border border-white bg-rose-500" />
                 </button>
@@ -51,7 +51,7 @@ export default function AdminHeader({
                 {/* Mobile Menu Toggle */}
                 <button
                     onClick={onMenuClick}
-                    className="rounded-full p-2 text-text-muted hover:bg-background-light lg:hidden"
+                    className="text-text-muted rounded-full p-2 hover:bg-background-light lg:hidden"
                 >
                     <Icon name="menu" size={24} />
                 </button>

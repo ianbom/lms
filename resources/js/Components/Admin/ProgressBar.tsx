@@ -9,7 +9,7 @@ export default function ProgressBar({
 }: ProgressBarProps) {
     return (
         <div
-            className={`h-1.5 w-full overflow-hidden rounded-full bg-border ${className}`}
+            className={`bg-border h-1.5 w-full overflow-hidden rounded-full ${className}`}
         >
             <div
                 className="h-full rounded-full bg-primary transition-all duration-300"

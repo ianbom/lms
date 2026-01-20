@@ -31,7 +31,7 @@ export default function AdminNavItem({
     return (
         <Link
             href={href}
-            className="group flex items-center gap-3 rounded-lg px-4 py-3 text-text-muted transition-colors hover:bg-primary-light hover:text-primary"
+            className="text-text-muted group flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-primary-light hover:text-primary"
         >
             <Icon
                 name={icon}
