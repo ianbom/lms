@@ -45,7 +45,5 @@ class ClassController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Terjadi kesalahan');
         }
-
-        
     }
 }
