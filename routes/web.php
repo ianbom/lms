@@ -65,6 +65,18 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('Admin/Class/ClassManagement');
         })->name('classes');
 
+        Route::get('/classes/{classId}', function ($classId) {
+            return Inertia::render('Admin/Class/DetailClass', [
+                'classId' => $classId
+            ]);
+        })->name('classes.show');
+
+        // Move specific create route ABOVE the show route if conflict occurs, but since show is {classId} and create is explicit, usually fine if param regex handles it or order is correct.
+        // Actually, {classId} matches "create", so "create" MUST be defined BEFORE {classId}.
+        // Let's reorder to be safe. "create" is already defined below? No, it's above in my view_file output.
+        // Wait, line 68 is "create".
+        // Let's place the show route AFTER "create" route to avoid "create" catching as ID.
+
         Route::get('/classes/create', function () {
             return Inertia::render('Admin/Class/CreateClass');
         })->name('classes.create');
@@ -74,6 +86,12 @@ Route::middleware('auth')->group(function () {
                 'classId' => $classId,
             ]);
         })->name('classes.modules.create');
+
+        Route::get('/classes/{classId}/quiz/create', function ($classId) {
+            return Inertia::render('Admin/Class/CreateQuiz', [
+                'classId' => $classId,
+            ]);
+        })->name('classes.quiz.create');
     });
 });
 

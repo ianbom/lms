@@ -1,4 +1,5 @@
 // Admin Components barrel export
+export { default as AddQuestionButton } from './AddQuestionButton';
 export { default as AdminHeader } from './AdminHeader';
 export { default as AdminNavItem } from './AdminNavItem';
 export { default as AdminSidebar } from './AdminSidebar';
@@ -18,9 +19,13 @@ export { default as FormSelect } from './FormSelect';
 export { default as ImageUpload } from './ImageUpload';
 export { default as MentorSelector } from './MentorSelector';
 export { default as Pagination } from './Pagination';
+export { default as PassingScoreSlider } from './PassingScoreSlider';
 export { default as PopularClassItem } from './PopularClassItem';
 export { default as ProgressBar } from './ProgressBar';
 export { default as ProTipCard } from './ProTipCard';
+export { default as QuestionCard } from './QuestionCard';
+export { default as QuestionOption } from './QuestionOption';
+export { default as QuizContextSelector } from './QuizContextSelector';
 export { default as ReadonlyInput } from './ReadonlyInput';
 export { default as RichTextEditor } from './RichTextEditor';
 export { default as SearchInput } from './SearchInput';

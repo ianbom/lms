@@ -1,0 +1,52 @@
+import Icon from '@/Components/Icon';
+
+export type LessonType = 'video' | 'quiz';
+
+export interface LessonData {
+    id: number;
+    title: string;
+    type: LessonType;
+    durationOrQuestions: string; // "10m 15s" or "10 Questions"
+    status?: 'published' | 'draft';
+}
+
+interface LessonItemProps {
+    lesson: LessonData;
+}
+
+export default function LessonItem({ lesson }: LessonItemProps) {
+    const isVideo = lesson.type === 'video';
+
+    return (
+        <div className="group flex items-center justify-between border-b border-[#f1f5f9] bg-white px-6 py-4 last:border-0 hover:bg-[#f9fafb]">
+            <div className="flex items-center gap-4">
+                <div className="cursor-move text-[#94a3b8] opacity-0 transition-opacity group-hover:opacity-100">
+                    <Icon name="drag_indicator" size={20} />
+                </div>
+
+                <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-lg ${isVideo ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'}`}
+                >
+                    <Icon name={isVideo ? 'play_circle' : 'quiz'} size={24} />
+                </div>
+
+                <div className="flex flex-col">
+                    <span className="font-medium text-[#1e293b]">
+                        {lesson.title}
+                    </span>
+                    <div className="flex items-center gap-2 text-xs text-[#64748b]">
+                        <span>{isVideo ? 'Video' : 'Quiz'}</span>
+                        <span className="h-1 w-1 rounded-full bg-[#cbd5e1]"></span>
+                        <span>{lesson.durationOrQuestions}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#d1fae5] text-[#10b981]">
+                    <Icon name="check" size={16} />
+                </div>
+            </div>
+        </div>
+    );
+}
