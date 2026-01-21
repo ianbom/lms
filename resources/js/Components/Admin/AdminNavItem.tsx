@@ -18,7 +18,7 @@ export default function AdminNavItem({
                 className="group flex items-center gap-3 rounded-lg bg-primary px-4 py-3 text-white shadow-md shadow-primary/20 transition-all"
             >
                 <Icon name={icon} size={22} />
-                <span className="text-sm font-medium">{label}</span>
+                <span className="text-sm font-extralight">{label}</span>
                 {badge !== undefined && badge > 0 && (
                     <span className="ml-auto rounded-full bg-white/20 px-1.5 py-0.5 text-[10px] font-bold">
                         {badge}
@@ -38,7 +38,7 @@ export default function AdminNavItem({
                 size={22}
                 className="transition-transform group-hover:scale-110"
             />
-            <span className="text-sm font-medium">{label}</span>
+            <span className="text-sm font-extralight">{label}</span>
             {badge !== undefined && badge > 0 && (
                 <span className="ml-auto rounded-full bg-rose-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
                     {badge}

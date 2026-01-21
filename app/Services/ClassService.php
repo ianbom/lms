@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Classes;
 use Illuminate\Support\Facades\Auth;
 
-class ClassServices
+class ClassService
 {
     /**
      * Create a new class instance.
@@ -16,7 +16,7 @@ class ClassServices
     }
 
     public function getAllClasses(){ 
-        $classes = Classes::with(['category'])->withCount('modules')->orderBy('title', 'asc')->get(); 
+        $classes = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->get(); 
         return $classes;
     }
 

@@ -7,9 +7,9 @@ use App\Http\Requests\Admin\CreateClassRequest;
 use App\Models\Category;
 use App\Models\Classes;
 use App\Models\Mentor;
-use App\Services\CategoryServices;
-use App\Services\ClassServices;
-use App\Services\MentorServices;
+use App\Services\CategoryService;
+use App\Services\ClassService;
+use App\Services\MentorService;
 use App\Services\ModuleService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,7 +18,7 @@ class ClassController extends Controller
 {
     protected $classService, $mentorService, $categoryService, $moduleService;
 
-    public function __construct(ClassServices $classService, MentorServices $mentorService, CategoryServices $categoryService, ModuleService $moduleService){ 
+    public function __construct(ClassService $classService, MentorService $mentorService, CategoryService $categoryService, ModuleService $moduleService){ 
         $this->classService = $classService;
         $this->mentorService = $mentorService;
         $this->categoryService = $categoryService;

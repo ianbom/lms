@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\MentorServices;
+use App\Services\MentorService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\Admin\CreateMentorRequest;
@@ -12,7 +12,7 @@ class MentorController extends Controller
 {   
     protected $mentorService;
 
-    public function __construct(MentorServices $mentorService){ 
+    public function __construct(MentorService $mentorService){ 
         $this->mentorService = $mentorService;
     }
 

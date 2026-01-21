@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Mentor;
 
-class MentorServices
+class MentorService
 {
     /**
      * Create a new class instance.

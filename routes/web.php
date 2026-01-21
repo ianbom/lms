@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\ClassController as UserClassController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,22 +30,8 @@ Route::get('/home', function () {
         })->name('home');
 
     // User Modul Routes
-    Route::prefix('classes')->name('user.modul.')->group(function () {
-        Route::get('/', function () {
-            return Inertia::render('User/Classes/ListClass');
-        })->name('index');
-
-        Route::get('/{id}', function ($id) {
-            return Inertia::render('User/Classes/DetailClass', [
-                'moduleId' => $id,
-            ]);
-        })->name('show');
-
-        Route::get('/{id}/purchase', function ($id) {
-            return Inertia::render('User/Classes/PurchaseClass', [
-                'moduleId' => $id,
-            ]);
-        })->name('purchase');
+    Route::prefix('user')->name('user.')->group(function () {
+       Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
     });
 
     // User Video Routes

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 
-class CategoryServices
+class CategoryService
 {
     /**
      * Create a new class instance.

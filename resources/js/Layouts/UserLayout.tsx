@@ -24,8 +24,8 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
         },
         {
             label: 'Modul',
-            href: route('user.modul.index'),
-            active: route().current('user.modul.*'),
+            href: route('user.classes'),
+            active: route().current('user.classes.*'),
         },
         // {
         //     label: 'Dashboard',
