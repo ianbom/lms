@@ -32,6 +32,7 @@ Route::get('/home', function () {
     // User Modul Routes
     Route::prefix('user')->name('user.')->group(function () {
        Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
+       Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->name('classes.show');
     });
 
     // User Video Routes

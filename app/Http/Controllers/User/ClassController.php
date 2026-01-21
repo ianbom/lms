@@ -32,9 +32,12 @@ class ClassController extends Controller
         ]);
     }
 
-    public function detailClassPage(){ 
-
-        return Inertia::render('User/Classes/DetailClass');
+    public function detailClassPage($classId){ 
+        $class = $this->classService->getClassDetailsById($classId);
+        $previewVideos = $this->classService->getClassPreviewVideoById($classId);
+        // return response()->json($previewVideos);
+        return Inertia::render('User/Classes/DetailClass', ['class' => $class, 
+        'previewVideos' => $previewVideos]);
     }
 
     public function purchaseClassPage(){ 

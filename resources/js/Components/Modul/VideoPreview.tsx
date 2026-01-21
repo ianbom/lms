@@ -2,13 +2,39 @@ import Icon from '@/Components/Icon';
 
 interface VideoPreviewProps {
     thumbnailUrl: string;
+    videoUrl?: string;
     onPlay?: () => void;
 }
 
 export default function VideoPreview({
     thumbnailUrl,
+    videoUrl,
     onPlay,
 }: VideoPreviewProps) {
+    const getYoutubeId = (url: string) => {
+        const regExp =
+            /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return match && match[2].length === 11 ? match[2] : null;
+    };
+
+    const youtubeId = videoUrl ? getYoutubeId(videoUrl) : null;
+
+    if (youtubeId) {
+        return (
+            <div className="group relative aspect-video overflow-hidden rounded-2xl bg-gray-900 shadow-lg">
+                <iframe
+                    className="absolute inset-0 h-full w-full"
+                    src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                ></iframe>
+            </div>
+        );
+    }
+
     return (
         <div className="group relative aspect-video overflow-hidden rounded-2xl bg-gray-900 shadow-lg">
             {/* Thumbnail */}

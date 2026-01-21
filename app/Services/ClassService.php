@@ -54,6 +54,24 @@ class ClassService
         }])->findOrFail($classId);
     }
 
+    public function getClassPreviewVideoById($clasId){ 
+        $videos = Classes::with(['modules' => function($query) {
+            $query->with(['videos' => function($q) {
+                $q->where('is_preview', true);
+            }]);
+        }])->findOrFail($clasId);
+        return $videos;
+    }
+
+    public function getClassDetailsBySlug($slug)
+    {
+        return Classes::with(['category', 'creator', 'mentors', 'modules' => function($query) {
+            $query->with(['videos', 'quizzes' => function($q) {
+                $q->withCount('questions');
+            }]);
+        }])->findOrFail($slug);
+    }
+
     public function calculateClassStats($class)
     {
         return [
