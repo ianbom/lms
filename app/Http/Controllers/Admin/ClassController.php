@@ -43,36 +43,19 @@ class ClassController extends Controller
         
         try {
             $this->classService->createClass($data, $thumbnail);
-            return redirect()->route('admin.classes')->with('success', 'Class created successfully');
+            return redirect()->route('admin.classes')->with('success', 'Kelas berhasil dibuat');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Terjadi kesalahan');
         }
     }
 
     public function detailClassPage($classId){ 
-        $class = Classes::with(['category', 'mentors', 'modules' => function($query) {
-            $query->with(['videos', 'quizzes']);
-        }])->findOrFail($classId);
-
-        $totalModules = $class->modules->count();
-        $totalVideos = $class->modules->sum(function($module) {
-            return $module->videos->count();
-        });
-        $totalQuizzes = $class->modules->sum(function($module) {
-            return $module->quizzes->count();
-        });
-        $totalDurationSeconds = $class->modules->sum(function($module) {
-            return $module->total_duration;
-        });
+        $class = $this->classService->getClassDetailsById($classId);
+        $stats = $this->classService->calculateClassStats($class);
 
         return Inertia::render('Admin/Class/DetailClass', [
             'classData' => $class,
-            'stats' => [
-                'total_modules' => $totalModules,
-                'total_videos' => $totalVideos,
-                'total_quizzes' => $totalQuizzes,
-                'total_duration_seconds' => $totalDurationSeconds,
-            ]
+            'stats' => $stats
         ]);
     }
 }

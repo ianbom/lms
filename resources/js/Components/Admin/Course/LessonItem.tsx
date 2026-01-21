@@ -8,6 +8,7 @@ export interface LessonData {
     type: LessonType;
     durationOrQuestions: string; // "10m 15s" or "10 Questions"
     status?: 'published' | 'draft';
+    is_preview?: boolean;
 }
 
 interface LessonItemProps {
@@ -31,9 +32,16 @@ export default function LessonItem({ lesson }: LessonItemProps) {
                 </div>
 
                 <div className="flex flex-col">
-                    <span className="font-medium text-[#1e293b]">
-                        {lesson.title}
-                    </span>
+                    <div className="flex items-center gap-2">
+                        <span className="font-medium text-[#1e293b]">
+                            {lesson.title}
+                        </span>
+                        {lesson.is_preview && (
+                            <span className="rounded bg-indigo-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-indigo-600">
+                                Preview
+                            </span>
+                        )}
+                    </div>
                     <div className="flex items-center gap-2 text-xs text-[#64748b]">
                         <span>{isVideo ? 'Video' : 'Quiz'}</span>
                         <span className="h-1 w-1 rounded-full bg-[#cbd5e1]"></span>

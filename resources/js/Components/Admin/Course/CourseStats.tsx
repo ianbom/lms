@@ -16,7 +16,7 @@ export default function CourseStats({
             <div className="flex flex-1 items-center justify-between rounded-xl border border-[#dae7e0] bg-white p-5 shadow-sm">
                 <div>
                     <p className="text-sm font-medium text-[#5e6a62]">
-                        Total Modules
+                        Total Modul
                     </p>
                     <p className="mt-1 text-2xl font-bold text-[#101814]">
                         {totalModules}
@@ -30,7 +30,7 @@ export default function CourseStats({
             <div className="flex flex-1 items-center justify-between rounded-xl border border-[#dae7e0] bg-white p-5 shadow-sm">
                 <div>
                     <p className="text-sm font-medium text-[#5e6a62]">
-                        Total Lessons
+                        Total Video
                     </p>
                     <p className="mt-1 text-2xl font-bold text-[#101814]">
                         {totalLessons}
@@ -44,7 +44,7 @@ export default function CourseStats({
             <div className="flex flex-1 items-center justify-between rounded-xl border border-[#dae7e0] bg-white p-5 shadow-sm">
                 <div>
                     <p className="text-sm font-medium text-[#5e6a62]">
-                        Total Duration
+                        Total Durasi
                     </p>
                     <p className="mt-1 text-2xl font-bold text-[#101814]">
                         {totalDuration}

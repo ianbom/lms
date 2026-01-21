@@ -8,12 +8,13 @@ interface Video {
     id: number;
     title: string;
     duration_sec: number;
+    is_preview: boolean;
 }
 
 interface Quiz {
     id: number;
     title: string;
-    questions_count: number; // Assuming this property exists or logic needs adjustment if distinct from videos
+    questions_count: number;
 }
 
 interface Module {
@@ -23,9 +24,29 @@ interface Module {
     quizzes: Quiz[];
 }
 
+interface Mentor {
+    id: number;
+    name: string;
+    avatar_url: string;
+}
+
+interface Category {
+    id: number;
+    name: string;
+}
+
 interface ClassData {
     id: number;
     title: string;
+    description: string;
+    price: number;
+    discount: number;
+    price_final: number;
+    thumbnail_url: string;
+    status: 'draft' | 'published';
+    published_at: string | null;
+    category: Category;
+    mentors: Mentor[];
     modules: Module[];
 }
 
@@ -55,7 +76,10 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
 
     // Transform backend modules to ModuleData format expected by ModuleCard
     const modules: ModuleData[] = classData.modules.map((m) => {
-        const videoDuration = m.videos.reduce((acc, v) => acc + (v.duration_sec || 0), 0);
+        const videoDuration = m.videos.reduce(
+            (acc, v) => acc + (v.duration_sec || 0),
+            0,
+        );
 
         return {
             id: m.id,
@@ -72,6 +96,7 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                     title: v.title,
                     type: 'video' as const,
                     durationOrQuestions: formatDuration(v.duration_sec),
+                    is_preview: v.is_preview,
                 })),
                 ...m.quizzes.map((q) => ({
                     id: q.id,
@@ -97,6 +122,22 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                 {/* Page Header */}
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
+                        <div className="mb-2 flex items-center gap-2">
+                            <span
+                                className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                                    classData.status === 'published'
+                                        ? 'bg-green-100 text-green-800'
+                                        : 'bg-yellow-100 text-yellow-800'
+                                }`}
+                            >
+                                {classData.status === 'published'
+                                    ? 'Diterbitkan'
+                                    : 'Draf'}
+                            </span>
+                            <span className="text-sm text-slate-500">
+                                {classData.category?.name}
+                            </span>
+                        </div>
                         <h1 className="text-3xl font-bold tracking-tight text-[#1e293b]">
                             {classData.title}
                         </h1>
@@ -108,7 +149,12 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                     <div className="flex items-center gap-3">
                         <button
                             className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#e2e8f0] bg-white px-4 py-2.5 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
-                            onClick={() => window.open(route('classes.show', classData.id), '_blank')}
+                            onClick={() =>
+                                window.open(
+                                    route('classes.show', classData.id),
+                                    '_blank',
+                                )
+                            }
                         >
                             <Icon name="visibility" size={20} />
                             Pratinjau
@@ -127,44 +173,175 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                     totalDuration={formatDuration(stats.total_duration_seconds)}
                 />
 
-                {/* Curriculum Structure */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">
-                            Struktur Kurikulum
-                        </h2>
-                        <button className="text-sm font-bold text-[#059669] hover:underline">
-                            Buka Semua
-                        </button>
-                    </div>
-
-                    <div className="space-y-4">
-                        {modules.length > 0 ? (
-                            modules.map((module, index) => (
-                                <ModuleCard
-                                    key={module.id}
-                                    module={module}
-                                    isExpanded={index === 0}
-                                />
-                            ))
-                        ) : (
-                            <div className="text-center py-10 text-slate-500">
-                                Tidak ada modul ditemukan. Tambahkan modul untuk memulai.
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                    <div className="space-y-8 lg:col-span-2">
+                        {/* Curriculum Structure */}
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">
+                                    Struktur Kurikulum
+                                </h2>
                             </div>
-                        )}
+
+                            <div className="space-y-4">
+                                {modules.length > 0 ? (
+                                    modules.map((module, index) => (
+                                        <ModuleCard
+                                            key={module.id}
+                                            module={module}
+                                            isExpanded={index === 0}
+                                        />
+                                    ))
+                                ) : (
+                                    <div className="py-10 text-center text-slate-500">
+                                        Tidak ada modul ditemukan. Tambahkan
+                                        modul untuk memulai.
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Add New Module Button */}
+                            <div className="rounded-xl border-2 border-dashed border-[#e2e8f0] bg-[#f8fafc]/50 p-8 text-center transition-all hover:border-[#cbd5e1] hover:bg-[#f8fafc]">
+                                <button
+                                    onClick={() =>
+                                        (window.location.href = route(
+                                            'admin.module.create',
+                                            classData.id,
+                                        ))
+                                    }
+                                    className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f1f5f9] text-[#64748b] transition-transform hover:scale-110 hover:bg-[#e2e8f0] hover:text-[#1e293b]"
+                                >
+                                    <Icon name="add" size={24} />
+                                </button>
+                                <p className="mt-3 text-sm font-bold text-[#64748b]">
+                                    Tambah Modul Baru
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Add New Module Button */}
-                    <div className="rounded-xl border-2 border-dashed border-[#e2e8f0] bg-[#f8fafc]/50 p-8 text-center transition-all hover:border-[#cbd5e1] hover:bg-[#f8fafc]">
-                        <button
-                            onClick={() => window.location.href = route('admin.module.create', classData.id)}
-                            className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f1f5f9] text-[#64748b] transition-transform hover:scale-110 hover:bg-[#e2e8f0] hover:text-[#1e293b]"
-                        >
-                            <Icon name="add" size={24} />
-                        </button>
-                        <p className="mt-3 text-sm font-bold text-[#64748b]">
-                            Tambah Modul Baru
-                        </p>
+                    {/* Sidebar Info */}
+                    <div className="space-y-6">
+                        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                            <h3 className="mb-4 text-lg font-bold text-slate-800">
+                                Detail Kelas
+                            </h3>
+                            <div className="space-y-4">
+                                {classData.thumbnail_url && (
+                                    <div>
+                                        <label className="mb-2 block text-xs font-bold uppercase text-slate-500">
+                                            Thumbnail
+                                        </label>
+                                        <img
+                                            src={classData.thumbnail_url}
+                                            alt={classData.title}
+                                            className="h-48 w-full rounded-lg object-cover"
+                                        />
+                                    </div>
+                                )}
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-slate-500">
+                                        Status
+                                    </label>
+                                    <div className="mt-1">
+                                        <span
+                                            className={`rounded px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${
+                                                classData.status === 'published'
+                                                    ? 'bg-green-100 text-green-800'
+                                                    : 'bg-yellow-100 text-yellow-800'
+                                            }`}
+                                        >
+                                            {classData.status === 'published'
+                                                ? 'Published'
+                                                : 'Draft'}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-slate-500">
+                                        Tanggal Publikasi
+                                    </label>
+                                    <div className="mt-1 text-sm font-medium text-slate-700">
+                                        {classData.published_at
+                                            ? new Date(
+                                                  classData.published_at,
+                                              ).toLocaleDateString('id-ID', {
+                                                  day: 'numeric',
+                                                  month: 'long',
+                                                  year: 'numeric',
+                                              })
+                                            : 'Belum Dipublis'}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-slate-500">
+                                        Harga
+                                    </label>
+                                    <div className="mt-1 flex items-baseline gap-2">
+                                        <span className="text-xl font-bold text-primary">
+                                            Rp{' '}
+                                            {classData.price_final?.toLocaleString(
+                                                'id-ID',
+                                            ) || 0}
+                                        </span>
+                                        {classData.discount > 0 && (
+                                            <span className="text-sm text-slate-400 line-through">
+                                                Rp{' '}
+                                                {classData.price?.toLocaleString(
+                                                    'id-ID',
+                                                ) || 0}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-slate-500">
+                                        Deskripsi
+                                    </label>
+                                    <div
+                                        className="prose prose-sm mt-1 max-h-40 overflow-y-auto text-slate-600"
+                                        dangerouslySetInnerHTML={{
+                                            __html: classData.description,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                            <h3 className="mb-4 text-lg font-bold text-slate-800">
+                                Mentor
+                            </h3>
+                            <div className="space-y-3">
+                                {classData.mentors &&
+                                classData.mentors.length > 0 ? (
+                                    classData.mentors.map((mentor) => (
+                                        <div
+                                            key={mentor.id}
+                                            className="flex items-center gap-3"
+                                        >
+                                            <img
+                                                src={
+                                                    mentor.avatar_url ||
+                                                    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                                        mentor.name,
+                                                    )}&background=random`
+                                                }
+                                                alt={mentor.name}
+                                                className="h-10 w-10 rounded-full object-cover"
+                                            />
+                                            <span className="font-medium text-slate-700">
+                                                {mentor.name}
+                                            </span>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="text-sm text-slate-500">
+                                        Belum ada mentor
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

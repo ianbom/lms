@@ -42,15 +42,6 @@ export default function ModuleCard({
                             <h3 className="text-base font-bold text-[#1e293b]">
                                 {module.title}
                             </h3>
-                            <span
-                                className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-                                    module.status === 'published'
-                                        ? 'bg-[#d1fae5] text-[#059669]'
-                                        : 'bg-[#f1f5f9] text-[#64748b]'
-                                }`}
-                            >
-                                {module.status}
-                            </span>
                         </div>
                         <div className="mt-1 flex items-center gap-3 text-xs font-medium text-[#64748b]">
                             <div className="flex items-center gap-1">
@@ -70,12 +61,6 @@ export default function ModuleCard({
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <button className="rounded p-2 text-[#94a3b8] hover:bg-white hover:text-[#64748b] hover:shadow-sm">
-                        <Icon name="edit" size={20} />
-                    </button>
-                    <button className="rounded p-2 text-[#94a3b8] hover:bg-white hover:text-red-500 hover:shadow-sm">
-                        <Icon name="delete" size={20} />
-                    </button>
                     <div
                         className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
                     >
@@ -96,10 +81,15 @@ export default function ModuleCard({
                     </div>
 
                     {/* Add Content Button */}
-                    <div className="p-4">
-                        <button className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#059669] transition-all hover:border-[#059669]/30 hover:bg-[#d1fae5]/10">
-                            <Icon name="add" size={18} />
-                            Add Content to Module
+                    {/* Edit Buttons */}
+                    <div className="grid grid-cols-2 gap-4 p-4">
+                        <button className="flex items-center justify-center gap-2 rounded-lg border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]">
+                            <Icon name="edit" size={18} />
+                            Edit Module
+                        </button>
+                        <button className="flex items-center justify-center gap-2 rounded-lg border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]">
+                            <Icon name="quiz" size={18} />
+                            Edit Quiz
                         </button>
                     </div>
                 </div>

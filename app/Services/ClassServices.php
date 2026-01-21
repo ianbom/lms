@@ -45,4 +45,22 @@ class ClassServices
 
         return $class;
     }
+    public function getClassDetailsById($classId)
+    {
+        return Classes::with(['category', 'creator', 'mentors', 'modules' => function($query) {
+            $query->with(['videos', 'quizzes' => function($q) {
+                $q->withCount('questions');
+            }]);
+        }])->findOrFail($classId);
+    }
+
+    public function calculateClassStats($class)
+    {
+        return [
+            'total_modules' => $class->modules->count(),
+            'total_videos' => $class->modules->sum(fn($module) => $module->videos->count()),
+            'total_quizzes' => $class->modules->sum(fn($module) => $module->quizzes->count()),
+            'total_duration_seconds' => $class->modules->sum(fn($module) => $module->total_duration),
+        ];
+    }
 }

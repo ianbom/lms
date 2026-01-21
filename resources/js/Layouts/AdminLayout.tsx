@@ -1,21 +1,40 @@
 import AdminHeader from '@/Components/Admin/AdminHeader';
 import AdminSidebar from '@/Components/Admin/AdminSidebar';
+import Toast from '@/Components/Toast';
 import { BreadcrumbItem, NavItem } from '@/types/admin';
 import { router, usePage } from '@inertiajs/react';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
 interface AdminLayoutProps extends PropsWithChildren {
     breadcrumbs?: BreadcrumbItem[];
+}
+
+interface FlashProps {
+    success?: string;
+    error?: string;
 }
 
 export default function AdminLayout({
     children,
     breadcrumbs = [],
 }: AdminLayoutProps) {
-    const { auth } = usePage().props as {
+    const { auth, flash } = usePage().props as {
         auth: { user: { name: string; email: string; avatar?: string } };
+        flash: FlashProps;
     };
     const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [toast, setToast] = useState<{
+        message: string;
+        type: 'success' | 'error';
+    } | null>(null);
+
+    useEffect(() => {
+        if (flash?.success) {
+            setToast({ message: flash.success, type: 'success' });
+        } else if (flash?.error) {
+            setToast({ message: flash.error, type: 'error' });
+        }
+    }, [flash]);
 
     const navigation: NavItem[] = [
         {
@@ -38,9 +57,9 @@ export default function AdminLayout({
         },
         {
             label: 'Mentors',
-            href: '#',
+            href: route('admin.mentors'), // Assuming this route exists based on previous context
             icon: 'groups',
-            active: false,
+            active: route().current('admin.mentors'),
         },
         {
             label: 'Orders',
@@ -108,6 +127,15 @@ export default function AdminLayout({
                         {children}
                     </div>
                 </div>
+
+                {/* Global Toast */}
+                {toast && (
+                    <Toast
+                        message={toast.message}
+                        type={toast.type}
+                        onClose={() => setToast(null)}
+                    />
+                )}
             </main>
         </div>
     );
