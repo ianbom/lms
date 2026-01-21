@@ -31,10 +31,10 @@ export default function AdminSidebar({
                 </div>
                 <div>
                     <h1 className="text-lg font-bold leading-tight tracking-tight">
-                        EduAdmin
+                        ImpactAcademy
                     </h1>
                     <p className="text-text-muted text-xs font-medium uppercase tracking-wider">
-                        LMS Panel
+                        Admin Panel
                     </p>
                 </div>
             </div>

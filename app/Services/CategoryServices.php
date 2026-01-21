@@ -18,4 +18,10 @@ class CategoryServices
         $categories = Category::orderBy('name', 'asc')->get(); 
         return $categories;
     }
+
+    public function createCategory(array $data)
+    {
+        $data['slug'] = \Illuminate\Support\Str::slug($data['name']);
+        return Category::create($data);
+    }
 }

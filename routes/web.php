@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\ClassController as AdmClassController;
 use App\Http\Controllers\Admin\MentorController;
 use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
 use App\Http\Controllers\Admin\QuizController as AdmQuizController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +82,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/mentors', [MentorController::class, 'listMentorPage'])->name('mentors');
         Route::get('/mentors/create', [MentorController::class, 'createMentorPage'])->name('mentors.create');
         Route::post('/mentors', [MentorController::class, 'storeMentor'])->name('mentors.store');
+
+        Route::get('/categories', [CategoryController::class, 'listCategoryPage'])->name('categories');
+        Route::get('/categories/create', [CategoryController::class, 'createCategoryPage'])->name('categories.create');
+        Route::post('/categories', [CategoryController::class, 'storeCategory'])->name('categories.store');
+
+        Route::get('/orders', [OrderController::class, 'listOrderPage'])->name('orders');
  
     });
 });

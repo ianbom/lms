@@ -45,9 +45,9 @@ export default function AdminLayout({
         },
         {
             label: 'Categories',
-            href: '#',
+            href: route('admin.categories'),
             icon: 'category',
-            active: false,
+            active: route().current('admin.categories'),
         },
         {
             label: 'Classes',
@@ -57,16 +57,16 @@ export default function AdminLayout({
         },
         {
             label: 'Mentors',
-            href: route('admin.mentors'), // Assuming this route exists based on previous context
+            href: route('admin.mentors'),
             icon: 'groups',
             active: route().current('admin.mentors'),
         },
         {
             label: 'Orders',
-            href: '#',
+            href: route('admin.orders'),
             icon: 'shopping_cart',
-            active: false,
-            badge: 3,
+            active: route().current('admin.orders'),
+            // badge: 3,
         },
         {
             label: 'Certificates',
