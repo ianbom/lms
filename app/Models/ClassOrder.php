@@ -17,11 +17,6 @@ class ClassOrder extends Model
         'amount',
         'status',
         'pending_lock',
-        'target_bank_name',
-        'target_account_no',
-        'target_account_name',
-        'sender_name',
-        'sender_bank',
         'transfer_date',
         'proof_url',
         'decided_at',
@@ -84,7 +79,7 @@ class ClassOrder extends Model
     /**
      * Approve the order
      */
-    public function approve(int $actorId, ?string $note = null): void
+    public function approve(?string $note = null): void
     {
         $this->update([
             'status' => 'approved',
@@ -94,7 +89,6 @@ class ClassOrder extends Model
 
         $this->statusLogs()->create([
             'status' => 'approved',
-            'actor_id' => $actorId,
             'note' => $note,
         ]);
 
@@ -109,7 +103,7 @@ class ClassOrder extends Model
     /**
      * Reject the order
      */
-    public function reject(int $actorId, ?string $note = null): void
+    public function reject(?string $note = null): void
     {
         $this->update([
             'status' => 'rejected',
@@ -119,7 +113,6 @@ class ClassOrder extends Model
 
         $this->statusLogs()->create([
             'status' => 'rejected',
-            'actor_id' => $actorId,
             'note' => $note,
         ]);
     }

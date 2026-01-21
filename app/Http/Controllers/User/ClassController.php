@@ -40,7 +40,10 @@ class ClassController extends Controller
         'previewVideos' => $previewVideos]);
     }
 
-    public function purchaseClassPage(){ 
-        return Inertia::render('User/Classes/PurchaseClass');
+    public function purchaseClassPage($classId){ 
+        $class = $this->classService->getClassDetailsById($classId);
+        return Inertia::render('User/Classes/PurchaseClass', ['class' => $class]);
     }
+
+
 }

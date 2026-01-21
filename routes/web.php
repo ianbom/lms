@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
+use App\Http\Controllers\User\OrderController as UserOrderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,9 @@ Route::get('/home', function () {
     Route::prefix('user')->name('user.')->group(function () {
        Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
        Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->name('classes.show');
+       Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->name('classes.purchase');
+       Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
+       Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
     });
 
     // User Video Routes

@@ -169,3 +169,20 @@ export type SortOption =
 
 // View mode type
 export type ViewMode = 'grid' | 'list';
+
+// Filter tab labels
+export const FILTER_TAB_LABELS: Record<FilterTab, string> = {
+    all: 'Semua',
+    free: 'Gratis',
+    paid: 'Berbayar',
+};
+
+// Sort labels
+export const SORT_LABELS: Record<SortOption, string> = {
+    newest: 'Terbaru',
+    oldest: 'Terlama',
+    title_asc: 'Nama (A-Z)',
+    title_desc: 'Nama (Z-A)',
+    price_asc: 'Harga Terendah',
+    price_desc: 'Harga Tertinggi',
+};

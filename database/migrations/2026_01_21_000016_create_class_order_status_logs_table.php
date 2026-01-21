@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained('class_orders')->cascadeOnDelete();
             $table->enum('status', ['pending', 'approved', 'rejected']);
-            $table->foreignId('actor_id')->nullable()->constrained('users')->nullOnDelete();
             $table->text('note')->nullable();
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
 
             $table->index('order_id');
             $table->index('status');

@@ -56,10 +56,6 @@ export default function PaymentInstructionCard() {
                                 </p>
                             </div>
                         </div>
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-xs font-semibold text-green-700">
-                            <span className="size-1.5 animate-pulse rounded-full bg-green-500" />
-                            Pengecekan Otomatis
-                        </span>
                     </div>
 
                     {/* Account Number */}
