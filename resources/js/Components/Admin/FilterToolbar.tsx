@@ -49,8 +49,9 @@ export default function FilterToolbar({
                 <FilterDropdown
                     icon="category"
                     label={
-                        categoryOptions.find((c) => c.value === selectedCategory)
-                            ?.label || 'Semua Kategori'
+                        categoryOptions.find(
+                            (c) => c.value === selectedCategory,
+                        )?.label || 'Semua Kategori'
                     }
                     options={categoryOptions}
                     value={selectedCategory}

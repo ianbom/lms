@@ -18,4 +18,14 @@ class MentorServices
         $mentors = Mentor::orderBy('name', 'asc')->get(); 
         return $mentors;
     }
+
+    public function storeMentor(array $data, $avatar = null)
+    {
+        if ($avatar) {
+            $path = $avatar->store('mentors', 'public');
+            $data['avatar_url'] = '/storage/' . $path;
+        }
+
+        return Mentor::create($data);
+    }
 }

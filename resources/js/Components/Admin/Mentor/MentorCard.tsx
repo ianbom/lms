@@ -31,8 +31,9 @@ export default function MentorCard({ mentor, onClick }: MentorCardProps) {
                         )}
                     </div>
                     <div
-                        className={`absolute bottom-1 right-1 size-4 rounded-full border-2 border-white ${mentor.isOnline ? 'bg-primary' : 'bg-slate-300'
-                            }`}
+                        className={`absolute bottom-1 right-1 size-4 rounded-full border-2 border-white ${
+                            mentor.isOnline ? 'bg-primary' : 'bg-slate-300'
+                        }`}
                     />
                 </div>
 
@@ -48,16 +49,16 @@ export default function MentorCard({ mentor, onClick }: MentorCardProps) {
 
             {/* Stats Section */}
             <div className="grid grid-cols-3 divide-x divide-slate-100 bg-slate-50/50 py-4">
-                <StatItem label="Kelas" value={mentor.stats.classes} isPrimary />
+                <StatItem
+                    label="Kelas"
+                    value={mentor.stats.classes}
+                    isPrimary
+                />
                 <StatItem
                     label="Siswa Aktif"
                     value={mentor.stats.activeStudents}
                 />
-                <StatItem
-                    label="Rating"
-                    value={mentor.stats.rating}
-                    showStar
-                />
+                <StatItem label="Rating" value={mentor.stats.rating} showStar />
             </div>
         </div>
     );
@@ -74,8 +75,9 @@ function StatItem({ label, value, isPrimary, showStar }: StatItemProps) {
     return (
         <div className="flex flex-col items-center gap-1 px-2">
             <span
-                className={`text-center text-[10px] font-bold uppercase tracking-wider ${isPrimary ? 'text-primary' : 'text-[#64748b]'
-                    }`}
+                className={`text-center text-[10px] font-bold uppercase tracking-wider ${
+                    isPrimary ? 'text-primary' : 'text-[#64748b]'
+                }`}
             >
                 {label}
             </span>

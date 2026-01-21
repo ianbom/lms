@@ -79,8 +79,7 @@ export default function ClassManagement({ classes }: Props) {
 
             // Category filter
             const matchesCategory =
-                selectedCategory === '' ||
-                item.categoryId === selectedCategory;
+                selectedCategory === '' || item.categoryId === selectedCategory;
 
             // Status filter
             const matchesStatus =
@@ -160,10 +159,7 @@ export default function ClassManagement({ classes }: Props) {
                 <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 shadow-sm">
                     <span className="text-sm text-[#5e6a62]">Dipublikasi:</span>
                     <span className="text-sm font-bold text-primary">
-                        {
-                            classes.filter((c) => c.status === 'published')
-                                .length
-                        }
+                        {classes.filter((c) => c.status === 'published').length}
                     </span>
                 </div>
                 <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 shadow-sm">

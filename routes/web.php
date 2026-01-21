@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClassController as AdmClassController;
+use App\Http\Controllers\Admin\MentorController;
 use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
 use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\ProfileController;
@@ -80,11 +81,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/classes/{classId}/quiz/create', [AdmQuizController::class, 'createQuizPage'])->name('quiz.create');
         Route::post('/classes/quiz/create', [AdmQuizController::class, 'storeQuiz'])->name('quiz.store');
 
-        Route::get('/mentors', function () {
-            return Inertia::render('Admin/Mentor/ListMentor', [
-                
-            ]);
-        })->name('mentors');
+        Route::get('/mentors', [MentorController::class, 'listMentorPage'])->name('mentors');
+        Route::get('/mentors/create', [MentorController::class, 'createMentorPage'])->name('mentors.create');
+        Route::post('/mentors', [MentorController::class, 'storeMentor'])->name('mentors.store');
+ 
     });
 });
 

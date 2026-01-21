@@ -10,7 +10,9 @@ interface ClassTableRowProps {
 export default function ClassTableRow({ classItem }: ClassTableRowProps) {
     const formatPrice = () => {
         if (classItem.isFree) {
-            return <span className="text-sm font-bold text-primary">Gratis</span>;
+            return (
+                <span className="text-sm font-bold text-primary">Gratis</span>
+            );
         }
 
         return (

@@ -62,10 +62,11 @@ export default function FilterDropdown({
                         <button
                             key={option.value}
                             onClick={() => handleSelect(option.value)}
-                            className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors hover:bg-[#f9fafb] ${value === option.value
+                            className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors hover:bg-[#f9fafb] ${
+                                value === option.value
                                     ? 'bg-primary/5 font-medium text-primary'
                                     : 'text-[#5e6a62]'
-                                }`}
+                            }`}
                         >
                             {value === option.value && (
                                 <Icon name="check" size={16} />

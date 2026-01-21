@@ -96,7 +96,6 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
         setQuestions(questions.map((q) => (q.id === id ? { ...q, text } : q)));
     };
 
-
     // Update option text
     const handleOptionChange = (
         questionId: number,
@@ -107,11 +106,11 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
             questions.map((q) =>
                 q.id === questionId
                     ? {
-                        ...q,
-                        options: q.options.map((opt) =>
-                            opt.id === optionId ? { ...opt, text } : opt,
-                        ),
-                    }
+                          ...q,
+                          options: q.options.map((opt) =>
+                              opt.id === optionId ? { ...opt, text } : opt,
+                          ),
+                      }
                     : q,
             ),
         );
@@ -123,12 +122,12 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
             questions.map((q) =>
                 q.id === questionId
                     ? {
-                        ...q,
-                        options: q.options.map((opt) => ({
-                            ...opt,
-                            isCorrect: opt.id === optionId,
-                        })),
-                    }
+                          ...q,
+                          options: q.options.map((opt) => ({
+                              ...opt,
+                              isCorrect: opt.id === optionId,
+                          })),
+                      }
                     : q,
             ),
         );
@@ -140,11 +139,11 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
             questions.map((q) =>
                 q.id === questionId
                     ? {
-                        ...q,
-                        options: q.options.filter(
-                            (opt) => opt.id !== optionId,
-                        ),
-                    }
+                          ...q,
+                          options: q.options.filter(
+                              (opt) => opt.id !== optionId,
+                          ),
+                      }
                     : q,
             ),
         );
@@ -156,16 +155,16 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
             questions.map((q) =>
                 q.id === questionId
                     ? {
-                        ...q,
-                        options: [
-                            ...q.options,
-                            {
-                                id: Date.now(),
-                                text: '',
-                                isCorrect: false,
-                            },
-                        ],
-                    }
+                          ...q,
+                          options: [
+                              ...q.options,
+                              {
+                                  id: Date.now(),
+                                  text: '',
+                                  isCorrect: false,
+                              },
+                          ],
+                      }
                     : q,
             ),
         );
@@ -244,8 +243,8 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                 Buat Kuis
                             </h1>
                             <p className="text-sm text-[#5e6a62] sm:text-base">
-                                Konfigurasi pengaturan kuis dan kelola pertanyaan
-                                di bawah.
+                                Konfigurasi pengaturan kuis dan kelola
+                                pertanyaan di bawah.
                             </p>
                         </div>
                         <div className="flex items-center gap-3">
@@ -346,7 +345,9 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                 ))}
 
                                 {/* Add Question Button */}
-                                <AddQuestionButton onClick={handleAddQuestion} />
+                                <AddQuestionButton
+                                    onClick={handleAddQuestion}
+                                />
                             </div>
                         </div>
 
@@ -368,7 +369,8 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                                     Judul Kuis
                                                 </span>
                                                 <span className="max-w-[140px] truncate text-sm font-semibold text-[#101814]">
-                                                    {quizTitle || 'Belum ada judul'}
+                                                    {quizTitle ||
+                                                        'Belum ada judul'}
                                                 </span>
                                             </div>
                                             <div className="flex items-center justify-between rounded-lg bg-[#f9fafb] p-3">
@@ -472,9 +474,9 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                                 Tips Kuis
                                             </p>
                                             <p className="text-xs leading-relaxed text-blue-700">
-                                                Pastikan setiap pertanyaan memiliki
-                                                minimal 2 opsi jawaban dan satu
-                                                jawaban yang benar.
+                                                Pastikan setiap pertanyaan
+                                                memiliki minimal 2 opsi jawaban
+                                                dan satu jawaban yang benar.
                                             </p>
                                         </div>
                                     </div>
