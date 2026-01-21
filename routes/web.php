@@ -29,19 +29,19 @@ Route::get('/home', function () {
         })->name('home');
 
     // User Modul Routes
-    Route::prefix('modul')->name('user.modul.')->group(function () {
+    Route::prefix('classes')->name('user.modul.')->group(function () {
         Route::get('/', function () {
-            return Inertia::render('User/Modul/ListModul');
+            return Inertia::render('User/Classes/ListClass');
         })->name('index');
 
         Route::get('/{id}', function ($id) {
-            return Inertia::render('User/Modul/DetailModul', [
+            return Inertia::render('User/Classes/DetailClass', [
                 'moduleId' => $id,
             ]);
         })->name('show');
 
         Route::get('/{id}/purchase', function ($id) {
-            return Inertia::render('User/Modul/PurchaseModul', [
+            return Inertia::render('User/Classes/PurchaseClass', [
                 'moduleId' => $id,
             ]);
         })->name('purchase');

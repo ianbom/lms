@@ -86,13 +86,13 @@ const sampleModule: ModuleDetail = {
     },
 };
 
-interface DetailModulProps {
+interface DetailClassProps {
     module?: ModuleDetail;
 }
 
-export default function DetailModul({
+export default function DetailClass({
     module = sampleModule,
-}: DetailModulProps) {
+}: DetailClassProps) {
     const breadcrumbItems = [
         { label: 'Beranda', href: '/' },
         { label: 'Semua Modul', href: route('user.modul.index') },

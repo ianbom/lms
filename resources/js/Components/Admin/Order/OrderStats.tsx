@@ -17,7 +17,7 @@ export default function OrderStats() {
                 </div>
             </div>
             {/* Stat Card 2 */}
-            <div className="flex flex-col justify-between rounded-xl border border-y-slate-100 border-l-4 border-r-slate-100 border-l-orange-500 bg-white p-5 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)]">
+            <div className="flex flex-col justify-between rounded-xl border border-l-4 border-y-slate-100 border-l-orange-500 border-r-slate-100 bg-white p-5 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)]">
                 <p className="text-sm font-medium text-slate-500">
                     Pending Verification
                 </p>

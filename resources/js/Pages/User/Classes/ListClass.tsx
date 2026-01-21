@@ -121,17 +121,17 @@ const sampleModules: Module[] = [
     },
 ];
 
-interface ListModulProps {
+interface ListClassProps {
     modules?: Module[];
     currentPage?: number;
     totalPages?: number;
 }
 
-export default function ListModul({
+export default function ListClass({
     modules = sampleModules,
     currentPage = 1,
     totalPages = 12,
-}: ListModulProps) {
+}: ListClassProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState<FilterTab>('all');
     const [page, setPage] = useState(currentPage);

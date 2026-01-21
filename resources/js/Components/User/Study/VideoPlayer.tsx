@@ -260,9 +260,8 @@ export default function VideoPlayer({
     return (
         <div
             ref={containerRef}
-            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${
-                isFullscreen ? 'rounded-none' : ''
-            }`}
+            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${isFullscreen ? 'rounded-none' : ''
+                }`}
             onContextMenu={handleContextMenu}
             style={{ userSelect: 'none' }}
         >
@@ -295,35 +294,37 @@ export default function VideoPlayer({
 
             {/* Custom Controls Overlay */}
             <div className="absolute inset-0 z-20 flex flex-col justify-end bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                {/* Center controls - pointer-events-none on container, auto on buttons */}
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center gap-6">
-                    <button
-                        onClick={skipBackward}
-                        className="pointer-events-auto flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:scale-110 hover:bg-white/20"
-                        title="Mundur 10 detik"
-                    >
-                        <Icon name="replay_10" size={28} />
-                    </button>
+                {/* Center controls - hidden in fullscreen mode */}
+                {!isFullscreen && (
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center gap-6">
+                        <button
+                            onClick={skipBackward}
+                            className="pointer-events-auto flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:scale-110 hover:bg-white/20"
+                            title="Mundur 10 detik"
+                        >
+                            <Icon name="replay_10" size={28} />
+                        </button>
 
-                    <button
-                        onClick={togglePlayPause}
-                        className="pointer-events-auto flex size-16 items-center justify-center rounded-full bg-primary/90 text-white shadow-lg shadow-primary/30 transition-all hover:scale-110 hover:bg-primary"
-                        title={isPlaying ? 'Pause' : 'Play'}
-                    >
-                        <Icon
-                            name={isPlaying ? 'pause' : 'play_arrow'}
-                            size={36}
-                        />
-                    </button>
+                        <button
+                            onClick={togglePlayPause}
+                            className="pointer-events-auto flex size-16 items-center justify-center rounded-full bg-primary/90 text-white shadow-lg shadow-primary/30 transition-all hover:scale-110 hover:bg-primary"
+                            title={isPlaying ? 'Pause' : 'Play'}
+                        >
+                            <Icon
+                                name={isPlaying ? 'pause' : 'play_arrow'}
+                                size={36}
+                            />
+                        </button>
 
-                    <button
-                        onClick={skipForward}
-                        className="pointer-events-auto flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:scale-110 hover:bg-white/20"
-                        title="Maju 10 detik"
-                    >
-                        <Icon name="forward_10" size={28} />
-                    </button>
-                </div>
+                        <button
+                            onClick={skipForward}
+                            className="pointer-events-auto flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:scale-110 hover:bg-white/20"
+                            title="Maju 10 detik"
+                        >
+                            <Icon name="forward_10" size={28} />
+                        </button>
+                    </div>
+                )}
 
                 {/* Bottom controls - relative positioning with z-index */}
                 <div className="relative z-10 flex flex-col gap-3 px-4 pb-4 pt-8 sm:px-6">
@@ -420,11 +421,10 @@ export default function VideoPlayer({
                                                 onClick={() =>
                                                     changeQuality('auto')
                                                 }
-                                                className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${
-                                                    currentQuality === 'auto'
+                                                className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${currentQuality === 'auto'
                                                         ? 'bg-primary/20 font-semibold text-primary'
                                                         : 'text-white'
-                                                }`}
+                                                    }`}
                                             >
                                                 <span>Auto</span>
                                                 {currentQuality === 'auto' && (
@@ -444,12 +444,11 @@ export default function VideoPlayer({
                                                                 quality,
                                                             )
                                                         }
-                                                        className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${
-                                                            currentQuality ===
-                                                            quality
+                                                        className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${currentQuality ===
+                                                                quality
                                                                 ? 'bg-primary/20 font-semibold text-primary'
                                                                 : 'text-white'
-                                                        }`}
+                                                            }`}
                                                     >
                                                         <span>
                                                             {QUALITY_LABELS[
@@ -458,11 +457,11 @@ export default function VideoPlayer({
                                                         </span>
                                                         {currentQuality ===
                                                             quality && (
-                                                            <Icon
-                                                                name="check"
-                                                                size={16}
-                                                            />
-                                                        )}
+                                                                <Icon
+                                                                    name="check"
+                                                                    size={16}
+                                                                />
+                                                            )}
                                                     </button>
                                                 ))}
                                         </div>

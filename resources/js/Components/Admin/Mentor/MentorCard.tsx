@@ -30,11 +30,11 @@ export default function MentorCard({ mentor, onClick }: MentorCardProps) {
                             </div>
                         )}
                     </div>
-                    <div
+                    {/* <div
                         className={`absolute bottom-1 right-1 size-4 rounded-full border-2 border-white ${
                             mentor.isOnline ? 'bg-primary' : 'bg-slate-300'
                         }`}
-                    />
+                    /> */}
                 </div>
 
                 {/* Name & Email */}
@@ -48,7 +48,7 @@ export default function MentorCard({ mentor, onClick }: MentorCardProps) {
             <div className="w-full border-t border-slate-100" />
 
             {/* Stats Section */}
-            <div className="grid grid-cols-3 divide-x divide-slate-100 bg-slate-50/50 py-4">
+            <div className="grid grid-cols-2 divide-x divide-slate-100 bg-slate-50/50 py-4">
                 <StatItem
                     label="Kelas"
                     value={mentor.stats.classes}
@@ -58,7 +58,6 @@ export default function MentorCard({ mentor, onClick }: MentorCardProps) {
                     label="Siswa Aktif"
                     value={mentor.stats.activeStudents}
                 />
-                <StatItem label="Rating" value={mentor.stats.rating} showStar />
             </div>
         </div>
     );

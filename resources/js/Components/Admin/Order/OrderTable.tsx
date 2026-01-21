@@ -147,10 +147,12 @@ export default function OrderTable() {
                 <table className="w-full border-collapse text-left">
                     <thead>
                         <tr className="border-b border-slate-100 bg-slate-50/50 text-xs uppercase tracking-wider text-slate-500">
-                            <th className="px-6 py-4 font-semibold">Order ID</th>
+                            <th className="px-6 py-4 font-semibold">
+                                Order ID
+                            </th>
                             <th className="px-6 py-4 font-semibold">User</th>
                             <th className="px-6 py-4 font-semibold">Kelas</th>
-                            <th className="px-6 py-4 font-semibold text-right">
+                            <th className="px-6 py-4 text-right font-semibold">
                                 Amount
                             </th>
                             <th className="px-6 py-4 font-semibold">Status</th>
@@ -160,10 +162,10 @@ export default function OrderTable() {
                             <th className="px-6 py-4 font-semibold">
                                 Transfer Date
                             </th>
-                            <th className="px-6 py-4 font-semibold text-center">
+                            <th className="px-6 py-4 text-center font-semibold">
                                 Proof
                             </th>
-                            <th className="px-6 py-4 font-semibold text-right">
+                            <th className="px-6 py-4 text-right font-semibold">
                                 Actions
                             </th>
                         </tr>
@@ -184,8 +186,8 @@ export default function OrderTable() {
                                             style={
                                                 order.avatar
                                                     ? {
-                                                        backgroundImage: `url('${order.avatar}')`,
-                                                    }
+                                                          backgroundImage: `url('${order.avatar}')`,
+                                                      }
                                                     : {}
                                             }
                                         >
@@ -209,19 +211,22 @@ export default function OrderTable() {
                                 </td>
                                 <td className="px-6 py-4">
                                     <span
-                                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${order.status === 'Pending'
-                                            ? 'bg-orange-50 text-orange-700 ring-orange-600/20'
-                                            : order.status === 'Approved'
-                                                ? 'bg-green-50 text-green-700 ring-green-600/20'
-                                                : 'bg-red-50 text-red-700 ring-red-600/20'
-                                            }`}
+                                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${
+                                            order.status === 'Pending'
+                                                ? 'bg-orange-50 text-orange-700 ring-orange-600/20'
+                                                : order.status === 'Approved'
+                                                  ? 'bg-green-50 text-green-700 ring-green-600/20'
+                                                  : 'bg-red-50 text-red-700 ring-red-600/20'
+                                        }`}
                                     >
                                         {order.status}
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 text-sm text-slate-600">
                                     <div className="flex items-center gap-2">
-                                        <span className={`font-medium ${order.bankColor || 'text-slate-800'}`}>
+                                        <span
+                                            className={`font-medium ${order.bankColor || 'text-slate-800'}`}
+                                        >
                                             {order.bank}
                                         </span>
                                         <span className="text-xs text-slate-400">
@@ -233,7 +238,9 @@ export default function OrderTable() {
                                     {order.date}
                                 </td>
                                 <td className="px-6 py-4 text-center">
-                                    <button className={`transition-colors ${order.proofIcon === 'broken_image' ? 'text-red-300 hover:text-red-500' : order.proofIcon === 'receipt_long' && order.status === 'Approved' ? 'cursor-not-allowed text-slate-300' : 'text-slate-400 hover:text-primary'}`}>
+                                    <button
+                                        className={`transition-colors ${order.proofIcon === 'broken_image' ? 'text-red-300 hover:text-red-500' : order.proofIcon === 'receipt_long' && order.status === 'Approved' ? 'cursor-not-allowed text-slate-300' : 'text-slate-400 hover:text-primary'}`}
+                                    >
                                         <Icon name={order.proofIcon} />
                                     </button>
                                 </td>

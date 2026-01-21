@@ -83,7 +83,7 @@ export default function ListCategory({ categories }: ListCategoryProps) {
                                         >
                                             <td className="whitespace-nowrap px-6 py-4">
                                                 <div className="flex items-center">
-                                                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary">
+                                                    <div className="bg-primary-50 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg text-primary">
                                                         <span className="text-lg font-bold">
                                                             {category.name
                                                                 .charAt(0)

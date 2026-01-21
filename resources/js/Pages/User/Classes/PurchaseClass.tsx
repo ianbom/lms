@@ -7,7 +7,7 @@ import UploadProofCard from '@/Components/Modul/UploadProofCard';
 import UserLayout from '@/Layouts/UserLayout';
 import { Head } from '@inertiajs/react';
 
-export default function PurchaseModul() {
+export default function PurchaseClass() {
     const breadcrumbItems = [
         { label: 'Home', href: route('user.modul.index') },
         { label: 'Modules', href: route('user.modul.index') },
