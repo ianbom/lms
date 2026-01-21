@@ -12,32 +12,43 @@ export default function ClassTable({ classes }: ClassTableProps) {
                 <thead>
                     <tr className="border-b border-[#e5e7eb] bg-[#f9fafb]">
                         <th className="w-[80px] px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
-                            Image
+                            Gambar
                         </th>
                         <th className="min-w-[240px] px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
-                            Course Info
+                            Info Kelas
                         </th>
                         <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
-                            Price
+                            Harga
                         </th>
                         <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
-                            Modules
+                            Modul
                         </th>
                         <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
                             Status
                         </th>
                         <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
-                            Actions
+                            Aksi
                         </th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-[#f0f5f2]">
-                    {classes.map((classItem) => (
-                        <ClassTableRow
-                            key={classItem.id}
-                            classItem={classItem}
-                        />
-                    ))}
+                    {classes.length === 0 ? (
+                        <tr>
+                            <td
+                                colSpan={6}
+                                className="px-6 py-12 text-center text-sm text-[#5e6a62]"
+                            >
+                                Tidak ada data kelas ditemukan.
+                            </td>
+                        </tr>
+                    ) : (
+                        classes.map((classItem) => (
+                            <ClassTableRow
+                                key={classItem.id}
+                                classItem={classItem}
+                            />
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>

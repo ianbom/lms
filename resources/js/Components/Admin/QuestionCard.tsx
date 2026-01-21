@@ -9,6 +9,7 @@ export interface QuestionData {
     type: QuestionType;
     options: QuestionOptionData[];
     isExpanded: boolean;
+    points?: number;
 }
 
 interface QuestionCardProps {

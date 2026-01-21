@@ -14,6 +14,11 @@ class ModuleService
         $this->videoService = $videoService;
     }
 
+    public function getAllModuleByClassId($classId){ 
+        $modules = Module::orderBy('title', 'asc')->where('class_id', $classId)->get(); 
+        return $modules;
+    }
+
     public function createModule(array $data, int $classId): Module
     {
         return DB::transaction(function () use ($data, $classId) {

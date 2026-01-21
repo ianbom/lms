@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ClassController as AdmClassController;
 use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
+use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -76,11 +77,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/classes/{classId}/modules/create', [AdmModuleController::class, 'createModulePage'])->name('module.create');
         Route::post('/classes/{classId}/modules', [AdmModuleController::class, 'storeModule'])->name('module.store');
 
-        Route::get('/classes/{classId}/quiz/create', function ($classId) {
-            // return Inertia::render('Admin/Class/CreateQuiz', [
-            //     'classId' => $classId,
-            // ]);
-        })->name('classes.quiz.create');
+        Route::get('/classes/{classId}/quiz/create', [AdmQuizController::class, 'createQuizPage'])->name('quiz.create');
+        Route::post('/classes/quiz/create', [AdmQuizController::class, 'storeQuiz'])->name('quiz.store');
+
     });
 });
 

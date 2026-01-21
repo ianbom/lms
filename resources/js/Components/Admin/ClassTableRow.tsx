@@ -1,7 +1,6 @@
 import Icon from '@/Components/Icon';
 import { ClassItem } from '@/types/admin';
 import { Link } from '@inertiajs/react';
-import { useState } from 'react';
 import StatusBadge from './StatusBadge';
 
 interface ClassTableRowProps {
@@ -9,25 +8,19 @@ interface ClassTableRowProps {
 }
 
 export default function ClassTableRow({ classItem }: ClassTableRowProps) {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
     const formatPrice = () => {
         if (classItem.isFree) {
-            return <span className="text-sm font-bold text-primary">Free</span>;
+            return <span className="text-sm font-bold text-primary">Gratis</span>;
         }
 
         return (
             <div className="flex flex-col">
                 <span className="text-sm font-bold text-[#101814]">
-                    ${classItem.price.toFixed(2)}
+                    Rp {classItem.price.toLocaleString('id-ID')}
                 </span>
                 {classItem.originalPrice && (
                     <span className="text-[10px] text-[#5e6a62] line-through">
-                        ${classItem.originalPrice.toFixed(2)}
+                        Rp {classItem.originalPrice.toLocaleString('id-ID')}
                     </span>
                 )}
             </div>
@@ -63,61 +56,39 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                         className="text-[#5e8d74]"
                     />
                     <span className="text-sm text-[#5e6a62]">
-                        {classItem.modules} Modules
+                        {classItem.modules} Modul
                     </span>
                 </div>
             </td>
             <td className="px-6 py-4 align-middle">
                 <StatusBadge status={classItem.status} />
             </td>
-            <td className="px-6 py-4 text-right align-middle">
-                <div className="relative inline-block text-left">
-                    <button
-                        onClick={toggleMenu}
-                        onBlur={() =>
-                            setTimeout(() => setIsMenuOpen(false), 200)
-                        }
-                        className="rounded-lg p-1.5 text-[#5e6a62] transition-colors hover:bg-white hover:text-primary focus:outline-none"
+            <td className="px-6 py-4 align-middle">
+                <div className="flex items-center justify-end gap-2">
+                    <Link
+                        href={route('admin.classes.show', classItem.id)}
+                        className="flex h-8 items-center gap-1.5 rounded-lg border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-primary hover:text-primary"
+                        title="Detail"
                     >
-                        <Icon name="more_vert" size={20} />
-                    </button>
-
-                    {isMenuOpen && (
-                        <div className="absolute right-0 top-full z-10 mt-2 w-48 origin-top-right rounded-lg border border-[#e5e7eb] bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div className="py-1">
-                                <Link
-                                    href={route(
-                                        'admin.classes.show',
-                                        classItem.id,
-                                    )}
-                                    className="flex w-full items-center gap-2 px-4 py-2 text-sm text-[#5e6a62] hover:bg-[#f9fafb] hover:text-[#101814]"
-                                >
-                                    <Icon name="visibility" size={16} />
-                                    Detail
-                                </Link>
-                                <Link
-                                    href={route(
-                                        'admin.classes.modules.create',
-                                        classItem.id,
-                                    )}
-                                    className="flex w-full items-center gap-2 px-4 py-2 text-sm text-[#5e6a62] hover:bg-[#f9fafb] hover:text-[#101814]"
-                                >
-                                    <Icon name="library_add" size={16} />
-                                    Create Modul
-                                </Link>
-                                <Link
-                                    href={route(
-                                        'admin.classes.quiz.create',
-                                        classItem.id,
-                                    )}
-                                    className="flex w-full items-center gap-2 px-4 py-2 text-sm text-[#5e6a62] hover:bg-[#f9fafb] hover:text-[#101814]"
-                                >
-                                    <Icon name="quiz" size={16} />
-                                    Create Quiz
-                                </Link>
-                            </div>
-                        </div>
-                    )}
+                        <Icon name="visibility" size={14} />
+                        Detail
+                    </Link>
+                    <Link
+                        href={route('admin.module.create', classItem.id)}
+                        className="flex h-8 items-center gap-1.5 rounded-lg border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-blue-500 hover:text-blue-500"
+                        title="Buat Modul"
+                    >
+                        <Icon name="library_add" size={14} />
+                        Modul
+                    </Link>
+                    <Link
+                        href={route('admin.quiz.create', classItem.id)}
+                        className="flex h-8 items-center gap-1.5 rounded-lg border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-amber-500 hover:text-amber-500"
+                        title="Buat Kuis"
+                    >
+                        <Icon name="quiz" size={14} />
+                        Kuis
+                    </Link>
                 </div>
             </td>
         </tr>

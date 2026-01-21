@@ -59,6 +59,7 @@ export interface ClassItem {
     id: number;
     title: string;
     category: string;
+    categoryId?: string;
     price: number;
     originalPrice?: number;
     isFree?: boolean;
