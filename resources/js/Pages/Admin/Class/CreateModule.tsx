@@ -6,8 +6,31 @@ import RichTextEditor from '@/Components/Admin/RichTextEditor';
 import VideoEntryCard, { VideoEntry } from '@/Components/Admin/VideoEntryCard';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head, Link, useForm } from '@inertiajs/react'; // Import useForm
-import { FormEventHandler, useState } from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
+
+// Declare YouTube API types
+declare global {
+    interface Window {
+        YT: {
+            Player: new (
+                elementId: string,
+                config: {
+                    videoId: string;
+                    events?: {
+                        onReady?: (event: { target: YTPlayer }) => void;
+                    };
+                },
+            ) => YTPlayer;
+        };
+        onYouTubeIframeAPIReady?: () => void;
+    }
+}
+
+interface YTPlayer {
+    getDuration: () => number;
+    destroy: () => void;
+}
 
 // Initial video entry helper
 const createEmptyVideo = (id: number): VideoEntry => ({
@@ -15,8 +38,10 @@ const createEmptyVideo = (id: number): VideoEntry => ({
     title: '',
     youtubeUrl: '',
     duration: '',
+    durationSec: 0,
     description: '',
     thumbnailUrl: undefined,
+    isPreview: false,
     files: [],
 });
 
@@ -41,10 +66,12 @@ export default function CreateModule({ classId }: CreateModuleProps) {
     const handleVideoChange = (
         id: number,
         field: keyof Omit<VideoEntry, 'files'>,
-        value: string,
+        value: string | boolean,
     ) => {
         updateVideos(
-            data.videos.map((v) => (v.id === id ? { ...v, [field]: value } : v)),
+            data.videos.map((v) =>
+                v.id === id ? { ...v, [field]: value } : v,
+            ),
         );
     };
 
@@ -61,24 +88,126 @@ export default function CreateModule({ classId }: CreateModuleProps) {
         }
     };
 
-    // Check URL and set thumbnail (Simulation)
+    // Extract YouTube video ID from URL
+    const extractYouTubeVideoId = (url: string): string | null => {
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^&\n?#]+)/,
+            /youtube\.com\/shorts\/([^&\n?#]+)/,
+        ];
+        for (const pattern of patterns) {
+            const match = url.match(pattern);
+            if (match && match[1]) {
+                return match[1];
+            }
+        }
+        return null;
+    };
+
+    // Format seconds to MM:SS or HH:MM:SS
+    const formatDuration = (seconds: number): string => {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = Math.floor(seconds % 60);
+        if (hrs > 0) {
+            return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    // Check URL and set thumbnail from YouTube, fetch duration using IFrame API
     const handleCheckUrl = (id: number) => {
         const video = data.videos.find((v) => v.id === id);
-        if (video) {
-            console.log('Checking URL for video:', video.youtubeUrl);
-            // Simulate getting duration and thumbnail
-            updateVideos(
-                data.videos.map((v) =>
-                    v.id === id
-                        ? {
-                            ...v,
-                            duration: '14:20',
-                            thumbnailUrl:
-                                'https://lh3.googleusercontent.com/aida-public/AB6AXuCRdrr0DlIBoElr9siVP_raMljRjhIcO1FePdwA_6rXExzg9w6wJGmDsnCqyXL8vTvfKWQIV-rxXtylBZxXr3Js12NhP47PhzVuajRYuaZUm2HkFTSsl7FA12JQ3HncHRp5M-ccJDuINHl1y15qxKp28uMa8Bhi6gF_6_Z848XBhlGFMa98zIscgFxcF4tyHeMFdNOYC2_rk3ncMXqcvDDagGv4zI7D3RmbJiQob73NVFEyPbWib6ZG_qED5Swyq_PTKUihrFvZC4-X',
+        if (video && video.youtubeUrl) {
+            const videoId = extractYouTubeVideoId(video.youtubeUrl);
+
+            if (videoId) {
+                // Use YouTube thumbnail URLs (maxresdefault for best quality)
+                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                const youtubeWatchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+                // Update with thumbnail first, show loading for duration
+                updateVideos(
+                    data.videos.map((v) =>
+                        v.id === id
+                            ? {
+                                ...v,
+                                thumbnailUrl,
+                                youtubeUrl: youtubeWatchUrl,
+                                duration: 'Loading...',
+                            }
+                            : v,
+                    ),
+                );
+
+                // Load YouTube IFrame API if not already loaded
+                const loadYouTubeAPI = (): Promise<void> => {
+                    return new Promise((resolve) => {
+                        if (window.YT && window.YT.Player) {
+                            resolve();
+                            return;
                         }
-                        : v,
-                ),
-            );
+                        const tag = document.createElement('script');
+                        tag.src = 'https://www.youtube.com/iframe_api';
+                        const firstScriptTag = document.getElementsByTagName('script')[0];
+                        firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+                        window.onYouTubeIframeAPIReady = () => resolve();
+                    });
+                };
+
+                // Get duration using YouTube IFrame API
+                loadYouTubeAPI().then(() => {
+                    // Create a hidden container for the player
+                    const containerId = `yt-player-${id}-${Date.now()}`;
+                    const container = document.createElement('div');
+                    container.id = containerId;
+                    container.style.display = 'none';
+                    document.body.appendChild(container);
+
+                    new window.YT.Player(containerId, {
+                        videoId: videoId,
+                        events: {
+                            onReady: (event) => {
+                                const duration = Math.floor(event.target.getDuration());
+                                const formattedDuration = formatDuration(duration);
+
+                                // Use functional update to avoid stale closure
+                                setData((prevData) => ({
+                                    ...prevData,
+                                    videos: prevData.videos.map((v) =>
+                                        v.id === id
+                                            ? {
+                                                ...v,
+                                                thumbnailUrl,
+                                                youtubeUrl: youtubeWatchUrl,
+                                                duration: formattedDuration,
+                                                durationSec: duration,
+                                            }
+                                            : v,
+                                    ),
+                                }));
+
+                                // Cleanup
+                                event.target.destroy();
+                                container.remove();
+                            },
+                        },
+                    });
+                });
+            } else {
+                // Invalid URL - clear thumbnail
+                updateVideos(
+                    data.videos.map((v) =>
+                        v.id === id
+                            ? {
+                                ...v,
+                                thumbnailUrl: undefined,
+                                duration: 'Invalid URL',
+                                durationSec: 0,
+                            }
+                            : v,
+                    ),
+                );
+            }
         }
     };
 
@@ -91,73 +220,58 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                 size: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
                 type: file.name.endsWith('.pdf')
                     ? 'pdf'
-                    : file.name.endsWith('.docx')
+                    : file.name.endsWith('.docx') || file.name.endsWith('.doc')
                         ? 'doc'
                         : file.name.endsWith('.zip')
                             ? 'zip'
                             : 'other',
-                progress: 0,
-                isUploading: true,
+                progress: 100,
+                isUploading: false,
+                uploadedAt: 'Ready to submit',
+                file: file, // Store actual File object
             }),
         );
 
-        updateVideos(
-            data.videos.map((v) =>
-                v.id === videoId
-                    ? { ...v, files: [...v.files, ...newFiles] }
-                    : v,
-            ),
+        const updatedVideos = data.videos.map((v) =>
+            v.id === videoId ? { ...v, files: [...v.files, ...newFiles] } : v,
         );
-
-        // Simulate upload completion
-        setTimeout(() => {
-            updateVideos(
-                data.videos.map((v) =>
-                    v.id === videoId
-                        ? {
-                            ...v,
-                            files: v.files.map((f) =>
-                                newFiles.some((nf) => nf.id === f.id)
-                                    ? {
-                                        ...f,
-                                        isUploading: false,
-                                        uploadedAt: 'Uploaded just now',
-                                    }
-                                    : f,
-                            ),
-                        }
-                        : v,
-                ),
-            );
-        }, 2000);
+        setData('videos', updatedVideos);
     };
 
     // Remove file from a specific video
     const handleRemoveFile = (videoId: number, fileId: number) => {
-        updateVideos(
-            data.videos.map((v) =>
-                v.id === videoId
-                    ? { ...v, files: v.files.filter((f) => f.id !== fileId) }
-                    : v,
-            ),
+        const updatedVideos = data.videos.map((v) =>
+            v.id === videoId
+                ? { ...v, files: v.files.filter((f) => f.id !== fileId) }
+                : v,
         );
+        setData('videos', updatedVideos);
     };
 
-    // Submit handler
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        transform((data) => ({
-            ...data,
-            videos: data.videos.map((v) => ({
-                ...v,
+        // Transform data before sending to match backend expectations
+        transform((formData) => ({
+            title: formData.title,
+            description: formData.description,
+            videos: formData.videos.map((v) => ({
+                title: v.title,
+                description: v.description,
                 youtube_url: v.youtubeUrl,
-                is_preview: false,
-                duration_sec: 0,
+                is_preview: v.isPreview,
+                duration_sec: v.durationSec,
+                resources: v.files.map((f) => ({
+                    title: f.name,
+                    file: f.file, // Include actual File object
+                    file_type: f.type,
+                })),
             })),
         }));
 
-        post(route('admin.module.store', classId));
+        post(route('admin.module.store', classId), {
+            forceFormData: true, // Required for file uploads
+        });
     };
 
     // Calculate totals
@@ -220,7 +334,9 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                 <RichTextEditor
                                     label="Module Description"
                                     value={data.description}
-                                    onChange={(val) => setData('description', val)}
+                                    onChange={(val) =>
+                                        setData('description', val)
+                                    }
                                     placeholder="Describe what students will learn in this module..."
                                     maxLength={500}
                                     error={errors.description}
@@ -238,7 +354,9 @@ export default function CreateModule({ classId }: CreateModuleProps) {
 
                             {/* Validation error for videos array */}
                             {errors.videos && (
-                                <div className="text-sm text-red-500">{errors.videos}</div>
+                                <div className="text-sm text-red-500">
+                                    {errors.videos}
+                                </div>
                             )}
 
                             {data.videos.map((video, index) => (
@@ -255,12 +373,28 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                     />
                                     {/* Display nested validation errors for this video */}
                                     {/* Note: Inertia keys for array errors often look like 'videos.0.title' */}
-                                    {(errors as any)[`videos.${index}.title`] && (
-                                        <div className="mt-1 text-sm text-red-500">{(errors as any)[`videos.${index}.title`]}</div>
-                                    )}
-                                    {(errors as any)[`videos.${index}.youtube_url`] && (
-                                        <div className="mt-1 text-sm text-red-500">{(errors as any)[`videos.${index}.youtube_url`]}</div>
-                                    )}
+                                    {(errors as any)[
+                                        `videos.${index}.title`
+                                    ] && (
+                                            <div className="mt-1 text-sm text-red-500">
+                                                {
+                                                    (errors as any)[
+                                                    `videos.${index}.title`
+                                                    ]
+                                                }
+                                            </div>
+                                        )}
+                                    {(errors as any)[
+                                        `videos.${index}.youtube_url`
+                                    ] && (
+                                            <div className="mt-1 text-sm text-red-500">
+                                                {
+                                                    (errors as any)[
+                                                    `videos.${index}.youtube_url`
+                                                    ]
+                                                }
+                                            </div>
+                                        )}
                                 </div>
                             ))}
 
@@ -319,20 +453,22 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                                 Videos
                                             </p>
                                             <div className="space-y-2">
-                                                {data.videos.map((video, index) => (
-                                                    <div
-                                                        key={video.id}
-                                                        className="flex items-center gap-2 text-sm"
-                                                    >
-                                                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-primary/10 text-xs font-medium text-primary">
-                                                            {index + 1}
-                                                        </span>
-                                                        <span className="flex-1 truncate text-[#101814]">
-                                                            {video.title ||
-                                                                'Untitled'}
-                                                        </span>
-                                                    </div>
-                                                ))}
+                                                {data.videos.map(
+                                                    (video, index) => (
+                                                        <div
+                                                            key={video.id}
+                                                            className="flex items-center gap-2 text-sm"
+                                                        >
+                                                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-primary/10 text-xs font-medium text-primary">
+                                                                {index + 1}
+                                                            </span>
+                                                            <span className="flex-1 truncate text-[#101814]">
+                                                                {video.title ||
+                                                                    'Untitled'}
+                                                            </span>
+                                                        </div>
+                                                    ),
+                                                )}
                                             </div>
                                         </div>
                                     )}

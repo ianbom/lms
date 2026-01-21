@@ -28,10 +28,6 @@ export default function VideoPreview({
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[#101814]">
                     Live Preview
                 </h3>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-800">
-                    <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                    Ready
-                </span>
             </div>
 
             {/* Video Player Container */}
@@ -71,25 +67,6 @@ export default function VideoPreview({
 
             {/* Metadata */}
             <div className="space-y-4 p-6">
-                <div className="flex justify-between text-sm">
-                    <span className="text-[#5e6a62]">Visibility</span>
-                    <span className="font-medium text-[#101814]">
-                        {visibility}
-                    </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                    <span className="text-[#5e6a62]">Quality</span>
-                    <span className="font-medium text-[#101814]">
-                        {quality}
-                    </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                    <span className="text-[#5e6a62]">Subtitles</span>
-                    <span className="font-medium text-[#101814]">
-                        {subtitles}
-                    </span>
-                </div>
-
                 {/* Open in YouTube Button */}
                 <div className="mt-2 border-t border-[#e5e7eb] pt-4">
                     <button

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title', 200);
             $table->string('file_url', 600);
             $table->enum('file_type', ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'zip', 'other'])->default('other');
-            $table->string('mime_type', 120)->nullable();
+            // $table->string('mime_type', 120)->nullable();
             $table->bigInteger('file_size')->nullable();
             $table->timestamps();
 

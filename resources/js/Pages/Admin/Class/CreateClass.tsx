@@ -8,7 +8,7 @@ import SidebarCard from '@/Components/Admin/SidebarCard';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Define types for props
 interface Category {

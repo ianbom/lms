@@ -12,8 +12,10 @@ export interface VideoEntry {
     title: string;
     youtubeUrl: string;
     duration: string;
+    durationSec: number;
     description: string;
     thumbnailUrl?: string;
+    isPreview: boolean;
     files: UploadedFile[];
 }
 
@@ -24,7 +26,7 @@ interface VideoEntryCardProps {
     onChange: (
         id: number,
         field: keyof Omit<VideoEntry, 'files'>,
-        value: string,
+        value: string | boolean,
     ) => void;
     onRemove: (id: number) => void;
     onCheckUrl?: (id: number) => void;
@@ -109,6 +111,44 @@ export default function VideoEntryCard({
                         maxLength={1000}
                     />
 
+                    {/* Preview Toggle */}
+                    <div className="flex items-center justify-between rounded-lg border border-[#e5e7eb] bg-[#f9fafb] p-4">
+                        <div className="flex items-center gap-3">
+                            <Icon
+                                name="visibility"
+                                size={20}
+                                className="text-primary"
+                            />
+                            <div>
+                                <p className="text-sm font-medium text-[#101814]">
+                                    Free Preview
+                                </p>
+                                <p className="text-xs text-[#5e6a62]">
+                                    Allow non-enrolled users to watch this video
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() =>
+                                onChange(
+                                    video.id,
+                                    'isPreview',
+                                    !video.isPreview,
+                                )
+                            }
+                            className={`relative h-6 w-11 rounded-full transition-colors ${video.isPreview ? 'bg-primary' : 'bg-[#d1d5db]'
+                                }`}
+                        >
+                            <span
+                                className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${video.isPreview
+                                        ? 'translate-x-5'
+                                        : 'translate-x-0'
+                                    }`}
+                            />
+                        </button>
+                    </div>
+
                     {/* Supporting Materials */}
                     <div className="rounded-lg border border-[#f0f5f2] bg-[#f9fafb] p-4">
                         <div className="mb-3 flex items-center justify-between">
@@ -158,6 +198,15 @@ export default function VideoEntryCard({
                             title={video.title || 'Untitled Video'}
                             thumbnailUrl={video.thumbnailUrl}
                             className="shadow-none"
+                            onOpenInYouTube={
+                                video.youtubeUrl
+                                    ? () =>
+                                        window.open(
+                                            video.youtubeUrl,
+                                            '_blank',
+                                        )
+                                    : undefined
+                            }
                         />
                     </div>
                 </div>

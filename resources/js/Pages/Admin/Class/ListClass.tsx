@@ -45,8 +45,6 @@ export default function ClassManagement({ classes }: Props) {
         isFree: item.price_final === 0,
     }));
 
-
-
     return (
         <AdminLayout breadcrumbs={[{ label: 'Classes' }]}>
             <Head title="Class Management" />
@@ -81,9 +79,7 @@ export default function ClassManagement({ classes }: Props) {
 
             {/* Data Table */}
             <div className="flex flex-col overflow-hidden rounded-xl border border-[#e5e7eb] bg-white shadow-sm">
-                <ClassTable
-                    classes={classItems}
-                />
+                <ClassTable classes={classItems} />
 
                 {/* Pagination */}
                 <Pagination
