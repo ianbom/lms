@@ -65,11 +65,7 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('Admin/Dashboard/Dashboard');
         })->name('dashboard');
 
-        Route::get('/classes/{classId}', function ($classId) {
-            // return Inertia::render('Admin/Class/DetailClass', [
-            //     'classId' => $classId
-            // ]);
-        })->name('classes.show');
+        Route::get('/classes/{classId}', [AdmClassController::class, 'detailClassPage'])->name('classes.show');
 
         Route::get('/classes', [AdmClassController::class, 'listClassPage'])->name('classes');
         Route::get('/create/classes', [AdmClassController::class, 'createClassPage'])->name('classes.create');

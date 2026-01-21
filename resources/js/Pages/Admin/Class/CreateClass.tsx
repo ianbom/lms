@@ -110,23 +110,23 @@ export default function CreateClass({ categories, mentors }: Props) {
     return (
         <AdminLayout
             breadcrumbs={[
-                { label: 'Classes', href: route('admin.classes') },
-                { label: 'Create New Class' },
+                { label: 'Kelas', href: route('admin.classes') },
+                { label: 'Buat Kelas Baru' },
             ]}
         >
-            <Head title="Create New Class" />
+            <Head title="Buat Kelas Baru" />
 
             {/* Page Header */}
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <h1 className="text-2xl font-bold tracking-tight text-[#101814]">
-                    Create New Class
+                    Buat Kelas Baru
                 </h1>
                 <div className="flex items-center gap-3">
                     <Link
                         href={route('admin.classes')}
                         className="rounded-lg px-4 py-2.5 text-sm font-medium text-[#5e6a62] transition-colors hover:bg-[#f0f5f2] hover:text-[#101814]"
                     >
-                        Discard
+                        Batalkan
                     </Link>
                     <button
                         type="button"
@@ -135,7 +135,7 @@ export default function CreateClass({ categories, mentors }: Props) {
                         className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
                     >
                         <Icon name="publish" size={18} />
-                        {processing ? 'Saving...' : 'Save Draft'}
+                        {processing ? 'Menyimpan...' : 'Simpan Draft'}
                     </button>
                 </div>
             </div>
@@ -145,30 +145,30 @@ export default function CreateClass({ categories, mentors }: Props) {
                 {/* Left Column - Main Form */}
                 <div className="flex flex-col gap-6 lg:col-span-2">
                     {/* Class Details Card */}
-                    <FormCard icon="edit_note" title="Class Details">
+                    <FormCard icon="edit_note" title="Detail Kelas">
                         <div className="flex flex-col gap-5">
                             <FormInput
-                                label="Class Title"
+                                label="Judul Kelas"
                                 required
-                                placeholder="e.g., Advanced System Architecture"
+                                placeholder="Contoh: Arsitektur Sistem Lanjutan"
                                 value={data.title}
                                 onChange={(val) => setData('title', val)}
                                 error={errors.title}
                             />
 
                             <RichTextEditor
-                                label="Description"
+                                label="Deskripsi"
                                 value={data.description}
                                 onChange={(val) => setData('description', val)}
-                                placeholder="Start typing your class description here..."
+                                placeholder="Mulai ketik deskripsi kelas di sini..."
                                 maxLength={2000}
                                 error={errors.description}
                             />
 
                             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                                 <FormSelect
-                                    label="Category"
-                                    placeholder="Select a category"
+                                    label="Kategori"
+                                    placeholder="Pilih kategori"
                                     options={categoryOptions}
                                     value={data.category_id}
                                     onChange={(val) =>
@@ -192,7 +192,7 @@ export default function CreateClass({ categories, mentors }: Props) {
                 {/* Right Column - Sidebar */}
                 <div className="flex flex-col gap-6">
                     {/* Thumbnail */}
-                    <SidebarCard title="Class Thumbnail">
+                    <SidebarCard title="Thumbnail Kelas">
                         <ImageUpload
                             value={thumbnailPreview}
                             onChange={handleThumbnailChange}
@@ -201,17 +201,17 @@ export default function CreateClass({ categories, mentors }: Props) {
                     </SidebarCard>
 
                     {/* Pricing */}
-                    <SidebarCard title="Pricing">
+                    <SidebarCard title="Harga">
                         <div className="flex flex-col gap-4">
                             <FormInput
-                                label="Normal Price ($)"
+                                label="Harga Normal (Rp)"
                                 type="number"
                                 value={data.price}
                                 onChange={(val) => setData('price', val)}
                                 error={errors.price}
                             />
                             <FormInput
-                                label="Discount (%)"
+                                label="Diskon (%)"
                                 type="number"
                                 value={data.discount}
                                 onChange={(val) => setData('discount', val)}
@@ -220,16 +220,20 @@ export default function CreateClass({ categories, mentors }: Props) {
 
                             <div className="flex items-center justify-between border-t border-[#f0f5f2] pt-4">
                                 <span className="text-sm text-[#5e6a62]">
-                                    Final Price
+                                    Harga Akhir
                                 </span>
                                 <div className="text-right">
                                     {discountPercent > 0 && (
                                         <span className="mr-2 text-sm text-[#a0b3a9] line-through">
-                                            ${normalPrice.toFixed(2)}
+                                            {'Rp '}
+                                            {normalPrice.toLocaleString(
+                                                'id-ID',
+                                            )}
                                         </span>
                                     )}
                                     <span className="text-xl font-bold text-primary">
-                                        ${finalPrice.toFixed(2)}
+                                        {'Rp '}
+                                        {finalPrice.toLocaleString('id-ID')}
                                     </span>
                                 </div>
                             </div>
