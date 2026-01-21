@@ -130,11 +130,11 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                     data.videos.map((v) =>
                         v.id === id
                             ? {
-                                ...v,
-                                thumbnailUrl,
-                                youtubeUrl: youtubeWatchUrl,
-                                duration: 'Loading...',
-                            }
+                                  ...v,
+                                  thumbnailUrl,
+                                  youtubeUrl: youtubeWatchUrl,
+                                  duration: 'Loading...',
+                              }
                             : v,
                     ),
                 );
@@ -148,8 +148,12 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                         }
                         const tag = document.createElement('script');
                         tag.src = 'https://www.youtube.com/iframe_api';
-                        const firstScriptTag = document.getElementsByTagName('script')[0];
-                        firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+                        const firstScriptTag =
+                            document.getElementsByTagName('script')[0];
+                        firstScriptTag.parentNode?.insertBefore(
+                            tag,
+                            firstScriptTag,
+                        );
                         window.onYouTubeIframeAPIReady = () => resolve();
                     });
                 };
@@ -167,8 +171,11 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                         videoId: videoId,
                         events: {
                             onReady: (event) => {
-                                const duration = Math.floor(event.target.getDuration());
-                                const formattedDuration = formatDuration(duration);
+                                const duration = Math.floor(
+                                    event.target.getDuration(),
+                                );
+                                const formattedDuration =
+                                    formatDuration(duration);
 
                                 // Use functional update to avoid stale closure
                                 setData((prevData) => ({
@@ -176,12 +183,12 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                     videos: prevData.videos.map((v) =>
                                         v.id === id
                                             ? {
-                                                ...v,
-                                                thumbnailUrl,
-                                                youtubeUrl: youtubeWatchUrl,
-                                                duration: formattedDuration,
-                                                durationSec: duration,
-                                            }
+                                                  ...v,
+                                                  thumbnailUrl,
+                                                  youtubeUrl: youtubeWatchUrl,
+                                                  duration: formattedDuration,
+                                                  durationSec: duration,
+                                              }
                                             : v,
                                     ),
                                 }));
@@ -199,11 +206,11 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                     data.videos.map((v) =>
                         v.id === id
                             ? {
-                                ...v,
-                                thumbnailUrl: undefined,
-                                duration: 'Invalid URL',
-                                durationSec: 0,
-                            }
+                                  ...v,
+                                  thumbnailUrl: undefined,
+                                  duration: 'Invalid URL',
+                                  durationSec: 0,
+                              }
                             : v,
                     ),
                 );
@@ -221,10 +228,10 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                 type: file.name.endsWith('.pdf')
                     ? 'pdf'
                     : file.name.endsWith('.docx') || file.name.endsWith('.doc')
-                        ? 'doc'
-                        : file.name.endsWith('.zip')
-                            ? 'zip'
-                            : 'other',
+                      ? 'doc'
+                      : file.name.endsWith('.zip')
+                        ? 'zip'
+                        : 'other',
                 progress: 100,
                 isUploading: false,
                 uploadedAt: 'Ready to submit',
@@ -280,21 +287,21 @@ export default function CreateModule({ classId }: CreateModuleProps) {
     return (
         <AdminLayout
             breadcrumbs={[
-                { label: 'Classes', href: route('admin.classes') },
-                { label: 'Create Module' },
+                { label: 'Kelas', href: route('admin.classes') },
+                { label: 'Buat Modul' },
             ]}
         >
-            <Head title="Create Module" />
+            <Head title="Buat Modul" />
 
             <form onSubmit={handleSubmit}>
                 {/* Page Header */}
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-[#101814]">
-                            Create New Module
+                            Buat Modul Baru
                         </h1>
                         <p className="mt-1 text-[#5e6a62]">
-                            Add module details and video content
+                            Tambahkan detail modul dan konten video
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
@@ -302,7 +309,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                             href={route('admin.classes')}
                             className="rounded-lg border border-[#dae7e0] bg-white px-5 py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb]"
                         >
-                            Cancel
+                            Batal
                         </Link>
                         <button
                             type="submit"
@@ -310,7 +317,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                             className="flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
                         >
                             <Icon name="save" size={20} />
-                            {processing ? 'Saving...' : 'Save Module'}
+                            {processing ? 'Menyimpan...' : 'Simpan Modul'}
                         </button>
                     </div>
                 </div>
@@ -320,24 +327,24 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                     {/* Left Column - Forms */}
                     <div className="flex flex-col gap-6 lg:col-span-3">
                         {/* Module Information Card */}
-                        <FormCard icon="folder" title="Module Information">
+                        <FormCard icon="folder" title="Informasi Modul">
                             <div className="flex flex-col gap-6">
                                 <FormInput
-                                    label="Module Title"
+                                    label="Judul Modul"
                                     required
-                                    placeholder="e.g. Advanced Marketing Strategies"
+                                    placeholder="contoh: Strategi Pemasaran Lanjutan"
                                     value={data.title}
                                     onChange={(val) => setData('title', val)}
                                     error={errors.title}
                                 />
 
                                 <RichTextEditor
-                                    label="Module Description"
+                                    label="Deskripsi Modul"
                                     value={data.description}
                                     onChange={(val) =>
                                         setData('description', val)
                                     }
-                                    placeholder="Describe what students will learn in this module..."
+                                    placeholder="Jelaskan apa yang akan dipelajari siswa di modul ini..."
                                     maxLength={500}
                                     error={errors.description}
                                 />
@@ -348,7 +355,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-lg font-bold text-[#101814]">
-                                    Videos ({data.videos.length})
+                                    Video ({data.videos.length})
                                 </h2>
                             </div>
 
@@ -376,25 +383,25 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                     {(errors as any)[
                                         `videos.${index}.title`
                                     ] && (
-                                            <div className="mt-1 text-sm text-red-500">
-                                                {
-                                                    (errors as any)[
+                                        <div className="mt-1 text-sm text-red-500">
+                                            {
+                                                (errors as any)[
                                                     `videos.${index}.title`
-                                                    ]
-                                                }
-                                            </div>
-                                        )}
+                                                ]
+                                            }
+                                        </div>
+                                    )}
                                     {(errors as any)[
                                         `videos.${index}.youtube_url`
                                     ] && (
-                                            <div className="mt-1 text-sm text-red-500">
-                                                {
-                                                    (errors as any)[
+                                        <div className="mt-1 text-sm text-red-500">
+                                            {
+                                                (errors as any)[
                                                     `videos.${index}.youtube_url`
-                                                    ]
-                                                }
-                                            </div>
-                                        )}
+                                                ]
+                                            }
+                                        </div>
+                                    )}
                                 </div>
                             ))}
 
@@ -405,7 +412,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                 className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#dae7e0] bg-white py-4 text-sm font-semibold text-primary transition-colors hover:border-primary hover:bg-primary/5"
                             >
                                 <Icon name="add_circle" size={20} />
-                                Add New Video
+                                Tambah Video Baru
                             </button>
                         </div>
                     </div>
@@ -417,21 +424,21 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                             <div className="overflow-hidden rounded-xl border border-[#e5e7eb] bg-white shadow-lg shadow-gray-200/50">
                                 <div className="border-b border-[#e5e7eb] px-6 py-4">
                                     <h3 className="text-xs font-bold uppercase tracking-wider text-[#101814]">
-                                        Module Summary
+                                        Ringkasan Modul
                                     </h3>
                                 </div>
                                 <div className="space-y-4 p-6">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-[#5e6a62]">
-                                            Module Title
+                                            Judul Modul
                                         </span>
                                         <span className="max-w-[120px] truncate font-medium text-[#101814]">
-                                            {data.title || 'Untitled'}
+                                            {data.title || 'Belum ada judul'}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-[#5e6a62]">
-                                            Total Videos
+                                            Total Video
                                         </span>
                                         <span className="font-medium text-[#101814]">
                                             {data.videos.length}
@@ -439,7 +446,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-[#5e6a62]">
-                                            Total Files
+                                            Total File
                                         </span>
                                         <span className="font-medium text-[#101814]">
                                             {totalFiles}
@@ -450,7 +457,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                     {data.videos.length > 0 && (
                                         <div className="mt-4 border-t border-[#e5e7eb] pt-4">
                                             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
-                                                Videos
+                                                Daftar Video
                                             </p>
                                             <div className="space-y-2">
                                                 {data.videos.map(
@@ -464,7 +471,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                                             </span>
                                                             <span className="flex-1 truncate text-[#101814]">
                                                                 {video.title ||
-                                                                    'Untitled'}
+                                                                    'Belum ada judul'}
                                                             </span>
                                                         </div>
                                                     ),
@@ -475,7 +482,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                                 </div>
                             </div>
 
-                            <ProTipCard message="Each video can have its own supporting materials like PDFs, slides, or resources." />
+                            <ProTipCard message="Setiap video dapat memiliki materi pendukung seperti PDF, slide, atau sumber daya lainnya." />
                         </div>
                     </div>
                 </div>

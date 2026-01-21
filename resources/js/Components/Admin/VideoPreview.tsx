@@ -11,7 +11,7 @@ interface VideoPreviewProps {
 }
 
 export default function VideoPreview({
-    title = 'Untitled Video',
+    title = 'Video Tanpa Judul',
     thumbnailUrl,
     visibility = 'Public',
     quality = '1080p HD',
@@ -26,7 +26,7 @@ export default function VideoPreview({
             {/* Header */}
             <div className="flex items-center justify-between border-b border-[#e5e7eb] px-6 py-4">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[#101814]">
-                    Live Preview
+                    Pratinjau Langsung
                 </h3>
             </div>
 
@@ -35,7 +35,7 @@ export default function VideoPreview({
                 {thumbnailUrl ? (
                     <img
                         src={thumbnailUrl}
-                        alt="Video thumbnail"
+                        alt="Thumbnail video"
                         className="h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-60"
                     />
                 ) : (
@@ -75,7 +75,7 @@ export default function VideoPreview({
                         className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#dae7e0] py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb]"
                     >
                         <Icon name="open_in_new" size={18} />
-                        Open in YouTube
+                        Buka di YouTube
                     </button>
                 </div>
             </div>

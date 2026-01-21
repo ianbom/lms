@@ -73,9 +73,9 @@ export default function VideoEntryCard({
                 {/* Left - Form Fields */}
                 <div className="flex flex-col gap-6 lg:col-span-2">
                     <FormInput
-                        label="Video Title"
+                        label="Judul Video"
                         required
-                        placeholder="e.g. Introduction to Neural Networks"
+                        placeholder="contoh: Pengenalan Jaringan Neural"
                         value={video.title}
                         onChange={(value) => onChange(video.id, 'title', value)}
                     />
@@ -84,30 +84,30 @@ export default function VideoEntryCard({
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                         <div className="md:col-span-2">
                             <UrlInput
-                                label="YouTube URL"
+                                label="URL YouTube"
                                 placeholder="youtube.com/watch?v=..."
                                 value={video.youtubeUrl}
                                 onChange={(value) =>
                                     onChange(video.id, 'youtubeUrl', value)
                                 }
                                 onCheck={() => onCheckUrl?.(video.id)}
-                                helpText="Supports YouTube, Vimeo, and Wistia links."
+                                helpText="Mendukung link YouTube, Vimeo, dan Wistia."
                             />
                         </div>
                         <ReadonlyInput
-                            label="Duration"
+                            label="Durasi"
                             value={video.duration || '--:--'}
                             icon="schedule"
                         />
                     </div>
 
                     <RichTextEditor
-                        label="Description"
+                        label="Deskripsi"
                         value={video.description}
                         onChange={(value) =>
                             onChange(video.id, 'description', value)
                         }
-                        placeholder="Add a brief summary about what students will learn..."
+                        placeholder="Tambahkan ringkasan singkat tentang apa yang akan dipelajari siswa..."
                         maxLength={1000}
                     />
 
@@ -121,10 +121,11 @@ export default function VideoEntryCard({
                             />
                             <div>
                                 <p className="text-sm font-medium text-[#101814]">
-                                    Free Preview
+                                    Pratinjau Gratis
                                 </p>
                                 <p className="text-xs text-[#5e6a62]">
-                                    Allow non-enrolled users to watch this video
+                                    Izinkan pengguna yang belum terdaftar untuk
+                                    menonton video ini
                                 </p>
                             </div>
                         </div>
@@ -137,14 +138,16 @@ export default function VideoEntryCard({
                                     !video.isPreview,
                                 )
                             }
-                            className={`relative h-6 w-11 rounded-full transition-colors ${video.isPreview ? 'bg-primary' : 'bg-[#d1d5db]'
-                                }`}
+                            className={`relative h-6 w-11 rounded-full transition-colors ${
+                                video.isPreview ? 'bg-primary' : 'bg-[#d1d5db]'
+                            }`}
                         >
                             <span
-                                className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${video.isPreview
+                                className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                                    video.isPreview
                                         ? 'translate-x-5'
                                         : 'translate-x-0'
-                                    }`}
+                                }`}
                             />
                         </button>
                     </div>
@@ -159,11 +162,11 @@ export default function VideoEntryCard({
                                     className="text-primary"
                                 />
                                 <span className="text-sm font-semibold">
-                                    Supporting Materials
+                                    Materi Pendukung
                                 </span>
                             </div>
                             <span className="rounded bg-[#e5e7eb] px-2 py-0.5 text-[10px] font-medium text-[#5e6a62]">
-                                Optional
+                                Opsional
                             </span>
                         </div>
 
@@ -201,10 +204,10 @@ export default function VideoEntryCard({
                             onOpenInYouTube={
                                 video.youtubeUrl
                                     ? () =>
-                                        window.open(
-                                            video.youtubeUrl,
-                                            '_blank',
-                                        )
+                                          window.open(
+                                              video.youtubeUrl,
+                                              '_blank',
+                                          )
                                     : undefined
                             }
                         />
