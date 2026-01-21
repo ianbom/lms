@@ -70,3 +70,17 @@ export interface ClassItem {
 
 // Status badge variant mapping
 export type StatusVariant = 'success' | 'warning' | 'default';
+
+// Mentor data for mentor directory
+export interface Mentor {
+    id: number;
+    name: string;
+    email: string;
+    avatarUrl?: string;
+    isOnline: boolean;
+    stats: {
+        classes: number;
+        activeStudents: number;
+        rating: number;
+    };
+}

@@ -18,6 +18,7 @@ export { default as FormInput } from './FormInput';
 export { default as FormSelect } from './FormSelect';
 export { default as ImageUpload } from './ImageUpload';
 export { default as MentorSelector } from './MentorSelector';
+export { default as PageHeader } from './PageHeader';
 export { default as Pagination } from './Pagination';
 export { default as PassingScoreSlider } from './PassingScoreSlider';
 export { default as PopularClassItem } from './PopularClassItem';

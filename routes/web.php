@@ -80,6 +80,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/classes/{classId}/quiz/create', [AdmQuizController::class, 'createQuizPage'])->name('quiz.create');
         Route::post('/classes/quiz/create', [AdmQuizController::class, 'storeQuiz'])->name('quiz.store');
 
+        Route::get('/mentors', function () {
+            return Inertia::render('Admin/Mentor/ListMentor', [
+                
+            ]);
+        })->name('mentors');
     });
 });
 
