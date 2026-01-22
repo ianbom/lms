@@ -33,7 +33,7 @@ export default function SortDropdown({
                 <span>Urutkan: {SORT_LABELS[value]}</span>
             </button>
             {isOpen && (
-                <div className="absolute right-0 top-full z-40 mt-1 min-w-[180px] rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+                <div className="absolute right-0 top-full z-40 mt-1 min-w-[180px] rounded-md border border-slate-200 bg-white py-1 shadow-lg">
                     {SORT_OPTIONS.map((option) => (
                         <button
                             key={option}

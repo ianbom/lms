@@ -125,7 +125,7 @@ export default function TableToolbar({
                                 setIsFilterOpen(!isFilterOpen);
                                 setIsSortOpen(false);
                             }}
-                            className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                                 isFilterActive
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
@@ -141,7 +141,7 @@ export default function TableToolbar({
                         </button>
 
                         {isFilterOpen && (
-                            <div className="absolute left-0 top-full z-10 mt-1 min-w-[160px] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+                            <div className="absolute left-0 top-full z-10 mt-1 min-w-[160px] overflow-hidden rounded-md border border-slate-200 bg-white py-1 shadow-lg">
                                 {filterOptions.map((option) => (
                                     <button
                                         key={option.value ?? 'all'}
@@ -182,7 +182,7 @@ export default function TableToolbar({
                                 setIsSortOpen(!isSortOpen);
                                 setIsFilterOpen(false);
                             }}
-                            className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                                 isSortActive
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
@@ -198,7 +198,7 @@ export default function TableToolbar({
                         </button>
 
                         {isSortOpen && (
-                            <div className="absolute left-0 top-full z-10 mt-1 min-w-[180px] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+                            <div className="absolute left-0 top-full z-10 mt-1 min-w-[180px] overflow-hidden rounded-md border border-slate-200 bg-white py-1 shadow-lg">
                                 {sortOptions.map((option, index) => (
                                     <button
                                         key={`${option.value}-${option.direction}`}
@@ -239,7 +239,7 @@ export default function TableToolbar({
                         <Icon name="search" size={20} />
                     </div>
                     <input
-                        className="block w-full rounded-lg border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:bg-white focus:ring-primary"
+                        className="block w-full rounded-md border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:bg-white focus:ring-primary"
                         placeholder={searchPlaceholder}
                         type="text"
                         value={search}

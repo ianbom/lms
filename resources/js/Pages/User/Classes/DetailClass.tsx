@@ -175,7 +175,7 @@ export default function DetailClass({
                                         onClick={() =>
                                             handlePreviewSelect(video)
                                         }
-                                        className={`group relative min-w-[200px] flex-shrink-0 cursor-pointer overflow-hidden rounded-lg border transition-all ${
+                                        className={`group relative min-w-[200px] flex-shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all ${
                                             selectedVideo?.id === video.id
                                                 ? 'border-primary ring-2 ring-primary ring-opacity-50'
                                                 : 'border-gray-200 hover:border-gray-300'
@@ -257,7 +257,7 @@ export default function DetailClass({
                             {classData.modules.map((module) => (
                                 <div
                                     key={module.id}
-                                    className="mb-6 overflow-hidden rounded-lg border border-gray-200 bg-white"
+                                    className="mb-6 overflow-hidden rounded-md border border-gray-200 bg-white"
                                 >
                                     <div className="border-b border-gray-100 bg-gray-50 px-4 py-3">
                                         <h3 className="font-semibold text-gray-900">
@@ -423,7 +423,7 @@ export default function DetailClass({
                                 {classData.mentors.slice(1).map((mentor) => (
                                     <div
                                         key={mentor.id}
-                                        className="flex items-center gap-3 rounded-lg border border-gray-100 bg-white p-3"
+                                        className="flex items-center gap-3 rounded-md border border-gray-100 bg-white p-3"
                                     >
                                         <img
                                             src={

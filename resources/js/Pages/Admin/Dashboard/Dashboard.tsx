@@ -26,7 +26,7 @@ const statsData: StatCardData[] = [
     },
     {
         icon: 'shopping_bag',
-        label: 'Pending Orders',
+        label: 'Total Orders',
         value: '12',
         trend: 'down',
         trendValue: '-5%',

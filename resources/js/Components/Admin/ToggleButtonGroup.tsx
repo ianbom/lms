@@ -26,7 +26,7 @@ export default function ToggleButtonGroup({
                         key={option.value}
                         type="button"
                         onClick={() => onChange?.(option.value)}
-                        className={`rounded-lg border px-4 py-2.5 text-sm font-medium transition-all ${
+                        className={`rounded-md border px-4 py-2.5 text-sm font-medium transition-all ${
                             value === option.value
                                 ? 'border-primary bg-primary/10 text-primary'
                                 : 'border-[#dae7e0] bg-white text-[#5e6a62] hover:border-[#c0d4c8] hover:bg-[#f9fafb]'

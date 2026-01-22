@@ -40,7 +40,7 @@ export default function FormInput({
                     placeholder={placeholder}
                     value={value}
                     onChange={(e) => onChange?.(e.target.value)}
-                    className={`h-12 w-full rounded-lg border border-[#dae7e0] bg-white text-sm text-[#101814] placeholder-[#a0b3a9] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 ${
+                    className={`h-12 w-full rounded-md border border-[#dae7e0] bg-white text-sm text-[#101814] placeholder-[#a0b3a9] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 ${
                         prefix ? 'pl-8' : 'px-4'
                     } ${suffix ? 'pr-8' : 'pr-4'}`}
                 />

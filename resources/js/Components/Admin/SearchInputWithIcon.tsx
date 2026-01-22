@@ -25,7 +25,7 @@ export default function SearchInputWithIcon({
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => onChange?.(e.target.value)}
-                className="h-10 w-full rounded-lg border border-[#dae7e0] bg-white py-2 pl-10 pr-4 text-sm text-[#101814] placeholder-[#5e8d74] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="h-10 w-full rounded-md border border-[#dae7e0] bg-white py-2 pl-10 pr-4 text-sm text-[#101814] placeholder-[#5e8d74] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
         </div>
     );

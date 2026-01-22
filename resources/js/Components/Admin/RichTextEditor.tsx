@@ -36,7 +36,7 @@ export default function RichTextEditor({
                 </label>
             )}
             <div
-                className={`overflow-hidden rounded-lg border bg-white transition-all focus-within:ring-2 ${
+                className={`overflow-hidden rounded-md border bg-white transition-all focus-within:ring-2 ${
                     error
                         ? 'border-red-500 focus-within:border-red-500 focus-within:ring-red-200'
                         : 'border-[#dae7e0] focus-within:border-primary focus-within:ring-primary/20'

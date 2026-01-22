@@ -76,7 +76,7 @@ export default function VideoInfo({
                         {learningPoints.length > 0 && (
                             <div className="mt-6 rounded-xl border border-primary/10 bg-gradient-to-br from-primary-light/50 to-white p-5">
                                 <h3 className="mb-4 flex items-center gap-2 text-base font-bold text-gray-900">
-                                    <div className="flex size-7 items-center justify-center rounded-lg bg-primary/10">
+                                    <div className="flex size-7 items-center justify-center rounded-md bg-primary/10">
                                         <Icon
                                             name="lightbulb"
                                             size={16}

@@ -15,7 +15,7 @@ export default function AdminNavItem({
         return (
             <Link
                 href={href}
-                className="group flex items-center gap-3 rounded-lg bg-primary px-4 py-3 text-white shadow-md shadow-primary/20 transition-all"
+                className="group flex items-center gap-3 rounded-md bg-primary px-4 py-3 text-white shadow-md shadow-primary/20 transition-all"
             >
                 <Icon name={icon} size={22} />
                 <span className="text-sm font-extralight">{label}</span>
@@ -31,7 +31,7 @@ export default function AdminNavItem({
     return (
         <Link
             href={href}
-            className="text-text-muted group flex items-center gap-3 rounded-lg px-4 py-3 transition-colors hover:bg-primary-light hover:text-primary"
+            className="text-text-muted group flex items-center gap-3 rounded-md px-4 py-3 transition-colors hover:bg-primary-light hover:text-primary"
         >
             <Icon
                 name={icon}

@@ -505,7 +505,7 @@ export default function VideoPlayer({
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={togglePlayPause}
-                                className="flex size-9 items-center justify-center rounded-lg text-white transition-all hover:bg-white/10"
+                                className="flex size-9 items-center justify-center rounded-md text-white transition-all hover:bg-white/10"
                             >
                                 <Icon
                                     name={isPlaying ? 'pause' : 'play_arrow'}
@@ -515,13 +515,13 @@ export default function VideoPlayer({
 
                             <button
                                 onClick={skipBackward}
-                                className="hidden size-9 items-center justify-center rounded-lg text-white/80 transition-all hover:bg-white/10 hover:text-white sm:flex"
+                                className="hidden size-9 items-center justify-center rounded-md text-white/80 transition-all hover:bg-white/10 hover:text-white sm:flex"
                             >
                                 <Icon name="replay_10" size={20} />
                             </button>
                             <button
                                 onClick={skipForward}
-                                className="hidden size-9 items-center justify-center rounded-lg text-white/80 transition-all hover:bg-white/10 hover:text-white sm:flex"
+                                className="hidden size-9 items-center justify-center rounded-md text-white/80 transition-all hover:bg-white/10 hover:text-white sm:flex"
                             >
                                 <Icon name="forward_10" size={20} />
                             </button>
@@ -545,7 +545,7 @@ export default function VideoPlayer({
                                     onClick={() =>
                                         setShowQualityMenu(!showQualityMenu)
                                     }
-                                    className="flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white transition-all hover:bg-white/20"
+                                    className="flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white transition-all hover:bg-white/20"
                                     title={`Kualitas Video: ${getCurrentQualityLabel()}`}
                                 >
                                     <Icon name="hd" size={16} />
@@ -562,7 +562,7 @@ export default function VideoPlayer({
 
                                 {/* Quality menu */}
                                 {showQualityMenu && (
-                                    <div className="absolute bottom-full right-0 mb-2 min-w-[160px] overflow-hidden rounded-lg border border-white/10 bg-gray-900/95 shadow-xl backdrop-blur-sm">
+                                    <div className="absolute bottom-full right-0 mb-2 min-w-[160px] overflow-hidden rounded-md border border-white/10 bg-gray-900/95 shadow-xl backdrop-blur-sm">
                                         <div className="px-3 py-2 text-xs font-semibold text-white/60">
                                             Kualitas Video
                                         </div>
@@ -639,7 +639,7 @@ export default function VideoPlayer({
                             {/* Fullscreen */}
                             <button
                                 onClick={toggleFullscreen}
-                                className="flex size-9 items-center justify-center rounded-lg text-white/80 transition-all hover:bg-white/10 hover:text-primary"
+                                className="flex size-9 items-center justify-center rounded-md text-white/80 transition-all hover:bg-white/10 hover:text-primary"
                                 title={
                                     isFullscreen
                                         ? 'Keluar Fullscreen'

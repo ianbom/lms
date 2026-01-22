@@ -91,7 +91,7 @@ export default function DataTable<T>({
                                         {emptyState.action && (
                                             <Link
                                                 href={emptyState.action.href}
-                                                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
                                             >
                                                 {emptyState.action.icon && (
                                                     <Icon

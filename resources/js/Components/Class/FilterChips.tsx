@@ -12,7 +12,7 @@ export default function FilterChips({
     onTabChange,
 }: FilterChipsProps) {
     return (
-        <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white p-1">
+        <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white p-1">
             {TABS.map((tab) => (
                 <button
                     key={tab}

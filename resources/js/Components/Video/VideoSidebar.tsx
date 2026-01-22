@@ -22,7 +22,7 @@ export default function VideoSidebar({
 
                 <div className="relative">
                     <div className="mb-1 flex items-center gap-2">
-                        <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10">
+                        <div className="flex size-8 items-center justify-center rounded-md bg-primary/10">
                             <Icon
                                 name="video_library"
                                 size={18}

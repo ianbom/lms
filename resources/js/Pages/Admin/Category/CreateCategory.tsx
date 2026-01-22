@@ -40,7 +40,7 @@ export default function CreateCategory() {
                     </p>
                 </div>
 
-                <div className="overflow-hidden border border-slate-200 bg-white shadow-sm sm:rounded-lg">
+                <div className="overflow-hidden border border-slate-200 bg-white shadow-sm sm:rounded-md">
                     <form onSubmit={submit} className="p-6">
                         <div className="space-y-6">
                             <div>
@@ -58,7 +58,7 @@ export default function CreateCategory() {
                                     onChange={(e) =>
                                         setData('name', e.target.value)
                                     }
-                                    className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                                     placeholder="Contoh: Pemrograman Web"
                                     required
                                 />
@@ -84,7 +84,7 @@ export default function CreateCategory() {
                                     onChange={(e) =>
                                         setData('description', e.target.value)
                                     }
-                                    className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                                     placeholder="Deskripsi singkat tentang kategori ini..."
                                 />
                                 {errors.description && (
@@ -98,14 +98,14 @@ export default function CreateCategory() {
                         <div className="mt-6 flex items-center justify-end gap-3">
                             <Link
                                 href={route('admin.categories')}
-                                className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                             >
                                 Batal
                             </Link>
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="inline-flex items-center justify-center rounded-lg border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
+                                className="inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
                             >
                                 {processing
                                     ? 'Menyimpan...'

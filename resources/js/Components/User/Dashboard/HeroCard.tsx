@@ -45,7 +45,7 @@ export default function HeroCard() {
                     </div>
                 </div>
 
-                <button className="flex w-fit items-center justify-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover">
+                <button className="flex w-fit items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover">
                     <span>Lanjutkan Belajar</span>
                     <Icon name="arrow_forward" size={18} />
                 </button>

@@ -20,7 +20,7 @@ export default function StatCard({
             className={`border-border shadow-card group flex flex-col gap-4 rounded-xl border bg-white p-5 transition-all hover:border-primary/30 ${className}`}
         >
             <div className="flex items-start justify-between">
-                <div className="rounded-lg bg-background-light p-3 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                <div className="rounded-md bg-background-light p-3 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                     <Icon name={icon} size={24} />
                 </div>
                 <span

@@ -240,7 +240,7 @@ function QuestionFooter({
                     <button
                         onClick={onPrev}
                         disabled={isFirstQuestion}
-                        className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-300 px-6 py-2.5 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
+                        className="flex flex-1 items-center justify-center gap-2 rounded-md border border-slate-300 px-6 py-2.5 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
                     >
                         Sebelumnya
                     </button>
@@ -249,7 +249,7 @@ function QuestionFooter({
                         <button
                             onClick={onSubmit}
                             disabled={isSubmitting}
-                            className="flex flex-1 transform items-center justify-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-green-700 hover:shadow-lg active:scale-95 disabled:opacity-50 sm:flex-none"
+                            className="flex flex-1 transform items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-green-700 hover:shadow-lg active:scale-95 disabled:opacity-50 sm:flex-none"
                         >
                             {isSubmitting ? (
                                 <>
@@ -271,7 +271,7 @@ function QuestionFooter({
                         <button
                             onClick={onNext}
                             disabled={isLastQuestion && isReviewing}
-                            className="flex flex-1 transform items-center justify-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-green-700 hover:shadow-lg active:scale-95 disabled:opacity-50 sm:flex-none"
+                            className="flex flex-1 transform items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-green-700 hover:shadow-lg active:scale-95 disabled:opacity-50 sm:flex-none"
                         >
                             Selanjutnya
                             <Icon name="arrow_forward" size={18} />

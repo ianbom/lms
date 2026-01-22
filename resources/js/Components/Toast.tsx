@@ -37,7 +37,7 @@ export default function Toast({
 
     return (
         <div
-            className={`fixed bottom-5 right-5 z-50 flex transform items-center gap-3 rounded-lg px-4 py-3 shadow-lg transition-all duration-300 ease-in-out ${
+            className={`fixed bottom-5 right-5 z-50 flex transform items-center gap-3 rounded-md px-4 py-3 shadow-lg transition-all duration-300 ease-in-out ${
                 isVisible
                     ? 'translate-y-0 opacity-100'
                     : 'translate-y-10 opacity-0'

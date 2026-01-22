@@ -148,7 +148,7 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                     </div>
                     <div className="flex items-center gap-3">
                         <button
-                            className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#e2e8f0] bg-white px-4 py-2.5 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
+                            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white px-4 py-2.5 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
                             onClick={() =>
                                 window.open(
                                     route('classes.show', classData.id),
@@ -159,7 +159,7 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                             <Icon name="visibility" size={20} />
                             Pratinjau
                         </button>
-                        <button className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#059669] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#059669]/20 transition-all hover:bg-[#047857]">
+                        <button className="inline-flex items-center justify-center gap-2 rounded-md bg-[#059669] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#059669]/20 transition-all hover:bg-[#047857]">
                             <Icon name="save" size={20} />
                             Simpan Perubahan
                         </button>
@@ -235,7 +235,7 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                                         <img
                                             src={classData.thumbnail_url}
                                             alt={classData.title}
-                                            className="h-48 w-full rounded-lg object-cover"
+                                            className="h-48 w-full rounded-md object-cover"
                                         />
                                     </div>
                                 )}

@@ -74,7 +74,7 @@ export default function ImageUpload({
             <label
                 onDrop={handleDrop}
                 onDragOver={(e) => e.preventDefault()}
-                className={`flex cursor-pointer flex-col items-center gap-1 rounded-lg border border-dashed p-6 transition-colors hover:bg-primary/5 ${
+                className={`flex cursor-pointer flex-col items-center gap-1 rounded-md border border-dashed p-6 transition-colors hover:bg-primary/5 ${
                     error
                         ? 'border-red-500 hover:border-red-500'
                         : 'border-[#dae7e0] hover:border-primary'

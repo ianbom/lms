@@ -55,7 +55,7 @@ export default function VideoPreview({
 
             {/* Preview Badge */}
             <div className="absolute bottom-4 right-4">
-                <button className="flex items-center gap-2 rounded-lg bg-black/70 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black/80">
+                <button className="flex items-center gap-2 rounded-md bg-black/70 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black/80">
                     <Icon name="visibility" size={18} />
                     Preview Trailer
                 </button>

@@ -11,7 +11,7 @@ export default function ViewToggle({
     onViewChange,
 }: ViewToggleProps) {
     return (
-        <div className="flex items-center rounded-lg border border-slate-200 bg-white p-1">
+        <div className="flex items-center rounded-md border border-slate-200 bg-white p-1">
             <button
                 onClick={() => onViewChange('grid')}
                 className={`rounded p-1.5 transition-colors ${

@@ -12,7 +12,7 @@ export default function Recommendations() {
             <div className="flex flex-col gap-4">
                 {/* Rec Card 1 */}
                 <div className="group flex cursor-pointer items-center gap-3">
-                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
                         <img
                             alt="Business Strategy"
                             className="h-full w-full object-cover transition-transform group-hover:scale-110"
@@ -35,7 +35,7 @@ export default function Recommendations() {
 
                 {/* Rec Card 2 */}
                 <div className="group flex cursor-pointer items-center gap-3">
-                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
                         <img
                             alt="Photography"
                             className="h-full w-full object-cover transition-transform group-hover:scale-110"
@@ -58,7 +58,7 @@ export default function Recommendations() {
 
                 {/* Rec Card 3 */}
                 <div className="group flex cursor-pointer items-center gap-3">
-                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
                         <img
                             alt="Advanced Coding"
                             className="h-full w-full object-cover transition-transform group-hover:scale-110"

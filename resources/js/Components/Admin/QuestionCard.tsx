@@ -95,7 +95,7 @@ export default function QuestionCard({
                         <button
                             type="button"
                             onClick={() => onDuplicate(question.id)}
-                            className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-primary/5 hover:text-primary"
+                            className="rounded-md p-2 text-slate-400 transition-colors hover:bg-primary/5 hover:text-primary"
                             title="Duplicate"
                         >
                             <Icon name="content_copy" size={20} />
@@ -103,7 +103,7 @@ export default function QuestionCard({
                         <button
                             type="button"
                             onClick={() => onDelete(question.id)}
-                            className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-500"
+                            className="rounded-md p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-500"
                             title="Delete"
                         >
                             <Icon name="delete" size={20} />

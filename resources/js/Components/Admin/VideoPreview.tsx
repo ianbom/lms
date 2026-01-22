@@ -72,7 +72,7 @@ export default function VideoPreview({
                     <button
                         type="button"
                         onClick={onOpenInYouTube}
-                        className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#dae7e0] py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb]"
+                        className="flex w-full items-center justify-center gap-2 rounded-md border border-[#dae7e0] py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb]"
                     >
                         <Icon name="open_in_new" size={18} />
                         Buka di YouTube

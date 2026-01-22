@@ -26,7 +26,7 @@ export default function LessonItem({ lesson }: LessonItemProps) {
                 </div>
 
                 <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-lg ${isVideo ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'}`}
+                    className={`flex h-10 w-10 items-center justify-center rounded-md ${isVideo ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'}`}
                 >
                     <Icon name={isVideo ? 'play_circle' : 'quiz'} size={24} />
                 </div>

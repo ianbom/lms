@@ -124,7 +124,7 @@ export default function CreateClass({ categories, mentors }: Props) {
                 <div className="flex items-center gap-3">
                     <Link
                         href={route('admin.classes')}
-                        className="rounded-lg px-4 py-2.5 text-sm font-medium text-[#5e6a62] transition-colors hover:bg-[#f0f5f2] hover:text-[#101814]"
+                        className="rounded-md px-4 py-2.5 text-sm font-medium text-[#5e6a62] transition-colors hover:bg-[#f0f5f2] hover:text-[#101814]"
                     >
                         Batalkan
                     </Link>
@@ -132,7 +132,7 @@ export default function CreateClass({ categories, mentors }: Props) {
                         type="button"
                         onClick={handleSaveDraft}
                         disabled={processing}
-                        className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
+                        className="flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
                     >
                         <Icon name="publish" size={18} />
                         {processing ? 'Menyimpan...' : 'Simpan Draft'}

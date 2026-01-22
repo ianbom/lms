@@ -59,7 +59,7 @@ export default function OrderStats({ stats }: OrderStatsProps) {
                     className="flex items-center gap-4 rounded-xl border border-border-light bg-white p-4 shadow-card"
                 >
                     <div
-                        className={`flex h-12 w-12 items-center justify-center rounded-lg ${item.bgColor} ${item.textColor}`}
+                        className={`flex h-12 w-12 items-center justify-center rounded-md ${item.bgColor} ${item.textColor}`}
                     >
                         <Icon name={item.icon} size={24} />
                     </div>

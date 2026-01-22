@@ -61,7 +61,7 @@ export default function CTASection({
                             <div className="space-y-4">
                                 {/* Stats Row */}
                                 <div className="flex gap-4">
-                                    <div className="w-1/3 rounded-lg bg-blue-50 p-4">
+                                    <div className="w-1/3 rounded-md bg-blue-50 p-4">
                                         <div className="text-2xl font-bold text-blue-600">
                                             3
                                         </div>
@@ -69,7 +69,7 @@ export default function CTASection({
                                             Courses
                                         </div>
                                     </div>
-                                    <div className="w-1/3 rounded-lg bg-green-50 p-4">
+                                    <div className="w-1/3 rounded-md bg-green-50 p-4">
                                         <div className="text-2xl font-bold text-green-600">
                                             12h
                                         </div>
@@ -77,7 +77,7 @@ export default function CTASection({
                                             Learned
                                         </div>
                                     </div>
-                                    <div className="w-1/3 rounded-lg bg-purple-50 p-4">
+                                    <div className="w-1/3 rounded-md bg-purple-50 p-4">
                                         <div className="text-2xl font-bold text-purple-600">
                                             85%
                                         </div>
@@ -88,7 +88,7 @@ export default function CTASection({
                                 </div>
 
                                 {/* Chart Placeholder */}
-                                <div className="flex h-32 items-center justify-center rounded-lg bg-gray-50 text-gray-300">
+                                <div className="flex h-32 items-center justify-center rounded-md bg-gray-50 text-gray-300">
                                     <Icon name="analytics" size={40} />
                                 </div>
                             </div>

@@ -89,7 +89,7 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                             {user ? (
                                 <Link
                                     href={route('user.dashboard')}
-                                    className="hidden rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark sm:block"
+                                    className="hidden rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark sm:block"
                                 >
                                     Dashboard
                                 </Link>
@@ -103,7 +103,7 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                                     </Link>
                                     <Link
                                         href={route('register')}
-                                        className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                        className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
                                     >
                                         Daftar
                                     </Link>

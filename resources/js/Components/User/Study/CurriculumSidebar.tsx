@@ -220,7 +220,7 @@ export default function CurriculumSidebar({
                         onClick={() => onVideoSelect(nextVideo.video.id)}
                         className="flex w-full items-center gap-3 text-left transition-colors hover:opacity-80"
                     >
-                        <div className="flex h-10 w-16 items-center justify-center rounded-lg bg-slate-200">
+                        <div className="flex h-10 w-16 items-center justify-center rounded-md bg-slate-200">
                             <Icon
                                 name="play_circle"
                                 size={24}

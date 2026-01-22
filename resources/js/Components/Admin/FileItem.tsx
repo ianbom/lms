@@ -46,7 +46,7 @@ export default function FileItem({ file, onRemove }: FileItemProps) {
     const config = iconConfig[file.type];
 
     return (
-        <div className="group relative flex items-center overflow-hidden rounded-lg border border-[#e5e7eb] bg-white p-3">
+        <div className="group relative flex items-center overflow-hidden rounded-md border border-[#e5e7eb] bg-white p-3">
             {/* Progress bar for uploading */}
             {file.isUploading && (
                 <div className="absolute bottom-0 left-0 h-1 w-full bg-[#f0f5f2]">
@@ -59,7 +59,7 @@ export default function FileItem({ file, onRemove }: FileItemProps) {
 
             {/* File Icon */}
             <div
-                className={`mr-4 flex h-10 w-10 items-center justify-center rounded-lg ${config.bgColor}`}
+                className={`mr-4 flex h-10 w-10 items-center justify-center rounded-md ${config.bgColor}`}
             >
                 <Icon
                     name={config.icon}
@@ -90,7 +90,7 @@ export default function FileItem({ file, onRemove }: FileItemProps) {
             <button
                 type="button"
                 onClick={() => onRemove?.(file.id)}
-                className={`rounded-lg p-2 transition-colors ${
+                className={`rounded-md p-2 transition-colors ${
                     file.isUploading
                         ? 'text-[#a0b3a9] hover:text-[#5e6a62]'
                         : 'text-[#a0b3a9] opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100'

@@ -307,14 +307,14 @@ export default function CreateModule({ classId }: CreateModuleProps) {
                     <div className="flex items-center gap-3">
                         <Link
                             href={route('admin.classes')}
-                            className="rounded-lg border border-[#dae7e0] bg-white px-5 py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb]"
+                            className="rounded-md border border-[#dae7e0] bg-white px-5 py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb]"
                         >
                             Batal
                         </Link>
                         <button
                             type="submit"
                             disabled={processing}
-                            className="flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
+                            className="flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
                         >
                             <Icon name="save" size={20} />
                             {processing ? 'Menyimpan...' : 'Simpan Modul'}

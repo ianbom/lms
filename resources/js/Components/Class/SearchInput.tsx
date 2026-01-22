@@ -20,7 +20,7 @@ export default function SearchInput({
             </div>
             <input
                 type="text"
-                className="block w-full rounded-lg border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary"
+                className="block w-full rounded-md border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary"
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}

@@ -133,7 +133,7 @@ export default function HeroSection({
                             {/* Floating Card - Certificates */}
                             <div className="floating-card shadow-soft absolute -left-12 top-12 z-20 w-48 rounded-2xl border border-gray-100 bg-white p-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="rounded-lg bg-orange-100 p-2 text-orange-600">
+                                    <div className="rounded-md bg-orange-100 p-2 text-orange-600">
                                         <Icon name="emoji_events" size={20} />
                                     </div>
                                     <div>

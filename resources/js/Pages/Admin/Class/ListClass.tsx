@@ -129,7 +129,7 @@ export default function ClassManagement({ classes }: Props) {
                 <div className="flex items-center gap-3">
                     <Link
                         href={route('admin.classes.create')}
-                        className="flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e]"
+                        className="flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e]"
                     >
                         <Icon name="add" size={20} />
                         <span className="truncate">Buat Kelas Baru</span>
@@ -150,26 +150,26 @@ export default function ClassManagement({ classes }: Props) {
 
             {/* Summary Stats */}
             <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 shadow-sm">
+                <div className="flex items-center gap-2 rounded-md bg-white px-4 py-2 shadow-sm">
                     <span className="text-sm text-[#5e6a62]">Total:</span>
                     <span className="text-sm font-bold text-[#101814]">
                         {classes.length} Kelas
                     </span>
                 </div>
-                <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 shadow-sm">
+                <div className="flex items-center gap-2 rounded-md bg-white px-4 py-2 shadow-sm">
                     <span className="text-sm text-[#5e6a62]">Dipublikasi:</span>
                     <span className="text-sm font-bold text-primary">
                         {classes.filter((c) => c.status === 'published').length}
                     </span>
                 </div>
-                <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 shadow-sm">
+                <div className="flex items-center gap-2 rounded-md bg-white px-4 py-2 shadow-sm">
                     <span className="text-sm text-[#5e6a62]">Draft:</span>
                     <span className="text-sm font-bold text-amber-600">
                         {classes.filter((c) => c.status === 'draft').length}
                     </span>
                 </div>
                 {filteredClasses.length !== classes.length && (
-                    <div className="flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-2 shadow-sm">
+                    <div className="flex items-center gap-2 rounded-md bg-blue-50 px-4 py-2 shadow-sm">
                         <span className="text-sm text-blue-600">
                             Menampilkan {filteredClasses.length} dari{' '}
                             {classes.length} kelas

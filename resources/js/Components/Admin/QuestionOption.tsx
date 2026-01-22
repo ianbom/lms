@@ -23,7 +23,7 @@ export default function QuestionOption({
 }: QuestionOptionProps) {
     return (
         <div
-            className={`group flex items-center gap-3 rounded-lg border p-2 pr-4 transition-all ${
+            className={`group flex items-center gap-3 rounded-md border p-2 pr-4 transition-all ${
                 option.isCorrect
                     ? 'border-green-200 bg-green-50/50'
                     : 'border-transparent hover:border-slate-200 hover:bg-slate-50'

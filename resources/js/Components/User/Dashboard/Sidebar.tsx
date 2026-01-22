@@ -19,7 +19,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     {onClose && (
                         <button
                             onClick={onClose}
-                            className="mr-1 flex size-8 items-center justify-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white lg:hidden"
+                            className="mr-1 flex size-8 items-center justify-center rounded-md text-white/70 hover:bg-white/10 hover:text-white lg:hidden"
                         >
                             <Icon name="close" size={20} />
                         </button>

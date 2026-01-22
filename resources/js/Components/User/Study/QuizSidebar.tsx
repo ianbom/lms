@@ -114,7 +114,7 @@ function TimerCard({
             </div>
 
             {/* Timer Display */}
-            <div className="mb-6 rounded-lg border border-slate-100 bg-slate-50 py-3 text-center font-mono text-4xl font-bold tracking-tight text-slate-900">
+            <div className="mb-6 rounded-md border border-slate-100 bg-slate-50 py-3 text-center font-mono text-4xl font-bold tracking-tight text-slate-900">
                 {formatTime(timeSpent)}
             </div>
 
@@ -168,7 +168,7 @@ function QuestionNavigationCard({
                     const status = getQuestionStatus(index);
 
                     let buttonClass =
-                        'aspect-square flex items-center justify-center rounded-lg font-bold text-sm transition-colors';
+                        'aspect-square flex items-center justify-center rounded-md font-bold text-sm transition-colors';
 
                     if (status === 'current') {
                         buttonClass +=
@@ -235,7 +235,7 @@ function SubmitCard({
             <button
                 onClick={onSubmit}
                 disabled={isSubmitting}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-green-700 hover:shadow-lg disabled:opacity-50"
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-green-700 hover:shadow-lg disabled:opacity-50"
             >
                 {isSubmitting ? (
                     <>
@@ -273,7 +273,7 @@ function QuizInfoCard({
 
             <div className="space-y-4">
                 <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-md bg-blue-100">
                         <Icon name="help" size={20} className="text-blue-600" />
                     </div>
                     <div>
@@ -285,7 +285,7 @@ function QuizInfoCard({
                 </div>
 
                 <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-md bg-amber-100">
                         <Icon name="star" size={20} className="text-amber-600" />
                     </div>
                     <div>
@@ -298,7 +298,7 @@ function QuizInfoCard({
                 </div>
 
                 <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-md bg-green-100">
                         <Icon name="verified" size={20} className="text-green-600" />
                     </div>
                     <div>
@@ -308,7 +308,7 @@ function QuizInfoCard({
                 </div>
 
                 <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-md bg-purple-100">
                         <Icon name="refresh" size={20} className="text-purple-600" />
                     </div>
                     <div>

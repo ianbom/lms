@@ -110,7 +110,7 @@ export default function ClassCard({ item, className = '' }: ClassCardProps) {
                     </div>
 
                     {/* CTA Button */}
-                    <span className="rounded-lg border border-[#00753D] px-3 py-1.5 text-xs font-semibold text-[#00753D] transition-colors group-hover:bg-[#00753D] group-hover:text-white">
+                    <span className="rounded-md border border-[#00753D] px-3 py-1.5 text-xs font-semibold text-[#00753D] transition-colors group-hover:bg-[#00753D] group-hover:text-white">
                         {isFree ? 'Mulai' : 'Detail'}
                     </span>
                 </div>

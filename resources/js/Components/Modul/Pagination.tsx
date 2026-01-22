@@ -52,7 +52,7 @@ export default function Pagination({
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-md p-2 text-gray-500 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
             >
                 <Icon name="chevron_left" size={24} />
             </button>
@@ -70,7 +70,7 @@ export default function Pagination({
                     <button
                         key={page}
                         onClick={() => onPageChange(page)}
-                        className={`flex h-10 min-w-[40px] items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                        className={`flex h-10 min-w-[40px] items-center justify-center rounded-md text-sm font-medium transition-colors ${
                             currentPage === page
                                 ? 'bg-primary font-semibold text-white shadow-md shadow-primary/30'
                                 : 'text-gray-600 hover:bg-gray-100'
@@ -85,7 +85,7 @@ export default function Pagination({
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-md p-2 text-gray-500 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
             >
                 <Icon name="chevron_right" size={24} />
             </button>

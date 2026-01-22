@@ -21,7 +21,7 @@ export default function FilterTabs({
                 <button
                     key={tab.key}
                     onClick={() => onTabChange(tab.key)}
-                    className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+                    className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
                         activeTab === tab.key
                             ? 'border border-gray-100 bg-white font-semibold text-primary shadow-sm'
                             : 'text-gray-600 hover:bg-gray-100'

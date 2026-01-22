@@ -250,14 +250,14 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                         <div className="flex items-center gap-3">
                             <Link
                                 href={route('admin.classes')}
-                                className="inline-flex items-center justify-center rounded-lg border border-[#dae7e0] bg-white px-4 py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                className="inline-flex items-center justify-center rounded-md border border-[#dae7e0] bg-white px-4 py-2.5 text-sm font-semibold text-[#5e6a62] transition-colors hover:bg-[#f9fafb] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                             >
                                 Batal
                             </Link>
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
+                                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
                             >
                                 <Icon name="save" size={20} />
                                 {processing ? 'Menyimpan...' : 'Simpan Kuis'}
@@ -267,7 +267,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
 
                     {/* Error Display */}
                     {Object.keys(errors).length > 0 && (
-                        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+                        <div className="rounded-md border border-red-200 bg-red-50 p-4">
                             <p className="text-sm font-medium text-red-800">
                                 Terjadi kesalahan:
                             </p>
@@ -312,7 +312,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                             </FormCard>
 
                             {/* Questions Section Header */}
-                            <div className="flex items-center justify-between rounded-lg bg-[#f9fafb] px-4 py-3">
+                            <div className="flex items-center justify-between rounded-md bg-[#f9fafb] px-4 py-3">
                                 <h2 className="text-base font-bold text-[#101814] sm:text-lg">
                                     Pertanyaan
                                 </h2>
@@ -364,7 +364,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                     <div className="space-y-4 p-5">
                                         {/* Quiz Stats */}
                                         <div className="space-y-3">
-                                            <div className="flex items-center justify-between rounded-lg bg-[#f9fafb] p-3">
+                                            <div className="flex items-center justify-between rounded-md bg-[#f9fafb] p-3">
                                                 <span className="text-sm text-[#5e6a62]">
                                                     Judul Kuis
                                                 </span>
@@ -373,7 +373,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                                         'Belum ada judul'}
                                                 </span>
                                             </div>
-                                            <div className="flex items-center justify-between rounded-lg bg-[#f9fafb] p-3">
+                                            <div className="flex items-center justify-between rounded-md bg-[#f9fafb] p-3">
                                                 <span className="text-sm text-[#5e6a62]">
                                                     Modul
                                                 </span>
@@ -385,7 +385,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                                     )?.title || 'Belum dipilih'}
                                                 </span>
                                             </div>
-                                            <div className="flex items-center justify-between rounded-lg bg-[#f9fafb] p-3">
+                                            <div className="flex items-center justify-between rounded-md bg-[#f9fafb] p-3">
                                                 <span className="text-sm text-[#5e6a62]">
                                                     Tipe
                                                 </span>
@@ -403,7 +403,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                                 Statistik Pertanyaan
                                             </p>
                                             <div className="space-y-2">
-                                                <div className="flex items-center justify-between rounded-lg bg-primary/10 p-3">
+                                                <div className="flex items-center justify-between rounded-md bg-primary/10 p-3">
                                                     <div className="flex items-center gap-2">
                                                         <Icon
                                                             name="quiz"
@@ -418,7 +418,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                                         {totalQuestions}
                                                     </span>
                                                 </div>
-                                                <div className="flex items-center justify-between rounded-lg bg-[#f9fafb] p-3">
+                                                <div className="flex items-center justify-between rounded-md bg-[#f9fafb] p-3">
                                                     <div className="flex items-center gap-2">
                                                         <Icon
                                                             name="star"
@@ -449,7 +449,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
                                             <button
                                                 type="button"
                                                 onClick={handleAddQuestion}
-                                                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary/5 px-3 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+                                                className="flex w-full items-center justify-center gap-2 rounded-md bg-primary/5 px-3 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
                                             >
                                                 <Icon
                                                     name="add_circle"

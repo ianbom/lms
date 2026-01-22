@@ -43,7 +43,7 @@ export default function ResourceLink({ resource }: ResourceLinkProps) {
             className={`group flex items-center gap-3 rounded-xl border px-4 py-3 shadow-sm transition-all hover:shadow-md ${styles.containerClass}`}
         >
             <div
-                className={`flex size-9 items-center justify-center rounded-lg bg-white shadow-sm ${styles.iconClass}`}
+                className={`flex size-9 items-center justify-center rounded-md bg-white shadow-sm ${styles.iconClass}`}
             >
                 <Icon name={styles.icon} size={20} />
             </div>

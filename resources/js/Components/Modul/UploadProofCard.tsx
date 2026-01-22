@@ -51,7 +51,7 @@ export default function UploadProofCard({
         <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-gray-100 bg-gray-50/50 px-6 py-4">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-primary-light text-primary">
+                <div className="flex size-10 items-center justify-center rounded-md bg-primary-light text-primary">
                     <Icon name="upload_file" size={22} />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900">
@@ -76,7 +76,7 @@ export default function UploadProofCard({
                 >
                     <div className="flex flex-col items-center justify-center p-6">
                         {previewUrl ? (
-                            <div className="relative mb-4 h-48 w-full overflow-hidden rounded-lg">
+                            <div className="relative mb-4 h-48 w-full overflow-hidden rounded-md">
                                 <img
                                     src={previewUrl}
                                     alt="Preview"

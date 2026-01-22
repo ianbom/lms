@@ -28,7 +28,7 @@ export default function SearchBar({
                 placeholder={placeholder}
             />
             <div className="absolute inset-y-0 right-2 flex items-center">
-                <span className="rounded-lg bg-primary/10 px-2 py-1 text-xs font-semibold text-primary">
+                <span className="rounded-md bg-primary/10 px-2 py-1 text-xs font-semibold text-primary">
                     CMD+K
                 </span>
             </div>

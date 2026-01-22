@@ -43,7 +43,7 @@ export default function ListCategory({ categories }: ListCategoryProps) {
                     </Link>
                 </div>
 
-                <div className="overflow-hidden border border-slate-200 bg-white shadow-sm sm:rounded-lg">
+                <div className="overflow-hidden border border-slate-200 bg-white shadow-sm sm:rounded-md">
                     <div className="overflow-x-auto">
                         <table className="min-w-full divide-y divide-slate-200">
                             <thead className="bg-[#F8FAFC]">
@@ -83,7 +83,7 @@ export default function ListCategory({ categories }: ListCategoryProps) {
                                         >
                                             <td className="whitespace-nowrap px-6 py-4">
                                                 <div className="flex items-center">
-                                                    <div className="bg-primary-50 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg text-primary">
+                                                    <div className="bg-primary-50 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-primary">
                                                         <span className="text-lg font-bold">
                                                             {category.name
                                                                 .charAt(0)

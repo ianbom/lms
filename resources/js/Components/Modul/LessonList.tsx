@@ -76,7 +76,7 @@ export default function LessonList({
                         </div>
 
                         {lesson.isPreview && (
-                            <span className="rounded-lg border border-gray-200 bg-white px-3 py-1 text-sm font-medium text-gray-700">
+                            <span className="rounded-md border border-gray-200 bg-white px-3 py-1 text-sm font-medium text-gray-700">
                                 Preview
                             </span>
                         )}

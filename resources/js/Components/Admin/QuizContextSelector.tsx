@@ -42,7 +42,7 @@ export default function QuizContextSelector({
                             className="peer sr-only"
                         />
                         <div
-                            className={`flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 transition-all ${
+                            className={`flex items-center justify-center gap-2 rounded-md border px-4 py-2.5 transition-all ${
                                 value === option.value
                                     ? 'border-black/5 bg-white text-primary shadow-sm'
                                     : 'border-transparent text-slate-500 hover:text-slate-700'

@@ -31,7 +31,7 @@ export default function FormSelect({
                 <select
                     value={value}
                     onChange={(e) => onChange?.(e.target.value)}
-                    className={`h-12 w-full appearance-none rounded-lg border bg-white px-4 pr-10 text-sm text-[#101814] transition-all focus:outline-none focus:ring-2 ${
+                    className={`h-12 w-full appearance-none rounded-md border bg-white px-4 pr-10 text-sm text-[#101814] transition-all focus:outline-none focus:ring-2 ${
                         error
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
                             : 'border-[#dae7e0] focus:border-primary focus:ring-primary/20'

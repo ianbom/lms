@@ -69,7 +69,7 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                 <div className="flex items-center justify-end gap-2">
                     <Link
                         href={route('admin.classes.show', classItem.id)}
-                        className="flex h-8 items-center gap-1.5 rounded-lg border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-primary hover:text-primary"
+                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-primary hover:text-primary"
                         title="Detail"
                     >
                         <Icon name="visibility" size={14} />
@@ -77,7 +77,7 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                     </Link>
                     <Link
                         href={route('admin.module.create', classItem.id)}
-                        className="flex h-8 items-center gap-1.5 rounded-lg border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-blue-500 hover:text-blue-500"
+                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-blue-500 hover:text-blue-500"
                         title="Buat Modul"
                     >
                         <Icon name="library_add" size={14} />
@@ -85,7 +85,7 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                     </Link>
                     <Link
                         href={route('admin.quiz.create', classItem.id)}
-                        className="flex h-8 items-center gap-1.5 rounded-lg border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-amber-500 hover:text-amber-500"
+                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-amber-500 hover:text-amber-500"
                         title="Buat Kuis"
                     >
                         <Icon name="quiz" size={14} />

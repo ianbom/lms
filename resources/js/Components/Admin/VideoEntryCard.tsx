@@ -60,7 +60,7 @@ export default function VideoEntryCard({
                     <button
                         type="button"
                         onClick={() => onRemove(video.id)}
-                        className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
+                        className="flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
                     >
                         <Icon name="delete" size={18} />
                         Remove
@@ -112,7 +112,7 @@ export default function VideoEntryCard({
                     />
 
                     {/* Preview Toggle */}
-                    <div className="flex items-center justify-between rounded-lg border border-[#e5e7eb] bg-[#f9fafb] p-4">
+                    <div className="flex items-center justify-between rounded-md border border-[#e5e7eb] bg-[#f9fafb] p-4">
                         <div className="flex items-center gap-3">
                             <Icon
                                 name="visibility"
@@ -153,7 +153,7 @@ export default function VideoEntryCard({
                     </div>
 
                     {/* Supporting Materials */}
-                    <div className="rounded-lg border border-[#f0f5f2] bg-[#f9fafb] p-4">
+                    <div className="rounded-md border border-[#f0f5f2] bg-[#f9fafb] p-4">
                         <div className="mb-3 flex items-center justify-between">
                             <div className="flex items-center gap-2 text-[#101814]">
                                 <Icon

@@ -76,7 +76,7 @@ export default function CourseCard({
                     {/* Enroll Button */}
                     <button
                         onClick={onEnroll}
-                        className="rounded-lg border border-primary px-4 py-1.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white"
+                        className="rounded-md border border-primary px-4 py-1.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white"
                     >
                         Enroll Now
                     </button>

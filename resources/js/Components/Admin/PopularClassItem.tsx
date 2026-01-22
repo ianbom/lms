@@ -20,10 +20,10 @@ export default function PopularClassItem({
     return (
         <div
             onClick={onClick}
-            className="group flex cursor-pointer items-center gap-4 rounded-lg p-4 transition-colors hover:bg-background-light"
+            className="group flex cursor-pointer items-center gap-4 rounded-md p-4 transition-colors hover:bg-background-light"
         >
             <div
-                className="h-12 w-20 shrink-0 rounded-lg bg-cover bg-center bg-no-repeat shadow-sm"
+                className="h-12 w-20 shrink-0 rounded-md bg-cover bg-center bg-no-repeat shadow-sm"
                 style={{ backgroundImage: `url("${thumbnail}")` }}
             />
             <div className="min-w-0 flex-1">

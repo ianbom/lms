@@ -10,9 +10,9 @@ export default function Certificates() {
             </div>
             <div className="flex flex-col gap-3">
                 {/* Certificate Item 1 */}
-                <div className="flex items-center justify-between rounded-lg border border-border-light p-3 hover:bg-gray-50">
+                <div className="flex items-center justify-between rounded-md border border-border-light p-3 hover:bg-gray-50">
                     <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-md bg-green-100 text-green-700">
                             <Icon name="workspace_premium" size={24} />
                         </div>
                         <div>
@@ -24,19 +24,19 @@ export default function Certificates() {
                             </p>
                         </div>
                     </div>
-                    <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-border-light bg-white text-slate-900 sm:hidden">
+                    <button className="flex h-8 w-8 items-center justify-center rounded-md border border-border-light bg-white text-slate-900 sm:hidden">
                         <Icon name="download" size={16} />
                     </button>
-                    <button className="hidden items-center gap-2 rounded-lg border border-border-light bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
+                    <button className="hidden items-center gap-2 rounded-md border border-border-light bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
                         <Icon name="download" size={16} />
                         Download
                     </button>
                 </div>
 
                 {/* Certificate Item 2 */}
-                <div className="flex items-center justify-between rounded-lg border border-border-light p-3 hover:bg-gray-50">
+                <div className="flex items-center justify-between rounded-md border border-border-light p-3 hover:bg-gray-50">
                     <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-md bg-green-100 text-green-700">
                             <Icon name="workspace_premium" size={24} />
                         </div>
                         <div>
@@ -48,10 +48,10 @@ export default function Certificates() {
                             </p>
                         </div>
                     </div>
-                    <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-border-light bg-white text-slate-900 sm:hidden">
+                    <button className="flex h-8 w-8 items-center justify-center rounded-md border border-border-light bg-white text-slate-900 sm:hidden">
                         <Icon name="download" size={16} />
                     </button>
-                    <button className="hidden items-center gap-2 rounded-lg border border-border-light bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
+                    <button className="hidden items-center gap-2 rounded-md border border-border-light bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
                         <Icon name="download" size={16} />
                         Download
                     </button>

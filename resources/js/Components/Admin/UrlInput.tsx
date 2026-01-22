@@ -24,7 +24,7 @@ export default function UrlInput({
             <label className="text-sm font-medium text-[#101814]">
                 {label}
             </label>
-            <div className="relative flex rounded-lg shadow-sm">
+            <div className="relative flex rounded-md shadow-sm">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <span className="text-sm text-[#5e6a62]">{prefix}</span>
                 </div>
@@ -33,7 +33,7 @@ export default function UrlInput({
                     value={value}
                     onChange={(e) => onChange?.(e.target.value)}
                     placeholder={placeholder}
-                    className="block h-12 w-full rounded-lg border border-[#dae7e0] bg-white py-2.5 pl-16 pr-20 text-sm text-[#101814] placeholder-[#a0b3a9] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="block h-12 w-full rounded-md border border-[#dae7e0] bg-white py-2.5 pl-16 pr-20 text-sm text-[#101814] placeholder-[#a0b3a9] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
                 {onCheck && (
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2">

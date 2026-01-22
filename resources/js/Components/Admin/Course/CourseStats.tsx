@@ -22,7 +22,7 @@ export default function CourseStats({
                         {totalModules}
                     </p>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#dae7e0]/50 text-[#101814]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[#dae7e0]/50 text-[#101814]">
                     <Icon name="grid_view" size={24} />
                 </div>
             </div>
@@ -36,7 +36,7 @@ export default function CourseStats({
                         {totalLessons}
                     </p>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#fff0e6] text-[#ff8a3d]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[#fff0e6] text-[#ff8a3d]">
                     <Icon name="play_lesson" size={24} />
                 </div>
             </div>
@@ -50,7 +50,7 @@ export default function CourseStats({
                         {totalDuration}
                     </p>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#e6f0ff] text-[#3d8aff]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[#e6f0ff] text-[#3d8aff]">
                     <Icon name="timer" size={24} />
                 </div>
             </div>

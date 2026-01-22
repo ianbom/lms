@@ -79,13 +79,13 @@ export default function MentorSelector({
                     onFocus={() => setIsFocused(true)}
                     // Delay blur to allow clicking on dropdown items
                     onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-                    className="h-11 w-full rounded-lg border border-[#dae7e0] bg-white pl-10 pr-4 text-sm text-[#101814] placeholder-[#a0b3a9] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="h-11 w-full rounded-md border border-[#dae7e0] bg-white pl-10 pr-4 text-sm text-[#101814] placeholder-[#a0b3a9] transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
 
                 {/* Dropdown Results */}
                 {isFocused &&
                     (searchQuery.length > 0 || filteredMentors.length > 0) && (
-                        <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-lg border border-[#e5e7eb] bg-white shadow-lg">
+                        <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-md border border-[#e5e7eb] bg-white shadow-lg">
                             {filteredMentors.length > 0 ? (
                                 filteredMentors.map((mentor) => (
                                     <button

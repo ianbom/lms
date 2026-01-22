@@ -76,7 +76,7 @@ function SearchInput({
                 placeholder="Cari kelas..."
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full rounded-md border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
         </div>
     );
@@ -100,7 +100,7 @@ function SelectDropdown({
             <select
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="appearance-none rounded-lg border border-slate-200 bg-white py-2 pl-3 pr-10 text-sm font-medium text-slate-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className="appearance-none rounded-md border border-slate-200 bg-white py-2 pl-3 pr-10 text-sm font-medium text-slate-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             >
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>

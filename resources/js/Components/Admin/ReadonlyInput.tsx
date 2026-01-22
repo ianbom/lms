@@ -23,7 +23,7 @@ export default function ReadonlyInput({
                     type="text"
                     value={value}
                     readOnly
-                    className="h-12 w-full cursor-not-allowed rounded-lg border border-[#e5e7eb] bg-[#f9fafb] py-2.5 pl-4 pr-10 text-sm text-[#5e6a62] shadow-sm"
+                    className="h-12 w-full cursor-not-allowed rounded-md border border-[#e5e7eb] bg-[#f9fafb] py-2.5 pl-4 pr-10 text-sm text-[#5e6a62] shadow-sm"
                 />
                 {icon && (
                     <Icon

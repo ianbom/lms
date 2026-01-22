@@ -106,7 +106,7 @@ export default function MyOrder({ orders, stats, filters }: Props) {
                 render: (order: Order) => (
                     <div className="flex items-center gap-3">
                         <div
-                            className="h-10 w-14 rounded-lg bg-slate-200 bg-cover bg-center"
+                            className="h-10 w-14 rounded-md bg-slate-200 bg-cover bg-center"
                             style={
                                 order.class.thumbnail_url
                                     ? {
@@ -196,7 +196,7 @@ export default function MyOrder({ orders, stats, filters }: Props) {
             <Head title="Riwayat Pesanan" />
 
             {/* Header */}
-            <div className="mt-6 flex flex-col gap-1 lg:mt-0">
+            <div className="mt-6 flex flex-col gap-1 lg:mt-12">
                 <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                     Riwayat Pesanan
                 </h2>

@@ -137,7 +137,7 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                             <Icon name="search" size={20} />
                         </div>
                         <input
-                            className="block w-full rounded-lg border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:bg-white focus:ring-primary"
+                            className="block w-full rounded-md border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:bg-white focus:ring-primary"
                             placeholder="Search by Order ID, User..."
                             type="text"
                             value={search}
@@ -147,7 +147,7 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                     <div className="relative">
                         <button
                             onClick={handleSort}
-                            className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${filters.direction ? 'border-primary bg-primary/5 text-primary' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+                            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${filters.direction ? 'border-primary bg-primary/5 text-primary' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
                         >
                             <Icon name="sort" size={20} />
                             <span className="hidden sm:inline">
@@ -255,13 +255,13 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                         {order.status === 'pending' ? (
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
-                                                    className="flex size-8 items-center justify-center rounded-lg border border-slate-200 text-red-500 transition-colors hover:border-red-200 hover:bg-red-50"
+                                                    className="flex size-8 items-center justify-center rounded-md border border-slate-200 text-red-500 transition-colors hover:border-red-200 hover:bg-red-50"
                                                     title="Reject"
                                                 >
                                                     <Icon name="close" size={18} />
                                                 </button>
                                                 <button
-                                                    className="flex size-8 items-center justify-center rounded-lg bg-primary text-white shadow-sm transition-colors hover:bg-primary-dark"
+                                                    className="flex size-8 items-center justify-center rounded-md bg-primary text-white shadow-sm transition-colors hover:bg-primary-dark"
                                                     title="Approve"
                                                 >
                                                     <Icon name="check" size={18} />

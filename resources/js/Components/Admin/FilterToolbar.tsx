@@ -73,7 +73,7 @@ export default function FilterToolbar({
                 <button
                     onClick={onExportClick}
                     title="Ekspor Data"
-                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#dae7e0] bg-white text-[#5e6a62] transition-colors hover:text-primary"
+                    className="flex h-10 w-10 items-center justify-center rounded-md border border-[#dae7e0] bg-white text-[#5e6a62] transition-colors hover:text-primary"
                 >
                     <Icon name="download" size={20} />
                 </button>

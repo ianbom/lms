@@ -55,7 +55,7 @@ export default function Pagination({
             <button
                 onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white hover:border-primary hover:text-primary disabled:opacity-50"
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-200 bg-white hover:border-primary hover:text-primary disabled:opacity-50"
             >
                 <Icon name="chevron_left" size={20} />
             </button>
@@ -65,7 +65,7 @@ export default function Pagination({
                     <button
                         key={index}
                         onClick={() => handlePageChange(page)}
-                        className={`flex h-9 min-w-[36px] items-center justify-center rounded-lg px-3 text-sm font-medium ${
+                        className={`flex h-9 min-w-[36px] items-center justify-center rounded-md px-3 text-sm font-medium ${
                             currentPage === page
                                 ? 'bg-primary text-white shadow-sm'
                                 : 'border border-slate-200 bg-white text-slate-600 hover:border-primary hover:text-primary'
@@ -88,7 +88,7 @@ export default function Pagination({
                     handlePageChange(Math.min(totalPages, currentPage + 1))
                 }
                 disabled={currentPage === totalPages}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white hover:border-primary hover:text-primary disabled:opacity-50"
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-200 bg-white hover:border-primary hover:text-primary disabled:opacity-50"
             >
                 <Icon name="chevron_right" size={20} />
             </button>

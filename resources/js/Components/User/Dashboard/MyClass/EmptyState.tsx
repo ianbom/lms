@@ -25,7 +25,7 @@ export default function EmptyState({ hasFilters }: EmptyStateProps) {
             {!hasFilters && (
                 <Link
                     href={route('user.classes')}
-                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                    className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
                 >
                     <Icon name="explore" size={18} />
                     Jelajahi Kelas

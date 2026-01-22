@@ -42,12 +42,12 @@ export default function UserDashboardLayout({
                 <div className="flex h-14 items-center justify-between border-b border-slate-200 bg-white px-4 lg:hidden">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="flex size-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100"
+                        className="flex size-10 items-center justify-center rounded-md text-slate-600 hover:bg-slate-100"
                     >
                         <Icon name="menu" size={24} />
                     </button>
                     <div className="flex items-center gap-2">
-                        <div className="rounded-lg bg-primary/10 p-1.5 text-primary">
+                        <div className="rounded-md bg-primary/10 p-1.5 text-primary">
                             <Icon name="school" size={18} />
                         </div>
                         <span className="font-bold text-slate-900">ImpactAcademy</span>
@@ -55,7 +55,7 @@ export default function UserDashboardLayout({
                     {rightSidebar ? (
                         <button
                             onClick={() => setRightSidebarOpen(true)}
-                            className="flex size-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100"
+                            className="flex size-10 items-center justify-center rounded-md text-slate-600 hover:bg-slate-100"
                         >
                             <Icon name="menu_book" size={24} />
                         </button>

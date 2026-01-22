@@ -88,7 +88,7 @@ export default function Success({
                                             Payment Method
                                         </p>
                                         <div className="flex items-center gap-2">
-                                            <div className="flex h-4 w-6 items-center justify-center rounded-sm bg-slate-200">
+                                            <div className="flex h-4 w-6 items-center justify-center rounded-md bg-slate-200">
                                                 <Icon
                                                     name="account_balance"
                                                     size={12}
@@ -143,7 +143,7 @@ export default function Success({
                             <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-900">
                                 Detail Transfer
                             </h4>
-                            <div className="flex flex-col gap-6 rounded-lg border border-dashed border-slate-300 bg-white p-5 md:flex-row md:items-center md:justify-between">
+                            <div className="flex flex-col gap-6 rounded-md border border-dashed border-slate-300 bg-white p-5 md:flex-row md:items-center md:justify-between">
                                 <div className="flex flex-col gap-1">
                                     <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                                         Bank Tujuan
