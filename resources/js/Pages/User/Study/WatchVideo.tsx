@@ -1,9 +1,11 @@
 import Icon from '@/Components/Icon';
 import CurriculumSidebar from '@/Components/User/Study/CurriculumSidebar';
 import LessonInfo from '@/Components/User/Study/LessonInfo';
+import MentorSection from '@/Components/User/Study/MentorSection';
+import VideoNotesInput from '@/Components/User/Study/VideoNotesInput';
 import VideoPlayer from '@/Components/User/Study/VideoPlayer';
 import UserDashboardLayout from '@/Layouts/UserDashboardLayout';
-import { WatchVideoProps } from '@/types/study';
+import { VideoNote, WatchVideoProps } from '@/types/study';
 import { Head, Link, router } from '@inertiajs/react';
 import axios from 'axios';
 import { useCallback, useState } from 'react';
@@ -14,8 +16,12 @@ export default function WatchVideo({
     progressStats,
     navigation,
 }: WatchVideoProps) {
-    const [notes, setNotes] = useState(currentVideo.notes);
+    // Get the first note (1 video = 1 note)
+    const [currentNote, setCurrentNote] = useState<VideoNote | null>(
+        currentVideo.notes[0] || null,
+    );
     const [lastSavedTime, setLastSavedTime] = useState(0);
+    const [isCompletingClass, setIsCompletingClass] = useState(false);
 
     // Extract YouTube video ID from URL
     const getYoutubeId = (url: string): string => {
@@ -68,9 +74,10 @@ export default function WatchVideo({
                 `/user/study/video/${currentVideo.video.id}/notes`,
                 { content },
             );
-            setNotes([response.data.note, ...notes]);
+            setCurrentNote(response.data.note);
         } catch (error) {
             console.error('Failed to add note:', error);
+            throw error;
         }
     };
 
@@ -80,13 +87,10 @@ export default function WatchVideo({
             const response = await axios.put(`/user/study/notes/${noteId}`, {
                 content,
             });
-            setNotes(
-                notes.map((note) =>
-                    note.id === noteId ? response.data.note : note,
-                ),
-            );
+            setCurrentNote(response.data.note);
         } catch (error) {
             console.error('Failed to update note:', error);
+            throw error;
         }
     };
 
@@ -94,7 +98,7 @@ export default function WatchVideo({
     const handleDeleteNote = async (noteId: number) => {
         try {
             await axios.delete(`/user/study/notes/${noteId}`);
-            setNotes(notes.filter((note) => note.id !== noteId));
+            setCurrentNote(null);
         } catch (error) {
             console.error('Failed to delete note:', error);
         }
@@ -103,6 +107,22 @@ export default function WatchVideo({
     // Navigate to another video
     const navigateToVideo = (videoId: number) => {
         router.visit(`/user/study/${classData.id}/video/${videoId}`);
+    };
+
+    // Mark current video as completed
+    const handleCompleteVideo = async () => {
+        if (isCompletingClass) return;
+        if (currentVideo.progress?.is_completed) return;
+
+        setIsCompletingClass(true);
+        try {
+            await axios.post(`/user/study/video/${currentVideo.video.id}/complete`);
+            router.reload({ only: ['progressStats', 'currentVideo'] });
+        } catch (error) {
+            console.error('Failed to complete video:', error);
+        } finally {
+            setIsCompletingClass(false);
+        }
     };
 
     return (
@@ -140,13 +160,37 @@ export default function WatchVideo({
             </nav>
 
             {/* Page Title */}
-            <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
-                    {classData.title}
-                </h1>
-                <p className="text-lg font-normal text-slate-500">
-                    {currentVideo.video.title}
-                </p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-1">
+                    <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+                        {classData.title}
+                    </h1>
+                    <p className="text-lg font-normal text-slate-500">
+                        {currentVideo.video.title}
+                    </p>
+                </div>
+                <button
+                    onClick={handleCompleteVideo}
+                    disabled={isCompletingClass || currentVideo.progress?.is_completed}
+                    className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-green-600 hover:to-emerald-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                    {isCompletingClass ? (
+                        <>
+                            <Icon name="progress_activity" size={18} className="animate-spin" />
+                            Memproses...
+                        </>
+                    ) : currentVideo.progress?.is_completed ? (
+                        <>
+                            <Icon name="check_circle" size={18} />
+                            Video Selesai
+                        </>
+                    ) : (
+                        <>
+                            <Icon name="task_alt" size={18} />
+                            Selesaikan Video
+                        </>
+                    )}
+                </button>
             </div>
 
             {/* Video Player */}
@@ -157,18 +201,23 @@ export default function WatchVideo({
                 onEnd={handleVideoEnd}
             />
 
+            {/* Video Notes Input */}
+            <VideoNotesInput
+                note={currentNote}
+                onSave={handleAddNote}
+                onUpdate={handleUpdateNote}
+            />
+
             {/* Lesson Info */}
             <LessonInfo
                 video={currentVideo.video}
                 resources={currentVideo.resources}
-                notes={notes}
-                mentors={classData.mentors}
                 navigation={navigation}
-                onAddNote={handleAddNote}
-                onUpdateNote={handleUpdateNote}
-                onDeleteNote={handleDeleteNote}
                 onNavigate={navigateToVideo}
             />
+
+            {/* Mentor Section */}
+            <MentorSection mentors={classData.mentors} />
         </UserDashboardLayout>
     );
 }

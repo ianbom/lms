@@ -17,9 +17,7 @@ class StudyController extends Controller
         $this->studyService = $studyService;
     }
 
-    /**
-     * Display the video study/watch page
-     */
+
     public function watchClassPage($classId, $videoId)
     {
         $studyData = $this->studyService->getClassStudyDetails($classId, $videoId);
@@ -52,9 +50,6 @@ class StudyController extends Controller
         ]);
     }
 
-    /**
-     * Mark video as completed (AJAX)
-     */
     public function markCompleted($videoId)
     {
         $progress = $this->studyService->markVideoCompleted($videoId);
@@ -66,8 +61,19 @@ class StudyController extends Controller
     }
 
     /**
-     * Add a note to a video (AJAX)
+     * Mark all videos in class as completed (AJAX)
      */
+    public function markClassCompleted($classId)
+    {
+        $result = $this->studyService->markClassCompleted($classId);
+
+        return response()->json([
+            'success' => true,
+            'completed_count' => $result['completed_count'],
+            'progress_stats' => $result['progress_stats'],
+        ]);
+    }
+
     public function addNote(Request $request, $videoId)
     {
         $request->validate([
@@ -82,9 +88,6 @@ class StudyController extends Controller
         ]);
     }
 
-    /**
-     * Update a note (AJAX)
-     */
     public function updateNote(Request $request, $noteId)
     {
         $request->validate([
@@ -99,9 +102,6 @@ class StudyController extends Controller
         ]);
     }
 
-    /**
-     * Delete a note (AJAX)
-     */
     public function deleteNote($noteId)
     {
         $this->studyService->deleteVideoNote($noteId);
@@ -111,7 +111,7 @@ class StudyController extends Controller
         ]);
     }
 
-    // ============ QUIZ METHODS ============
+   // ============ QUIZ METHODS ============
 
     /**
      * Display the take quiz page

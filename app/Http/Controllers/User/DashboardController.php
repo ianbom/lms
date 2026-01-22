@@ -67,6 +67,13 @@ class DashboardController extends Controller
                         'title' => $class->title,
                         'slug' => $class->slug,
                         'thumbnail_url' => $class->thumbnail_url,
+                        'first_video_id' => $class->modules()
+                            ->orderBy('sort_order')
+                            ->first()
+                            ?->videos()
+                            ->orderBy('sort_order')
+                            ->first()
+                            ?->id,
                         'mentors' => $class->mentors->map(function ($mentor) {
                             return [
                                 'id' => $mentor->id,
@@ -96,5 +103,5 @@ class DashboardController extends Controller
         ]);
     }
 
-    
+
 }

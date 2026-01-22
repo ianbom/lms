@@ -23,7 +23,7 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
             active: route().current('home'),
         },
         {
-            label: 'Modul',
+            label: 'Kelas',
             href: route('user.classes'),
             active: route().current('user.classes.*'),
         },
@@ -88,7 +88,7 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
 
                             {user ? (
                                 <Link
-                                    href={route('dashboard')}
+                                    href={route('user.dashboard')}
                                     className="hidden rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark sm:block"
                                 >
                                     Dashboard
