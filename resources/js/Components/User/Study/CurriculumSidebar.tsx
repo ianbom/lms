@@ -57,9 +57,9 @@ export default function CurriculumSidebar({
     };
 
     return (
-        <aside className="z-20 flex h-full w-[340px] mt-6 shrink-0 flex-col border-l border-slate-200 bg-white">
+        <aside className="z-20 flex h-full w-full shrink-0 flex-col border-l border-slate-200 bg-white lg:mt-6 lg:w-[340px]">
             {/* Progress Header */}
-            <div className="border-b border-slate-100 bg-white p-6">
+            <div className="border-b border-slate-100 bg-white p-4 pt-14 sm:p-6 lg:pt-6">
                 <h3 className="mb-1 text-lg font-bold text-slate-900">
                     Kurikulum Kelas
                 </h3>

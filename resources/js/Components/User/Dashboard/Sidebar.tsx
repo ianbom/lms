@@ -1,7 +1,11 @@
 import Icon from '@/Components/Icon';
 import { Link, usePage } from '@inertiajs/react';
 
-export default function Sidebar() {
+interface SidebarProps {
+    onClose?: () => void;
+}
+
+export default function Sidebar({ onClose }: SidebarProps) {
     const currentUrl = usePage().url;
 
     const isActive = (path: string) => currentUrl.startsWith(path);
@@ -9,8 +13,17 @@ export default function Sidebar() {
     return (
         <aside className="z-20 flex h-full w-[260px] shrink-0 flex-col border-r border-primary-dark bg-primary">
             {/* Logo Area */}
-            <div className="flex h-16 items-center border-b border-white/10 px-6">
+            <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
                 <div className="flex items-center gap-3">
+                    {/* Close button for mobile */}
+                    {onClose && (
+                        <button
+                            onClick={onClose}
+                            className="mr-1 flex size-8 items-center justify-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white lg:hidden"
+                        >
+                            <Icon name="close" size={20} />
+                        </button>
+                    )}
                     <div className="rounded-xl bg-white/20 p-2 text-white">
                         <Icon name="school" size={20} />
                     </div>

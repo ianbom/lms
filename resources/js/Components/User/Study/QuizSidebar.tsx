@@ -46,7 +46,7 @@ export default function QuizSidebar({
     };
 
     return (
-        <aside className="z-20 flex h-full w-[340px] shrink-0 flex-col gap-6 overflow-y-auto bg-slate-50/50 p-4">
+        <aside className="z-20 flex h-full w-full shrink-0 flex-col gap-4 overflow-y-auto bg-slate-50/50 p-4 pt-14 sm:gap-6 lg:w-[340px] lg:pt-4">
             {/* Card 1: Timer & Stats - Only show when in progress */}
             {(quizState === 'in-progress' || quizState === 'reviewing') && (
                 <TimerCard

@@ -15,11 +15,11 @@ interface Props {
 
 function PageHeader() {
     return (
-        <div className="flex flex-col gap-1 mt-12">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+        <div className="mt-6 flex flex-col gap-1 lg:mt-12">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                 Kelas Saya
             </h2>
-            <p className="text-slate-500">
+            <p className="text-sm text-slate-500 sm:text-base">
                 Kelola dan lanjutkan kelas yang telah kamu ikuti.
             </p>
         </div>

@@ -14,17 +14,17 @@ export default function Dashboard() {
             <Head title="Dashboard" />
 
             {/* Header Section */}
-            <div className="flex flex-col gap-1">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-                    Selamat datang, Rizky!
+            <div className="mt-12 flex flex-col gap-1 lg:mt-12">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                    Selamat datang, IanBom!
                 </h2>
-                <p className="text-slate-500">
+                <p className="text-sm text-slate-500 sm:text-base">
                     Lanjutkan progres belajarmu hari ini.
                 </p>
             </div>
 
             {/* Main Grid Layout */}
-            <div className="grid grid-cols-12 gap-6 pb-20">
+            <div className="grid grid-cols-12 gap-4 pb-20 sm:gap-6">
                 {/* Section 1: Hero Card (Span 8) */}
                 <div className="col-span-12 lg:col-span-8">
                     <HeroCard />

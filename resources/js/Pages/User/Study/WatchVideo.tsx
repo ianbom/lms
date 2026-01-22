@@ -160,19 +160,19 @@ export default function WatchVideo({
             </nav> */}
 
             {/* Page Title */}
-            <div className="flex flex-col mt-12 gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-6 flex flex-col gap-4 sm:mt-8 lg:mt-12 lg:flex-row lg:items-center lg:justify-between">
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+                    <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl lg:text-3xl">
                         {classData.title}
                     </h1>
-                    <p className="text-lg font-normal text-slate-500">
+                    <p className="text-sm font-normal text-slate-500 sm:text-base lg:text-lg">
                         {currentVideo.video.title}
                     </p>
                 </div>
                 <button
                     onClick={handleCompleteVideo}
                     disabled={isCompletingClass || currentVideo.progress?.is_completed}
-                    className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-green-600 hover:to-emerald-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-green-600 hover:to-emerald-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:px-5"
                 >
                     {isCompletingClass ? (
                         <>

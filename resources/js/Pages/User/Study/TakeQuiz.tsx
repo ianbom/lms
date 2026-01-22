@@ -118,7 +118,7 @@ export default function TakeQuiz({
 // Sub-components for cleaner main component
 function Breadcrumbs({ classTitle }: { classTitle: string }) {
     return (
-        <nav className="mt-2 flex items-center gap-2 text-sm text-slate-500">
+        <nav className="mt-4 flex flex-wrap items-center gap-1 text-xs text-slate-500 sm:mt-2 sm:gap-2 sm:text-sm lg:mt-2">
             <Link
                 href={route('user.dashboard')}
                 className="transition-colors hover:text-primary"

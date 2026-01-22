@@ -196,11 +196,11 @@ export default function MyOrder({ orders, stats, filters }: Props) {
             <Head title="Riwayat Pesanan" />
 
             {/* Header */}
-            <div className="flex flex-col gap-1">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+            <div className="mt-6 flex flex-col gap-1 lg:mt-0">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                     Riwayat Pesanan
                 </h2>
-                <p className="text-slate-500">
+                <p className="text-sm text-slate-500 sm:text-base">
                     Lihat dan pantau status pembelian kelas kamu.
                 </p>
             </div>
