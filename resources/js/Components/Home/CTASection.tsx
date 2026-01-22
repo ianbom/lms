@@ -16,27 +16,27 @@ export default function CTASection({
 }: CTASectionProps) {
     return (
         <section className="px-4 py-20">
-            <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-primary p-10 shadow-2xl shadow-primary/30 lg:p-16">
+            <div className="relative mx-auto max-w-7xl overflow-hidden rounded-2xl bg-primary p-6 shadow-2xl shadow-primary/30 sm:rounded-[2rem] sm:p-10 lg:rounded-[2.5rem] lg:p-16">
                 {/* Decorative Blobs */}
                 <div className="absolute right-0 top-0 size-96 -translate-y-1/2 translate-x-1/2 rounded-full bg-white/10 blur-3xl"></div>
                 <div className="absolute bottom-0 left-0 size-64 -translate-x-1/2 translate-y-1/2 rounded-full bg-black/10 blur-3xl"></div>
 
                 <div className="relative z-10 grid items-center gap-12 lg:grid-cols-2">
                     {/* Left Content */}
-                    <div className="space-y-6">
-                        <h2 className="text-4xl font-extrabold text-white lg:text-5xl">
+                    <div className="space-y-4 sm:space-y-6">
+                        <h2 className="text-2xl font-extrabold text-white sm:text-3xl md:text-4xl lg:text-5xl">
                             {title || (
                                 <>
                                     Ready to Grow <br /> with LMS Platform?
                                 </>
                             )}
                         </h2>
-                        <p className="max-w-md text-lg text-white/80">
+                        <p className="max-w-md text-sm text-white/80 sm:text-base md:text-lg">
                             {description}
                         </p>
                         <Link
                             href={buttonHref}
-                            className="inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary shadow-lg transition-colors hover:bg-gray-100"
+                            className="inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-primary shadow-lg transition-colors hover:bg-gray-100 sm:px-8 sm:py-4 sm:text-base"
                         >
                             {buttonText}
                         </Link>

@@ -128,19 +128,50 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                     {/* Mobile Menu */}
                     {showMobileMenu && (
                         <div className="border-t border-gray-200 py-4 md:hidden">
-                            {navigation.map((item) => (
-                                <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    className={`block py-2 text-sm font-medium ${
-                                        item.active
-                                            ? 'text-primary'
-                                            : 'text-gray-600'
-                                    }`}
-                                >
-                                    {item.label}
-                                </Link>
-                            ))}
+                            <div className="flex flex-col gap-2">
+                                {navigation.map((item) => (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                                            item.active
+                                                ? 'bg-primary/10 text-primary'
+                                                : 'text-gray-600 hover:bg-gray-50'
+                                        }`}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
+
+                                {/* Mobile Auth Buttons */}
+                                {!user && (
+                                    <div className="mt-4 flex flex-col gap-2 border-t border-gray-200 pt-4">
+                                        <Link
+                                            href={route('login')}
+                                            className="rounded-lg border border-gray-200 px-4 py-2 text-center text-sm font-semibold text-gray-600 transition-colors hover:border-primary hover:text-primary"
+                                        >
+                                            Masuk
+                                        </Link>
+                                        <Link
+                                            href={route('register')}
+                                            className="rounded-lg bg-primary px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                        >
+                                            Daftar
+                                        </Link>
+                                    </div>
+                                )}
+
+                                {user && (
+                                    <div className="mt-4 border-t border-gray-200 pt-4">
+                                        <Link
+                                            href={route('user.dashboard')}
+                                            className="block rounded-lg bg-primary px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>

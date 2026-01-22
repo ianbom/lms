@@ -48,7 +48,7 @@ export default function HeroSection({
                         </div>
 
                         {/* Title */}
-                        <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-gray-900 lg:text-6xl">
+                        <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
                             {title || (
                                 <>
                                     Unlock Skills That <br />
@@ -73,44 +73,44 @@ export default function HeroSection({
                         </h1>
 
                         {/* Description */}
-                        <p className="max-w-lg text-lg leading-relaxed text-gray-600">
+                        <p className="max-w-lg text-base leading-relaxed text-gray-600 sm:text-lg">
                             {description}
                         </p>
 
                         {/* CTA Buttons */}
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
                             <Link
                                 href={primaryButtonHref}
-                                className="flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-bold text-white shadow-xl shadow-primary/30 transition-all hover:bg-primary-dark"
+                                className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-xl shadow-primary/30 transition-all hover:bg-primary-dark sm:px-8 sm:py-4 sm:text-base"
                             >
                                 {primaryButtonText}
                                 <Icon name="arrow_forward" size={16} />
                             </Link>
                             <Link
                                 href={secondaryButtonHref}
-                                className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-8 py-4 text-base font-bold text-gray-700 transition-all hover:border-primary"
+                                className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-bold text-gray-700 transition-all hover:border-primary sm:px-8 sm:py-4 sm:text-base"
                             >
                                 {secondaryButtonText}
                             </Link>
                         </div>
 
                         {/* Stats */}
-                        <div className="flex items-center gap-8 pt-4">
+                        <div className="flex flex-wrap items-center gap-4 pt-4 sm:gap-6 md:gap-8">
                             {stats.map((stat, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-center gap-8"
+                                    className="flex items-center gap-4 sm:gap-6 md:gap-8"
                                 >
                                     <div>
-                                        <p className="text-3xl font-bold text-gray-900">
+                                        <p className="text-xl font-bold text-gray-900 sm:text-2xl md:text-3xl">
                                             {stat.value}
                                         </p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-xs text-gray-500 sm:text-sm">
                                             {stat.label}
                                         </p>
                                     </div>
                                     {index < stats.length - 1 && (
-                                        <div className="h-10 w-px bg-gray-200"></div>
+                                        <div className="hidden h-10 w-px bg-gray-200 sm:block"></div>
                                     )}
                                 </div>
                             ))}
@@ -122,16 +122,16 @@ export default function HeroSection({
                         {/* Background Gradient */}
                         <div className="absolute left-1/2 top-1/2 -z-10 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-primary/10 to-blue-100/50 blur-3xl"></div>
 
-                        <div className="relative mx-auto w-full max-w-md">
+                        <div className="relative mx-auto w-full max-w-sm sm:max-w-md">
                             {/* Main Image */}
                             <img
                                 alt="Student learning on tablet"
-                                className="relative z-10 h-[500px] w-full rounded-[2rem] object-cover shadow-2xl"
+                                className="relative z-10 h-[300px] w-full rounded-2xl object-cover shadow-2xl sm:h-[400px] md:h-[500px] md:rounded-[2rem]"
                                 src={heroImage}
                             />
 
                             {/* Floating Card - Certificates */}
-                            <div className="floating-card shadow-soft absolute -left-12 top-12 z-20 w-48 rounded-2xl border border-gray-100 bg-white p-4">
+                            <div className="floating-card shadow-soft absolute -left-4 top-8 z-20 hidden w-40 rounded-2xl border border-gray-100 bg-white p-3 sm:block sm:w-48 sm:p-4 md:-left-12 md:top-12">
                                 <div className="flex items-center gap-3">
                                     <div className="rounded-md bg-orange-100 p-2 text-orange-600">
                                         <Icon name="emoji_events" size={20} />
@@ -148,7 +148,7 @@ export default function HeroSection({
                             </div>
 
                             {/* Floating Card - Course Progress */}
-                            <div className="floating-card-delayed shadow-soft absolute -right-8 bottom-24 z-20 w-56 rounded-2xl border border-gray-100 bg-white p-4">
+                            <div className="floating-card-delayed shadow-soft absolute -right-4 bottom-16 z-20 hidden w-48 rounded-2xl border border-gray-100 bg-white p-3 sm:block sm:w-56 sm:p-4 md:-right-8 md:bottom-24">
                                 <div className="mb-2 flex items-center justify-between">
                                     <p className="text-sm font-bold text-gray-900">
                                         UX Design Basics

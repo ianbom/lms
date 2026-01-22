@@ -187,11 +187,11 @@ export default function ListClass({
 
             <div className="space-y-8">
                 {/* Hero Section */}
-                <div className="space-y-4 text-center sm:text-left">
-                    <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                <div className="space-y-2 text-center sm:space-y-4 sm:text-left">
+                    <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
                         Eksplorasi Modul Pembelajaran
                     </h1>
-                    <p className="max-w-2xl text-lg text-slate-500">
+                    <p className="mx-auto max-w-2xl text-sm text-slate-500 sm:mx-0 sm:text-base md:text-lg">
                         Tingkatkan keahlian Anda dengan kurikulum terstruktur
                         dari mentor berpengalaman.
                     </p>

@@ -20,7 +20,7 @@ export default function Success({
                     <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-primary via-emerald-400 to-primary"></div>
 
                     {/* Success Header Section */}
-                    <div className="flex flex-col items-center px-8 pb-8 pt-12 text-center">
+                    <div className="flex flex-col items-center px-4 pb-6 pt-10 text-center sm:px-8 sm:pb-8 sm:pt-12">
                         {/* Animated-feel Icon Wrapper */}
                         <div className="relative mb-6">
                             <div className="relative z-10 flex size-20 items-center justify-center rounded-full border border-emerald-100 bg-emerald-50">
@@ -33,10 +33,10 @@ export default function Success({
                             {/* Decorative ring */}
                             <div className="absolute inset-0 scale-125 animate-pulse rounded-full border border-primary/20"></div>
                         </div>
-                        <h1 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 md:text-[32px] md:leading-tight">
+                        <h1 className="mb-3 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl md:text-[32px] md:leading-tight">
                             Pembayaran Berhasil Dikirim
                         </h1>
-                        <p className="max-w-[500px] text-base font-normal leading-relaxed text-slate-500">
+                        <p className="max-w-[500px] text-sm font-normal leading-relaxed text-slate-500 sm:text-base">
                             Kami sudah menerima bukti pembayaran Anda. Admin
                             kami akan memverifikasi transaksi ini dalam waktu
                             maksimal 1x24 jam.
@@ -44,7 +44,7 @@ export default function Success({
                     </div>
 
                     {/* Content Body */}
-                    <div className="w-full px-6 pb-10 md:px-10">
+                    <div className="w-full px-4 pb-8 sm:px-6 sm:pb-10 md:px-10">
                         {/* Order Summary Grid */}
                         <div className="mb-8 overflow-hidden rounded-xl border border-slate-200 bg-slate-50/50">
                             {/* Grid Header */}

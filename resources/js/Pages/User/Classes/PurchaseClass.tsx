@@ -43,11 +43,11 @@ export default function PurchaseClass({
             <Breadcrumb items={breadcrumbItems} />
 
             {/* Page Heading */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
+            <div className="mb-6 sm:mb-8">
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
                     Selesaikan Pembayaran
                 </h1>
-                <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-sm text-gray-600 sm:text-base">
                     Lengkapi langkah di bawah ini untuk memulai akses belajar
                     Anda.
                 </p>
@@ -55,7 +55,7 @@ export default function PurchaseClass({
 
             <form
                 onSubmit={handleSubmit}
-                className="grid grid-cols-2 items-start gap-8 md:grid-cols-[2fr_1fr] md:gap-10"
+                className="grid grid-cols-1 items-start gap-6 sm:gap-8 lg:grid-cols-[2fr_1fr] lg:gap-10"
             >
                 {/* Left Column: Payment & Action */}
                 <div className="flex flex-col gap-6">
