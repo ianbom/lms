@@ -78,8 +78,6 @@ class DashboardController extends Controller
                 ];
             });
 
-        // return response()->json($enrollments);
-
         return Inertia::render('User/Dashboard/MyClass', [
             'enrollments' => $enrollments,
         ]);
@@ -97,4 +95,6 @@ class DashboardController extends Controller
             'filters' => $filters,
         ]);
     }
+
+    
 }

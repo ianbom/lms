@@ -44,9 +44,9 @@ export default function Sidebar() {
                     </span>
                 </Link>
                 <Link
-                    href={route('my-order')}
+                    href={route('user.my-order')}
                     className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-colors ${
-                        isActive('/myOrder')
+                        isActive('/user/myOrder')
                             ? 'bg-primary-light text-primary'
                             : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
                     }`}
@@ -60,9 +60,9 @@ export default function Sidebar() {
                     </span>
                 </Link>
                 <Link
-                    href={route('my-class')}
+                    href={route('user.my-class')}
                     className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-colors ${
-                        isActive('/myClass')
+                        isActive('/user/myClass')
                             ? 'bg-primary-light text-primary'
                             : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
                     }`}

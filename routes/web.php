@@ -39,15 +39,10 @@ Route::get('/home', function () {
        Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->name('classes.purchase');
        Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
+
+       Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
+       Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
     });
-
-     Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])
-        ->middleware(['auth'])
-        ->name('my-class');
-
-     Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])
-        ->middleware(['auth'])
-        ->name('my-order');
 
     // User Video Routes
     Route::prefix('video')->name('user.video.')->group(function () {
