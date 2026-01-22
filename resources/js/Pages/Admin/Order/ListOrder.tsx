@@ -1,10 +1,48 @@
 import OrderStats from '@/Components/Admin/Order/OrderStats';
-import OrderTable from '@/Components/Admin/Order/OrderTable';
+import OrderTable, { Order } from '@/Components/Admin/Order/OrderTable';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head } from '@inertiajs/react';
 
-export default function ListOrder() {
+interface Stats {
+    total: number;
+    pending: number;
+    approved: number;
+    rejected: number;
+}
+
+interface Filters {
+    search?: string;
+    status?: string;
+    sort?: string;
+    direction?: string;
+    per_page?: number;
+}
+
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+interface PaginatedOrders {
+    data: Order[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    links: PaginationLink[];
+    from: number;
+    to: number;
+}
+
+interface ListOrderProps {
+    orders: PaginatedOrders;
+    stats: Stats;
+    filters: Filters;
+}
+
+export default function ListOrder({ orders, stats, filters }: ListOrderProps) {
     return (
         <AdminLayout
             breadcrumbs={[
@@ -22,27 +60,28 @@ export default function ListOrder() {
                             Daftar Order Kelas
                         </h1>
                         <p className="text-slate-500">
-                            Manage and verify incoming payments for class
-                            enrollments.
+                            Manajemen Order Kelas 
                         </p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <button className="flex h-10 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50">
-                            <Icon name="help" size={20} />
-                            <span>Help</span>
-                        </button>
-                        <button className="flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-                            <Icon name="download" size={20} />
-                            <span>Ekspor</span>
-                        </button>
                     </div>
                 </div>
 
                 {/* Stats Overview */}
-                <OrderStats />
+                <OrderStats stats={stats} />
 
                 {/* Main Table */}
-                <OrderTable />
+                <OrderTable
+                    orders={orders.data}
+                    filters={filters}
+                    pagination={{
+                        currentPage: orders.current_page,
+                        lastPage: orders.last_page,
+                        perPage: orders.per_page,
+                        total: orders.total,
+                        from: orders.from,
+                        to: orders.to,
+                        links: orders.links,
+                    }}
+                />
             </div>
         </AdminLayout>
     );

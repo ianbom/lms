@@ -37,4 +37,52 @@ class OrderService
 
         return $order;
     }
+
+    public function getAllOrders(array $filters = [])
+    {
+        $query = ClassOrder::with(['class', 'user', 'statusLogs']);
+
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                // Search by Order ID (numeric part)
+                if (preg_match('/^#?ORD-(\d+)$/i', $search, $matches)) {
+                    $q->where('id', intval($matches[1]));
+                } 
+                // Fallback: standard search if not explicitly an ID format
+                else {
+                    $q->where('id', 'like', "%{$search}%")
+                      ->orWhereHas('user', function ($q) use ($search) {
+                          $q->where('name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                      });
+                }
+            });
+        }
+
+        if (!empty($filters['status']) && in_array($filters['status'], ['pending', 'approved', 'rejected'])) {
+            $query->where('status', $filters['status']);
+        }
+
+        // Handle sorting
+        if (!empty($filters['sort']) && !empty($filters['direction'])) {
+            $query->orderBy($filters['sort'], $filters['direction']);
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $perPage = $filters['per_page'] ?? 10;
+
+        return $query->paginate($perPage)->withQueryString();
+    }
+
+    public function getOrderStats()
+    {
+        return [
+            'total' => ClassOrder::count(),
+            'pending' => ClassOrder::where('status', 'pending')->count(),
+            'approved' => ClassOrder::where('status', 'approved')->count(),
+            'rejected' => ClassOrder::where('status', 'rejected')->count(),
+        ];
+    }
 }

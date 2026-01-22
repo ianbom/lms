@@ -40,7 +40,7 @@ export default function AdminHeader({
             </div>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
                 <SearchInput className="hidden w-64 sm:block" />
 
                 <button className="text-text-muted relative rounded-full p-2 transition-colors hover:bg-background-light">
@@ -48,14 +48,13 @@ export default function AdminHeader({
                     <span className="absolute right-2 top-2 size-2 rounded-full border border-white bg-rose-500" />
                 </button>
 
-                {/* Mobile Menu Toggle */}
                 <button
                     onClick={onMenuClick}
                     className="text-text-muted rounded-full p-2 hover:bg-background-light lg:hidden"
                 >
                     <Icon name="menu" size={24} />
                 </button>
-            </div>
+            </div> */}
         </header>
     );
 }
