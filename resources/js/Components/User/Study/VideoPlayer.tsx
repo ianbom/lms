@@ -4,10 +4,11 @@ import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 
 interface VideoPlayerProps {
     videoId: string;
+    initialTime?: number;
     onPlay?: () => void;
     onPause?: () => void;
     onEnd?: () => void;
-    onProgress?: (progress: number) => void;
+    onProgress?: (progressPercent: number, currentTime: number) => void;
 }
 
 // All possible YouTube quality levels
@@ -40,6 +41,7 @@ const QUALITY_LABELS: Record<string, string> = {
 
 export default function VideoPlayer({
     videoId,
+    initialTime = 0,
     onPlay,
     onPause,
     onEnd,
@@ -48,7 +50,7 @@ export default function VideoPlayer({
     const playerRef = useRef<YouTubePlayer | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
+    const [currentTime, setCurrentTime] = useState(initialTime);
     const [duration, setDuration] = useState(0);
     const [progress, setProgress] = useState(0);
     const [isReady, setIsReady] = useState(false);
@@ -58,6 +60,7 @@ export default function VideoPlayer({
         QualityLevel[]
     >([]);
     const [currentQuality, setCurrentQuality] = useState<QualityLevel>('auto');
+    const hasSeekToInitial = useRef(false);
     const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
         null,
     );
@@ -109,6 +112,12 @@ export default function VideoPlayer({
         setDuration(event.target.getDuration());
         setIsReady(true);
 
+        // Seek to initial time if provided
+        if (initialTime > 0 && !hasSeekToInitial.current) {
+            event.target.seekTo(initialTime, true);
+            hasSeekToInitial.current = true;
+        }
+
         // Get available quality levels
         const qualities = event.target.getAvailableQualityLevels();
         if (qualities && qualities.length > 0) {
@@ -129,7 +138,7 @@ export default function VideoPlayer({
                 setCurrentTime(current);
                 const prog = (current / total) * 100;
                 setProgress(prog);
-                onProgress?.(prog);
+                onProgress?.(prog, current);
             }
         }, 500);
     }, [onProgress]);

@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
+use App\Http\Controllers\User\StudyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,16 +43,22 @@ Route::get('/home', function () {
 
        Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
        Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
+
+       // Study/Watch Video Routes
+       Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
+       Route::post('/study/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
+       Route::post('/study/video/{videoId}/complete', [StudyController::class, 'markCompleted'])->name('study.complete');
+       Route::post('/study/video/{videoId}/notes', [StudyController::class, 'addNote'])->name('study.notes.add');
+       Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
+       Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
+
+       // Study/Take Quiz Routes
+       Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
+       Route::post('/study/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
+       Route::post('/study/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
+       Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
     });
 
-    // User Video Routes
-    Route::prefix('video')->name('user.video.')->group(function () {
-        Route::get('/{id}/study', function ($id) {
-            return Inertia::render('User/Video/Study', [
-                'videoId' => $id,
-            ]);
-        })->name('study');
-    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

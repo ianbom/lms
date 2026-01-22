@@ -32,7 +32,7 @@ class VideoService
             $path = $file->store('resources', 'public');
             $fileUrl = '/storage/' . $path;
             $fileSize = $file->getSize();
-            
+
             $extension = strtolower($file->getClientOriginalExtension());
             $fileType = match ($extension) {
                 'pdf' => 'pdf',
@@ -64,4 +64,6 @@ class VideoService
 
         return $video;
     }
+
+  
 }

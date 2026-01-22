@@ -27,11 +27,6 @@ export default function UserDashboardLayout({
                         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
                             {children}
                         </div>
-
-                        {/* Footer */}
-                        <footer className="mt-10 border-t border-slate-100 py-6 text-center text-sm text-slate-500">
-                            © 2024 EduLearn. All rights reserved.
-                        </footer>
                     </div>
 
                     {/* Right Sidebar (Optional) */}
