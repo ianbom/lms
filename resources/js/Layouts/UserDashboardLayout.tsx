@@ -24,7 +24,7 @@ export default function UserDashboardLayout({
                 <div className="relative flex flex-1 overflow-hidden">
                     {/* Scrollable Page Content */}
                     <div className="custom-scrollbar flex-1 overflow-y-auto px-8 pb-10">
-                        <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
+                        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
                             {children}
                         </div>
 

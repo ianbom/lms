@@ -25,12 +25,12 @@ class OrderService
             'class_id' => $class->id,
             'amount' => $class->price_final,
             'status' => 'pending',
-            'transfer_date' => now(), 
+            'transfer_date' => now(),
             'proof_url' => $proofUrl,
-            
+
         ]);
 
-        ClassOrderStatusLog::create([ 
+        ClassOrderStatusLog::create([
             'order_id' => $order->id,
             'status' => 'pending',
         ]);
@@ -38,17 +38,21 @@ class OrderService
         return $order;
     }
 
-    public function getAllOrders(array $filters = [])
+    public function getAllOrders(array $filters = [], $userId = null)
     {
-        $query = ClassOrder::with(['class', 'user', 'statusLogs']);
+        if ($userId) {
+            $query = ClassOrder::with(['class', 'user', 'statusLogs'])->where('user_id', $userId);
+        }
+        else {
+            $query = ClassOrder::with(['class', 'user', 'statusLogs']);
+        }
 
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
-                // Search by Order ID (numeric part)
                 if (preg_match('/^#?ORD-(\d+)$/i', $search, $matches)) {
                     $q->where('id', intval($matches[1]));
-                } 
+                }
                 // Fallback: standard search if not explicitly an ID format
                 else {
                     $q->where('id', 'like', "%{$search}%")
@@ -83,6 +87,16 @@ class OrderService
             'pending' => ClassOrder::where('status', 'pending')->count(),
             'approved' => ClassOrder::where('status', 'approved')->count(),
             'rejected' => ClassOrder::where('status', 'rejected')->count(),
+        ];
+    }
+
+    public function getOrderStatsByUser($userId)
+    {
+        return [
+            'total' => ClassOrder::where('user_id', $userId)->count(),
+            'pending' => ClassOrder::where('user_id', $userId)->where('status', 'pending')->count(),
+            'approved' => ClassOrder::where('user_id', $userId)->where('status', 'approved')->count(),
+            'rejected' => ClassOrder::where('user_id', $userId)->where('status', 'rejected')->count(),
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -32,12 +33,21 @@ Route::get('/home', function () {
 
     // User Modul Routes
     Route::prefix('user')->name('user.')->group(function () {
+       Route::get('/dashboard', [UserDashboardController::class, 'dashboardPage'])->name('dashboard');
        Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
        Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->name('classes.show');
        Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->name('classes.purchase');
        Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
     });
+
+     Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])
+        ->middleware(['auth'])
+        ->name('my-class');
+
+     Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])
+        ->middleware(['auth'])
+        ->name('my-order');
 
     // User Video Routes
     Route::prefix('video')->name('user.video.')->group(function () {
@@ -80,7 +90,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/categories', [CategoryController::class, 'storeCategory'])->name('categories.store');
 
         Route::get('/orders', [OrderController::class, 'listOrderPage'])->name('orders');
- 
+
     });
 });
 
