@@ -15,7 +15,7 @@ interface Props {
 
 function PageHeader() {
     return (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 mt-12">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900">
                 Kelas Saya
             </h2>

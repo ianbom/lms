@@ -7,18 +7,18 @@ export default function Sidebar() {
     const isActive = (path: string) => currentUrl.startsWith(path);
 
     return (
-        <aside className="z-20 flex h-full w-[260px] shrink-0 flex-col border-r border-slate-200 bg-white">
+        <aside className="z-20 flex h-full w-[260px] shrink-0 flex-col border-r border-primary-dark bg-primary">
             {/* Logo Area */}
-            <div className="flex h-16 items-center border-b border-slate-100 px-6">
+            <div className="flex h-16 items-center border-b border-white/10 px-6">
                 <div className="flex items-center gap-3">
-                    <div className="rounded-xl bg-primary/10 p-2 text-primary">
+                    <div className="rounded-xl bg-white/20 p-2 text-white">
                         <Icon name="school" size={20} />
                     </div>
                     <div className="flex flex-col">
-                        <h1 className="text-lg font-bold leading-tight tracking-tight text-slate-900">
+                        <h1 className="text-lg font-bold leading-tight tracking-tight text-white">
                             ImpactAcademy
                         </h1>
-                        <span className="text-xs font-medium text-slate-500">
+                        <span className="text-xs font-medium text-white/70">
                             Learning Platform
                         </span>
                     </div>
@@ -31,8 +31,8 @@ export default function Sidebar() {
                     href={route('user.dashboard')}
                     className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-colors ${
                         isActive('/user/dashboard')
-                            ? 'bg-primary-light text-primary'
-                            : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                            ? 'bg-white/20 text-white'
+                            : 'text-white/70 hover:bg-white/10 hover:text-white'
                     }`}
                 >
                     <Icon
@@ -47,37 +47,37 @@ export default function Sidebar() {
                     href={route('user.my-order')}
                     className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-colors ${
                         isActive('/user/myOrder')
-                            ? 'bg-primary-light text-primary'
-                            : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                            ? 'bg-white/20 text-white'
+                            : 'text-white/70 hover:bg-white/10 hover:text-white'
                     }`}
                 >
                     <Icon
                         name="shopping_bag"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/myOrder') ? 'font-bold' : 'font-medium'}`}>
+                    <span className={`text-sm ${isActive('/user/myOrder') ? 'font-bold' : 'font-medium'}`}>
                         My Orders
                     </span>
                 </Link>
                 <Link
                     href={route('user.my-class')}
                     className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-colors ${
-                        isActive('/user/myClass')
-                            ? 'bg-primary-light text-primary'
-                            : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                        isActive('/user/myClass') || isActive('/user/study')
+                            ? 'bg-white/20 text-white'
+                            : 'text-white/70 hover:bg-white/10 hover:text-white'
                     }`}
                 >
                     <Icon
                         name="book_2"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/myClass') ? 'font-bold' : 'font-medium'}`}>
+                    <span className={`text-sm ${isActive('/user/myClass') || isActive('/user/study') ? 'font-bold' : 'font-medium'}`}>
                         My Classes
                     </span>
                 </Link>
                 <Link
                     href="#"
-                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-900"
+                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                 >
                     <Icon
                         name="workspace_premium"
@@ -87,7 +87,7 @@ export default function Sidebar() {
                 </Link>
                 <Link
                     href="#"
-                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-900"
+                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                 >
                     <Icon
                         name="settings"
@@ -98,12 +98,12 @@ export default function Sidebar() {
             </nav>
 
             {/* Bottom User Actions */}
-            <div className="border-t border-slate-100 p-4">
+            <div className="border-t border-white/10 p-4">
                 <Link
                     href={route('logout')}
                     method="post"
                     as="button"
-                    className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-slate-500 transition-colors hover:bg-red-50 hover:text-red-600"
+                    className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-red-500/20 hover:text-red-300"
                 >
                     <Icon name="logout" />
                     <span className="text-sm font-medium">Sign Out</span>

@@ -18,7 +18,7 @@ export default function UserDashboardLayout({
             {/* Main Content Area */}
             <main className="relative flex h-full flex-1 flex-col overflow-hidden">
                 {/* Top Navbar */}
-                <Navbar />
+                {/* <Navbar /> */}
 
                 {/* Content Wrapper */}
                 <div className="relative flex flex-1 overflow-hidden">

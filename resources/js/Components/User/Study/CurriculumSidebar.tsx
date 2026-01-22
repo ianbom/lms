@@ -57,7 +57,7 @@ export default function CurriculumSidebar({
     };
 
     return (
-        <aside className="z-20 flex h-full w-[340px] shrink-0 flex-col border-l border-slate-200 bg-white">
+        <aside className="z-20 flex h-full w-[340px] mt-6 shrink-0 flex-col border-l border-slate-200 bg-white">
             {/* Progress Header */}
             <div className="border-b border-slate-100 bg-white p-6">
                 <h3 className="mb-1 text-lg font-bold text-slate-900">

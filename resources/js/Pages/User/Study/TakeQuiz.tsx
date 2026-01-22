@@ -55,6 +55,8 @@ export default function TakeQuiz({
                     quizState={quizState}
                     timeSpent={timeSpent}
                     onQuestionSelect={goToQuestion}
+                    onSubmit={handleSubmitQuiz}
+                    isSubmitting={isSubmitting}
                     progressStats={progressStats}
                 />
             }
@@ -121,17 +123,17 @@ function Breadcrumbs({ classTitle }: { classTitle: string }) {
                 href={route('user.dashboard')}
                 className="transition-colors hover:text-primary"
             >
-                Home
+                Kelas Saya
             </Link>
             <Icon name="chevron_right" size={16} />
             <Link
                 href={route('user.my-class')}
                 className="transition-colors hover:text-primary"
             >
-                My Classes
+                {classTitle}
             </Link>
             <Icon name="chevron_right" size={16} />
-            <span className="font-semibold text-primary">{classTitle}</span>
+            <span className="font-medium text-slate-900">Quiz</span>
         </nav>
     );
 }
@@ -145,12 +147,14 @@ function PageHeader({
 }) {
     return (
         <div className="flex flex-col gap-1">
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
                 {title}
             </h1>
-            <p className="text-lg font-normal text-slate-500">
-                {subtitle || 'Quiz'}
-            </p>
+            {subtitle && (
+                <p className="text-base font-normal text-slate-500 md:text-lg">
+                    {subtitle}
+                </p>
+            )}
         </div>
     );
 }

@@ -139,7 +139,7 @@ export default function WatchVideo({
             <Head title={`${currentVideo.video.title} - ${classData.title}`} />
 
             {/* Breadcrumbs */}
-            <nav className="mt-2 flex items-center gap-2 text-sm text-slate-500">
+            {/* <nav className="mt-2 flex items-center gap-2 text-sm text-slate-500">
                 <Link
                     href={route('user.dashboard')}
                     className="transition-colors hover:text-primary"
@@ -157,10 +157,10 @@ export default function WatchVideo({
                 <span className="font-semibold text-primary">
                     {classData.title}
                 </span>
-            </nav>
+            </nav> */}
 
             {/* Page Title */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col mt-12 gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
                         {classData.title}
