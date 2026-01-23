@@ -11,10 +11,16 @@ import ModuleForm, {
     ModuleFormData,
     ModuleFormErrors,
 } from '@/Components/Admin/Module/ModuleForm';
+import QuizForm, {
+    createEmptyQuestion,
+    QuizFormData,
+    QuizFormErrors,
+} from '@/Components/Admin/Quiz/QuizForm';
 import { VideoEntry } from '@/Components/Admin/VideoEntryCard';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router } from '@inertiajs/react';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 interface VideoResource {
@@ -35,10 +41,27 @@ interface Video {
     resources?: VideoResource[];
 }
 
+interface QuizOption {
+    id: number;
+    label: string;
+    is_correct: boolean;
+    sort_order: number;
+}
+
+interface QuizQuestion {
+    id: number;
+    question: string;
+    points: number;
+    sort_order: number;
+    options: QuizOption[];
+}
+
 interface Quiz {
     id: number;
     title: string;
+    is_pretest: boolean;
     questions_count: number;
+    questions?: QuizQuestion[];
 }
 
 interface Module {
@@ -89,10 +112,14 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
     const [isEditModuleModalOpen, setIsEditModuleModalOpen] = useState(false);
+    const [isEditQuizModalOpen, setIsEditQuizModalOpen] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [publishProcessing, setPublishProcessing] = useState(false);
     const [moduleProcessing, setModuleProcessing] = useState(false);
+    const [quizProcessing, setQuizProcessing] = useState(false);
+    const [quizLoading, setQuizLoading] = useState(false);
     const [selectedModuleId, setSelectedModuleId] = useState<number | null>(null);
+    const [selectedQuizId, setSelectedQuizId] = useState<number | null>(null);
 
     // Module edit form state
     const [moduleFormData, setModuleFormData] = useState<ModuleFormData>({
@@ -101,6 +128,15 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
         videos: [createEmptyVideo(1)],
     });
     const [moduleErrors, setModuleErrors] = useState<ModuleFormErrors>({});
+
+    // Quiz edit form state
+    const [quizFormData, setQuizFormData] = useState<QuizFormData>({
+        title: '',
+        moduleId: '',
+        quizContext: 'post-test',
+        questions: [createEmptyQuestion(1)],
+    });
+    const [quizErrors, setQuizErrors] = useState<QuizFormErrors>({});
 
     // Form state
     const [formData, setFormData] = useState<ClassFormData>({
@@ -253,6 +289,93 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
         setModuleErrors({});
     };
 
+    // Open edit quiz modal
+    const openEditQuizModal = async (quizId: number) => {
+        setQuizLoading(true);
+        setSelectedQuizId(quizId);
+        setIsEditQuizModalOpen(true);
+
+        try {
+            const response = await axios.get(route('admin.quiz.get', quizId));
+            const quiz = response.data;
+
+            // Transform backend data to form data format
+            const questions = quiz.questions?.map((q: QuizQuestion, index: number) => ({
+                id: index + 1,
+                text: q.question,
+                type: 'multiple_choice' as const,
+                isExpanded: index === 0,
+                points: q.points || 1,
+                options: q.options?.map((opt: QuizOption, optIndex: number) => ({
+                    id: (index + 1) * 100 + optIndex,
+                    text: opt.label,
+                    isCorrect: opt.is_correct,
+                })) || [],
+            })) || [createEmptyQuestion(1)];
+
+            setQuizFormData({
+                title: quiz.title,
+                moduleId: quiz.module_id?.toString() || '',
+                quizContext: quiz.is_pretest ? 'pretest' : 'post-test',
+                questions: questions.length > 0 ? questions : [createEmptyQuestion(1)],
+            });
+            setQuizErrors({});
+        } catch (error) {
+            console.error('Error fetching quiz:', error);
+            closeEditQuizModal();
+        } finally {
+            setQuizLoading(false);
+        }
+    };
+
+    const closeEditQuizModal = () => {
+        setIsEditQuizModalOpen(false);
+        setSelectedQuizId(null);
+        setQuizFormData({
+            title: '',
+            moduleId: '',
+            quizContext: 'post-test',
+            questions: [createEmptyQuestion(1)],
+        });
+        setQuizErrors({});
+    };
+
+    const handleQuizSubmit = () => {
+        if (!selectedQuizId) return;
+
+        setQuizProcessing(true);
+        setQuizErrors({});
+
+        // Transform data to match backend API
+        const submitData = {
+            title: quizFormData.title,
+            is_pretest: quizFormData.quizContext === 'pretest',
+            questions: quizFormData.questions.map((q, qIndex) => ({
+                question: q.text,
+                points: q.points || 1,
+                sort_order: qIndex + 1,
+                options: q.options.map((opt, optIndex) => ({
+                    label: opt.text,
+                    is_correct: opt.isCorrect,
+                    sort_order: optIndex + 1,
+                })),
+            })),
+        };
+
+        router.put(route('admin.quiz.update', selectedQuizId), submitData, {
+            preserveScroll: true,
+            onSuccess: () => {
+                closeEditQuizModal();
+            },
+            onError: (errors) => {
+                setQuizErrors(errors as QuizFormErrors);
+            },
+            onFinish: () => {
+                setQuizProcessing(false);
+            },
+        });
+    };
+
     const handleModuleFormChange = (newData: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData)) => {
         if (typeof newData === 'function') {
             setModuleFormData(newData);
@@ -394,6 +517,7 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                     durationOrQuestions: `${q.questions_count || 0} Soal`,
                 })),
             ],
+            quizIds: m.quizzes.map((q) => q.id), // Include quiz IDs for edit
         };
     });
 
@@ -485,6 +609,7 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                                             module={module}
                                             isExpanded={index === 0}
                                             onEdit={openEditModuleModal}
+                                            onEditQuiz={openEditQuizModal}
                                         />
                                     ))
                                 ) : (
@@ -815,6 +940,78 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                             >
                                 <Icon name="save" size={18} />
                                 {moduleProcessing ? 'Menyimpan...' : 'Simpan Perubahan'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Quiz Modal */}
+            {isEditQuizModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto">
+                    {/* Backdrop */}
+                    <div
+                        className="fixed inset-0 bg-black/50 transition-opacity"
+                        onClick={() => !quizProcessing && !quizLoading && closeEditQuizModal()}
+                    />
+                    {/* Modal Content */}
+                    <div className="relative z-10 my-8 w-full max-w-5xl rounded-xl bg-slate-100 p-6 shadow-xl">
+                        {/* Modal Header */}
+                        <div className="mb-6 flex items-center justify-between">
+                            <h2 className="text-xl font-bold text-slate-900">
+                                Edit Kuis
+                            </h2>
+                            <button
+                                onClick={closeEditQuizModal}
+                                disabled={quizProcessing || quizLoading}
+                                className="rounded-md p-2 text-slate-400 hover:bg-slate-200 hover:text-slate-600 disabled:opacity-50"
+                            >
+                                <Icon name="close" size={24} />
+                            </button>
+                        </div>
+
+                        {/* Modal Body - Quiz Form */}
+                        <div className="max-h-[calc(100vh-200px)] overflow-y-auto rounded-lg bg-white p-6">
+                            {quizLoading ? (
+                                <div className="flex items-center justify-center py-12">
+                                    <div className="flex flex-col items-center gap-3">
+                                        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+                                        <p className="text-sm text-slate-500">Memuat data kuis...</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <QuizForm
+                                    data={quizFormData}
+                                    errors={quizErrors}
+                                    modules={classData.modules.map((m) => ({
+                                        id: m.id,
+                                        title: m.title,
+                                    }))}
+                                    onDataChange={setQuizFormData}
+                                    isCompact
+                                    showModuleSelector={false}
+                                />
+                            )}
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="mt-6 flex items-center justify-end gap-3 border-t border-slate-200 pt-6">
+                            <button
+                                type="button"
+                                onClick={closeEditQuizModal}
+                                disabled={quizProcessing || quizLoading}
+                                className="rounded-md px-4 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-200 disabled:opacity-50"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleQuizSubmit}
+                                disabled={quizProcessing || quizLoading}
+                                className="flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
+                            >
+                                <Icon name="save" size={18} />
+                                {quizProcessing ? 'Menyimpan...' : 'Simpan Perubahan'}
                             </button>
                         </div>
                     </div>

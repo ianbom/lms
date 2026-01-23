@@ -29,6 +29,43 @@ class QuizService
         });
     }
 
+    public function updateQuiz(int $quizId, array $data): Quiz
+    {
+        return DB::transaction(function () use ($quizId, $data) {
+            $quiz = Quiz::findOrFail($quizId);
+
+            // Update quiz basic info
+            $quiz->update([
+                'title' => $data['title'],
+                'is_pretest' => $data['is_pretest'] ?? false,
+            ]);
+
+            // Delete old questions and options
+            foreach ($quiz->questions as $question) {
+                $question->options()->delete();
+            }
+            $quiz->questions()->delete();
+
+            // Create new questions
+            if (isset($data['questions']) && is_array($data['questions'])) {
+                foreach ($data['questions'] as $index => $questionData) {
+                    $this->createQuizQuestion($quiz->id, $questionData, $index + 1);
+                }
+            }
+
+            return $quiz->fresh(['questions.options']);
+        });
+    }
+
+    public function getQuizById(int $quizId): Quiz
+    {
+        return Quiz::with(['questions' => function ($query) {
+            $query->orderBy('sort_order');
+        }, 'questions.options' => function ($query) {
+            $query->orderBy('sort_order');
+        }])->findOrFail($quizId);
+    }
+
     public function createQuizQuestion(int $quizId, array $questionData, int $sortOrder = 1): QuizQuestion
     {
         $question = QuizQuestion::create([

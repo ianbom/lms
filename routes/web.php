@@ -86,6 +86,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/classes/{classId}/quiz/create', [AdmQuizController::class, 'createQuizPage'])->name('quiz.create');
         Route::post('/classes/quiz/create', [AdmQuizController::class, 'storeQuiz'])->name('quiz.store');
+        Route::get('/quiz/{quizId}', [AdmQuizController::class, 'getQuiz'])->name('quiz.get');
+        Route::put('/quiz/{quizId}', [AdmQuizController::class, 'updateQuiz'])->name('quiz.update');
 
         Route::get('/mentors', [MentorController::class, 'listMentorPage'])->name('mentors');
         Route::get('/mentors/create', [MentorController::class, 'createMentorPage'])->name('mentors.create');

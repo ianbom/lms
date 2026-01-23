@@ -12,13 +12,14 @@ export interface ModuleData {
         duration: string;
     };
     lessons: LessonData[];
+    quizIds?: number[]; // Array of quiz IDs in this module
 }
 
 interface ModuleCardProps {
     module: ModuleData;
     isExpanded?: boolean;
     onEdit?: (moduleId: number) => void;
-    onEditQuiz?: (moduleId: number) => void;
+    onEditQuiz?: (quizId: number) => void;
 }
 
 export default function ModuleCard({
@@ -28,6 +29,19 @@ export default function ModuleCard({
     onEditQuiz,
 }: ModuleCardProps) {
     const [expanded, setExpanded] = useState(isExpanded);
+
+    // Get quiz lessons from the module
+    const quizLessons = module.lessons.filter((l) => l.type === 'quiz');
+    const hasQuizzes = quizLessons.length > 0;
+
+    const handleEditQuiz = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        // If we have quizIds, use the first one. Otherwise, use the first quiz lesson id
+        const firstQuizId = module.quizIds?.[0] ?? quizLessons[0]?.id;
+        if (firstQuizId && onEditQuiz) {
+            onEditQuiz(firstQuizId);
+        }
+    };
 
     return (
         <div className="overflow-hidden rounded-xl border border-[#e2e8f0] bg-white shadow-sm transition-all hover:shadow-md">
@@ -80,13 +94,12 @@ export default function ModuleCard({
                 <div className="bg-[#f8fafc]">
                     <div className="border-t border-[#f1f5f9]">
                         {module.lessons.map((lesson) => (
-                            <LessonItem key={lesson.id} lesson={lesson} />
+                            <LessonItem key={`${lesson.type}-${lesson.id}`} lesson={lesson} />
                         ))}
                     </div>
 
-                    {/* Add Content Button */}
                     {/* Edit Buttons */}
-                    <div className="grid grid-cols-2 gap-4 p-4">
+                    <div className={`grid gap-4 p-4 ${hasQuizzes ? 'grid-cols-2' : 'grid-cols-1'}`}>
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -97,16 +110,15 @@ export default function ModuleCard({
                             <Icon name="edit" size={18} />
                             Edit Module
                         </button>
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onEditQuiz?.(module.id);
-                            }}
-                            className="flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
-                        >
-                            <Icon name="quiz" size={18} />
-                            Edit Quiz
-                        </button>
+                        {hasQuizzes && (
+                            <button
+                                onClick={handleEditQuiz}
+                                className="flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
+                            >
+                                <Icon name="quiz" size={18} />
+                                Edit Quiz
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
