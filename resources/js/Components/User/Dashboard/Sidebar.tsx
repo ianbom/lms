@@ -108,6 +108,16 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     />
                     <span className="text-sm font-medium">Settings</span>
                 </Link>
+                <Link
+                    href="/home"
+                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                    <Icon
+                        name="home"
+                        className="transition-transform group-hover:scale-110"
+                    />
+                    <span className="text-sm font-medium">Home</span>
+                </Link>
             </nav>
 
             {/* Bottom User Actions */}

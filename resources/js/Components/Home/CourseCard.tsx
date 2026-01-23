@@ -1,85 +1,83 @@
 import Icon from '@/Components/Icon';
-
-interface Instructor {
-    name: string;
-    image: string;
-}
+import { Link } from '@inertiajs/react';
 
 interface CourseCardProps {
     image: string;
-    category: string;
     title: string;
-    rating: number;
-    reviews: string;
-    instructor: Instructor;
-    onEnroll?: () => void;
+    description: string;
+    duration: string;
+    videoCount: number;
+    price: number;
+    originalPrice?: number;
+    isPopular?: boolean;
+    href?: string;
 }
 
 export default function CourseCard({
     image,
-    category,
     title,
-    rating,
-    reviews,
-    instructor,
-    onEnroll,
+    description,
+    duration,
+    videoCount,
+    price,
+    originalPrice,
+    isPopular = false,
+    href = '#',
 }: CourseCardProps) {
+    const formatPrice = (value: number) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+        }).format(value);
+    };
+
     return (
-        <div className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
-            {/* Image */}
+        <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:shadow-xl">
+            {isPopular && (
+                <div className="absolute left-4 top-4 z-10 rounded-full bg-yellow-400 px-3 py-1 text-xs font-bold text-yellow-900 shadow-sm">
+                    Terpopuler
+                </div>
+            )}
             <div className="relative h-48 overflow-hidden">
                 <img
                     alt={title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     src={image}
                 />
-                <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-gray-800 backdrop-blur">
-                    {category}
-                </div>
             </div>
-
-            {/* Content */}
-            <div className="p-6">
-                {/* Rating */}
-                <div className="mb-2 flex items-center gap-1">
-                    <Icon name="star" size={14} className="text-yellow-400" />
-                    <span className="text-sm font-bold text-gray-900">
-                        {rating}
+            <div className="flex flex-grow flex-col p-6">
+                <div className="mb-3 flex items-center gap-2 text-xs font-medium text-slate-500">
+                    <span className="flex items-center gap-1">
+                        <Icon name="schedule" size={14} />
+                        {duration}
                     </span>
-                    <span className="text-xs text-gray-500">({reviews})</span>
+                    <span className="h-1 w-1 rounded-full bg-slate-300" />
+                    <span>{videoCount} Video</span>
                 </div>
-
-                {/* Title */}
-                <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900">
+                <h3 className="mb-2 text-xl font-bold text-slate-900 transition-colors group-hover:text-primary">
                     {title}
                 </h3>
-
-                {/* Footer */}
-                <div className="mt-6 flex items-center justify-between">
-                    {/* Instructor */}
-                    <div className="flex items-center gap-2">
-                        <img
-                            alt={instructor.name}
-                            className="size-8 rounded-full"
-                            src={instructor.image}
-                        />
-                        <div>
-                            <p className="text-xs font-bold text-gray-900">
-                                {instructor.name}
-                            </p>
-                            <p className="text-[10px] text-gray-500">
-                                Instructor
-                            </p>
-                        </div>
+                <p className="mb-4 line-clamp-2 text-sm text-slate-500">
+                    {description}
+                </p>
+                <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
+                    <div>
+                        {originalPrice && (
+                            <span className="text-xs text-slate-400 line-through">
+                                {formatPrice(originalPrice)}
+                            </span>
+                        )}
+                        <p className="text-lg font-bold text-primary">
+                            {formatPrice(price)}
+                        </p>
                     </div>
-
-                    {/* Enroll Button */}
-                    <button
-                        onClick={onEnroll}
-                        className="rounded-md border border-primary px-4 py-1.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white"
+                    <Link
+                        href={href}
+                        className="rounded-full bg-slate-100 p-2 text-primary transition-colors hover:bg-primary hover:text-white"
                     >
-                        Enroll Now
-                    </button>
+                        <Icon name="arrow_outward" size={20} />
+                    </Link>
                 </div>
             </div>
         </div>

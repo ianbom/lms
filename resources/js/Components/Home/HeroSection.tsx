@@ -1,176 +1,175 @@
 import Icon from '@/Components/Icon';
 import { Link } from '@inertiajs/react';
+import { ReactNode } from 'react';
 
-interface StatItem {
-    value: string;
-    label: string;
+interface HeroButton {
+    text: string;
+    href: string;
+    variant: 'primary' | 'secondary';
 }
 
 interface HeroSectionProps {
     badge?: string;
-    title?: React.ReactNode;
+    title?: ReactNode;
     description?: string;
-    primaryButtonText?: string;
-    primaryButtonHref?: string;
-    secondaryButtonText?: string;
-    secondaryButtonHref?: string;
-    stats?: StatItem[];
+    buttons?: HeroButton[];
     heroImage?: string;
+    users?: string[];
+    userCount?: string;
+    rating?: number;
 }
 
-const defaultStats: StatItem[] = [
-    { value: '2.5k+', label: 'Expert-Led Courses' },
-    { value: '500k+', label: 'Active Learners' },
-    { value: '4.9/5', label: 'User Rating' },
+const defaultUsers = [
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&h=100&fit=crop',
+    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&h=100&fit=crop',
+    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&h=100&fit=crop',
+];
+
+const defaultButtons: HeroButton[] = [
+    { text: 'Mulai Belajar', href: '#', variant: 'primary' },
+    { text: 'Lihat Kelas', href: '#', variant: 'secondary' },
 ];
 
 export default function HeroSection({
-    badge = 'New Courses Added',
-    title,
-    description = 'Master in-demand skills from industry experts. Learn at your pace, track your growth with our AI-powered path, and stay ahead of the curve.',
-    primaryButtonText = 'Start Learning Free',
-    primaryButtonHref = '#',
-    secondaryButtonText = 'Browse Courses',
-    secondaryButtonHref = '#',
-    stats = defaultStats,
-    heroImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDBCTbQW0mMujiot2vukTYfJ4HsgXc3seRvsHMFgv_kUFl5KzUNkJSfZ0VQ_asL12VSkA0hSOLyVg14QROZCi57f6cDzqG5MPXJx_Ip63UlhYJ08ETn9HwMEP-guRLoX47g4wQupqeLCwC6z3nYP3nJjKDicYI_R8xYN7JiEP5D_4Wjs7bgZvhNOPHjbgAUi2piva6L1UHVwHS71x-c-SQKdUQd548GIvIWjQc7v2e4nmHsCDLAr4j3xCPjranBvA4TEFAEWnRs3mA',
+    badge = '🚀 Platform Edukasi No.1 di Indonesia',
+    title = (
+        <>
+            Tingkatkan Skill Anda
+            <br />
+            <span className="text-primary">Bersama Mentor Terbaik</span>
+        </>
+    ),
+    description = 'Platform pembelajaran online dengan kurikulum terstruktur, mentor berpengalaman, dan sertifikasi yang diakui industri.',
+    buttons = defaultButtons,
+    heroImage = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&h=600&fit=crop',
+    users = defaultUsers,
+    userCount = '10,000+',
+    rating = 4.9,
 }: HeroSectionProps) {
     return (
-        <section className="relative overflow-hidden pb-20 pt-12 lg:pb-28 lg:pt-20">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] pb-12 pt-24 text-white">
+            {/* Grid Pattern Overlay */}
+            <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                    backgroundSize: '40px 40px',
+                    backgroundImage: `
+                        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+                    `,
+                }}
+            />
+
+            {/* Blur Effects */}
+            <div className="absolute right-0 top-0 h-96 w-96 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
+            <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2 rounded-full bg-teal-500/10 blur-3xl" />
+
+            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col items-center gap-12 lg:flex-row">
                     {/* Left Content */}
-                    <div className="z-10 space-y-8">
+                    <div className="w-full text-center lg:w-1/2 lg:text-left">
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 rounded-full bg-primary-light px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
-                            <span className="size-2 animate-pulse rounded-full bg-primary"></span>
+                        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-emerald-300 backdrop-blur-md">
+                            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
                             {badge}
                         </div>
 
                         {/* Title */}
-                        <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
-                            {title || (
-                                <>
-                                    Unlock Skills That <br />
-                                    <span className="relative text-primary">
-                                        Move You Forward
-                                        <svg
-                                            className="absolute -bottom-1 left-0 h-3 w-full text-primary opacity-30"
-                                            fill="none"
-                                            viewBox="0 0 200 9"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M2.00025 6.99997C2.00025 6.99997 51.5002 1 100.5 1C149.5 1 198 7 198 7"
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeWidth="3"
-                                            />
-                                        </svg>
-                                    </span>
-                                </>
-                            )}
+                        <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+                            {title}
                         </h1>
 
                         {/* Description */}
-                        <p className="max-w-lg text-base leading-relaxed text-gray-600 sm:text-lg">
+                        <p className="mx-auto mb-8 max-w-lg leading-relaxed text-slate-300 lg:mx-0 lg:text-lg">
                             {description}
                         </p>
 
                         {/* CTA Buttons */}
-                        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-                            <Link
-                                href={primaryButtonHref}
-                                className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-xl shadow-primary/30 transition-all hover:bg-primary-dark sm:px-8 sm:py-4 sm:text-base"
-                            >
-                                {primaryButtonText}
-                                <Icon name="arrow_forward" size={16} />
-                            </Link>
-                            <Link
-                                href={secondaryButtonHref}
-                                className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-bold text-gray-700 transition-all hover:border-primary sm:px-8 sm:py-4 sm:text-base"
-                            >
-                                {secondaryButtonText}
-                            </Link>
+                        <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+                            {buttons.map((button, index) => (
+                                <Link
+                                    key={index}
+                                    href={button.href}
+                                    className={`flex items-center justify-center gap-2 rounded-full px-8 py-3.5 font-semibold transition-all ${
+                                        button.variant === 'primary'
+                                            ? 'bg-primary text-white shadow-xl shadow-primary/25 hover:bg-primary-dark'
+                                            : 'border border-white/10 bg-white/5 text-white backdrop-blur-md hover:bg-white/10'
+                                    }`}
+                                >
+                                    {button.text}
+                                    {button.variant === 'primary' && (
+                                        <Icon name="arrow_forward" size={18} />
+                                    )}
+                                </Link>
+                            ))}
                         </div>
 
                         {/* Stats */}
-                        <div className="flex flex-wrap items-center gap-4 pt-4 sm:gap-6 md:gap-8">
-                            {stats.map((stat, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center gap-4 sm:gap-6 md:gap-8"
-                                >
-                                    <div>
-                                        <p className="text-xl font-bold text-gray-900 sm:text-2xl md:text-3xl">
-                                            {stat.value}
-                                        </p>
-                                        <p className="text-xs text-gray-500 sm:text-sm">
-                                            {stat.label}
-                                        </p>
-                                    </div>
-                                    {index < stats.length - 1 && (
-                                        <div className="hidden h-10 w-px bg-gray-200 sm:block"></div>
-                                    )}
+                        <div className="mt-12 flex items-center justify-center gap-8 lg:justify-start">
+                            {/* Users */}
+                            <div className="flex items-center gap-2">
+                                <div className="flex -space-x-3">
+                                    {users.map((userImage, index) => (
+                                        <img
+                                            key={index}
+                                            alt={`User ${index + 1}`}
+                                            className="h-10 w-10 rounded-full border-2 border-teal-900 object-cover"
+                                            src={userImage}
+                                        />
+                                    ))}
                                 </div>
-                            ))}
+                                <div className="text-left">
+                                    <p className="font-bold text-white">
+                                        {userCount}
+                                    </p>
+                                    <p className="text-xs text-slate-400">
+                                        Telah bergabung
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="h-10 w-px bg-white/10" />
+
+                            {/* Rating */}
+                            <div className="flex items-center gap-2">
+                                <Icon
+                                    name="star"
+                                    size={24}
+                                    className="text-yellow-400"
+                                    filled
+                                />
+                                <div className="text-left">
+                                    <p className="font-bold text-white">
+                                        {rating}/5
+                                    </p>
+                                    <p className="text-xs text-slate-400">
+                                        Rating rata-rata
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     {/* Right Content - Hero Image */}
-                    <div className="relative flex items-center justify-center lg:h-[600px]">
-                        {/* Background Gradient */}
-                        <div className="absolute left-1/2 top-1/2 -z-10 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-primary/10 to-blue-100/50 blur-3xl"></div>
-
-                        <div className="relative mx-auto w-full max-w-sm sm:max-w-md">
-                            {/* Main Image */}
+                    <div className="relative mt-8 w-full lg:mt-0 lg:w-1/2">
+                        <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+                            <div className="absolute inset-0 z-10 bg-gradient-to-t from-teal-900/80 to-transparent" />
                             <img
-                                alt="Student learning on tablet"
-                                className="relative z-10 h-[300px] w-full rounded-2xl object-cover shadow-2xl sm:h-[400px] md:h-[500px] md:rounded-[2rem]"
+                                alt="Modern Workspace"
+                                className="h-auto w-full transform object-cover transition-transform duration-700 hover:scale-105"
                                 src={heroImage}
                             />
-
-                            {/* Floating Card - Certificates */}
-                            <div className="floating-card shadow-soft absolute -left-4 top-8 z-20 hidden w-40 rounded-2xl border border-gray-100 bg-white p-3 sm:block sm:w-48 sm:p-4 md:-left-12 md:top-12">
-                                <div className="flex items-center gap-3">
-                                    <div className="rounded-md bg-orange-100 p-2 text-orange-600">
-                                        <Icon name="emoji_events" size={20} />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs text-gray-500">
-                                            Certificates Earned
-                                        </p>
-                                        <p className="text-xl font-bold text-gray-900">
-                                            12
-                                        </p>
-                                    </div>
+                            {/* Floating Card */}
+                            <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white">
+                                    <Icon name="check_circle" size={24} />
                                 </div>
-                            </div>
-
-                            {/* Floating Card - Course Progress */}
-                            <div className="floating-card-delayed shadow-soft absolute -right-4 bottom-16 z-20 hidden w-48 rounded-2xl border border-gray-100 bg-white p-3 sm:block sm:w-56 sm:p-4 md:-right-8 md:bottom-24">
-                                <div className="mb-2 flex items-center justify-between">
-                                    <p className="text-sm font-bold text-gray-900">
-                                        UX Design Basics
+                                <div>
+                                    <p className="text-sm text-slate-300">
+                                        Status Belajar
                                     </p>
-                                    <span className="text-xs font-semibold text-primary">
-                                        85%
-                                    </span>
-                                </div>
-                                <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
-                                    <div
-                                        className="h-2 rounded-full bg-primary"
-                                        style={{ width: '85%' }}
-                                    ></div>
-                                </div>
-                                <div className="mt-3 flex items-center">
-                                    <img
-                                        alt="Instructor"
-                                        className="size-6 rounded-full border-2 border-white"
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_V0jbAVI4M9LQmqhEYbdXiMPMS8kDvXiSuiONzex98tUJwU8K9VUWJJ0AC6Qd6d514QdCiZKyOed_9we8Xfru8xN1kakjwlDRf6nwGFfLFuUjptWfgqP3nnwv3VLEVEL3Ddf27z5U6qQ91waNIgPAAm-T0_lnvvScLYSg4UUujxNNB-TMMiUDVOpO4PvwJ7o1TR_qaCH5FxS7ND2G00V_-LNscFhPZ0B_7xTcHLshZZY4aXYSBAr82HMizBMtEG7R90g5UCirYy8"
-                                    />
-                                    <p className="pl-2 text-xs text-gray-500">
-                                        Instructor: Sarah J.
+                                    <p className="font-bold text-white">
+                                        Target Tercapai 85%
                                     </p>
                                 </div>
                             </div>

@@ -20,44 +20,30 @@ export default function TestimonialCard({
     user,
 }: TestimonialCardProps) {
     return (
-        <div className="rounded-3xl bg-background-light p-8">
-            {/* Stars */}
-            <div className="mb-4 flex text-yellow-400">
-                {Array.from({ length: 5 }).map((_, index) => (
-                    <Icon
-                        key={index}
-                        name={
-                            index < Math.floor(rating)
-                                ? 'star'
-                                : index < rating
-                                  ? 'star_half'
-                                  : 'star_outline'
-                        }
-                        size={20}
-                    />
-                ))}
+        <div className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+            {/* Quote Icon & Content */}
+            <div className="mb-4 flex-1">
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Icon name="format_quote" size={20} />
+                </div>
+                <p className="leading-relaxed text-gray-600">{content}</p>
             </div>
 
-            {/* Title */}
-            <h3 className="mb-3 text-lg font-bold text-gray-900">{title}</h3>
-
-            {/* Content */}
-            <p className="mb-6 text-sm leading-relaxed text-gray-600">
-                {content}
-            </p>
-
-            {/* User */}
-            <div className="flex items-center gap-3">
+            {/* User Info */}
+            <div className="flex items-center gap-4 border-t border-gray-100 pt-4">
                 <img
                     alt={user.name}
-                    className="size-10 rounded-full"
+                    className="h-12 w-12 rounded-full object-cover"
                     src={user.image}
                 />
                 <div>
-                    <p className="text-sm font-bold text-gray-900">
-                        {user.name}
-                    </p>
-                    <p className="text-xs text-gray-500">{user.role}</p>
+                    <p className="font-semibold text-gray-900">{user.name}</p>
+                    <p className="text-sm text-gray-500">{user.role}</p>
+                </div>
+                {/* Rating */}
+                <div className="ml-auto flex items-center gap-1">
+                    <Icon name="star" size={18} className="text-yellow-400" filled />
+                    <span className="font-medium text-gray-700">{rating}</span>
                 </div>
             </div>
         </div>

@@ -47,7 +47,9 @@ class ClassService
     public function getClassDetailsById($classId)
     {
         return Classes::with(['category', 'creator', 'mentors', 'modules' => function($query) {
-            $query->with(['videos', 'quizzes' => function($q) {
+            $query->with(['videos' => function($q) {
+                $q->with('resources')->orderBy('sort_order');
+            }, 'quizzes' => function($q) {
                 $q->withCount('questions');
             }]);
         }])->findOrFail($classId);
@@ -107,6 +109,16 @@ class ClassService
             $class->mentors()->sync($mentors);
         }
 
+        return $class;
+    }
+
+    public function publishClass($classId){
+        $class = Classes::findOrFail($classId);
+        if (!$class->published_at) {
+            $class->published_at = now();
+            $class->status = 'published';
+            $class->save();
+        }
         return $class;
     }
 }

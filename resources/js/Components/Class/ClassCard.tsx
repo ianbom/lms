@@ -61,13 +61,13 @@ export default function ClassCard({ item, className = '' }: ClassCardProps) {
                 </h3>
 
                 {/* Description */}
-                <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-slate-500">
+                {/* <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-slate-500">
                     {item.description ||
                         'Pelajari materi ini bersama mentor berpengalaman.'}
-                </p>
+                </p> */}
 
                 {/* Spacer */}
-                <div className="flex-1" />
+                {/* <div className="flex-1" /> */}
 
                 {/* Meta Row */}
                 <div className="flex items-center gap-3 border-t border-slate-100 pt-3">

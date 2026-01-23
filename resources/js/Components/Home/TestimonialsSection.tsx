@@ -13,59 +13,66 @@ interface Testimonial {
 
 interface TestimonialsSectionProps {
     title?: string;
+    description?: string;
     testimonials?: Testimonial[];
 }
 
 const defaultTestimonials: Testimonial[] = [
     {
         rating: 5,
-        title: 'LMS Platform helped me switch careers!',
+        title: 'Kursus yang sangat membantu!',
         content:
-            "I started as a marketing assistant with no coding experience. Thanks to LMS Platform's beginner-friendly web development courses, I landed my first frontend developer job last month.",
+            'Saya berhasil mendapatkan pekerjaan sebagai web developer setelah menyelesaikan kursus di sini. Materinya sangat praktis dan mentornya sangat helpful!',
         user: {
-            name: 'Aisha R.',
-            role: 'Junior Web Developer',
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDEtEV91LTRrJYkxpBcAgS7WFLEjhKdOeK3svMjzSknB4g2b8swg1ayRWdGB2QiisooEk8yy9DmNHQ4wQkUtZF0pvgn2R380G93XdZewectE69YLAmhin6kQ0zakk1Fj1mfP23dRst1jDM6TNOuGuaM0wTfiSYW_0W5Efvau5zf060wZnV0g9C5FlntoaVHcqAu_2Owu8dhaGtWUhoqtwqI16oqMnY_qXcVRBiocAYLShji191iqDZuzvsc_4Porat0CqoGNfHuOgk',
+            name: 'Andi Pratama',
+            role: 'Web Developer di TechCorp',
+            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&fit=crop',
         },
     },
     {
         rating: 5,
-        title: 'Fits perfectly into my busy schedule',
+        title: 'Fleksibel dan berkualitas',
         content:
-            "As a full-time nurse, I don't have a lot of spare time. But LMS Platform's short, focused lessons make it easy to learn during breaks. I've completed three courses on personal finance.",
+            'Sebagai ibu rumah tangga, saya bisa belajar di waktu luang. Kursus UI/UX di sini membuat saya bisa memulai karir freelance dengan percaya diri.',
         user: {
-            name: 'Carlos M.',
-            role: 'Healthcare Professional',
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDznBJtVM5hzkIHrerhExFBcKhDOFv40gGd8su-Bp8j9B2ODRKP9TBvxqAtE_jke2PBTTmwgG99qItYHeWW_Mk9nbUw6AzXj19chj01QRltY-UJbvYiyAWwlTyIjnm6A_Bu26MCYvL80jZkEj9x9j0Xary3uNdoaKLZoOeGAhDx20XgOT3I8hH1pwwVzEXMJo9lZopyH2cwKMrBCasXWHaHhDunPh1O3PyFYvh5eVPOBbGvKYb1m0tsARTK7Hl4wMamOVJ43pIiSI',
+            name: 'Siti Nurhaliza',
+            role: 'Freelance UI/UX Designer',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&fit=crop',
         },
     },
     {
-        rating: 4.5,
-        title: 'Leveled up my freelance career',
+        rating: 4.8,
+        title: 'Worth every penny!',
         content:
-            "I've taken many online courses before, but none were as practical and well-structured as LMS Platform's. The UI/UX path was exactly what I needed. My income has doubled!",
+            'Investasi terbaik untuk pengembangan diri. Materi selalu update mengikuti trend industri dan ada komunitas yang sangat supportive.',
         user: {
-            name: 'Nadiya P.',
-            role: 'Freelance Designer',
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAW-xFTnNVXkcr4iKSYYy1f2dksPF3PgMp2Rx3r7nSB1rH40YAwjGOehb1zZDycxLvM7JM80A9uMrOCTgWQTZ6rPM6WjgjCDyIJnGlnWg4542ihSTeX3PrdMjeH6wrir177gAoH5DVIXXdDXo0gRkfaKn33b98CShMs5U-K1R0U6aiMGNmfLMArYCzwukNy48itM2-tqOg5UTAMUGfYwnNBu9aHza4O27vBMKScHin8V0wB5bPVkwUTZdqPDn_TRxOjQ28LHwCiEn0',
+            name: 'Budi Santoso',
+            role: 'Data Analyst di StartupXYZ',
+            image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&fit=crop',
         },
     },
 ];
 
 export default function TestimonialsSection({
-    title = 'Stories from LMS Platform Learners',
+    title = 'Apa Kata Alumni Kami',
+    description = 'Ribuan alumni telah berhasil mengembangkan karir mereka bersama kami',
     testimonials = defaultTestimonials,
 }: TestimonialsSectionProps) {
     return (
-        <section className="bg-white py-20">
+        <section className="bg-white py-16 sm:py-20">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <h2 className="mb-12 text-center text-3xl font-bold text-gray-900 lg:text-4xl">
-                    {title}
-                </h2>
+                <div className="mb-12 text-center">
+                    <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                        {title}
+                    </h2>
+                    <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
+                        {description}
+                    </p>
+                </div>
 
                 {/* Testimonials Grid */}
-                <div className="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {testimonials.map((testimonial, index) => (
                         <TestimonialCard
                             key={index}

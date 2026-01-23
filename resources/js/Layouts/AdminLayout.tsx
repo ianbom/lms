@@ -2,6 +2,7 @@ import AdminHeader from '@/Components/Admin/AdminHeader';
 import AdminSidebar from '@/Components/Admin/AdminSidebar';
 import Toast from '@/Components/Toast';
 import { BreadcrumbItem, NavItem } from '@/types/admin';
+import { FlashProps, PageProps } from '@/types';
 import { router, usePage } from '@inertiajs/react';
 import { PropsWithChildren, useEffect, useState } from 'react';
 
@@ -9,19 +10,11 @@ interface AdminLayoutProps extends PropsWithChildren {
     breadcrumbs?: BreadcrumbItem[];
 }
 
-interface FlashProps {
-    success?: string;
-    error?: string;
-}
-
 export default function AdminLayout({
     children,
     breadcrumbs = [],
 }: AdminLayoutProps) {
-    const { auth, flash } = usePage().props as {
-        auth: { user: { name: string; email: string; avatar?: string } };
-        flash: FlashProps;
-    };
+    const { auth, flash } = usePage<PageProps>().props;
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [toast, setToast] = useState<{
         message: string;
@@ -69,6 +62,12 @@ export default function AdminLayout({
             // badge: 3,
         },
         {
+            label: 'Users',
+            href: route('admin.users'),
+            icon: 'people',
+            active: route().current('admin.users'),
+        },
+        {
             label: 'Certificates',
             href: '#',
             icon: 'workspace_premium',
@@ -76,9 +75,9 @@ export default function AdminLayout({
         },
         {
             label: 'Settings',
-            href: '#',
+            href: route('admin.profile'),
             icon: 'settings',
-            active: false,
+            active: route().current('admin.profile'),
         },
     ];
 

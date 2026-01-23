@@ -1,1 +1,0 @@
-import{j as n}from"./app-UtKUC6ir.js";function r({name:s,size:t=24,className:e=""}){return n.jsx("span",{className:`material-symbols-outlined ${e}`,style:{fontSize:`${t}px`},children:s})}export{r as I};

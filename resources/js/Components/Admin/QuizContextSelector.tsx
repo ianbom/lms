@@ -1,6 +1,6 @@
 import Icon from '@/Components/Icon';
 
-export type QuizContextType = 'practice' | 'required' | 'pretest';
+export type QuizContextType = 'post-test' | 'pretest';
 
 interface QuizContextOption {
     value: QuizContextType;
@@ -9,8 +9,7 @@ interface QuizContextOption {
 }
 
 const options: QuizContextOption[] = [
-    { value: 'practice', label: 'Practice', icon: 'school' },
-    { value: 'required', label: 'Required', icon: 'fact_check' },
+    { value: 'post-test', label: 'Post-test', icon: 'fact_check' },
     { value: 'pretest', label: 'Pre-test', icon: 'timer' },
 ];
 
@@ -30,7 +29,7 @@ export default function QuizContextSelector({
             <label className="mb-2 block text-sm font-semibold text-[#101814]">
                 Quiz Context
             </label>
-            <div className="grid grid-cols-3 gap-3 rounded-xl bg-slate-100 p-1">
+            <div className="grid grid-cols-2 gap-3 rounded-xl bg-slate-100 p-1">
                 {options.map((option) => (
                     <label key={option.value} className="cursor-pointer">
                         <input
