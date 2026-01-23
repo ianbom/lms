@@ -18,31 +18,35 @@ const defaultFeatures: Feature[] = [
         icon: 'psychology',
         iconColor: 'orange',
         title: 'Learn Smarter',
-        description: 'AI-assisted learning paths adapt to your pace and goals automatically.',
+        description:
+            'AI-assisted learning paths adapt to your pace and goals automatically.',
     },
     {
         icon: 'schedule',
         iconColor: 'purple',
         title: 'Flexible Schedule',
-        description: 'Learn anytime, anywhere. Pick up exactly where you left off, even offline.',
+        description:
+            'Learn anytime, anywhere. Pick up exactly where you left off, even offline.',
     },
     {
         icon: 'verified',
         iconColor: 'blue',
         title: 'Learn from Best',
-        description: 'Courses led by top professionals and practitioners who know what works.',
+        description:
+            'Courses led by top professionals and practitioners who know what works.',
     },
     {
         icon: 'groups',
         iconColor: 'teal',
         title: 'Community',
-        description: 'Join peer groups, ask questions, and build your portfolio with others.',
+        description:
+            'Join peer groups, ask questions, and build your portfolio with others.',
     },
 ];
 
 export default function FeaturesSection({
     title = 'Smart Learning, Real Results',
-    description = "We make learning effective, enjoyable, and personalized—so you stay motivated and actually finish what you start.",
+    description = 'We make learning effective, enjoyable, and personalized—so you stay motivated and actually finish what you start.',
     features = defaultFeatures,
 }: FeaturesSectionProps) {
     return (
@@ -50,7 +54,9 @@ export default function FeaturesSection({
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mx-auto mb-16 max-w-2xl text-center">
-                    <h2 className="mb-4 text-3xl font-bold text-gray-900">{title}</h2>
+                    <h2 className="mb-4 text-3xl font-bold text-gray-900">
+                        {title}
+                    </h2>
                     <p className="text-gray-600">{description}</p>
                 </div>
 

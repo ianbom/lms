@@ -23,9 +23,9 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
             active: route().current('home'),
         },
         {
-            label: 'Modul',
-            href: route('user.modul.index'),
-            active: route().current('user.modul.*'),
+            label: 'Kelas',
+            href: route('user.classes'),
+            active: route().current('user.classes.*'),
         },
         // {
         //     label: 'Dashboard',
@@ -68,10 +68,11 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    className={`text-sm font-medium transition-colors ${item.active
+                                    className={`text-sm font-medium transition-colors ${
+                                        item.active
                                             ? 'border-b-2 border-primary pb-0.5 text-gray-900'
                                             : 'text-gray-600 hover:text-primary'
-                                        }`}
+                                    }`}
                                 >
                                     {item.label}
                                 </Link>
@@ -87,8 +88,8 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
 
                             {user ? (
                                 <Link
-                                    href={route('dashboard')}
-                                    className="hidden rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark sm:block"
+                                    href={route('user.dashboard')}
+                                    className="hidden rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark sm:block"
                                 >
                                     Dashboard
                                 </Link>
@@ -102,7 +103,7 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                                     </Link>
                                     <Link
                                         href={route('register')}
-                                        className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                        className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
                                     >
                                         Daftar
                                     </Link>
@@ -127,18 +128,50 @@ export default function UserLayout({ children, navItems }: UserLayoutProps) {
                     {/* Mobile Menu */}
                     {showMobileMenu && (
                         <div className="border-t border-gray-200 py-4 md:hidden">
-                            {navigation.map((item) => (
-                                <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    className={`block py-2 text-sm font-medium ${item.active
-                                            ? 'text-primary'
-                                            : 'text-gray-600'
+                            <div className="flex flex-col gap-2">
+                                {navigation.map((item) => (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                                            item.active
+                                                ? 'bg-primary/10 text-primary'
+                                                : 'text-gray-600 hover:bg-gray-50'
                                         }`}
-                                >
-                                    {item.label}
-                                </Link>
-                            ))}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
+
+                                {/* Mobile Auth Buttons */}
+                                {!user && (
+                                    <div className="mt-4 flex flex-col gap-2 border-t border-gray-200 pt-4">
+                                        <Link
+                                            href={route('login')}
+                                            className="rounded-lg border border-gray-200 px-4 py-2 text-center text-sm font-semibold text-gray-600 transition-colors hover:border-primary hover:text-primary"
+                                        >
+                                            Masuk
+                                        </Link>
+                                        <Link
+                                            href={route('register')}
+                                            className="rounded-lg bg-primary px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                        >
+                                            Daftar
+                                        </Link>
+                                    </div>
+                                )}
+
+                                {user && (
+                                    <div className="mt-4 border-t border-gray-200 pt-4">
+                                        <Link
+                                            href={route('user.dashboard')}
+                                            className="block rounded-lg bg-primary px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>

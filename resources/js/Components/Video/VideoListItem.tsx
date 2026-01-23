@@ -7,12 +7,17 @@ interface VideoListItemProps {
     onClick?: () => void;
 }
 
-export default function VideoListItem({ lesson, index, onClick }: VideoListItemProps) {
+export default function VideoListItem({
+    lesson,
+    index,
+    onClick,
+}: VideoListItemProps) {
     const getStatusStyles = () => {
         switch (lesson.status) {
             case 'completed':
                 return {
-                    container: 'hover:bg-emerald-50/50 cursor-pointer border border-transparent hover:border-emerald-100',
+                    container:
+                        'hover:bg-emerald-50/50 cursor-pointer border border-transparent hover:border-emerald-100',
                     icon: 'check_circle',
                     iconClass: 'text-emerald-500',
                     titleClass: 'text-gray-500 group-hover:text-emerald-700',
@@ -21,7 +26,8 @@ export default function VideoListItem({ lesson, index, onClick }: VideoListItemP
                 };
             case 'playing':
                 return {
-                    container: 'bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 shadow-md shadow-primary/5',
+                    container:
+                        'bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 shadow-md shadow-primary/5',
                     icon: 'play_circle',
                     iconClass: 'text-primary animate-pulse',
                     titleClass: 'font-bold text-primary',
@@ -31,16 +37,19 @@ export default function VideoListItem({ lesson, index, onClick }: VideoListItemP
                 };
             case 'pending':
                 return {
-                    container: 'hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-100',
+                    container:
+                        'hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-100',
                     icon: 'radio_button_unchecked',
                     iconClass: 'text-gray-300 group-hover:text-primary',
                     titleClass: 'text-gray-700 group-hover:text-primary',
                     durationClass: 'text-gray-500',
-                    indexBg: 'bg-gray-100 text-gray-500 group-hover:bg-primary-light group-hover:text-primary',
+                    indexBg:
+                        'bg-gray-100 text-gray-500 group-hover:bg-primary-light group-hover:text-primary',
                 };
             case 'locked':
                 return {
-                    container: 'opacity-50 cursor-not-allowed bg-gray-50/80 border border-gray-100',
+                    container:
+                        'opacity-50 cursor-not-allowed bg-gray-50/80 border border-gray-100',
                     icon: 'lock',
                     iconClass: 'text-gray-400',
                     titleClass: 'text-gray-500',
@@ -64,7 +73,9 @@ export default function VideoListItem({ lesson, index, onClick }: VideoListItemP
 
             {/* Index number */}
             {index && (
-                <div className={`flex size-6 shrink-0 items-center justify-center rounded-md text-xs font-bold transition-colors ${styles.indexBg}`}>
+                <div
+                    className={`flex size-6 shrink-0 items-center justify-center rounded-md text-xs font-bold transition-colors ${styles.indexBg}`}
+                >
                     {index}
                 </div>
             )}
@@ -79,18 +90,24 @@ export default function VideoListItem({ lesson, index, onClick }: VideoListItemP
             </div>
 
             {/* Content */}
-            <div className="z-10 flex-1 min-w-0">
-                <p className={`truncate text-sm font-medium transition-colors ${styles.titleClass}`}>
+            <div className="z-10 min-w-0 flex-1">
+                <p
+                    className={`truncate text-sm font-medium transition-colors ${styles.titleClass}`}
+                >
                     {lesson.title}
                 </p>
                 <div className="mt-1 flex items-center gap-2">
-                    <Icon name="schedule" size={12} className={styles.durationClass} />
+                    <Icon
+                        name="schedule"
+                        size={12}
+                        className={styles.durationClass}
+                    />
                     <span className={`text-xs ${styles.durationClass}`}>
                         {lesson.status === 'playing'
                             ? `${lesson.duration} • Sedang diputar`
                             : lesson.status === 'locked'
-                                ? 'Terkunci'
-                                : lesson.duration}
+                              ? 'Terkunci'
+                              : lesson.duration}
                     </span>
                 </div>
             </div>

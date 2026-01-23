@@ -58,7 +58,7 @@ export default function Footer({ columns = defaultColumns }: FooterProps) {
                     {/* Brand Column */}
                     <div className="col-span-2 pr-8 lg:col-span-2">
                         <Link href="/" className="mb-6 flex items-center gap-2">
-                            <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-white">
+                            <div className="flex size-8 items-center justify-center rounded-md bg-primary text-white">
                                 <Icon name="school" size={20} />
                             </div>
                             <span className="text-2xl font-bold tracking-tight text-gray-900">
@@ -66,11 +66,12 @@ export default function Footer({ columns = defaultColumns }: FooterProps) {
                             </span>
                         </Link>
                         <p className="mb-6 max-w-sm text-sm leading-relaxed text-gray-500">
-                            LMS Platform is a modern online learning platform that helps you gain
-                            in-demand skills through expert-led courses, personalized learning
-                            paths, and a vibrant peer community.
+                            LMS Platform is a modern online learning platform
+                            that helps you gain in-demand skills through
+                            expert-led courses, personalized learning paths, and
+                            a vibrant peer community.
                         </p>
-                        <button className="rounded-lg bg-indigo-50 px-6 py-2 text-sm font-bold text-indigo-600 transition-colors hover:bg-indigo-100">
+                        <button className="rounded-md bg-indigo-50 px-6 py-2 text-sm font-bold text-indigo-600 transition-colors hover:bg-indigo-100">
                             Contact Us
                         </button>
                     </div>

@@ -38,6 +38,7 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
+        "lodash": "^4.17.23",
         "react-youtube": "^10.1.0"
     }
 }

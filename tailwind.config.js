@@ -14,9 +14,10 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: '#00753d',
+                    DEFAULT: '#007537',
                     dark: '#005a2f',
                     light: '#e6f4ed',
+                    ctm: '#00A84C'
                 },
                 background: {
                     light: '#f9fafa',
@@ -26,8 +27,8 @@ export default {
                 },
             },
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
-                display: ['Inter', 'sans-serif'],
+                sans: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
+                display: ['Plus Jakarta Sans', 'sans-serif'],
             },
         },
     },

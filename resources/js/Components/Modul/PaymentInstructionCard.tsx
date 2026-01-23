@@ -9,7 +9,7 @@ export default function PaymentInstructionCard() {
         <section className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-gray-100 bg-gradient-to-b from-gray-50 to-white px-6 py-4">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                <div className="flex size-10 items-center justify-center rounded-md bg-blue-50 text-blue-600">
                     <Icon name="account_balance" size={20} />
                 </div>
                 <h3 className="text-base font-semibold text-gray-900">
@@ -20,7 +20,7 @@ export default function PaymentInstructionCard() {
             {/* Content */}
             <div className="p-6">
                 {/* Bank Info */}
-                <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50/50 to-white p-6">
+                <div className="rounded-md border border-gray-200 bg-gradient-to-br from-gray-50/50 to-white p-6">
                     {/* Bank Header */}
                     <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
                         <div className="flex items-center gap-3">
@@ -56,10 +56,6 @@ export default function PaymentInstructionCard() {
                                 </p>
                             </div>
                         </div>
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-xs font-semibold text-green-700">
-                            <span className="size-1.5 animate-pulse rounded-full bg-green-500" />
-                            Pengecekan Otomatis
-                        </span>
                     </div>
 
                     {/* Account Number */}
@@ -73,7 +69,7 @@ export default function PaymentInstructionCard() {
                             </span>
                             <button
                                 onClick={handleCopy}
-                                className="flex size-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 transition-all hover:border-primary hover:bg-primary-light hover:text-primary"
+                                className="flex size-9 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-600 transition-all hover:border-primary hover:bg-primary-light hover:text-primary"
                                 title="Salin Nomor Rekening"
                             >
                                 <Icon name="content_copy" size={18} />
@@ -85,7 +81,7 @@ export default function PaymentInstructionCard() {
                     </div>
 
                     {/* Warning */}
-                    {/* <div className="flex gap-3 rounded-lg border border-amber-200/60 bg-amber-50/50 p-4">
+                    {/* <div className="flex gap-3 rounded-md border border-amber-200/60 bg-amber-50/50 p-4">
                         <Icon
                             name="info"
                             size={20}

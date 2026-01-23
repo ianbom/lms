@@ -32,7 +32,7 @@ export default function Navbar({
                 <div className="flex h-20 items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2">
-                        <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-white">
+                        <div className="flex size-8 items-center justify-center rounded-md bg-primary text-white">
                             <Icon name="school" size={20} />
                         </div>
                         <span className="text-2xl font-bold tracking-tight text-gray-900">
@@ -73,9 +73,12 @@ export default function Navbar({
                         {/* Mobile Menu Button */}
                         <button
                             onClick={() => setShowMobileMenu(!showMobileMenu)}
-                            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 md:hidden"
+                            className="rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden"
                         >
-                            <Icon name={showMobileMenu ? 'close' : 'menu'} size={24} />
+                            <Icon
+                                name={showMobileMenu ? 'close' : 'menu'}
+                                size={24}
+                            />
                         </button>
                     </div>
                 </div>
@@ -88,7 +91,7 @@ export default function Navbar({
                                 <Link
                                     key={index}
                                     href={item.href}
-                                    className="rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50 hover:text-primary"
+                                    className="rounded-md px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50 hover:text-primary"
                                 >
                                     {item.label}
                                 </Link>
@@ -96,7 +99,7 @@ export default function Navbar({
                             {showSignIn && (
                                 <Link
                                     href="/login"
-                                    className="rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50 hover:text-primary"
+                                    className="rounded-md px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50 hover:text-primary"
                                 >
                                     Sign In
                                 </Link>

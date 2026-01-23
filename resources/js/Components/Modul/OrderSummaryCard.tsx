@@ -33,7 +33,7 @@ export default function OrderSummaryCard({
             {/* Module Info */}
             <div className="p-6">
                 <div className="flex gap-4">
-                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-gray-100">
                         <img
                             src={thumbnailUrl}
                             alt={moduleTitle}

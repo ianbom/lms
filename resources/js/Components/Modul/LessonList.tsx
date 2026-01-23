@@ -41,28 +41,31 @@ export default function LessonList({
                         onClick={() =>
                             !lesson.isLocked && onLessonClick?.(lesson)
                         }
-                        className={`flex items-center justify-between rounded-xl border p-4 transition-colors ${lesson.isLocked
+                        className={`flex items-center justify-between rounded-xl border p-4 transition-colors ${
+                            lesson.isLocked
                                 ? 'cursor-not-allowed border-gray-100 bg-gray-50'
                                 : 'cursor-pointer border-gray-200 bg-white hover:border-primary/30 hover:bg-primary/5'
-                            }`}
+                        }`}
                     >
                         <div className="flex items-center gap-4">
                             <div
-                                className={`flex size-10 items-center justify-center rounded-full ${lesson.isPreview
+                                className={`flex size-10 items-center justify-center rounded-full ${
+                                    lesson.isPreview
                                         ? 'bg-primary text-white'
                                         : lesson.isLocked
-                                            ? 'bg-gray-200 text-gray-400'
-                                            : 'bg-gray-100 text-gray-600'
-                                    }`}
+                                          ? 'bg-gray-200 text-gray-400'
+                                          : 'bg-gray-100 text-gray-600'
+                                }`}
                             >
                                 <Icon name={getIcon(lesson)} size={20} />
                             </div>
                             <div>
                                 <p
-                                    className={`font-medium ${lesson.isLocked
+                                    className={`font-medium ${
+                                        lesson.isLocked
                                             ? 'text-gray-400'
                                             : 'text-gray-900'
-                                        }`}
+                                    }`}
                                 >
                                     {lesson.title}
                                 </p>
@@ -73,7 +76,7 @@ export default function LessonList({
                         </div>
 
                         {lesson.isPreview && (
-                            <span className="rounded-lg border border-gray-200 bg-white px-3 py-1 text-sm font-medium text-gray-700">
+                            <span className="rounded-md border border-gray-200 bg-white px-3 py-1 text-sm font-medium text-gray-700">
                                 Preview
                             </span>
                         )}

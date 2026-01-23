@@ -6,8 +6,8 @@ interface PricingSidebarProps {
     discount?: number;
     videoCount: number;
     duration: string;
-    level: string;
-    accessType: string;
+    moduleCount: number;
+    quizCount: number;
     onBuy?: () => void;
     onAddWishlist?: () => void;
 }
@@ -18,8 +18,8 @@ export default function PricingSidebar({
     discount,
     videoCount,
     duration,
-    level,
-    accessType,
+    moduleCount,
+    quizCount,
     onBuy,
     onAddWishlist,
 }: PricingSidebarProps) {
@@ -27,17 +27,8 @@ export default function PricingSidebar({
         return `Rp ${amount.toLocaleString('id-ID')}`;
     };
 
-    const formatLevel = (lvl: string) => {
-        const levels: Record<string, string> = {
-            beginner: 'Pemula',
-            intermediate: 'Menengah',
-            advanced: 'Lanjutan',
-        };
-        return levels[lvl] || lvl;
-    };
-
     return (
-        <div className="sticky top-24 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="rounded-md border border-gray-200 bg-white p-6 shadow-sm">
             {/* Price Section */}
             <div className="mb-6">
                 <p className="mb-1 text-sm font-medium text-gray-600">
@@ -81,29 +72,26 @@ export default function PricingSidebar({
                 </div>
                 <div className="flex items-center gap-2.5 text-sm">
                     <Icon
-                        name="signal_cellular_alt"
+                        name="view_module"
                         size={20}
                         className="text-primary"
                     />
                     <span className="font-medium text-gray-700">
-                        {formatLevel(level)}
+                        {moduleCount} Modul
                     </span>
                 </div>
                 <div className="flex items-center gap-2.5 text-sm">
-                    <Icon
-                        name="all_inclusive"
-                        size={20}
-                        className="text-primary"
-                    />
+                    <Icon name="quiz" size={20} className="text-primary" />
                     <span className="font-medium text-gray-700">
-                        {accessType === 'lifetime' ? 'Lifetime' : 'Terbatas'}
+                        {quizCount} Kuis
                     </span>
                 </div>
             </div>
 
             {/* Buttons */}
             <div className="py-2">
-                <a  href = '/modul/1/purchase'
+                <a
+                    href="user/classes/1/purchase"
                     // onClick={onBuy}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-primary/40"
                 >

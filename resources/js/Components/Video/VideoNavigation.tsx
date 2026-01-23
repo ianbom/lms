@@ -21,7 +21,11 @@ export default function VideoNavigation({
                 disabled={!hasPrevious}
                 className="group flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-all hover:border-gray-300 hover:bg-gray-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
             >
-                <Icon name="arrow_back" size={18} className="transition-transform group-hover:-translate-x-1" />
+                <Icon
+                    name="arrow_back"
+                    size={18}
+                    className="transition-transform group-hover:-translate-x-1"
+                />
                 <span>Video Sebelumnya</span>
             </button>
 
@@ -43,7 +47,11 @@ export default function VideoNavigation({
                 {/* Shine effect on hover */}
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
                 <span className="relative">Video Selanjutnya</span>
-                <Icon name="arrow_forward" size={18} className="relative transition-transform group-hover:translate-x-1" />
+                <Icon
+                    name="arrow_forward"
+                    size={18}
+                    className="relative transition-transform group-hover:translate-x-1"
+                />
             </button>
         </div>
     );

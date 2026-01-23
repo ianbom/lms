@@ -97,7 +97,9 @@ export default function CoursesSection({
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mb-16 text-center">
-                    <h2 className="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">{title}</h2>
+                    <h2 className="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
+                        {title}
+                    </h2>
                     <p className="text-gray-600">{description}</p>
                 </div>
 
