@@ -109,4 +109,14 @@ class ClassService
 
         return $class;
     }
+
+    public function publishClass($classId){
+        $class = Classes::findOrFail($classId);
+        if (!$class->published_at) {
+            $class->published_at = now();
+            $class->status = 'published';
+            $class->save();
+        }
+        return $class;
+    }
 }

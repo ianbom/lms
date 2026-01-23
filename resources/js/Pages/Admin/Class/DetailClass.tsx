@@ -69,7 +69,9 @@ interface DetailClassProps {
 export default function DetailClass({ classData, stats, categories, mentors }: DetailClassProps) {
     // Modal state
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
     const [processing, setProcessing] = useState(false);
+    const [publishProcessing, setPublishProcessing] = useState(false);
 
     // Form state
     const [formData, setFormData] = useState<ClassFormData>({
@@ -274,10 +276,20 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                             <Icon name="edit" size={20} />
                             Edit
                         </button>
-                        <button className="inline-flex items-center justify-center gap-2 rounded-md bg-[#059669] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#059669]/20 transition-all hover:bg-[#047857]">
-                            <Icon name="save" size={20} />
-                            Publish Kelas
-                        </button>
+                        {classData.status === 'draft' ? (
+                            <button
+                                onClick={() => setIsPublishModalOpen(true)}
+                                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#059669] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#059669]/20 transition-all hover:bg-[#047857]"
+                            >
+                                <Icon name="save" size={20} />
+                                Publish Kelas
+                            </button>
+                        ) : (
+                            <span className="inline-flex items-center justify-center gap-2 rounded-md bg-green-100 px-4 py-2.5 text-sm font-bold text-green-800">
+                                <Icon name="check" size={20} />
+                                Sudah Dipublish
+                            </span>
+                        )}
                     </div>
                 </div>
 
@@ -516,6 +528,67 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                             >
                                 <Icon name="save" size={18} />
                                 {processing ? 'Menyimpan...' : 'Simpan Perubahan'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Publish Confirmation Modal */}
+            {isPublishModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
+                    {/* Backdrop */}
+                    <div
+                        className="fixed inset-0 bg-black/50 transition-opacity"
+                        onClick={() => !publishProcessing && setIsPublishModalOpen(false)}
+                    />
+                    {/* Modal Content */}
+                    <div className="relative z-10 w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+                        {/* Icon */}
+                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                            <Icon name="save" size={32} className="text-green-600" />
+                        </div>
+
+                        {/* Title */}
+                        <h2 className="mb-2 text-center text-xl font-bold text-slate-900">
+                            Publish Kelas?
+                        </h2>
+
+                        {/* Description */}
+                        <p className="mb-6 text-center text-sm text-slate-600">
+                            Apakah Anda yakin ingin mempublikasikan kelas <strong>"{classData.title}"</strong>?
+                            Setelah dipublikasikan, kelas akan dapat dilihat oleh semua pengguna.
+                        </p>
+
+                        {/* Actions */}
+                        <div className="flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setIsPublishModalOpen(false)}
+                                disabled={publishProcessing}
+                                className="rounded-md border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:opacity-50"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setPublishProcessing(true);
+                                    router.post(route('admin.classes.publish', classData.id), {}, {
+                                        preserveScroll: true,
+                                        onSuccess: () => {
+                                            setIsPublishModalOpen(false);
+                                        },
+                                        onFinish: () => {
+                                            setPublishProcessing(false);
+                                        },
+                                    });
+                                }}
+                                disabled={publishProcessing}
+                                className="flex items-center gap-2 rounded-md bg-[#059669] px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-[#059669]/20 transition-all hover:bg-[#047857] disabled:opacity-50"
+                            >
+                                <Icon name="save" size={18} />
+                                {publishProcessing ? 'Memproses...' : 'Ya, Publish'}
                             </button>
                         </div>
                     </div>

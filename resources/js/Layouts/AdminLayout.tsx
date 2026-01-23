@@ -69,6 +69,12 @@ export default function AdminLayout({
             // badge: 3,
         },
         {
+            label: 'Users',
+            href: route('admin.users'),
+            icon: 'people',
+            active: route().current('admin.users'),
+        },
+        {
             label: 'Certificates',
             href: '#',
             icon: 'workspace_premium',
@@ -76,9 +82,9 @@ export default function AdminLayout({
         },
         {
             label: 'Settings',
-            href: '#',
+            href: route('admin.profile'),
             icon: 'settings',
-            active: false,
+            active: route().current('admin.profile'),
         },
     ];
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
 use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UserController as AdmUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
@@ -70,9 +71,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return Inertia::render('Admin/Dashboard/Dashboard');
         })->name('dashboard');
-
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
         Route::get('/classes/{classId}', [AdmClassController::class, 'detailClassPage'])->name('classes.show');
         Route::put('/classes/{classId}', [AdmClassController::class, 'updateClass'])->name('classes.update');
+        Route::post('/classes/{classId}/publish', [AdmClassController::class, 'publishClass'])->name('classes.publish');
 
         Route::get('/classes', [AdmClassController::class, 'listClassPage'])->name('classes');
         Route::get('/create/classes', [AdmClassController::class, 'createClassPage'])->name('classes.create');
@@ -95,6 +97,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/orders', [OrderController::class, 'listOrderPage'])->name('orders');
         Route::post('/orders/{orderId}/approve', [OrderController::class, 'approveOrder'])->name('orders.approve');
         Route::post('/orders/{orderId}/reject', [OrderController::class, 'rejectOrder'])->name('orders.reject');
+
+        Route::get('/users', [AdmUserController::class, 'listUserPage'])->name('users');
+        Route::delete('/users/{userId}', [AdmUserController::class, 'deleteUser'])->name('users.delete');
 
     });
 });

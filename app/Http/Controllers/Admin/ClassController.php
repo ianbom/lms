@@ -75,4 +75,13 @@ class ClassController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
         }
     }
+
+    public function publishClass($classId){
+        try {
+            $this->classService->publishClass($classId);
+            return redirect()->back()->with('success', 'Kelas berhasil dipublikasikan');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan');
+        }
+    }
 }
