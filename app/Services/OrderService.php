@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Classes;
 use App\Models\ClassOrder;
 use App\Models\ClassOrderStatusLog;
+use App\Models\Enrollment;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -98,5 +99,41 @@ class OrderService
             'approved' => ClassOrder::where('user_id', $userId)->where('status', 'approved')->count(),
             'rejected' => ClassOrder::where('user_id', $userId)->where('status', 'rejected')->count(),
         ];
+    }
+
+    public function approveOrder($orderId){
+        $order = ClassOrder::findOrFail($orderId);
+        $order->status = 'approved';
+        $order->decided_at = now();
+        $order->save();
+
+        ClassOrderStatusLog::create([
+            'order_id' => $order->id,
+            'status' => 'approved',
+        ]);
+
+        $this->enrollUserToClass($orderId);
+    }
+
+    public function enrollUserToClass($orderId){
+        $order = ClassOrder::findOrFail($orderId);
+        Enrollment::create([
+            'user_id' => $order->user_id,
+            'class_id' => $order->class_id,
+            'status' => 'active',
+            'activated_at' => now(),
+        ]);
+    }
+
+    public function rejectOrder($orderId){
+        $order = ClassOrder::findOrFail($orderId);
+        $order->status = 'rejected';
+        $order->decided_at = now();
+        $order->save();
+
+        ClassOrderStatusLog::create([
+            'order_id' => $order->id,
+            'status' => 'rejected',
+        ]);
     }
 }

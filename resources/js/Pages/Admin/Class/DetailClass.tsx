@@ -1,8 +1,15 @@
+import ClassForm, {
+    Category,
+    ClassFormData,
+    ClassFormErrors,
+    Mentor as MentorOption,
+} from '@/Components/Admin/Class/ClassForm';
 import CourseStats from '@/Components/Admin/Course/CourseStats';
 import ModuleCard, { ModuleData } from '@/Components/Admin/Course/ModuleCard';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 interface Video {
     id: number;
@@ -30,11 +37,6 @@ interface Mentor {
     avatar_url: string;
 }
 
-interface Category {
-    id: number;
-    name: string;
-}
-
 interface ClassData {
     id: number;
     title: string;
@@ -60,9 +62,127 @@ interface ClassStats {
 interface DetailClassProps {
     classData: ClassData;
     stats: ClassStats;
+    categories: Category[];
+    mentors: MentorOption[];
 }
 
-export default function DetailClass({ classData, stats }: DetailClassProps) {
+export default function DetailClass({ classData, stats, categories, mentors }: DetailClassProps) {
+    // Modal state
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [processing, setProcessing] = useState(false);
+
+    // Form state
+    const [formData, setFormData] = useState<ClassFormData>({
+        title: classData.title || '',
+        description: classData.description || '',
+        category_id: classData.category?.id?.toString() || '',
+        price: classData.price?.toString() || '0',
+        discount: classData.discount?.toString() || '0',
+        status: classData.status || 'draft',
+    });
+    const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+    const [thumbnailPreview, setThumbnailPreview] = useState<string | undefined>(
+        classData.thumbnail_url || undefined
+    );
+    const [selectedMentors, setSelectedMentors] = useState<MentorOption[]>(
+        classData.mentors?.map((m) => ({
+            id: m.id,
+            name: m.name,
+            avatar: m.avatar_url,
+        })) || []
+    );
+    const [errors, setErrors] = useState<ClassFormErrors>({});
+
+    const handleRemoveMentor = (id: number) => {
+        setSelectedMentors(selectedMentors.filter((m) => m.id !== id));
+    };
+
+    const handleAddMentor = (mentor: MentorOption) => {
+        if (!selectedMentors.find((m) => m.id === mentor.id)) {
+            setSelectedMentors([...selectedMentors, mentor]);
+        }
+    };
+
+    const handleThumbnailChange = (file: File | null) => {
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setThumbnailPreview(url);
+            setThumbnailFile(file);
+        } else {
+            setThumbnailPreview(classData.thumbnail_url || undefined);
+            setThumbnailFile(null);
+        }
+    };
+
+    const openEditModal = () => {
+        // Reset form to current class data
+        setFormData({
+            title: classData.title || '',
+            description: classData.description || '',
+            category_id: classData.category?.id?.toString() || '',
+            price: classData.price?.toString() || '0',
+            discount: classData.discount?.toString() || '0',
+            status: classData.status || 'draft',
+        });
+        setThumbnailPreview(classData.thumbnail_url || undefined);
+        setThumbnailFile(null);
+        setSelectedMentors(
+            classData.mentors?.map((m) => ({
+                id: m.id,
+                name: m.name,
+                avatar: m.avatar_url,
+            })) || []
+        );
+        setErrors({});
+        setIsEditModalOpen(true);
+    };
+
+    const closeEditModal = () => {
+        setIsEditModalOpen(false);
+    };
+
+    const handleSubmit = () => {
+        setProcessing(true);
+        setErrors({});
+
+        const data = new FormData();
+        data.append('title', formData.title);
+        data.append('description', formData.description);
+        data.append('category_id', formData.category_id);
+        data.append('price', formData.price);
+        data.append('discount', formData.discount);
+        data.append('status', formData.status);
+        selectedMentors.forEach((mentor) => {
+            data.append('mentors[]', mentor.id.toString());
+        });
+        if (thumbnailFile) {
+            data.append('thumbnail', thumbnailFile);
+        }
+        data.append('_method', 'PUT');
+
+        router.post(route('admin.classes.update', classData.id), data, {
+            forceFormData: true,
+            preserveScroll: true,
+            onSuccess: () => {
+                closeEditModal();
+            },
+            onError: (errors) => {
+                setErrors(errors as ClassFormErrors);
+            },
+            onFinish: () => {
+                setProcessing(false);
+            },
+        });
+    };
+
+    // Cleanup preview URL on unmount
+    useEffect(() => {
+        return () => {
+            if (thumbnailPreview && thumbnailPreview.startsWith('blob:')) {
+                URL.revokeObjectURL(thumbnailPreview);
+            }
+        };
+    }, [thumbnailPreview]);
     // Helper to format seconds into "Xj Ym" or "Ym Zd"
     const formatDuration = (seconds: number) => {
         if (!seconds) return '0m';
@@ -131,7 +251,7 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                                 }`}
                             >
                                 {classData.status === 'published'
-                                    ? 'Diterbitkan'
+                                    ? 'Publish'
                                     : 'Draf'}
                             </span>
                             <span className="text-sm text-slate-500">
@@ -149,19 +269,14 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                     <div className="flex items-center gap-3">
                         <button
                             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white px-4 py-2.5 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
-                            onClick={() =>
-                                window.open(
-                                    route('classes.show', classData.id),
-                                    '_blank',
-                                )
-                            }
+                            onClick={openEditModal}
                         >
-                            <Icon name="visibility" size={20} />
-                            Pratinjau
+                            <Icon name="edit" size={20} />
+                            Edit
                         </button>
                         <button className="inline-flex items-center justify-center gap-2 rounded-md bg-[#059669] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#059669]/20 transition-all hover:bg-[#047857]">
                             <Icon name="save" size={20} />
-                            Simpan Perubahan
+                            Publish Kelas
                         </button>
                     </div>
                 </div>
@@ -345,6 +460,67 @@ export default function DetailClass({ classData, stats }: DetailClassProps) {
                     </div>
                 </div>
             </div>
+
+            {/* Edit Class Modal */}
+            {isEditModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto">
+                    {/* Backdrop */}
+                    <div
+                        className="fixed inset-0 bg-black/50 transition-opacity"
+                        onClick={closeEditModal}
+                    />
+                    {/* Modal Content */}
+                    <div className="relative z-10 my-8 w-full max-w-5xl rounded-xl bg-slate-100 p-6 shadow-xl">
+                        {/* Modal Header */}
+                        <div className="mb-6 flex items-center justify-between">
+                            <h2 className="text-xl font-bold text-slate-900">
+                                Edit Kelas
+                            </h2>
+                            <button
+                                onClick={closeEditModal}
+                                className="rounded-md p-2 text-slate-400 hover:bg-slate-200 hover:text-slate-600"
+                            >
+                                <Icon name="close" size={24} />
+                            </button>
+                        </div>
+
+                        {/* Modal Body - Class Form */}
+                        <ClassForm
+                            formData={formData}
+                            onFormDataChange={setFormData}
+                            categories={categories}
+                            mentors={mentors}
+                            selectedMentors={selectedMentors}
+                            onAddMentor={handleAddMentor}
+                            onRemoveMentor={handleRemoveMentor}
+                            thumbnailPreview={thumbnailPreview}
+                            onThumbnailChange={handleThumbnailChange}
+                            errors={errors}
+                        />
+
+                        {/* Modal Footer */}
+                        <div className="mt-6 flex items-center justify-end gap-3 border-t border-slate-200 pt-6">
+                            <button
+                                type="button"
+                                onClick={closeEditModal}
+                                disabled={processing}
+                                className="rounded-md px-4 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-200 disabled:opacity-50"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleSubmit}
+                                disabled={processing}
+                                className="flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
+                            >
+                                <Icon name="save" size={18} />
+                                {processing ? 'Menyimpan...' : 'Simpan Perubahan'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </AdminLayout>
     );
 }

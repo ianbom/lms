@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
         })->name('dashboard');
 
         Route::get('/classes/{classId}', [AdmClassController::class, 'detailClassPage'])->name('classes.show');
+        Route::put('/classes/{classId}', [AdmClassController::class, 'updateClass'])->name('classes.update');
 
         Route::get('/classes', [AdmClassController::class, 'listClassPage'])->name('classes');
         Route::get('/create/classes', [AdmClassController::class, 'createClassPage'])->name('classes.create');
@@ -92,6 +93,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/categories', [CategoryController::class, 'storeCategory'])->name('categories.store');
 
         Route::get('/orders', [OrderController::class, 'listOrderPage'])->name('orders');
+        Route::post('/orders/{orderId}/approve', [OrderController::class, 'approveOrder'])->name('orders.approve');
+        Route::post('/orders/{orderId}/reject', [OrderController::class, 'rejectOrder'])->name('orders.reject');
 
     });
 });

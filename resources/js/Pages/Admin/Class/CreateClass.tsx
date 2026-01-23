@@ -1,27 +1,13 @@
-import FormCard from '@/Components/Admin/FormCard';
-import FormInput from '@/Components/Admin/FormInput';
-import FormSelect from '@/Components/Admin/FormSelect';
-import ImageUpload from '@/Components/Admin/ImageUpload';
-import MentorSelector from '@/Components/Admin/MentorSelector';
-import RichTextEditor from '@/Components/Admin/RichTextEditor';
-import SidebarCard from '@/Components/Admin/SidebarCard';
+import ClassForm, {
+    Category,
+    ClassFormData,
+    ClassFormErrors,
+    Mentor,
+} from '@/Components/Admin/Class/ClassForm';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-
-// Define types for props
-interface Category {
-    id: number;
-    name: string;
-}
-
-interface Mentor {
-    id: number;
-    name: string;
-    role?: string;
-    avatar?: string;
-}
 
 interface Props {
     categories: Category[];
@@ -29,49 +15,27 @@ interface Props {
 }
 
 export default function CreateClass({ categories, mentors }: Props) {
-    const { data, setData, post, processing, errors, transform } = useForm({
+    const [processing, setProcessing] = useState(false);
+    const [formData, setFormData] = useState<ClassFormData>({
         title: '',
         description: '',
         category_id: '',
-        thumbnail: null as File | null,
         price: '0',
         discount: '0',
-        mentors: [] as number[],
-        status: 'published',
+        status: 'draft',
     });
-
-    console.log(mentors);
-
-    // Convert categories to select options
-    const categoryOptions = categories.map((cat) => ({
-        value: cat.id.toString(),
-        label: cat.name,
-    }));
-
-    // Local state for preview and selected mentors
-    const [thumbnailPreview, setThumbnailPreview] = useState<
-        string | undefined
-    >();
+    const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+    const [thumbnailPreview, setThumbnailPreview] = useState<string | undefined>();
     const [selectedMentors, setSelectedMentors] = useState<Mentor[]>([]);
-
-    // Calculate final price for display
-    const normalPrice = parseFloat(data.price) || 0;
-    const discountPercent = parseFloat(data.discount) || 0;
-    const finalPrice = normalPrice * (1 - discountPercent / 100);
+    const [errors, setErrors] = useState<ClassFormErrors>({});
 
     const handleRemoveMentor = (id: number) => {
         setSelectedMentors(selectedMentors.filter((m) => m.id !== id));
-        setData(
-            'mentors',
-            data.mentors.filter((mId) => mId !== id),
-        );
     };
 
     const handleAddMentor = (mentor: Mentor) => {
-        // Check if mentor already selected
         if (!selectedMentors.find((m) => m.id === mentor.id)) {
             setSelectedMentors([...selectedMentors, mentor]);
-            setData('mentors', [...data.mentors, mentor.id]);
         }
     };
 
@@ -79,22 +43,40 @@ export default function CreateClass({ categories, mentors }: Props) {
         if (file) {
             const url = URL.createObjectURL(file);
             setThumbnailPreview(url);
-            setData('thumbnail', file);
+            setThumbnailFile(file);
         } else {
             setThumbnailPreview(undefined);
-            setData('thumbnail', null);
+            setThumbnailFile(null);
         }
     };
 
     const handleSaveDraft = () => {
-        transform((data) => ({
-            ...data,
-            status: 'draft',
-        }));
+        setProcessing(true);
+        setErrors({});
 
-        post(route('admin.classes.store'), {
+        const data = new FormData();
+        data.append('title', formData.title);
+        data.append('description', formData.description);
+        data.append('category_id', formData.category_id);
+        data.append('price', formData.price);
+        data.append('discount', formData.discount);
+        data.append('status', 'draft');
+        selectedMentors.forEach((mentor) => {
+            data.append('mentors[]', mentor.id.toString());
+        });
+        if (thumbnailFile) {
+            data.append('thumbnail', thumbnailFile);
+        }
+
+        router.post(route('admin.classes.store'), data, {
             forceFormData: true,
             preserveScroll: true,
+            onError: (errors) => {
+                setErrors(errors as ClassFormErrors);
+            },
+            onFinish: () => {
+                setProcessing(false);
+            },
         });
     };
 
@@ -140,107 +122,19 @@ export default function CreateClass({ categories, mentors }: Props) {
                 </div>
             </div>
 
-            {/* Two Column Layout */}
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                {/* Left Column - Main Form */}
-                <div className="flex flex-col gap-6 lg:col-span-2">
-                    {/* Class Details Card */}
-                    <FormCard icon="edit_note" title="Detail Kelas">
-                        <div className="flex flex-col gap-5">
-                            <FormInput
-                                label="Judul Kelas"
-                                required
-                                placeholder="Contoh: Arsitektur Sistem Lanjutan"
-                                value={data.title}
-                                onChange={(val) => setData('title', val)}
-                                error={errors.title}
-                            />
-
-                            <RichTextEditor
-                                label="Deskripsi"
-                                value={data.description}
-                                onChange={(val) => setData('description', val)}
-                                placeholder="Mulai ketik deskripsi kelas di sini..."
-                                maxLength={2000}
-                                error={errors.description}
-                            />
-
-                            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                                <FormSelect
-                                    label="Kategori"
-                                    placeholder="Pilih kategori"
-                                    options={categoryOptions}
-                                    value={data.category_id}
-                                    onChange={(val) =>
-                                        setData('category_id', val)
-                                    }
-                                    error={errors.category_id}
-                                />
-                            </div>
-                        </div>
-                    </FormCard>
-
-                    {/* Mentors Card */}
-                    <MentorSelector
-                        selectedMentors={selectedMentors}
-                        onRemoveMentor={handleRemoveMentor}
-                        availableMentors={mentors}
-                        onAddMentor={handleAddMentor}
-                    />
-                </div>
-
-                {/* Right Column - Sidebar */}
-                <div className="flex flex-col gap-6">
-                    {/* Thumbnail */}
-                    <SidebarCard title="Thumbnail Kelas">
-                        <ImageUpload
-                            value={thumbnailPreview}
-                            onChange={handleThumbnailChange}
-                            error={errors.thumbnail}
-                        />
-                    </SidebarCard>
-
-                    {/* Pricing */}
-                    <SidebarCard title="Harga">
-                        <div className="flex flex-col gap-4">
-                            <FormInput
-                                label="Harga Normal (Rp)"
-                                type="number"
-                                value={data.price}
-                                onChange={(val) => setData('price', val)}
-                                error={errors.price}
-                            />
-                            <FormInput
-                                label="Diskon (%)"
-                                type="number"
-                                value={data.discount}
-                                onChange={(val) => setData('discount', val)}
-                                error={errors.discount}
-                            />
-
-                            <div className="flex items-center justify-between border-t border-[#f0f5f2] pt-4">
-                                <span className="text-sm text-[#5e6a62]">
-                                    Harga Akhir
-                                </span>
-                                <div className="text-right">
-                                    {discountPercent > 0 && (
-                                        <span className="mr-2 text-sm text-[#a0b3a9] line-through">
-                                            {'Rp '}
-                                            {normalPrice.toLocaleString(
-                                                'id-ID',
-                                            )}
-                                        </span>
-                                    )}
-                                    <span className="text-xl font-bold text-primary">
-                                        {'Rp '}
-                                        {finalPrice.toLocaleString('id-ID')}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </SidebarCard>
-                </div>
-            </div>
+            {/* Class Form */}
+            <ClassForm
+                formData={formData}
+                onFormDataChange={setFormData}
+                categories={categories}
+                mentors={mentors}
+                selectedMentors={selectedMentors}
+                onAddMentor={handleAddMentor}
+                onRemoveMentor={handleRemoveMentor}
+                thumbnailPreview={thumbnailPreview}
+                onThumbnailChange={handleThumbnailChange}
+                errors={errors}
+            />
         </AdminLayout>
     );
 }

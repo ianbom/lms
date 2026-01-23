@@ -3,6 +3,12 @@ import { router } from '@inertiajs/react'; // Import Inertia router
 import { debounce } from 'lodash';
 import { useCallback, useState } from 'react';
 
+interface ConfirmModal {
+    isOpen: boolean;
+    orderId: number | null;
+    action: 'approve' | 'reject' | null;
+}
+
 interface User {
     id: number;
     name: string;
@@ -61,6 +67,12 @@ interface OrderTableProps {
 
 export default function OrderTable({ orders, filters, pagination }: OrderTableProps) {
     const [search, setSearch] = useState(filters.search || '');
+    const [processing, setProcessing] = useState(false);
+    const [confirmModal, setConfirmModal] = useState<ConfirmModal>({
+        isOpen: false,
+        orderId: null,
+        action: null,
+    });
 
     const handlePageChange = (url: string | null) => {
         if (!url) return;
@@ -99,6 +111,36 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
             { preserveState: true, replace: true }
         );
     };
+
+    const openConfirmModal = (orderId: number, action: 'approve' | 'reject') => {
+        setConfirmModal({ isOpen: true, orderId, action });
+    };
+
+    const closeConfirmModal = () => {
+        setConfirmModal({ isOpen: false, orderId: null, action: null });
+    };
+
+    const handleConfirmAction = () => {
+        if (!confirmModal.orderId || !confirmModal.action) return;
+
+        setProcessing(true);
+        const routeName = confirmModal.action === 'approve' ? 'admin.orders.approve' : 'admin.orders.reject';
+
+        router.post(
+            route(routeName, { orderId: confirmModal.orderId }),
+            {},
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    closeConfirmModal();
+                },
+                onFinish: () => {
+                    setProcessing(false);
+                },
+            }
+        );
+    };
+
     return (
         <div className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
             {/* Toolbar */}
@@ -255,13 +297,17 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                         {order.status === 'pending' ? (
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
-                                                    className="flex size-8 items-center justify-center rounded-md border border-slate-200 text-red-500 transition-colors hover:border-red-200 hover:bg-red-50"
+                                                    onClick={() => openConfirmModal(order.id, 'reject')}
+                                                    disabled={processing}
+                                                    className="flex size-8 items-center justify-center rounded-md border border-slate-200 text-red-500 transition-colors hover:border-red-200 hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed"
                                                     title="Reject"
                                                 >
                                                     <Icon name="close" size={18} />
                                                 </button>
                                                 <button
-                                                    className="flex size-8 items-center justify-center rounded-md bg-primary text-white shadow-sm transition-colors hover:bg-primary-dark"
+                                                    onClick={() => openConfirmModal(order.id, 'approve')}
+                                                    disabled={processing}
+                                                    className="flex size-8 items-center justify-center rounded-md bg-primary text-white shadow-sm transition-colors hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed"
                                                     title="Approve"
                                                 >
                                                     <Icon name="check" size={18} />
@@ -314,6 +360,73 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                     ))}
                 </div>
             </div>
+
+            {/* Confirmation Modal */}
+            {confirmModal.isOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/50 transition-opacity"
+                        onClick={closeConfirmModal}
+                    />
+                    {/* Modal Content */}
+                    <div className="relative z-10 w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+                        <div className="flex flex-col items-center gap-4 text-center">
+                            {/* Icon */}
+                            <div
+                                className={`flex h-14 w-14 items-center justify-center rounded-full ${
+                                    confirmModal.action === 'approve'
+                                        ? 'bg-green-100 text-green-600'
+                                        : 'bg-red-100 text-red-600'
+                                }`}
+                            >
+                                <Icon
+                                    name={confirmModal.action === 'approve' ? 'check_circle' : 'cancel'}
+                                    size={32}
+                                />
+                            </div>
+                            {/* Title & Description */}
+                            <div>
+                                <h3 className="text-lg font-semibold text-slate-900">
+                                    {confirmModal.action === 'approve'
+                                        ? 'Approve Order'
+                                        : 'Reject Order'}
+                                </h3>
+                                <p className="mt-1 text-sm text-slate-500">
+                                    {confirmModal.action === 'approve'
+                                        ? 'Apakah Anda yakin ingin menyetujui order ini? Peserta akan didaftarkan ke kelas.'
+                                        : 'Apakah Anda yakin ingin menolak order ini? Tindakan ini tidak dapat dibatalkan.'}
+                                </p>
+                            </div>
+                            {/* Actions */}
+                            <div className="flex w-full gap-3 mt-2">
+                                <button
+                                    onClick={closeConfirmModal}
+                                    disabled={processing}
+                                    className="flex-1 rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 disabled:opacity-50"
+                                >
+                                    Batal
+                                </button>
+                                <button
+                                    onClick={handleConfirmAction}
+                                    disabled={processing}
+                                    className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors disabled:opacity-50 ${
+                                        confirmModal.action === 'approve'
+                                            ? 'bg-green-600 hover:bg-green-700'
+                                            : 'bg-red-600 hover:bg-red-700'
+                                    }`}
+                                >
+                                    {processing
+                                        ? 'Memproses...'
+                                        : confirmModal.action === 'approve'
+                                            ? 'Ya, Setujui'
+                                            : 'Ya, Tolak'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
