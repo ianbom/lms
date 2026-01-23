@@ -43,7 +43,7 @@ export default function CreateQuiz({ class: classData, modules }: Props) {
     // Quiz configuration state
     const [quizTitle, setQuizTitle] = useState('');
     const [selectedModule, setSelectedModule] = useState('');
-    const [quizContext, setQuizContext] = useState<QuizContextType>('required');
+    const [quizContext, setQuizContext] = useState<QuizContextType>('post-test');
 
     // Questions state
     const [questions, setQuestions] = useState<QuestionData[]>([

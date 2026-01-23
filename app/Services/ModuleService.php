@@ -14,8 +14,8 @@ class ModuleService
         $this->videoService = $videoService;
     }
 
-    public function getAllModuleByClassId($classId){ 
-        $modules = Module::orderBy('title', 'asc')->where('class_id', $classId)->get(); 
+    public function getAllModuleByClassId($classId){
+        $modules = Module::orderBy('sort_order', 'asc')->where('class_id', $classId)->get();
         return $modules;
     }
 
