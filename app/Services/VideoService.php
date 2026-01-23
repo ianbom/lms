@@ -9,15 +9,16 @@ use Illuminate\Http\UploadedFile;
 class VideoService
 {
 
-    public function createVideo(int $moduleId, array $videoData): Video
+    public function createVideo(int $moduleId, array $videoData, int $sortOrder = 0): Video
     {
         return Video::create([
             'module_id' => $moduleId,
             'title' => $videoData['title'],
             'description' => $videoData['description'] ?? null,
             'youtube_url' => $videoData['youtube_url'],
-            'is_preview' => $videoData['is_preview'] ?? false,
+            'is_preview' => filter_var($videoData['is_preview'] ?? false, FILTER_VALIDATE_BOOLEAN),
             'duration_sec' => $videoData['duration_sec'] ?? 0,
+            'sort_order' => $sortOrder,
         ]);
     }
 
@@ -53,9 +54,9 @@ class VideoService
         ]);
     }
 
-    public function createVideoWithResources(int $moduleId, array $videoData): Video
+    public function createVideoWithResources(int $moduleId, array $videoData, int $sortOrder = 0): Video
     {
-        $video = $this->createVideo($moduleId, $videoData);
+        $video = $this->createVideo($moduleId, $videoData, $sortOrder);
         if (isset($videoData['resources']) && is_array($videoData['resources'])) {
             foreach ($videoData['resources'] as $resourceData) {
                 $this->createVideoResource($video->id, $resourceData);
@@ -65,5 +66,5 @@ class VideoService
         return $video;
     }
 
-  
+
 }

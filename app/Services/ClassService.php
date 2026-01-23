@@ -47,7 +47,9 @@ class ClassService
     public function getClassDetailsById($classId)
     {
         return Classes::with(['category', 'creator', 'mentors', 'modules' => function($query) {
-            $query->with(['videos', 'quizzes' => function($q) {
+            $query->with(['videos' => function($q) {
+                $q->with('resources')->orderBy('sort_order');
+            }, 'quizzes' => function($q) {
                 $q->withCount('questions');
             }]);
         }])->findOrFail($classId);

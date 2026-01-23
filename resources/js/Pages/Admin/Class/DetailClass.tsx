@@ -6,16 +6,33 @@ import ClassForm, {
 } from '@/Components/Admin/Class/ClassForm';
 import CourseStats from '@/Components/Admin/Course/CourseStats';
 import ModuleCard, { ModuleData } from '@/Components/Admin/Course/ModuleCard';
+import ModuleForm, {
+    createEmptyVideo,
+    ModuleFormData,
+    ModuleFormErrors,
+} from '@/Components/Admin/Module/ModuleForm';
+import { VideoEntry } from '@/Components/Admin/VideoEntryCard';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
+interface VideoResource {
+    id: number;
+    title: string;
+    file_url: string;
+    file_type: string;
+    file_size: number;
+}
+
 interface Video {
     id: number;
     title: string;
+    description: string;
+    youtube_url: string;
     duration_sec: number;
     is_preview: boolean;
+    resources?: VideoResource[];
 }
 
 interface Quiz {
@@ -27,6 +44,7 @@ interface Quiz {
 interface Module {
     id: number;
     title: string;
+    description: string;
     videos: Video[];
     quizzes: Quiz[];
 }
@@ -70,8 +88,19 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
     // Modal state
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
+    const [isEditModuleModalOpen, setIsEditModuleModalOpen] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [publishProcessing, setPublishProcessing] = useState(false);
+    const [moduleProcessing, setModuleProcessing] = useState(false);
+    const [selectedModuleId, setSelectedModuleId] = useState<number | null>(null);
+
+    // Module edit form state
+    const [moduleFormData, setModuleFormData] = useState<ModuleFormData>({
+        title: '',
+        description: '',
+        videos: [createEmptyVideo(1)],
+    });
+    const [moduleErrors, setModuleErrors] = useState<ModuleFormErrors>({});
 
     // Form state
     const [formData, setFormData] = useState<ClassFormData>({
@@ -141,6 +170,143 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
 
     const closeEditModal = () => {
         setIsEditModalOpen(false);
+    };
+
+    // Helper to extract YouTube video ID
+    const extractYouTubeVideoId = (url: string): string | null => {
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^&\n?#]+)/,
+            /youtube\.com\/shorts\/([^&\n?#]+)/,
+        ];
+        for (const pattern of patterns) {
+            const match = url.match(pattern);
+            if (match && match[1]) {
+                return match[1];
+            }
+        }
+        return null;
+    };
+
+    // Format duration in seconds to MM:SS or HH:MM:SS
+    const formatVideoDuration = (seconds: number): string => {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = Math.floor(seconds % 60);
+        if (hrs > 0) {
+            return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    // Open edit module modal
+    const openEditModuleModal = (moduleId: number) => {
+        const moduleToEdit = classData.modules.find((m) => m.id === moduleId);
+        if (!moduleToEdit) return;
+
+        // Transform backend data to form data format
+        const videos: VideoEntry[] = moduleToEdit.videos.map((v, index) => {
+            const videoId = extractYouTubeVideoId(v.youtube_url);
+            const thumbnailUrl = videoId
+                ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+                : undefined;
+
+            return {
+                id: index + 1, // Use sequential IDs for form
+                title: v.title,
+                youtubeUrl: v.youtube_url,
+                duration: formatVideoDuration(v.duration_sec),
+                durationSec: v.duration_sec,
+                description: v.description || '',
+                thumbnailUrl,
+                isPreview: v.is_preview,
+                files: (v.resources || []).map((r, rIndex) => ({
+                    id: rIndex + 1,
+                    name: r.title,
+                    size: r.file_size ? `${(r.file_size / 1024 / 1024).toFixed(1)} MB` : '0 MB',
+                    type: r.file_type as 'pdf' | 'doc' | 'zip' | 'other',
+                    progress: 100,
+                    isUploading: false,
+                    uploadedAt: 'Uploaded',
+                    existingUrl: r.file_url, // Track existing file URL
+                })),
+            };
+        });
+
+        setModuleFormData({
+            title: moduleToEdit.title,
+            description: moduleToEdit.description || '',
+            videos: videos.length > 0 ? videos : [createEmptyVideo(1)],
+        });
+        setSelectedModuleId(moduleId);
+        setModuleErrors({});
+        setIsEditModuleModalOpen(true);
+    };
+
+    const closeEditModuleModal = () => {
+        setIsEditModuleModalOpen(false);
+        setSelectedModuleId(null);
+        setModuleFormData({
+            title: '',
+            description: '',
+            videos: [createEmptyVideo(1)],
+        });
+        setModuleErrors({});
+    };
+
+    const handleModuleFormChange = (newData: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData)) => {
+        if (typeof newData === 'function') {
+            setModuleFormData(newData);
+        } else {
+            setModuleFormData(newData);
+        }
+    };
+
+    const handleModuleSubmit = () => {
+        if (!selectedModuleId) return;
+
+        setModuleProcessing(true);
+        setModuleErrors({});
+
+        // Build FormData for the update request
+        const data = new FormData();
+        data.append('title', moduleFormData.title);
+        data.append('description', moduleFormData.description);
+        data.append('_method', 'PUT');
+
+        // Add videos data
+        moduleFormData.videos.forEach((v, index) => {
+            data.append(`videos[${index}][title]`, v.title);
+            data.append(`videos[${index}][description]`, v.description);
+            data.append(`videos[${index}][youtube_url]`, v.youtubeUrl);
+            data.append(`videos[${index}][is_preview]`, v.isPreview ? '1' : '0');
+            data.append(`videos[${index}][duration_sec]`, v.durationSec.toString());
+
+            // Add resources/files
+            v.files.forEach((f, fIndex) => {
+                data.append(`videos[${index}][resources][${fIndex}][title]`, f.name);
+                data.append(`videos[${index}][resources][${fIndex}][file_type]`, f.type);
+                if (f.file) {
+                    data.append(`videos[${index}][resources][${fIndex}][file]`, f.file);
+                }
+                if ((f as any).existingUrl) {
+                    data.append(`videos[${index}][resources][${fIndex}][existing_url]`, (f as any).existingUrl);
+                }
+            });
+        });
+
+        router.post(route('admin.module.update', selectedModuleId), data, {
+            forceFormData: true,
+            preserveScroll: true,
+            onSuccess: () => {
+                closeEditModuleModal();
+            },
+            onError: (errors) => {
+                setModuleErrors(errors as ModuleFormErrors);
+            },
+            onFinish: () => {
+                setModuleProcessing(false);
+            },
+        });
     };
 
     const handleSubmit = () => {
@@ -219,6 +385,7 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                     type: 'video' as const,
                     durationOrQuestions: formatDuration(v.duration_sec),
                     is_preview: v.is_preview,
+                    resourcesCount: v.resources?.length || 0,
                 })),
                 ...m.quizzes.map((q) => ({
                     id: q.id,
@@ -317,6 +484,7 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                                             key={module.id}
                                             module={module}
                                             isExpanded={index === 0}
+                                            onEdit={openEditModuleModal}
                                         />
                                     ))
                                 ) : (
@@ -589,6 +757,64 @@ export default function DetailClass({ classData, stats, categories, mentors }: D
                             >
                                 <Icon name="save" size={18} />
                                 {publishProcessing ? 'Memproses...' : 'Ya, Publish'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Module Modal */}
+            {isEditModuleModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto">
+                    {/* Backdrop */}
+                    <div
+                        className="fixed inset-0 bg-black/50 transition-opacity"
+                        onClick={() => !moduleProcessing && closeEditModuleModal()}
+                    />
+                    {/* Modal Content */}
+                    <div className="relative z-10 my-8 w-full max-w-5xl rounded-xl bg-slate-100 p-6 shadow-xl">
+                        {/* Modal Header */}
+                        <div className="mb-6 flex items-center justify-between">
+                            <h2 className="text-xl font-bold text-slate-900">
+                                Edit Modul
+                            </h2>
+                            <button
+                                onClick={closeEditModuleModal}
+                                disabled={moduleProcessing}
+                                className="rounded-md p-2 text-slate-400 hover:bg-slate-200 hover:text-slate-600 disabled:opacity-50"
+                            >
+                                <Icon name="close" size={24} />
+                            </button>
+                        </div>
+
+                        {/* Modal Body - Module Form */}
+                        <div className="max-h-[calc(100vh-200px)] overflow-y-auto rounded-lg bg-white p-6">
+                            <ModuleForm
+                                data={moduleFormData}
+                                errors={moduleErrors}
+                                onDataChange={handleModuleFormChange}
+                                isCompact
+                            />
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="mt-6 flex items-center justify-end gap-3 border-t border-slate-200 pt-6">
+                            <button
+                                type="button"
+                                onClick={closeEditModuleModal}
+                                disabled={moduleProcessing}
+                                className="rounded-md px-4 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-200 disabled:opacity-50"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleModuleSubmit}
+                                disabled={moduleProcessing}
+                                className="flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all hover:bg-[#00622e] disabled:opacity-50"
+                            >
+                                <Icon name="save" size={18} />
+                                {moduleProcessing ? 'Menyimpan...' : 'Simpan Perubahan'}
                             </button>
                         </div>
                     </div>

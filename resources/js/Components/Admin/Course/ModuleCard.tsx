@@ -17,11 +17,15 @@ export interface ModuleData {
 interface ModuleCardProps {
     module: ModuleData;
     isExpanded?: boolean;
+    onEdit?: (moduleId: number) => void;
+    onEditQuiz?: (moduleId: number) => void;
 }
 
 export default function ModuleCard({
     module,
     isExpanded = false,
+    onEdit,
+    onEditQuiz,
 }: ModuleCardProps) {
     const [expanded, setExpanded] = useState(isExpanded);
 
@@ -83,11 +87,23 @@ export default function ModuleCard({
                     {/* Add Content Button */}
                     {/* Edit Buttons */}
                     <div className="grid grid-cols-2 gap-4 p-4">
-                        <button className="flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onEdit?.(module.id);
+                            }}
+                            className="flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
+                        >
                             <Icon name="edit" size={18} />
                             Edit Module
                         </button>
-                        <button className="flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onEditQuiz?.(module.id);
+                            }}
+                            className="flex items-center justify-center gap-2 rounded-md border border-[#e2e8f0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
+                        >
                             <Icon name="quiz" size={18} />
                             Edit Quiz
                         </button>
