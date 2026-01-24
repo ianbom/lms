@@ -17,7 +17,7 @@ class DashboardService
     {
         $totalClasses = Classes::count();
         $totalUsers = User::where('role', 'user')->count();
-        $totalOrders = ClassOrder::count();
+        $totalOrders = ClassOrder::where('status', 'approved')->count();
         $totalRevenue = ClassOrder::where('status', 'approved')->sum('amount');
 
         // Calculate trends (comparing with last month)
@@ -150,7 +150,7 @@ class DashboardService
             return [
                 'id' => $class->id,
                 'title' => $class->title,
-                'instructor' => $class->creator?->name ?? 'Unknown',
+                'instructor' => $class->createdBy?->name ?? 'Unknown',
                 'enrolled' => $class->enrollments_count,
                 'progress' => round(($class->enrollments_count / $maxEnrollments) * 100),
                 'thumbnail' => $class->thumbnail_url ?? 'https://via.placeholder.com/100x60',
@@ -181,11 +181,13 @@ class DashboardService
                             ->count();
                         break;
                     case 'orders':
-                        $data[] = ClassOrder::whereDate('created_at', $date)->count();
+                        $data[] = ClassOrder::whereDate('created_at', $date)
+                        ->where('status', 'approved')->count();
                         break;
                     case 'revenue':
                         $data[] = ClassOrder::where('status', 'approved')
                             ->whereDate('created_at', $date)
+                            ->where('status', 'approved')
                             ->sum('amount');
                         break;
                 }
@@ -207,12 +209,14 @@ class DashboardService
                     case 'orders':
                         $data[] = ClassOrder::whereYear('created_at', $year)
                             ->whereMonth('created_at', $m)
+                            ->where('status', 'approved')
                             ->count();
                         break;
                     case 'revenue':
                         $data[] = ClassOrder::where('status', 'approved')
                             ->whereYear('created_at', $year)
                             ->whereMonth('created_at', $m)
+                            ->where('status', 'approved')
                             ->sum('amount');
                         break;
                 }

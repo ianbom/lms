@@ -17,6 +17,10 @@ export default function TakeQuiz({
     previousAttempts,
     progressStats,
 }: TakeQuizProps) {
+    // Get first video ID from the quiz's module to navigate back
+    const quizModule = classData.modules.find(m => m.id === quiz.module_id);
+    const firstVideoId = quizModule?.videos?.[0]?.id;
+
     const {
         // State
         quizState,
@@ -43,7 +47,7 @@ export default function TakeQuiz({
         goToNextQuestion,
         goToPrevQuestion,
         getCurrentAnswer,
-    } = useQuiz({ quiz, attempt, classId: classData.id });
+    } = useQuiz({ quiz, attempt, classId: classData.id, videoId: firstVideoId });
 
     return (
         <UserDashboardLayout

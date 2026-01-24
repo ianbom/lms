@@ -34,6 +34,10 @@ Route::get('/home', function () {
             return Inertia::render('User/Home/Home');
         })->name('home');
 
+        Route::get('/home', function () {
+            return Inertia::render('User/Home/Home');
+        })->name('home');
+
     // User Modul Routes
     Route::prefix('user')->name('user.')->group(function () {
        Route::get('/dashboard', [UserDashboardController::class, 'dashboardPage'])->name('dashboard');

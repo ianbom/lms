@@ -43,8 +43,13 @@ class StudyService
                                     }
                                 ]);
                         },
-                        'quizzes' => function ($q) {
-                            $q->withCount('questions');
+                        'quizzes' => function ($q) use ($userId) {
+                            $q->withCount('questions')
+                                ->with(['attempts' => function ($a) use ($userId) {
+                                    $a->where('user_id', $userId)
+                                        ->whereNotNull('submitted_at')
+                                        ->orderBy('score', 'desc');
+                                }]);
                         }
                     ]);
             }
@@ -59,11 +64,15 @@ class StudyService
         // Get navigation info (prev/next video)
         $navigation = $this->getVideoNavigation($class, $videoId);
 
+        // Check certificate eligibility
+        $certificateStatus = $this->checkCertificateEligibility($class, $userId);
+
         return [
             'class' => $class,
             'current_video' => $currentVideo,
             'progress_stats' => $progressStats,
             'navigation' => $navigation,
+            'certificate_status' => $certificateStatus,
         ];
     }
 
@@ -137,6 +146,57 @@ class StudyService
             'progress_percent' => $progressPercent,
             'total_duration' => $totalDuration,
             'watched_duration' => $watchedDuration,
+        ];
+    }
+
+    /**
+     * Check if user is eligible for certificate
+     */
+    public function checkCertificateEligibility($class, $userId = null)
+    {
+        $userId = $userId ?? Auth::id();
+
+        // Check if all videos are completed
+        $totalVideos = 0;
+        $completedVideos = 0;
+        $totalQuizzes = 0;
+        $passedQuizzes = 0;
+        $minQuizScore = 80;
+
+        foreach ($class->modules as $module) {
+            // Count videos
+            foreach ($module->videos as $video) {
+                $totalVideos++;
+                $progress = $video->progress->first();
+                if ($progress && $progress->is_completed) {
+                    $completedVideos++;
+                }
+            }
+
+            // Count quizzes - get best score from all attempts
+            foreach ($module->quizzes as $quiz) {
+                $totalQuizzes++;
+                // Get the best score from all attempts
+                $bestAttempt = $quiz->attempts->sortByDesc('score')->first();
+                if ($bestAttempt && $bestAttempt->score >= $minQuizScore) {
+                    $passedQuizzes++;
+                }
+            }
+        }
+
+        $allVideosCompleted = $totalVideos > 0 && $completedVideos === $totalVideos;
+        $allQuizzesPassed = $totalQuizzes === 0 || $passedQuizzes === $totalQuizzes;
+        $isEligible = $allVideosCompleted && $allQuizzesPassed;
+
+        return [
+            'is_eligible' => $isEligible,
+            'all_videos_completed' => $allVideosCompleted,
+            'all_quizzes_passed' => $allQuizzesPassed,
+            'total_videos' => $totalVideos,
+            'completed_videos' => $completedVideos,
+            'total_quizzes' => $totalQuizzes,
+            'passed_quizzes' => $passedQuizzes,
+            'min_quiz_score' => $minQuizScore,
         ];
     }
 

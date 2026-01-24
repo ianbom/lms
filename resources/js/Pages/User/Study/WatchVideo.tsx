@@ -15,6 +15,7 @@ export default function WatchVideo({
     currentVideo,
     progressStats,
     navigation,
+    certificateStatus,
 }: WatchVideoProps) {
     // Get the first note (1 video = 1 note)
     const [currentNote, setCurrentNote] = useState<VideoNote | null>(
@@ -41,7 +42,7 @@ export default function WatchVideo({
 
             try {
                 await axios.post(
-                    `/user/study/video/${currentVideo.video.id}/progress`,
+                    `/user/study/${classData.id}/video/${currentVideo.video.id}/progress`,
                     {
                         last_time_sec: Math.floor(currentTime),
                     },
@@ -51,17 +52,17 @@ export default function WatchVideo({
                 console.error('Failed to save progress:', error);
             }
         },
-        [currentVideo.video.id, lastSavedTime],
+        [classData.id, currentVideo.video.id, lastSavedTime],
     );
 
     // Mark video as completed
     const handleVideoEnd = async () => {
         try {
             await axios.post(
-                `/user/study/video/${currentVideo.video.id}/complete`,
+                `/user/study/${classData.id}/video/${currentVideo.video.id}/complete`,
             );
             // Optionally refresh the page to update progress
-            router.reload({ only: ['progressStats', 'currentVideo'] });
+            router.reload({ only: ['progressStats', 'currentVideo', 'certificateStatus'] });
         } catch (error) {
             console.error('Failed to mark video as completed:', error);
         }
@@ -71,7 +72,7 @@ export default function WatchVideo({
     const handleAddNote = async (content: string) => {
         try {
             const response = await axios.post(
-                `/user/study/video/${currentVideo.video.id}/notes`,
+                `/user/study/${classData.id}/video/${currentVideo.video.id}/notes`,
                 { content },
             );
             setCurrentNote(response.data.note);
@@ -116,8 +117,8 @@ export default function WatchVideo({
 
         setIsCompletingClass(true);
         try {
-            await axios.post(`/user/study/video/${currentVideo.video.id}/complete`);
-            router.reload({ only: ['progressStats', 'currentVideo'] });
+            await axios.post(`/user/study/${classData.id}/video/${currentVideo.video.id}/complete`);
+            router.reload({ only: ['progressStats', 'currentVideo', 'certificateStatus'] });
         } catch (error) {
             console.error('Failed to complete video:', error);
         } finally {
@@ -133,6 +134,7 @@ export default function WatchVideo({
                     currentVideoId={currentVideo.video.id}
                     progressStats={progressStats}
                     onVideoSelect={navigateToVideo}
+                    certificateStatus={certificateStatus}
                 />
             }
         >
