@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Classes;
+use App\Models\ClassOrder;
 use Illuminate\Support\Facades\Auth;
 
 class ClassService
@@ -121,4 +122,6 @@ class ClassService
         }
         return $class;
     }
+
+
 }

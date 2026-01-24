@@ -19,16 +19,37 @@ class OrderController extends Controller
     }
 
     public function orderClass($classId, CreateOrderRequest $request)
-    {   
+    {
         $userId = Auth::id();
-        $order = $this->orderService->orderClass(
-            $userId,
-            $classId,
-            $request->file('proof_file')
-        );
 
-        return redirect()->route('user.order.success')
-            ->with('orderNumber', 'ORD-' . str_pad($order->id, 8, '0', STR_PAD_LEFT));
+        // Check BEFORE creating order
+        $pendingOrder = $this->orderService->checkPendingOrder($classId, $userId);
+        $ownedClass = $this->orderService->checkOwnedClass($classId, $userId);
+
+        if ($pendingOrder) {
+            return redirect()->back()->withErrors([
+                'order' => 'Anda sudah memiliki pesanan tertunda untuk kelas ini. Silakan tunggu proses verifikasi.'
+            ]);
+        }
+
+        if ($ownedClass) {
+            return redirect()->back()->withErrors([
+                'order' => 'Anda sudah memiliki kelas ini. Tidak dapat melakukan pembelian ulang.'
+            ]);
+        }
+
+        try {
+            $order = $this->orderService->orderClass(
+                $userId,
+                $classId,
+                $request->file('proof_file')
+            );
+
+            return redirect()->route('user.order.success')
+                ->with('orderNumber', 'ORD-' . str_pad($order->id, 8, '0', STR_PAD_LEFT));
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors(['order' => $th->getMessage()]);
+        }
     }
 
     public function orderSuccessPage()

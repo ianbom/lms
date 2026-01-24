@@ -27,7 +27,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     <img
                         src="/ImpactAcademy.png"
                         alt="ImpactAcademy Logo"
-                        className="h-10 w-auto brightness-0 invert"
+                        className="h-40 w-auto brightness-0 invert"
                     />
                 </div>
             </div>
@@ -100,7 +100,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="settings"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className="text-sm font-medium">Settings</span>
+                    <span className={`text-sm ${isActive('/user/profile') || isActive('/user/profile') ? 'font-bold' : 'font-medium'}`}>
+                        My Profile
+                    </span>
                 </Link>
                 <Link
                     href="/home"
