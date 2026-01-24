@@ -54,7 +54,7 @@ export default function Footer({
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-gray-900 pt-16 text-gray-300">
+        <footer className="bg-gradient-to-br from-[#022C22] to-[#011E17] pt-16 text-gray-300">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid gap-8 pb-12 sm:grid-cols-2 lg:grid-cols-5">
                     {/* Brand Column */}
@@ -63,7 +63,7 @@ export default function Footer({
                             <img
                                 src="/ImpactAcademy.png"
                                 alt="ImpactAcademy Logo"
-                                className="h-12 w-auto brightness-0 invert"
+                                className="h-36 -my-16 w-auto brightness-0 invert"
                             />
                         </Link>
                         <p className="mb-6 max-w-sm text-sm leading-relaxed text-gray-400">

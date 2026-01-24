@@ -35,10 +35,34 @@ class ClassController extends Controller
     }
 
     public function detailClassPage($classId){
+        $userId = Auth::id();
         $class = $this->classService->getClassDetailsById($classId);
         $previewVideos = $this->classService->getClassPreviewVideoById($classId);
-        return Inertia::render('User/Classes/DetailClass', ['class' => $class,
-        'previewVideos' => $previewVideos]);
+        
+        // Check if user has enrollment for this class
+        $isEnrolled = false;
+        $firstVideoId = null;
+        
+        if ($userId) {
+            $isEnrolled = $this->orderService->checkOwnedClass($classId, $userId);
+            
+            // Get first video ID if enrolled
+            if ($isEnrolled && !empty($class['modules'])) {
+                foreach ($class['modules'] as $module) {
+                    if (!empty($module['videos'])) {
+                        $firstVideoId = $module['videos'][0]['id'];
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return Inertia::render('User/Classes/DetailClass', [
+            'class' => $class,
+            'previewVideos' => $previewVideos,
+            'isEnrolled' => $isEnrolled,
+            'firstVideoId' => $firstVideoId,
+        ]);
     }
 
     public function purchaseClassPage($classId){

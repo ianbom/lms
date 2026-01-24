@@ -27,13 +27,8 @@ export default function UserLayout({ children, navItems, showFooter = true, full
         {
             label: 'Kelas',
             href: route('user.classes'),
-            active: route().current('user.classes.*'),
+            active: route().current('user.classes*'),
         },
-        // {
-        //     label: 'Dashboard',
-        //     href: '#',
-        //     active: false,
-        // },
     ];
 
     const navigation = navItems ?? defaultNavItems;

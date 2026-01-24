@@ -10,6 +10,7 @@ interface PricingSidebarProps {
     quizCount: number;
     onBuy?: () => void;
     onAddWishlist?: () => void;
+    isEnrolled?: boolean;
 }
 
 export default function PricingSidebar({
@@ -22,6 +23,7 @@ export default function PricingSidebar({
     quizCount,
     onBuy,
     onAddWishlist,
+    isEnrolled = false,
 }: PricingSidebarProps) {
     const formatPrice = (amount: number) => {
         return `Rp ${amount.toLocaleString('id-ID')}`;
@@ -92,10 +94,14 @@ export default function PricingSidebar({
             <div className="py-2">
                 <button
                     onClick={onBuy}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-primary/40"
+                    className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-bold text-white shadow-lg transition-all ${
+                        isEnrolled
+                            ? 'bg-green-600 shadow-green-600/20 hover:bg-green-700 hover:shadow-green-600/40'
+                            : 'bg-primary shadow-primary/20 hover:bg-primary-dark hover:shadow-primary/40'
+                    }`}
                 >
-                    Beli Modul Sekarang
-                    <Icon name="arrow_forward" size={20} />
+                    {isEnrolled ? 'Belajar Sekarang' : 'Beli Modul Sekarang'}
+                    <Icon name={isEnrolled ? 'play_arrow' : 'arrow_forward'} size={20} />
                 </button>
             </div>
 
