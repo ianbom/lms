@@ -141,7 +141,7 @@ export default function DetailClass({
 
     return (
         <UserLayout>
-            <Head title={`${classData.title} - LMS Platform`} />
+            <Head title={`${classData.title} - ImpactAcademy`} />
 
             {/* Breadcrumb */}
             <Breadcrumb items={breadcrumbItems} />

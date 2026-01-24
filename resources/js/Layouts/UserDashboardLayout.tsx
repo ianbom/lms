@@ -46,12 +46,11 @@ export default function UserDashboardLayout({
                     >
                         <Icon name="menu" size={24} />
                     </button>
-                    <div className="flex items-center gap-2">
-                        <div className="rounded-md bg-primary/10 p-1.5 text-primary">
-                            <Icon name="school" size={18} />
-                        </div>
-                        <span className="font-bold text-slate-900">ImpactAcademy</span>
-                    </div>
+                    <img
+                        src="/ImpactAcademy.png"
+                        alt="ImpactAcademy Logo"
+                        className="h-8 w-auto"
+                    />
                     {rightSidebar ? (
                         <button
                             onClick={() => setRightSidebarOpen(true)}

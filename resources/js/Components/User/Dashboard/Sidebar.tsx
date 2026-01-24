@@ -24,17 +24,11 @@ export default function Sidebar({ onClose }: SidebarProps) {
                             <Icon name="close" size={20} />
                         </button>
                     )}
-                    <div className="rounded-xl bg-white/20 p-2 text-white">
-                        <Icon name="school" size={20} />
-                    </div>
-                    <div className="flex flex-col">
-                        <h1 className="text-lg font-bold leading-tight tracking-tight text-white">
-                            ImpactAcademy
-                        </h1>
-                        <span className="text-xs font-medium text-white/70">
-                            Learning Platform
-                        </span>
-                    </div>
+                    <img
+                        src="/ImpactAcademy.png"
+                        alt="ImpactAcademy Logo"
+                        className="h-10 w-auto brightness-0 invert"
+                    />
                 </div>
             </div>
 

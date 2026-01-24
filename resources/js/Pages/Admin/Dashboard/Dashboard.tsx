@@ -7,144 +7,48 @@ import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { BadgeVariant, Order, PopularClass, StatCardData } from '@/types/admin';
 import { Head, Link } from '@inertiajs/react';
+import { useEffect, useRef, useState } from 'react';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler,
+} from 'chart.js';
+import { Line, Bar } from 'react-chartjs-2';
 
-// Sample data - in production, this would come from props
-const statsData: StatCardData[] = [
-    {
-        icon: 'library_books',
-        label: 'Total Classes',
-        value: '124',
-        trend: 'up',
-        trendValue: '+8%',
-    },
-    {
-        icon: 'group',
-        label: 'Total Users',
-        value: '3,420',
-        trend: 'up',
-        trendValue: '+12%',
-    },
-    {
-        icon: 'shopping_bag',
-        label: 'Total Orders',
-        value: '12',
-        trend: 'down',
-        trendValue: '-5%',
-    },
-    {
-        icon: 'payments',
-        label: 'Total Revenue',
-        value: '$42,500',
-        trend: 'up',
-        trendValue: '+20%',
-    },
-];
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler
+);
 
-const ordersData: Order[] = [
-    {
-        id: '#ORD-7352',
-        user: {
-            name: 'John Doe',
-            initials: 'JD',
-            color: 'bg-blue-100 text-blue-700',
-        },
-        date: 'Oct 24, 2023',
-        amount: '$120.00',
-        status: 'paid',
-    },
-    {
-        id: '#ORD-7351',
-        user: {
-            name: 'Jane Smith',
-            initials: 'JS',
-            color: 'bg-purple-100 text-purple-700',
-        },
-        date: 'Oct 24, 2023',
-        amount: '$85.00',
-        status: 'pending',
-    },
-    {
-        id: '#ORD-7350',
-        user: {
-            name: 'Mike Ross',
-            initials: 'MR',
-            color: 'bg-green-100 text-green-700',
-        },
-        date: 'Oct 23, 2023',
-        amount: '$200.00',
-        status: 'paid',
-    },
-    {
-        id: '#ORD-7349',
-        user: {
-            name: 'Rachel Green',
-            initials: 'RG',
-            color: 'bg-pink-100 text-pink-700',
-        },
-        date: 'Oct 22, 2023',
-        amount: '$120.00',
-        status: 'failed',
-    },
-    {
-        id: '#ORD-7348',
-        user: {
-            name: 'Monica Geller',
-            initials: 'MG',
-            color: 'bg-orange-100 text-orange-700',
-        },
-        date: 'Oct 21, 2023',
-        amount: '$45.00',
-        status: 'paid',
-    },
-];
+interface ChartData {
+    labels: string[] | number[];
+    data: number[];
+    type: string;
+    year: number;
+    month: number | null;
+}
 
-const popularClassesData: PopularClass[] = [
-    {
-        id: 1,
-        title: 'UX Design Fundamentals',
-        instructor: 'Sarah Lee',
-        enrolled: 450,
-        progress: 85,
-        thumbnail:
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuBAy-ocZv-wHZ6Bq9DUPkDleObiJmVeK_suVjAlZ1x67e99WNYE_Vafk2uo-yb-4pk-HhvwIVfAj0E8qPBJ0ZnME3G7wLDUJWomcDYqpgl8EAO2Ep2jDmyOEF3m4hLuE33bl3kfQmsZk0OvpDGtZi544krJqu7IhvBjv8KJhVtKt7DZs_c2e-7lGl8qF-Zwc5TIM1qbl4k_Kyg7H5AOEw1UEVOZNUaqUeJd9oUwcePCKpCfZzebkdkzXlyfQJtUP_XggJ2TFQtFg1ac',
-    },
-    {
-        id: 2,
-        title: 'Advanced Python Mastery',
-        instructor: 'David Chen',
-        enrolled: 320,
-        progress: 72,
-        thumbnail:
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuAZgaiPy8O_yfb-Epbd9gz2J0sXneWp2cyxfv7ICazZH0_ANmoSpuRvYm9aCq6zwLdR6KnZvNztaMAy1FpXU2g9y-6SETuu4Z7qv281T2u8rALtF3zNMN8cL6RnGwHhEhU-MRnWc7hv0BfLBUo4A-vFqCufvgyO_HPDA9EnBOQx-idTb8ALXd_NSfbzKRkZQw04483tD2jbXDAqLnGlV1K0sNZ7QwVTHq5Gdi8zo0iWoBBnmPADwg1SI_C_w2mPJcGTkSODrTBLU_41',
-    },
-    {
-        id: 3,
-        title: 'Digital Marketing 101',
-        instructor: 'Emma Watson',
-        enrolled: 280,
-        progress: 64,
-        thumbnail:
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuCc0lS0GovuuySOvKuQgPzLciMONvAJaR9Xp884dSc1I7rdcVeW-ISvi0Yq23evyz4_UKEfBKAvRHcQjd-uZCljrj2PQTeq0Dtke_ByM8q7k9p4LvuquZ86NPh329tzo61lde492_ukN4-ooYFgdFXbWLLG5hiMERe0pFYStttFNn4tM34GZTZ73abvwo3Yd7cV8NTtScucJVJirtpxOk05YSWyrm9vbgtyY2ir_7pqc5wyh3v5IYE_bpseKABJK0MBOGAOxLT1PkIK',
-    },
-    {
-        id: 4,
-        title: 'Photography for Beginners',
-        instructor: 'James Wilson',
-        enrolled: 195,
-        progress: 45,
-        thumbnail:
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuBMxmgJnrBHjWazRnMVAgPFleQ3sIupomxlLniL_zfoweTdUO3qOtZfkVlcyBVT3rShpODMDb-fCkdWnxBb4sGXZwYbyCv1NSGEc1frT-uvyqABRN1XJdxcpJjvRNrJXzgpwWqLzSubFZsMQiRs2RIdEUu23rjrRZ0lvtiZsKFlO_ITWNLiqvOAtG8RiGuqyWDxYvPA4gT-8qEvi3OfX7cFdoXSdxbhCvZ6QlaaMFO87MgueQhl0UZV61ZNiNCYSs6YP5O_nmxgz1V7',
-    },
-    {
-        id: 5,
-        title: 'Graphic Design Basics',
-        instructor: 'Alice Johnson',
-        enrolled: 150,
-        progress: 38,
-        thumbnail:
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuA4N6Ng_vwhOEBaj0fmkNwutTOtR3VvMdkUQfR3MeL7xojZWy8hdOrvL0EiSmSb9JOgyViRhdGzNZrfuW4OdSinpr_rL4q4rak5mHh1UP4FQ3Cd3EONP3q3VwsSg0N6fYCkpj2eF8UzHrXfZKIdY_nhrgHvXSwIA72kZ2iVvPCvVmyJHQg6dINIpx7Ply4HFjeUat-QgbFJz2p2QEFlQ8Cb5SpB95TA0Mnz6DtfRmnhJfqo2M4hgC6bLrJMmR2s52gc3d9B3pQ9Xt1n',
-    },
-];
+interface DashboardProps {
+    stats: StatCardData[];
+    recentOrders: Order[];
+    popularClasses: PopularClass[];
+    availableYears: number[];
+    initialChartData: ChartData;
+}
 
 const statusVariantMap: Record<Order['status'], BadgeVariant> = {
     paid: 'success',
@@ -158,7 +62,147 @@ const statusLabelMap: Record<Order['status'], string> = {
     failed: 'Failed',
 };
 
-export default function Dashboard() {
+const months = [
+    { value: '', label: 'Semua Bulan' },
+    { value: '1', label: 'Januari' },
+    { value: '2', label: 'Februari' },
+    { value: '3', label: 'Maret' },
+    { value: '4', label: 'April' },
+    { value: '5', label: 'Mei' },
+    { value: '6', label: 'Juni' },
+    { value: '7', label: 'Juli' },
+    { value: '8', label: 'Agustus' },
+    { value: '9', label: 'September' },
+    { value: '10', label: 'Oktober' },
+    { value: '11', label: 'November' },
+    { value: '12', label: 'Desember' },
+];
+
+const dataTypes = [
+    { value: 'users', label: 'Users', icon: 'group', color: 'rgb(59, 130, 246)' },
+    { value: 'orders', label: 'Orders', icon: 'shopping_bag', color: 'rgb(234, 179, 8)' },
+    { value: 'revenue', label: 'Revenue', icon: 'payments', color: 'rgb(34, 197, 94)' },
+];
+
+export default function Dashboard({
+    stats,
+    recentOrders,
+    popularClasses,
+    availableYears,
+    initialChartData,
+}: DashboardProps) {
+    const [chartData, setChartData] = useState<ChartData>(initialChartData);
+    const [selectedType, setSelectedType] = useState<string>('users');
+    const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+    const [selectedMonth, setSelectedMonth] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const fetchChartData = async () => {
+        setIsLoading(true);
+        try {
+            const params = new URLSearchParams({
+                type: selectedType,
+                year: selectedYear.toString(),
+            });
+            if (selectedMonth) {
+                params.append('month', selectedMonth);
+            }
+
+            const response = await fetch(`/admin/dashboard/chart-data?${params}`);
+            const data = await response.json();
+            setChartData(data);
+        } catch (error) {
+            console.error('Failed to fetch chart data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchChartData();
+    }, [selectedType, selectedYear, selectedMonth]);
+
+    const currentTypeConfig = dataTypes.find((t) => t.value === selectedType) || dataTypes[0];
+
+    const chartConfig = {
+        labels: chartData.labels.map(String),
+        datasets: [
+            {
+                label: currentTypeConfig.label,
+                data: chartData.data,
+                borderColor: currentTypeConfig.color,
+                backgroundColor: currentTypeConfig.color.replace('rgb', 'rgba').replace(')', ', 0.1)'),
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            tooltip: {
+                backgroundColor: 'white',
+                titleColor: '#1f2937',
+                bodyColor: '#4b5563',
+                borderColor: '#e5e7eb',
+                borderWidth: 1,
+                padding: 12,
+                displayColors: false,
+                callbacks: {
+                    label: function (context: any) {
+                        let label = context.dataset.label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (selectedType === 'revenue') {
+                            label += 'Rp ' + new Intl.NumberFormat('id-ID').format(context.parsed.y);
+                        } else {
+                            label += new Intl.NumberFormat('id-ID').format(context.parsed.y);
+                        }
+                        return label;
+                    },
+                },
+            },
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+                ticks: {
+                    color: '#9ca3af',
+                },
+            },
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: '#f3f4f6',
+                },
+                ticks: {
+                    color: '#9ca3af',
+                    callback: function (value: any) {
+                        if (selectedType === 'revenue') {
+                            if (value >= 1000000) {
+                                return 'Rp ' + (value / 1000000).toFixed(1) + 'M';
+                            } else if (value >= 1000) {
+                                return 'Rp ' + (value / 1000).toFixed(0) + 'K';
+                            }
+                            return 'Rp ' + value;
+                        }
+                        return value;
+                    },
+                },
+            },
+        },
+    };
+
     const orderColumns = [
         {
             key: 'id',
@@ -218,21 +262,88 @@ export default function Dashboard() {
 
             {/* Stats Row */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-                {statsData.map((stat) => (
+                {stats.map((stat) => (
                     <StatCard key={stat.label} {...stat} />
                 ))}
             </div>
 
+            {/* Chart Section */}
+            <div className="border-border shadow-card rounded-xl border bg-white">
+                <div className="border-border flex flex-col gap-4 border-b px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-text-primary text-lg font-bold">
+                        Statistik {currentTypeConfig.label}
+                    </h2>
+                    <div className="flex flex-wrap items-center gap-3">
+                        {/* Data Type Selector */}
+                        <div className="flex rounded-lg border border-gray-200 p-1">
+                            {dataTypes.map((type) => (
+                                <button
+                                    key={type.value}
+                                    onClick={() => setSelectedType(type.value)}
+                                    className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                                        selectedType === type.value
+                                            ? 'bg-primary text-white'
+                                            : 'text-gray-600 hover:bg-gray-100'
+                                    }`}
+                                >
+                                    <Icon name={type.icon} size={16} />
+                                    <span className="hidden sm:inline">{type.label}</span>
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Year Selector */}
+                        <select
+                            value={selectedYear}
+                            onChange={(e) => setSelectedYear(Number(e.target.value))}
+                            className="rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                        >
+                            {availableYears.map((year) => (
+                                <option key={year} value={year}>
+                                    {year}
+                                </option>
+                            ))}
+                        </select>
+
+                        {/* Month Selector */}
+                        <select
+                            value={selectedMonth}
+                            onChange={(e) => setSelectedMonth(e.target.value)}
+                            className="rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                        >
+                            {months.map((month) => (
+                                <option key={month.value} value={month.value}>
+                                    {month.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+                <div className="relative p-6">
+                    {isLoading && (
+                        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70">
+                            <div className="flex items-center gap-2 text-gray-500">
+                                <Icon name="refresh" size={20} className="animate-spin" />
+                                <span>Loading...</span>
+                            </div>
+                        </div>
+                    )}
+                    <div className="h-[300px]">
+                        <Line data={chartConfig} options={chartOptions as any} />
+                    </div>
+                </div>
+            </div>
+
             {/* Main Grid: Recent Orders & Popular Classes */}
-            <div className="grid grid-cols-1 gap-6 pb-8 xl:grid-cols-2">
-                {/* Recent Orders Table */}
+            {/* <div className="grid grid-cols-1 gap-6 pb-8 xl:grid-cols-2">
+
                 <div className="border-border shadow-card flex flex-col overflow-hidden rounded-xl border bg-white">
                     <div className="border-border flex items-center justify-between border-b bg-white px-6 py-5">
                         <h2 className="text-text-primary text-lg font-bold">
                             Recent Orders
                         </h2>
                         <Link
-                            href="#"
+                            href={route('admin.orders')}
                             className="text-sm font-medium text-primary hover:text-emerald-600"
                         >
                             View All
@@ -240,23 +351,26 @@ export default function Dashboard() {
                     </div>
                     <DataTable
                         columns={orderColumns}
-                        data={ordersData}
+                        data={recentOrders}
                         keyExtractor={(order) => order.id}
                     />
                 </div>
 
-                {/* Popular Classes List */}
+
                 <div className="border-border shadow-card flex flex-col rounded-xl border bg-white">
                     <div className="border-border flex items-center justify-between border-b px-6 py-5">
                         <h2 className="text-text-primary text-lg font-bold">
                             Popular Classes
                         </h2>
-                        <button className="text-text-muted rounded-md p-1 transition-colors hover:bg-background-light">
-                            <Icon name="more_horiz" size={24} />
-                        </button>
+                        <Link
+                            href={route('admin.classes')}
+                            className="text-sm font-medium text-primary hover:text-emerald-600"
+                        >
+                            View All
+                        </Link>
                     </div>
                     <div className="flex flex-col p-2">
-                        {popularClassesData.map((classItem) => (
+                        {popularClasses.map((classItem) => (
                             <PopularClassItem
                                 key={classItem.id}
                                 title={classItem.title}
@@ -268,7 +382,7 @@ export default function Dashboard() {
                         ))}
                     </div>
                 </div>
-            </div>
+            </div> */}
         </AdminLayout>
     );
 }

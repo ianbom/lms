@@ -60,12 +60,11 @@ export default function Footer({
                     {/* Brand Column */}
                     <div className="lg:col-span-2">
                         <Link href="/" className="mb-4 flex items-center gap-2">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
-                                <Icon name="school" size={20} />
-                            </div>
-                            <span className="text-xl font-bold text-white">
-                                LMS Platform
-                            </span>
+                            <img
+                                src="/ImpactAcademy.png"
+                                alt="ImpactAcademy Logo"
+                                className="h-12 w-auto brightness-0 invert"
+                            />
                         </Link>
                         <p className="mb-6 max-w-sm text-sm leading-relaxed text-gray-400">
                             Platform pembelajaran online terbaik untuk mengembangkan
@@ -117,7 +116,7 @@ export default function Footer({
                 {/* Bottom Bar */}
                 <div className="flex flex-col items-center justify-between gap-4 border-t border-gray-800 py-6 sm:flex-row">
                     <p className="text-sm text-gray-500">
-                        © {currentYear} LMS Platform. All rights reserved.
+                        © {currentYear} ImpactAcademy. All rights reserved.
                     </p>
                     <div className="flex gap-4">
                         <a

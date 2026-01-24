@@ -25,18 +25,12 @@ export default function AdminSidebar({
             className={`border-border hidden h-full w-[260px] shrink-0 flex-col border-r bg-white transition-all duration-300 lg:flex ${className}`}
         >
             {/* Logo */}
-            <div className="flex items-center gap-3 p-6">
-                <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-emerald-600 text-white shadow-lg shadow-primary/30">
-                    <Icon name="school" size={24} />
-                </div>
-                <div>
-                    <h1 className="text-lg font-bold leading-tight tracking-tight">
-                        ImpactAcademy
-                    </h1>
-                    <p className="text-text-muted text-xs font-medium uppercase tracking-wider">
-                        Admin Panel
-                    </p>
-                </div>
+            <div className="flex ">
+                <img
+                    src="/ImpactAcademy.png"
+                    alt="ImpactAcademy Logo"
+                    className="h-36 w-auto -my-6"
+                />
             </div>
 
             {/* Navigation */}

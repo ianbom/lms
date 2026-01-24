@@ -11,7 +11,7 @@ interface CommunitySectionProps {
 
 export default function CommunitySection({
     title = "You're Not Learning Alone",
-    description = 'At LMS Platform, learning is more than just watching videos. Join a vibrant community of learners from around the world. Engage in forums, join peer groups, and attend live workshops.',
+    description = 'At ImpactAcademy, learning is more than just watching videos. Join a vibrant community of learners from around the world. Engage in forums, join peer groups, and attend live workshops.',
     secondaryDescription = "Whether you're diving into AI, design, or marketing, find support, collaboration, and motivation through leaderboards and challenges.",
     buttonText = 'Join Our Community',
     buttonHref = '#',

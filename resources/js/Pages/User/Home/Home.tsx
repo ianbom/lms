@@ -153,7 +153,7 @@ export default function Home() {
 
     return (
         <UserLayout showFooter={false} fullWidth>
-            <Head title="Home - LMS Platform" />
+            <Head title="Home - ImpactAcademy" />
 
             <div>
                 {/* Hero Section */}
@@ -202,7 +202,7 @@ export default function Home() {
 
                 {/* Why Choose Us Section */}
                 <WhyChooseUsSection
-                    title="Mengapa Belajar di LMS Platform?"
+                    title="Mengapa Belajar di ImpactAcademy?"
                     description="Kami berkomitmen memberikan pengalaman belajar terbaik untuk Anda"
                     benefits={[
                         'Kurikulum disusun oleh praktisi industri',

@@ -38,7 +38,10 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
+        "chart.js": "^4.5.1",
+        "chartjs": "^0.3.24",
         "lodash": "^4.17.23",
+        "react-chartjs-2": "^5.3.1",
         "react-youtube": "^10.1.0"
     }
 }

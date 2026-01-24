@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClassController as AdmClassController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MentorController;
 use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
 use App\Http\Controllers\Admin\QuizController as AdmQuizController;
@@ -68,9 +69,8 @@ Route::middleware('auth')->group(function () {
 
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', function () {
-            return Inertia::render('Admin/Dashboard/Dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/chart-data', [DashboardController::class, 'getChartData'])->name('dashboard.chart');
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
         Route::get('/classes/{classId}', [AdmClassController::class, 'detailClassPage'])->name('classes.show');
         Route::put('/classes/{classId}', [AdmClassController::class, 'updateClass'])->name('classes.update');

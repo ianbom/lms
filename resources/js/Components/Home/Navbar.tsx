@@ -32,12 +32,11 @@ export default function Navbar({
                 <div className="flex h-20 items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2">
-                        <div className="flex size-8 items-center justify-center rounded-md bg-primary text-white">
-                            <Icon name="school" size={20} />
-                        </div>
-                        <span className="text-2xl font-bold tracking-tight text-gray-900">
-                            LMS Platform
-                        </span>
+                        <img
+                            src="/ImpactAcademy.png"
+                            alt="ImpactAcademy Logo"
+                            className="h-10 w-auto"
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}
