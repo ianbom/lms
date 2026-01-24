@@ -1,6 +1,17 @@
 import Icon from '@/Components/Icon';
 
-export default function StatsGrid() {
+interface Stats {
+    activeClasses: number;
+    completedClasses: number;
+    pendingOrders: number;
+    pendingQuizzes: number;
+}
+
+interface StatsGridProps {
+    stats: Stats;
+}
+
+export default function StatsGrid({ stats }: StatsGridProps) {
     return (
         <div className="grid h-full grid-cols-2 gap-4">
             {/* Stat Card 1 */}
@@ -11,7 +22,7 @@ export default function StatsGrid() {
                     </span>
                     <Icon name="school" className="text-primary" />
                 </div>
-                <p className="text-3xl font-bold text-slate-900">3</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.activeClasses}</p>
             </div>
 
             {/* Stat Card 2 */}
@@ -22,7 +33,7 @@ export default function StatsGrid() {
                     </span>
                     <Icon name="workspace_premium" className="text-primary" />
                 </div>
-                <p className="text-3xl font-bold text-slate-900">12</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.completedClasses}</p>
             </div>
 
             {/* Stat Card 3 */}
@@ -33,7 +44,7 @@ export default function StatsGrid() {
                     </span>
                     <Icon name="shopping_cart" className="text-amber-500" />
                 </div>
-                <p className="text-3xl font-bold text-slate-900">1</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.pendingOrders}</p>
             </div>
 
             {/* Stat Card 4 */}
@@ -44,7 +55,7 @@ export default function StatsGrid() {
                     </span>
                     <Icon name="quiz" className="text-rose-500" />
                 </div>
-                <p className="text-3xl font-bold text-slate-900">2</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.pendingQuizzes}</p>
             </div>
         </div>
     );

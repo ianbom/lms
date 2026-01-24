@@ -59,6 +59,7 @@ Route::get('/home', function () {
        Route::post('/study/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
        Route::post('/study/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
        Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
+       Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
     });
 
 

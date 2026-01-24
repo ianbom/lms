@@ -93,7 +93,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     <span className="text-sm font-medium">Certificates</span>
                 </Link>
                 <Link
-                    href="#"
+                    href={route('user.profile.edit')}
                     className="group flex items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                 >
                     <Icon

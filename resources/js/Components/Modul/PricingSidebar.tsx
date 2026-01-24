@@ -90,14 +90,13 @@ export default function PricingSidebar({
 
             {/* Buttons */}
             <div className="py-2">
-                <a
-                    href="/user/classes/1/purchase"
-                    // onClick={onBuy}
+                <button
+                    onClick={onBuy}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-primary/40"
                 >
                     Beli Modul Sekarang
                     <Icon name="arrow_forward" size={20} />
-                </a>
+                </button>
             </div>
 
             {/* Guarantee */}

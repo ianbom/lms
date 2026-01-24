@@ -32,10 +32,6 @@ class DashboardController extends Controller
             'initialChartData' => $chartData,
         ]);
     }
-
-    /**
-     * Get chart data via AJAX
-     */
     public function getChartData(Request $request)
     {
         $request->validate([

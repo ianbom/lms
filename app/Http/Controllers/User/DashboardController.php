@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Enrollment;
+use App\Models\VideoProgress;
 use App\Services\OrderService;
+use App\Services\UserDashboardService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -13,14 +15,30 @@ class DashboardController extends Controller
 {
 
     protected $orderService;
+    protected $userDashboardService;
 
-    public function __construct(OrderService $orderService)
+    public function __construct(OrderService $orderService, UserDashboardService $userDashboardService)
     {
         $this->orderService = $orderService;
+        $this->userDashboardService = $userDashboardService;
     }
 
     public function dashboardPage(){
-        return Inertia::render('User/Dashboard/Dashboard');
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $stats = $this->userDashboardService->getStats($userId);
+        $currentLearning = $this->userDashboardService->getCurrentLearning($userId);
+        $myClasses = $this->userDashboardService->getMyClasses($userId, 4);
+
+        return Inertia::render('User/Dashboard/Dashboard', [
+            'user' => [
+                'name' => $user->name,
+            ],
+            'stats' => $stats,
+            'currentLearning' => $currentLearning,
+            'myClasses' => $myClasses,
+        ]);
     }
 
     public function myClassPage()
@@ -43,7 +61,7 @@ class DashboardController extends Controller
 
                 $completedVideos = 0;
                 if ($totalVideos > 0) {
-                    $completedVideos = \App\Models\VideoProgress::where('user_id', $enrollment->user_id)
+                    $completedVideos = VideoProgress::where('user_id', $enrollment->user_id)
                         ->whereHas('video', function ($query) use ($class) {
                             $query->whereHas('module', function ($q) use ($class) {
                                 $q->where('class_id', $class->id);
