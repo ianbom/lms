@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
+use App\Http\Controllers\User\CertificateController;
 use App\Http\Controllers\User\StudyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -34,9 +35,9 @@ Route::get('/home', function () {
             return Inertia::render('User/Home/Home');
         })->name('home');
 
-        Route::get('/home', function () {
-            return Inertia::render('User/Home/Home');
-        })->name('home');
+// Public certificate verification route
+Route::get('/certificate/verify', [CertificateController::class, 'verifyCertificate'])->name('certificate.verify');
+Route::get('/certificate/verify', [CertificateController::class, 'downloadCertificatePublic']);
 
     // User Modul Routes
     Route::prefix('user')->name('user.')->group(function () {
@@ -69,6 +70,12 @@ Route::get('/home', function () {
            Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
            Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
            Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
+
+           // Certificate Routes
+           Route::get('/certificates', [CertificateController::class, 'listCertificatePage'])->name('certificates');
+           Route::post('/certificates/claim/{classId}', [CertificateController::class, 'claimCertificate'])->name('certificates.claim');
+           Route::get('/certificates/{certificateId}/download', [CertificateController::class, 'downloadCertificate'])->name('certificates.download');
+           Route::get('/certificates/{certificateId}/view', [CertificateController::class, 'viewCertificate'])->name('certificates.view');
        });
 
 
