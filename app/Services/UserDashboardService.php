@@ -192,4 +192,76 @@ class UserDashboardService
             ];
         })->toArray();
     }
+
+    public function getAllEnrollments(int $userId): array
+    {
+        $enrollments = Enrollment::where('user_id', $userId)
+            ->with(['class' => function ($query) {
+                $query->with(['mentors' => function ($q) {
+                    $q->select('mentors.id', 'mentors.name', 'mentors.avatar_url');
+                }])
+                ->select('id', 'title', 'slug', 'thumbnail_url');
+            }])
+            ->whereIn('status', ['active', 'completed'])
+            ->latest('updated_at')
+            ->get();
+
+        return $enrollments->map(function ($enrollment) {
+            $class = $enrollment->class;
+            $progress = $this->calculateClassProgress($enrollment->user_id, $class);
+            $firstVideoId = $this->getFirstVideoId($class);
+
+            return [
+                'id' => $enrollment->id,
+                'status' => $enrollment->status,
+                'activated_at' => $enrollment->activated_at,
+                'completed_at' => $enrollment->completed_at,
+                'created_at' => $enrollment->created_at,
+                'progress' => $progress,
+                'class' => [
+                    'id' => $class->id,
+                    'title' => $class->title,
+                    'slug' => $class->slug,
+                    'thumbnail_url' => $class->thumbnail_url,
+                    'first_video_id' => $firstVideoId,
+                    'mentors' => $class->mentors->map(fn($mentor) => [
+                        'id' => $mentor->id,
+                        'name' => $mentor->name,
+                        'profile_picture_url' => $mentor->avatar_url,
+                    ])->toArray(),
+                ],
+            ];
+        })->toArray();
+    }
+
+    private function calculateClassProgress(int $userId, $class): int
+    {
+        $totalVideos = $class->modules()->withCount('videos')->get()->sum('videos_count');
+
+        if ($totalVideos === 0) {
+            return 0;
+        }
+
+        $completedVideos = VideoProgress::where('user_id', $userId)
+            ->whereHas('video', function ($query) use ($class) {
+                $query->whereHas('module', function ($q) use ($class) {
+                    $q->where('class_id', $class->id);
+                });
+            })
+            ->where('is_completed', true)
+            ->count();
+
+        return (int) round(($completedVideos / $totalVideos) * 100);
+    }
+
+    private function getFirstVideoId($class): ?int
+    {
+        return $class->modules()
+            ->orderBy('sort_order')
+            ->first()
+            ?->videos()
+            ->orderBy('sort_order')
+            ->first()
+            ?->id;
+    }
 }

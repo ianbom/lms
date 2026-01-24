@@ -43,9 +43,6 @@ Route::get('/home', function () {
        Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
 
-       Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
-       Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
-
        // Study Routes - Protected by has.course.access middleware
        Route::middleware(['auth', 'has.course.access'])->group(function () {
            // Study/Watch Video Routes
@@ -58,16 +55,18 @@ Route::get('/home', function () {
            Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
            Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
            Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
-
        });
 
        // Notes routes (not class-specific)
        Route::middleware(['auth'])->group(function () {
+           Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
+           Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
            Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
            Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
            Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
+           Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
        });
-       Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
+
 
     });
 
