@@ -1,10 +1,6 @@
 import Icon from '@/Components/Icon';
 import { QuizOption, QuizResult } from '@/types/study';
 import { Link } from '@inertiajs/react';
-import { Link as InertiaLink } from '@inertiajs/react'; // Importing Inertia Link as fallback if local Link is custom, but standard is `import { Link } from '@inertiajs/react';`
-
-// Checking file content again, I see `import Icon from '@/Components/Icon';`.
-// I should use `import { Link } from '@inertiajs/react';`
 
 interface QuizQuestionProps {
     question: {
@@ -24,6 +20,7 @@ interface QuizQuestionProps {
     isFirstQuestion: boolean;
     isSubmitting: boolean;
     isReviewing: boolean;
+    quizResult: QuizResult | null;
     backToVideoUrl?: string;
 }
 
