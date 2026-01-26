@@ -106,6 +106,14 @@ export default function TakeQuiz({
                         isSubmitting={isSubmitting}
                         isReviewing={quizState === 'reviewing'}
                         quizResult={quizResult}
+                        backToVideoUrl={
+                            firstVideoId
+                                ? route('user.study.watch', {
+                                    classId: classData.id,
+                                    videoId: firstVideoId,
+                                })
+                                : undefined
+                        }
                     />
                 )}
 

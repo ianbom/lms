@@ -18,7 +18,9 @@ export default function OrderHistory() {
                 <table className="w-full text-left text-sm">
                     <thead className="bg-gray-50 text-slate-500">
                         <tr>
-                            <th className="whitespace-nowrap px-6 py-3 font-medium">Order ID</th>
+                            <th className="whitespace-nowrap px-6 py-3 font-medium">
+                                Order ID
+                            </th>
                             <th className="px-6 py-3 font-medium">
                                 Nama Kelas
                             </th>

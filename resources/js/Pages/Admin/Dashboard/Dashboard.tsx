@@ -236,7 +236,7 @@ export default function Dashboard({
             key: 'id',
             header: 'Order ID',
             render: (order: Order) => (
-                <span className="whitespace-nowrap text-text-primary font-medium">
+                <span className="text-text-primary whitespace-nowrap font-medium">
                     {order.id}
                 </span>
             ),

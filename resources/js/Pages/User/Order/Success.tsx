@@ -1,7 +1,7 @@
 import Icon from '@/Components/Icon';
 import UserLayout from '@/Layouts/UserLayout';
-import { Head, Link } from '@inertiajs/react';
 import { PageProps } from '@/types';
+import { Head, Link } from '@inertiajs/react';
 
 interface ClassData {
     title: string;

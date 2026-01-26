@@ -1,5 +1,10 @@
 import Icon from '@/Components/Icon';
 import { QuizOption, QuizResult } from '@/types/study';
+import { Link } from '@inertiajs/react';
+import { Link as InertiaLink } from '@inertiajs/react'; // Importing Inertia Link as fallback if local Link is custom, but standard is `import { Link } from '@inertiajs/react';`
+
+// Checking file content again, I see `import Icon from '@/Components/Icon';`.
+// I should use `import { Link } from '@inertiajs/react';`
 
 interface QuizQuestionProps {
     question: {
@@ -19,7 +24,7 @@ interface QuizQuestionProps {
     isFirstQuestion: boolean;
     isSubmitting: boolean;
     isReviewing: boolean;
-    quizResult: QuizResult | null;
+    backToVideoUrl?: string;
 }
 
 export default function QuizQuestion({
@@ -36,6 +41,7 @@ export default function QuizQuestion({
     isSubmitting,
     isReviewing,
     quizResult,
+    backToVideoUrl,
 }: QuizQuestionProps) {
     const getOptionState = (optionId: number) => {
         if (!isReviewing || !quizResult) return null;
@@ -106,6 +112,7 @@ export default function QuizQuestion({
                 isLastQuestion={isLastQuestion}
                 isSubmitting={isSubmitting}
                 isReviewing={isReviewing}
+                backToVideoUrl={backToVideoUrl}
             />
         </div>
     );
@@ -193,7 +200,7 @@ function OptionButton({
                     type="radio"
                     name="answer"
                     checked={isSelected}
-                    onChange={() => {}}
+                    onChange={() => { }}
                     className="peer sr-only"
                     disabled={isReviewing}
                 />
@@ -230,6 +237,7 @@ function QuestionFooter({
     isLastQuestion,
     isSubmitting,
     isReviewing,
+    backToVideoUrl,
 }: {
     onPrev: () => void;
     onNext: () => void;
@@ -238,10 +246,24 @@ function QuestionFooter({
     isLastQuestion: boolean;
     isSubmitting: boolean;
     isReviewing: boolean;
+    backToVideoUrl?: string;
 }) {
     return (
         <div className="mt-auto border-t border-slate-100 bg-slate-50/50 px-6 py-6">
             <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
+                {/* Left: Back to Video (only in review mode) */}
+                {isReviewing && backToVideoUrl ? (
+                    <Link
+                        href={backToVideoUrl}
+                        className="flex w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-6 py-2.5 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 sm:w-auto"
+                    >
+                        <Icon name="arrow_back" size={18} />
+                        Kembali ke Video
+                    </Link>
+                ) : (
+                    <div className="hidden sm:block" /> // Spacer
+                )}
+
                 {/* Right: Navigation */}
                 <div className="flex w-full items-center gap-3 sm:w-auto">
                     <button
