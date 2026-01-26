@@ -38,21 +38,29 @@ export default function Pagination({
                 <span className="font-medium">{total}</span> hasil
             </p>
             <div className="flex items-center gap-1">
-                {links.map((link, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handlePageChange(link.url)}
-                        disabled={!link.url || link.active}
-                        className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                            link.active
-                                ? 'bg-primary text-white'
-                                : link.url
-                                  ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                                  : 'cursor-not-allowed bg-slate-50 text-slate-400'
-                        }`}
-                        dangerouslySetInnerHTML={{ __html: link.label }}
-                    />
-                ))}
+                {links.map((link, index) => {
+                    let label = link.label;
+                    if (label.includes('pagination.previous')) {
+                        label = 'Previous';
+                    } else if (label.includes('pagination.next')) {
+                        label = 'Next';
+                    }
+
+                    return (
+                        <button
+                            key={index}
+                            onClick={() => handlePageChange(link.url)}
+                            disabled={!link.url || link.active}
+                            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${link.active
+                                    ? 'bg-primary text-white'
+                                    : link.url
+                                        ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                        : 'cursor-not-allowed bg-slate-50 text-slate-400'
+                                }`}
+                            dangerouslySetInnerHTML={{ __html: label }}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
