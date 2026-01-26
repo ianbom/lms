@@ -11,47 +11,6 @@ interface VideoPlayerProps {
     onProgress?: (progressPercent: number, currentTime: number) => void;
 }
 
-// All possible YouTube quality levels
-type QualityLevel =
-    | 'auto'
-    | 'highres'
-    | 'hd2160'
-    | 'hd1440'
-    | 'hd1080'
-    | 'hd720'
-    | 'large'
-    | 'medium'
-    | 'small'
-    | 'tiny'
-    | 'default';
-
-const QUALITY_LABELS: Record<string, string> = {
-    auto: 'Auto',
-    highres: '4K+',
-    hd2160: '2160p (4K)',
-    hd1440: '1440p',
-    hd1080: '1080p',
-    hd720: '720p',
-    large: '480p',
-    medium: '360p',
-    small: '240p',
-    tiny: '144p',
-    default: 'Default',
-};
-
-// Priority order for quality levels (highest to lowest)
-const QUALITY_ORDER: QualityLevel[] = [
-    'highres',
-    'hd2160',
-    'hd1440',
-    'hd1080',
-    'hd720',
-    'large',
-    'medium',
-    'small',
-    'tiny',
-];
-
 export default function VideoPlayer({
     videoId,
     initialTime = 0,
@@ -68,21 +27,15 @@ export default function VideoPlayer({
     const [progress, setProgress] = useState(0);
     const [isReady, setIsReady] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
-    const [showQualityMenu, setShowQualityMenu] = useState(false);
-    const [availableQualities, setAvailableQualities] = useState<
-        QualityLevel[]
-    >([]);
-    const [selectedQuality, setSelectedQuality] =
-        useState<QualityLevel>('auto');
-    const [actualPlayingQuality, setActualPlayingQuality] =
-        useState<string>('');
+
+    // Volume state
+    const [volume, setVolume] = useState(100);
+    const [isMuted, setIsMuted] = useState(false);
+
     const hasSeekToInitial = useRef(false);
     const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
         null,
     );
-    const qualityCheckIntervalRef = useRef<ReturnType<
-        typeof setInterval
-    > | null>(null);
 
     // YouTube player options
     const opts = {
@@ -131,33 +84,8 @@ export default function VideoPlayer({
             if (progressIntervalRef.current) {
                 clearInterval(progressIntervalRef.current);
             }
-            if (qualityCheckIntervalRef.current) {
-                clearInterval(qualityCheckIntervalRef.current);
-            }
         };
     }, []);
-
-    // Monitor actual playing quality
-    const startQualityMonitoring = useCallback(() => {
-        if (qualityCheckIntervalRef.current) {
-            clearInterval(qualityCheckIntervalRef.current);
-        }
-        qualityCheckIntervalRef.current = setInterval(() => {
-            if (playerRef.current) {
-                const quality = playerRef.current.getPlaybackQuality();
-                if (quality) {
-                    setActualPlayingQuality(quality);
-                }
-            }
-        }, 1000);
-    }, []);
-
-    const stopQualityMonitoring = () => {
-        if (qualityCheckIntervalRef.current) {
-            clearInterval(qualityCheckIntervalRef.current);
-            qualityCheckIntervalRef.current = null;
-        }
-    };
 
     // Handle player ready
     const handleReady = (event: YouTubeEvent) => {
@@ -165,28 +93,18 @@ export default function VideoPlayer({
         setDuration(event.target.getDuration());
         setIsReady(true);
 
+        // Ensure volume is set correctly
+        if (event.target.isMuted()) {
+            setIsMuted(true);
+            setVolume(0);
+        } else {
+            setVolume(event.target.getVolume());
+        }
+
         // Seek to initial time if provided
         if (initialTime > 0 && !hasSeekToInitial.current) {
             event.target.seekTo(initialTime, true);
             hasSeekToInitial.current = true;
-        }
-
-        // Get available quality levels
-        const qualities = event.target.getAvailableQualityLevels();
-        if (qualities && qualities.length > 0) {
-            // Sort qualities by resolution (highest first)
-            const sortedQualities = (qualities as QualityLevel[]).sort(
-                (a, b) => {
-                    const indexA = QUALITY_ORDER.indexOf(a);
-                    const indexB = QUALITY_ORDER.indexOf(b);
-                    if (indexA === -1) return 1;
-                    if (indexB === -1) return -1;
-                    return indexA - indexB;
-                },
-            );
-            setAvailableQualities(sortedQualities);
-            const currentQ = event.target.getPlaybackQuality();
-            setActualPlayingQuality(currentQ || '');
         }
     };
 
@@ -221,58 +139,15 @@ export default function VideoPlayer({
             // Playing
             setIsPlaying(true);
             startProgressTracking();
-            startQualityMonitoring();
             onPlay?.();
-
-            // Fetch available qualities when video starts playing
-            if (playerRef.current) {
-                const qualities = playerRef.current.getAvailableQualityLevels();
-                if (qualities && qualities.length > 0) {
-                    const sortedQualities = (qualities as QualityLevel[]).sort(
-                        (a, b) => {
-                            const indexA = QUALITY_ORDER.indexOf(a);
-                            const indexB = QUALITY_ORDER.indexOf(b);
-                            if (indexA === -1) return 1;
-                            if (indexB === -1) return -1;
-                            return indexA - indexB;
-                        },
-                    );
-                    setAvailableQualities(sortedQualities);
-                }
-
-                // Apply selected quality if not auto
-                if (selectedQuality !== 'auto') {
-                    playerRef.current.setPlaybackQuality(selectedQuality);
-                }
-
-                const currentQ = playerRef.current.getPlaybackQuality();
-                if (currentQ) {
-                    setActualPlayingQuality(currentQ);
-                }
-            }
         } else if (state === 2) {
             setIsPlaying(false);
             stopProgressTracking();
-            stopQualityMonitoring();
             onPause?.();
         } else if (state === 0) {
             setIsPlaying(false);
             stopProgressTracking();
-            stopQualityMonitoring();
             onEnd?.();
-        } else if (state === 3) {
-            // Buffering - good time to set quality
-            if (playerRef.current && selectedQuality !== 'auto') {
-                playerRef.current.setPlaybackQuality(selectedQuality);
-            }
-        }
-    };
-
-    // Handle playback quality change event
-    const handlePlaybackQualityChange = (event: YouTubeEvent) => {
-        const quality = event.data;
-        if (quality) {
-            setActualPlayingQuality(quality);
         }
     };
 
@@ -327,88 +202,35 @@ export default function VideoPlayer({
         }
     };
 
-    const changeQuality = (quality: QualityLevel) => {
-        setSelectedQuality(quality);
+    // Volume controls
+    const toggleMute = () => {
+        if (playerRef.current) {
+            if (isMuted) {
+                playerRef.current.unMute();
+                setIsMuted(false);
+                setVolume(playerRef.current.getVolume());
+            } else {
+                playerRef.current.mute();
+                setIsMuted(true);
+                setVolume(0);
+            }
+        }
+    };
+
+    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newVolume = parseInt(e.target.value);
+        setVolume(newVolume);
 
         if (playerRef.current) {
-            if (quality === 'auto') {
-                // For auto, let YouTube decide
-                // We need to reload the video to reset to auto quality
-                const currentTime = playerRef.current.getCurrentTime();
-                const wasPlaying = isPlaying;
-
-                // Load video without specifying quality to let YouTube choose
-                playerRef.current.loadVideoById({
-                    videoId: videoId,
-                    startSeconds: currentTime,
-                });
-
-                if (!wasPlaying) {
-                    // Pause after a short delay if it wasn't playing
-                    setTimeout(() => {
-                        playerRef.current?.pauseVideo();
-                    }, 100);
-                }
-            } else {
-                // Set specific quality
-                playerRef.current.setPlaybackQuality(quality);
-
-                // YouTube API setPlaybackQuality is deprecated but still works
-                // As a fallback, reload the video with suggested quality
-                const currentTime = playerRef.current.getCurrentTime();
-                const wasPlaying = isPlaying;
-
-                // Some browsers/YouTube versions need video reload for quality change
-                playerRef.current.loadVideoById({
-                    videoId: videoId,
-                    startSeconds: currentTime,
-                    suggestedQuality: quality,
-                });
-
-                // Re-apply quality after load
-                setTimeout(() => {
-                    if (playerRef.current) {
-                        playerRef.current.setPlaybackQuality(quality);
-                        if (!wasPlaying) {
-                            playerRef.current.pauseVideo();
-                        }
-                    }
-                }, 500);
+            playerRef.current.setVolume(newVolume);
+            if (newVolume === 0) {
+                playerRef.current.mute();
+                setIsMuted(true);
+            } else if (isMuted) {
+                playerRef.current.unMute();
+                setIsMuted(false);
             }
         }
-        setShowQualityMenu(false);
-    };
-
-    const getCurrentQualityLabel = () => {
-        if (selectedQuality === 'auto') {
-            // Show actual playing quality in parentheses
-            if (actualPlayingQuality && QUALITY_LABELS[actualPlayingQuality]) {
-                return `Auto (${QUALITY_LABELS[actualPlayingQuality]})`;
-            }
-            return 'Auto';
-        }
-        return QUALITY_LABELS[selectedQuality] || selectedQuality;
-    };
-
-    const getDisplayQuality = () => {
-        // Short label for the button
-        if (selectedQuality === 'auto') {
-            if (actualPlayingQuality) {
-                // Extract just the resolution number
-                const label = QUALITY_LABELS[actualPlayingQuality];
-                if (label) {
-                    const match = label.match(/(\d+p?)/);
-                    return match ? match[1] : 'Auto';
-                }
-            }
-            return 'Auto';
-        }
-        const label = QUALITY_LABELS[selectedQuality];
-        if (label) {
-            const match = label.match(/(\d+p?)/);
-            return match ? match[1] : label;
-        }
-        return selectedQuality;
     };
 
     // Prevent right-click context menu on video
@@ -420,9 +242,8 @@ export default function VideoPlayer({
     return (
         <div
             ref={containerRef}
-            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-md bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${
-                isFullscreen ? 'rounded-none' : ''
-            }`}
+            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-md bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${isFullscreen ? 'rounded-none' : ''
+                }`}
             onContextMenu={handleContextMenu}
             style={{ userSelect: 'none' }}
         >
@@ -436,7 +257,6 @@ export default function VideoPlayer({
                     opts={opts}
                     onReady={handleReady}
                     onStateChange={handleStateChange}
-                    onPlaybackQualityChange={handlePlaybackQualityChange}
                     className="absolute inset-0 h-full w-full"
                     iframeClassName="absolute inset-0 h-full w-full"
                 />
@@ -538,6 +358,29 @@ export default function VideoPlayer({
                                 <Icon name="forward_10" size={20} />
                             </button>
 
+                            {/* Volume Control */}
+                            <div className="group/volume flex items-center">
+                                <button
+                                    onClick={toggleMute}
+                                    className="flex size-9 items-center justify-center rounded-md text-white/80 transition-all hover:bg-white/10 hover:text-white"
+                                >
+                                    <Icon
+                                        name={isMuted || volume === 0 ? 'volume_off' : volume < 50 ? 'volume_down' : 'volume_up'}
+                                        size={22}
+                                    />
+                                </button>
+                                <div className="w-0 overflow-hidden px-0 transition-all duration-300 ease-out group-hover/volume:w-32 group-hover/volume:px-3">
+                                    <input
+                                        type="range"
+                                        min="0"
+                                        max="100"
+                                        value={volume}
+                                        onChange={handleVolumeChange}
+                                        className="h-1 w-full cursor-pointer appearance-none rounded-lg bg-white/30 accent-white"
+                                    />
+                                </div>
+                            </div>
+
                             <span className="text-sm font-medium text-white">
                                 <span className="text-primary">
                                     {formatTime(currentTime)}
@@ -551,118 +394,6 @@ export default function VideoPlayer({
 
                         {/* Right controls */}
                         <div className="flex items-center gap-1">
-                            {/* Quality selector */}
-                            <div className="relative">
-                                <button
-                                    onClick={() =>
-                                        setShowQualityMenu(!showQualityMenu)
-                                    }
-                                    className="flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white transition-all hover:bg-white/20"
-                                    title={`Kualitas Video: ${getCurrentQualityLabel()}`}
-                                >
-                                    <Icon name="hd" size={16} />
-                                    <span>{getDisplayQuality()}</span>
-                                    <Icon
-                                        name={
-                                            showQualityMenu
-                                                ? 'expand_less'
-                                                : 'expand_more'
-                                        }
-                                        size={16}
-                                    />
-                                </button>
-
-                                {/* Quality menu */}
-                                {showQualityMenu && (
-                                    <div className="absolute bottom-full right-0 mb-2 min-w-[160px] overflow-hidden rounded-md border border-white/10 bg-gray-900/95 shadow-xl backdrop-blur-sm">
-                                        <div className="px-3 py-2 text-xs font-semibold text-white/60">
-                                            Kualitas Video
-                                        </div>
-                                        <div className="max-h-64 overflow-y-auto">
-                                            <button
-                                                onClick={() =>
-                                                    changeQuality('auto')
-                                                }
-                                                className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${
-                                                    selectedQuality === 'auto'
-                                                        ? 'bg-primary/20 font-semibold text-primary'
-                                                        : 'text-white'
-                                                }`}
-                                            >
-                                                <span>Auto</span>
-                                                <div className="flex items-center gap-2">
-                                                    {selectedQuality ===
-                                                        'auto' &&
-                                                        actualPlayingQuality && (
-                                                            <span className="text-xs text-white/50">
-                                                                (
-                                                                {QUALITY_LABELS[
-                                                                    actualPlayingQuality
-                                                                ] ||
-                                                                    actualPlayingQuality}
-                                                                )
-                                                            </span>
-                                                        )}
-                                                    {selectedQuality ===
-                                                        'auto' && (
-                                                        <Icon
-                                                            name="check"
-                                                            size={16}
-                                                        />
-                                                    )}
-                                                </div>
-                                            </button>
-                                            <div className="my-1 border-t border-white/10" />
-                                            {availableQualities
-                                                .filter(
-                                                    (q) =>
-                                                        q !== 'auto' &&
-                                                        q !== 'default',
-                                                )
-                                                .map((quality) => (
-                                                    <button
-                                                        key={quality}
-                                                        onClick={() =>
-                                                            changeQuality(
-                                                                quality,
-                                                            )
-                                                        }
-                                                        className={`flex w-full items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-white/10 ${
-                                                            selectedQuality ===
-                                                            quality
-                                                                ? 'bg-primary/20 font-semibold text-primary'
-                                                                : 'text-white'
-                                                        }`}
-                                                    >
-                                                        <span>
-                                                            {QUALITY_LABELS[
-                                                                quality
-                                                            ] || quality}
-                                                        </span>
-                                                        <div className="flex items-center gap-2">
-                                                            {actualPlayingQuality ===
-                                                                quality &&
-                                                                selectedQuality !==
-                                                                    quality && (
-                                                                    <span className="text-xs text-white/50">
-                                                                        (current)
-                                                                    </span>
-                                                                )}
-                                                            {selectedQuality ===
-                                                                quality && (
-                                                                <Icon
-                                                                    name="check"
-                                                                    size={16}
-                                                                />
-                                                            )}
-                                                        </div>
-                                                    </button>
-                                                ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-
                             {/* Fullscreen */}
                             <button
                                 onClick={toggleFullscreen}
