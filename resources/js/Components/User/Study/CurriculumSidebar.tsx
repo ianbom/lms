@@ -95,7 +95,7 @@ export default function CurriculumSidebar({
             </div>
 
             {/* Scrollable Lesson List */}
-            <div className="custom-scrollbar flex-1 space-y-6 overflow-y-auto p-4">
+            <div className="custom-scrollbar flex-1 space-y-6 overflow-y-auto p-4 ">
                 {classData.modules.map((module, moduleIndex) => (
                     <div key={module.id}>
                         <h4 className="mb-3 px-2 text-xs font-bold uppercase tracking-wider text-slate-400">
