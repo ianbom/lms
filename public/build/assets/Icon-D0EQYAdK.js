@@ -1,1 +1,0 @@
-import{j as a}from"./app-Dyqq1GHl.js";function r({name:t,size:n=24,className:o="",filled:s=!1}){return a.jsx("span",{className:`${s?"material-symbols-rounded":"material-symbols-outlined"} ${o}`,style:{fontSize:`${n}px`,fontVariationSettings:s?"'FILL' 1":"'FILL' 0"},children:t})}export{r as I};

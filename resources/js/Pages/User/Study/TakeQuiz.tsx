@@ -3,6 +3,7 @@ import {
     QuizIntro,
     QuizQuestion,
     QuizResultCard,
+    
 } from '@/Components/User/Study/Quiz';
 import QuizSidebar from '@/Components/User/Study/QuizSidebar';
 import { useQuiz } from '@/hooks/useQuiz';

@@ -86,7 +86,7 @@ export default function CurriculumSidebar({
                         {progressStats.total_videos}
                     </span>
                 </div>
-                <div className="h-2.5 w-full rounded-full bg-slate-100">
+                <div className="h-2.5 w-full rounded-full bg-slate-100 ">
                     <div
                         className="h-2.5 rounded-full bg-primary transition-all duration-300"
                         style={{ width: `${progressStats.progress_percent}%` }}
