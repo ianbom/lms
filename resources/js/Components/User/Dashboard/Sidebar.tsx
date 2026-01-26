@@ -46,7 +46,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="dashboard"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/user/dashboard') ? 'font-bold' : 'font-medium'}`}>
+                    <span
+                        className={`text-sm ${isActive('/user/dashboard') ? 'font-bold' : 'font-medium'}`}
+                    >
                         Dashboard
                     </span>
                 </Link>
@@ -62,7 +64,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="shopping_bag"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/user/myOrder') ? 'font-bold' : 'font-medium'}`}>
+                    <span
+                        className={`text-sm ${isActive('/user/myOrder') ? 'font-bold' : 'font-medium'}`}
+                    >
                         My Orders
                     </span>
                 </Link>
@@ -78,7 +82,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="book_2"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/user/myClass') || isActive('/user/study') ? 'font-bold' : 'font-medium'}`}>
+                    <span
+                        className={`text-sm ${isActive('/user/myClass') || isActive('/user/study') ? 'font-bold' : 'font-medium'}`}
+                    >
                         My Classes
                     </span>
                 </Link>
@@ -100,7 +106,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="settings"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/user/profile') || isActive('/user/profile') ? 'font-bold' : 'font-medium'}`}>
+                    <span
+                        className={`text-sm ${isActive('/user/profile') || isActive('/user/profile') ? 'font-bold' : 'font-medium'}`}
+                    >
                         My Profile
                     </span>
                 </Link>

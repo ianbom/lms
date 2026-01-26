@@ -49,7 +49,11 @@ interface UserTableProps {
     pagination: Pagination;
 }
 
-export default function UserTable({ users, filters, pagination }: UserTableProps) {
+export default function UserTable({
+    users,
+    filters,
+    pagination,
+}: UserTableProps) {
     const [search, setSearch] = useState(filters.search || '');
     const [processing, setProcessing] = useState(false);
     const [confirmModal, setConfirmModal] = useState<ConfirmModal>({
@@ -68,10 +72,10 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
             router.get(
                 route('admin.users'),
                 { ...filters, search: query },
-                { preserveState: true, replace: true }
+                { preserveState: true, replace: true },
             );
         }, 300),
-        [filters]
+        [filters],
     );
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,26 +85,37 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
 
     const handleFilterRole = (role: string | null) => {
         const newFilters = { ...filters, role: role || undefined };
-        router.get(route('admin.users'), newFilters as unknown as Record<string, string>, {
-            preserveState: true,
-            replace: true,
-        });
+        router.get(
+            route('admin.users'),
+            newFilters as unknown as Record<string, string>,
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
     };
 
     const handleFilterVerified = (verified: string | null) => {
         const newFilters = { ...filters, verified: verified || undefined };
-        router.get(route('admin.users'), newFilters as unknown as Record<string, string>, {
-            preserveState: true,
-            replace: true,
-        });
+        router.get(
+            route('admin.users'),
+            newFilters as unknown as Record<string, string>,
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
     };
 
     const handleSort = (field: string) => {
-        const newDirection = filters.sort === field && filters.direction === 'asc' ? 'desc' : 'asc';
+        const newDirection =
+            filters.sort === field && filters.direction === 'asc'
+                ? 'desc'
+                : 'asc';
         router.get(
             route('admin.users'),
             { ...filters, sort: field, direction: newDirection },
-            { preserveState: true, replace: true }
+            { preserveState: true, replace: true },
         );
     };
 
@@ -116,15 +131,18 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
         if (!confirmModal.userId) return;
 
         setProcessing(true);
-        router.delete(route('admin.users.delete', { userId: confirmModal.userId }), {
-            preserveScroll: true,
-            onSuccess: () => {
-                closeConfirmModal();
+        router.delete(
+            route('admin.users.delete', { userId: confirmModal.userId }),
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    closeConfirmModal();
+                },
+                onFinish: () => {
+                    setProcessing(false);
+                },
             },
-            onFinish: () => {
-                setProcessing(false);
-            },
-        });
+        );
     };
 
     const getSortIcon = (field: string) => {
@@ -206,7 +224,10 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                         className="flex items-center gap-1 hover:text-slate-700"
                                     >
                                         User
-                                        <Icon name={getSortIcon('name')} size={16} />
+                                        <Icon
+                                            name={getSortIcon('name')}
+                                            size={16}
+                                        />
                                     </button>
                                 </th>
                                 <th className="px-6 py-4 font-semibold">
@@ -215,7 +236,10 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                         className="flex items-center gap-1 hover:text-slate-700"
                                     >
                                         Email
-                                        <Icon name={getSortIcon('email')} size={16} />
+                                        <Icon
+                                            name={getSortIcon('email')}
+                                            size={16}
+                                        />
                                     </button>
                                 </th>
                                 <th className="px-6 py-4 font-semibold">
@@ -224,20 +248,30 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                         className="flex items-center gap-1 hover:text-slate-700"
                                     >
                                         Role
-                                        <Icon name={getSortIcon('role')} size={16} />
+                                        <Icon
+                                            name={getSortIcon('role')}
+                                            size={16}
+                                        />
                                     </button>
                                 </th>
-                                <th className="px-6 py-4 font-semibold">Status</th>
+                                <th className="px-6 py-4 font-semibold">
+                                    Status
+                                </th>
                                 <th className="px-6 py-4 font-semibold">
                                     <button
                                         onClick={() => handleSort('created_at')}
                                         className="flex items-center gap-1 hover:text-slate-700"
                                     >
                                         Bergabung
-                                        <Icon name={getSortIcon('created_at')} size={16} />
+                                        <Icon
+                                            name={getSortIcon('created_at')}
+                                            size={16}
+                                        />
                                     </button>
                                 </th>
-                                <th className="px-6 py-4 text-right font-semibold">Aksi</th>
+                                <th className="px-6 py-4 text-right font-semibold">
+                                    Aksi
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 bg-white">
@@ -253,7 +287,9 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-emerald-400 text-sm font-bold text-white">
-                                                    {user.name.charAt(0).toUpperCase()}
+                                                    {user.name
+                                                        .charAt(0)
+                                                        .toUpperCase()}
                                                 </div>
                                                 <div>
                                                     <p className="text-sm font-medium text-slate-900">
@@ -273,18 +309,26 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                                         : 'bg-blue-100 text-blue-800'
                                                 }`}
                                             >
-                                                {user.role === 'admin' ? 'Admin' : 'User'}
+                                                {user.role === 'admin'
+                                                    ? 'Admin'
+                                                    : 'User'}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
                                             {user.email_verified_at ? (
                                                 <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
-                                                    <Icon name="verified" size={14} />
+                                                    <Icon
+                                                        name="verified"
+                                                        size={14}
+                                                    />
                                                     Verified
                                                 </span>
                                             ) : (
                                                 <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800">
-                                                    <Icon name="warning" size={14} />
+                                                    <Icon
+                                                        name="warning"
+                                                        size={14}
+                                                    />
                                                     Unverified
                                                 </span>
                                             )}
@@ -295,11 +339,19 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
-                                                    onClick={() => openConfirmModal(user.id, user.name)}
+                                                    onClick={() =>
+                                                        openConfirmModal(
+                                                            user.id,
+                                                            user.name,
+                                                        )
+                                                    }
                                                     className="rounded-md p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-600"
                                                     title="Hapus User"
                                                 >
-                                                    <Icon name="delete" size={18} />
+                                                    <Icon
+                                                        name="delete"
+                                                        size={18}
+                                                    />
                                                 </button>
                                             </div>
                                         </td>
@@ -307,9 +359,16 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={7} className="px-6 py-12 text-center">
+                                    <td
+                                        colSpan={7}
+                                        className="px-6 py-12 text-center"
+                                    >
                                         <div className="flex flex-col items-center gap-2">
-                                            <Icon name="people" size={48} className="text-slate-300" />
+                                            <Icon
+                                                name="people"
+                                                size={48}
+                                                className="text-slate-300"
+                                            />
                                             <p className="text-sm text-slate-500">
                                                 Tidak ada user ditemukan
                                             </p>
@@ -341,7 +400,9 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                                               ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                               : 'cursor-not-allowed bg-slate-50 text-slate-300'
                                     }`}
-                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                    dangerouslySetInnerHTML={{
+                                        __html: link.label,
+                                    }}
                                 />
                             ))}
                         </div>
@@ -361,7 +422,11 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                     <div className="relative z-10 w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
                         {/* Icon */}
                         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
-                            <Icon name="delete" size={32} className="text-red-600" />
+                            <Icon
+                                name="delete"
+                                size={32}
+                                className="text-red-600"
+                            />
                         </div>
 
                         {/* Title */}
@@ -372,8 +437,8 @@ export default function UserTable({ users, filters, pagination }: UserTableProps
                         {/* Description */}
                         <p className="mb-6 text-center text-sm text-slate-600">
                             Apakah Anda yakin ingin menghapus user{' '}
-                            <strong>"{confirmModal.userName}"</strong>? Tindakan ini tidak dapat
-                            dibatalkan.
+                            <strong>"{confirmModal.userName}"</strong>? Tindakan
+                            ini tidak dapat dibatalkan.
                         </p>
 
                         {/* Actions */}

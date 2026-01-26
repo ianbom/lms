@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,9 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return $next($request);
+        }
+        abort(403, 'Unauthorized. Admins only.');
     }
 }

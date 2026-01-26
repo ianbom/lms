@@ -1,14 +1,14 @@
 export default function OrderHistory() {
     return (
-        <div className="flex h-full flex-col rounded-xl border border-border-light bg-white shadow-card">
-            <div className="border-b border-border-light px-6 py-4">
+        <div className="border-border-light shadow-card flex h-full flex-col rounded-xl border bg-white">
+            <div className="border-border-light border-b px-6 py-4">
                 <div className="flex items-center justify-between">
                     <h3 className="text-lg font-bold text-slate-900">
                         Order & Pembayaran
                     </h3>
                     <a
                         href="#"
-                        className="text-sm font-semibold text-primary hover:text-primary-hover"
+                        className="hover:text-primary-hover text-sm font-semibold text-primary"
                     >
                         Lihat Semua
                     </a>
@@ -19,7 +19,9 @@ export default function OrderHistory() {
                     <thead className="bg-gray-50 text-slate-500">
                         <tr>
                             <th className="px-6 py-3 font-medium">Order ID</th>
-                            <th className="px-6 py-3 font-medium">Nama Kelas</th>
+                            <th className="px-6 py-3 font-medium">
+                                Nama Kelas
+                            </th>
                             <th className="px-6 py-3 font-medium">Tanggal</th>
                             <th className="px-6 py-3 font-medium">Status</th>
                             <th className="px-6 py-3 text-right font-medium">
@@ -27,7 +29,7 @@ export default function OrderHistory() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-border-light">
+                    <tbody className="divide-border-light divide-y">
                         {/* Row 1 */}
                         <tr>
                             <td className="px-6 py-4 font-medium text-slate-900">
@@ -45,7 +47,7 @@ export default function OrderHistory() {
                                 </span>
                             </td>
                             <td className="px-6 py-4 text-right">
-                                <button className="text-sm font-semibold text-primary hover:text-primary-hover hover:underline">
+                                <button className="hover:text-primary-hover text-sm font-semibold text-primary hover:underline">
                                     Upload Ulang Bukti
                                 </button>
                             </td>

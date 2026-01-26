@@ -42,7 +42,12 @@ interface UseQuizReturn {
     formatTimeSpent: (seconds: number) => string;
 }
 
-export function useQuiz({ quiz, attempt, classId, videoId }: UseQuizOptions): UseQuizReturn {
+export function useQuiz({
+    quiz,
+    attempt,
+    classId,
+    videoId,
+}: UseQuizOptions): UseQuizReturn {
     const [quizState, setQuizState] = useState<QuizState>(
         attempt?.submitted_at ? 'submitted' : 'intro',
     );
@@ -180,8 +185,8 @@ export function useQuiz({ quiz, attempt, classId, videoId }: UseQuizOptions): Us
     const getCurrentAnswer = useCallback(
         (questionId: number): number | null => {
             return (
-                userAnswers.find((a) => a.questionId === questionId)?.optionId ??
-                null
+                userAnswers.find((a) => a.questionId === questionId)
+                    ?.optionId ?? null
             );
         },
         [userAnswers],

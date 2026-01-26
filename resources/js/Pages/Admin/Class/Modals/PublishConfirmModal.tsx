@@ -30,7 +30,7 @@ export default function PublishConfirmModal({
                 onFinish: () => {
                     setProcessing(false);
                 },
-            }
+            },
         );
     };
 
@@ -58,8 +58,8 @@ export default function PublishConfirmModal({
                 {/* Description */}
                 <p className="mb-6 text-center text-sm text-slate-600">
                     Apakah Anda yakin ingin mempublikasikan kelas{' '}
-                    <strong>"{classTitle}"</strong>? Setelah dipublikasikan, kelas
-                    akan dapat dilihat oleh semua pengguna.
+                    <strong>"{classTitle}"</strong>? Setelah dipublikasikan,
+                    kelas akan dapat dilihat oleh semua pengguna.
                 </p>
 
                 {/* Actions */}

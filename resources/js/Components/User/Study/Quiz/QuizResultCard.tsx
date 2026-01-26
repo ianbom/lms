@@ -19,7 +19,8 @@ export default function QuizResultCard({
     onBack,
 }: QuizResultCardProps) {
     const incorrectCount = result.totalQuestions - result.correctAnswers;
-    const progressPercent = (result.correctAnswers / result.totalQuestions) * 100;
+    const progressPercent =
+        (result.correctAnswers / result.totalQuestions) * 100;
 
     return (
         <div className="shadow-card mx-auto w-full max-w-2xl rounded-2xl border border-slate-100 bg-white p-8">
@@ -89,7 +90,9 @@ function ResultHeader({ isPassed }: { isPassed: boolean }) {
                     }`}
                 >
                     <Icon
-                        name={isPassed ? 'emoji_events' : 'sentiment_dissatisfied'}
+                        name={
+                            isPassed ? 'emoji_events' : 'sentiment_dissatisfied'
+                        }
                         size={48}
                         className={isPassed ? 'text-green-600' : 'text-red-500'}
                     />
@@ -113,7 +116,13 @@ function ResultHeader({ isPassed }: { isPassed: boolean }) {
     );
 }
 
-function ScoreCircle({ score, isPassed }: { score: number; isPassed: boolean }) {
+function ScoreCircle({
+    score,
+    isPassed,
+}: {
+    score: number;
+    isPassed: boolean;
+}) {
     return (
         <div className="mb-8 flex justify-center">
             <div
@@ -151,7 +160,9 @@ function StatItem({
         <div className="rounded-xl bg-slate-50 p-4 text-center">
             <div className="mb-1 flex items-center justify-center gap-1">
                 <Icon name={icon} size={20} className={iconColor} />
-                <span className="text-xl font-bold text-slate-900">{value}</span>
+                <span className="text-xl font-bold text-slate-900">
+                    {value}
+                </span>
             </div>
             <div className="text-sm text-slate-500">{label}</div>
         </div>

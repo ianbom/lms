@@ -1,6 +1,5 @@
 import OrderStats from '@/Components/Admin/Order/OrderStats';
 import OrderTable, { Order } from '@/Components/Admin/Order/OrderTable';
-import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head } from '@inertiajs/react';
 
@@ -59,9 +58,7 @@ export default function ListOrder({ orders, stats, filters }: ListOrderProps) {
                         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
                             Daftar Order Kelas
                         </h1>
-                        <p className="text-slate-500">
-                            Manajemen Order Kelas 
-                        </p>
+                        <p className="text-slate-500">Manajemen Order Kelas</p>
                     </div>
                 </div>
 

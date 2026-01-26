@@ -1,5 +1,4 @@
 import Icon from '@/Components/Icon';
-import Navbar from '@/Components/User/Dashboard/Navbar';
 import Sidebar from '@/Components/User/Dashboard/Sidebar';
 import { PropsWithChildren, ReactNode, useState } from 'react';
 
@@ -73,15 +72,15 @@ export default function UserDashboardLayout({
                     </div>
 
                     {/* Right Sidebar (Optional) - Desktop */}
-                    <div className="hidden lg:block">
-                        {rightSidebar}
-                    </div>
+                    <div className="hidden lg:block">{rightSidebar}</div>
 
                     {/* Right Sidebar (Optional) - Mobile */}
                     {rightSidebar && (
                         <div
                             className={`fixed inset-y-0 right-0 z-40 w-full max-w-[340px] transform transition-transform duration-300 ease-in-out lg:hidden ${
-                                rightSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+                                rightSidebarOpen
+                                    ? 'translate-x-0'
+                                    : 'translate-x-full'
                             }`}
                         >
                             <div className="relative h-full">

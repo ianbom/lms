@@ -218,7 +218,9 @@ export default function QuizForm({
             className={`grid grid-cols-1 gap-6 ${isCompact ? '' : 'lg:grid-cols-12 lg:gap-8'}`}
         >
             {/* Left Column - Main Content */}
-            <div className={`flex flex-col gap-6 ${isCompact ? '' : 'lg:col-span-8'}`}>
+            <div
+                className={`flex flex-col gap-6 ${isCompact ? '' : 'lg:col-span-8'}`}
+            >
                 {/* Quiz Configuration Section */}
                 <FormCard icon="tune" title="Konfigurasi Kuis">
                     <div className="space-y-6">
@@ -270,7 +272,9 @@ export default function QuizForm({
 
                 {/* Validation error for questions */}
                 {errors.questions && (
-                    <div className="text-sm text-red-500">{errors.questions}</div>
+                    <div className="text-sm text-red-500">
+                        {errors.questions}
+                    </div>
                 )}
 
                 {/* Questions List */}

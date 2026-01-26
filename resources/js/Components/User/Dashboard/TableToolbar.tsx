@@ -53,16 +53,23 @@ export default function TableToolbar({
     // Close dropdowns when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+            if (
+                filterRef.current &&
+                !filterRef.current.contains(event.target as Node)
+            ) {
                 setIsFilterOpen(false);
             }
-            if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+            if (
+                sortRef.current &&
+                !sortRef.current.contains(event.target as Node)
+            ) {
                 setIsSortOpen(false);
             }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     const handleSearch = useCallback(
@@ -70,10 +77,10 @@ export default function TableToolbar({
             router.get(
                 route(routeName),
                 { ...filters, search: query },
-                { preserveState: true, replace: true }
+                { preserveState: true, replace: true },
             );
         }, 300),
-        [filters, routeName]
+        [filters, routeName],
     );
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +93,7 @@ export default function TableToolbar({
         router.get(
             route(routeName),
             newFilters as unknown as Record<string, string>,
-            { preserveState: true, replace: true }
+            { preserveState: true, replace: true },
         );
         setIsFilterOpen(false);
     };
@@ -94,24 +101,35 @@ export default function TableToolbar({
     const handleSort = (sortOption: SortOption) => {
         router.get(
             route(routeName),
-            { ...filters, sort: sortOption.value, direction: sortOption.direction },
-            { preserveState: true, replace: true }
+            {
+                ...filters,
+                sort: sortOption.value,
+                direction: sortOption.direction,
+            },
+            { preserveState: true, replace: true },
         );
         setIsSortOpen(false);
     };
 
     // Get current filter label
-    const currentFilterLabel = filterOptions.find(
-        (opt) => opt.value === filters[filterKey] || (!filters[filterKey] && opt.value === null)
-    )?.label || 'Filter';
+    const currentFilterLabel =
+        filterOptions.find(
+            (opt) =>
+                opt.value === filters[filterKey] ||
+                (!filters[filterKey] && opt.value === null),
+        )?.label || 'Filter';
 
     // Get current sort label
-    const currentSortLabel = sortOptions.find(
-        (opt) => opt.value === filters.sort && opt.direction === filters.direction
-    )?.label || 'Urutkan';
+    const currentSortLabel =
+        sortOptions.find(
+            (opt) =>
+                opt.value === filters.sort &&
+                opt.direction === filters.direction,
+        )?.label || 'Urutkan';
 
     const isFilterActive = filters[filterKey] !== undefined;
-    const isSortActive = filters.sort !== undefined && filters.direction !== undefined;
+    const isSortActive =
+        filters.sort !== undefined && filters.direction !== undefined;
 
     return (
         <div className="flex flex-col gap-4 border-b border-slate-100 p-5 lg:flex-row lg:items-center lg:justify-between">
@@ -145,22 +163,29 @@ export default function TableToolbar({
                                 {filterOptions.map((option) => (
                                     <button
                                         key={option.value ?? 'all'}
-                                        onClick={() => handleFilter(option.value)}
+                                        onClick={() =>
+                                            handleFilter(option.value)
+                                        }
                                         className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors ${
-                                            filters[filterKey] === option.value ||
-                                            (!filters[filterKey] && option.value === null)
+                                            filters[filterKey] ===
+                                                option.value ||
+                                            (!filters[filterKey] &&
+                                                option.value === null)
                                                 ? 'bg-primary/10 font-medium text-primary'
                                                 : 'text-slate-700 hover:bg-slate-50'
                                         }`}
                                     >
                                         {(filters[filterKey] === option.value ||
-                                            (!filters[filterKey] && option.value === null)) && (
+                                            (!filters[filterKey] &&
+                                                option.value === null)) && (
                                             <Icon name="check" size={16} />
                                         )}
                                         <span
                                             className={
-                                                filters[filterKey] === option.value ||
-                                                (!filters[filterKey] && option.value === null)
+                                                filters[filterKey] ===
+                                                    option.value ||
+                                                (!filters[filterKey] &&
+                                                    option.value === null)
                                                     ? ''
                                                     : 'pl-6'
                                             }
@@ -205,19 +230,22 @@ export default function TableToolbar({
                                         onClick={() => handleSort(option)}
                                         className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors ${
                                             filters.sort === option.value &&
-                                            filters.direction === option.direction
+                                            filters.direction ===
+                                                option.direction
                                                 ? 'bg-primary/10 font-medium text-primary'
                                                 : 'text-slate-700 hover:bg-slate-50'
                                         }`}
                                     >
                                         {filters.sort === option.value &&
-                                            filters.direction === option.direction && (
+                                            filters.direction ===
+                                                option.direction && (
                                                 <Icon name="check" size={16} />
                                             )}
                                         <span
                                             className={
                                                 filters.sort === option.value &&
-                                                filters.direction === option.direction
+                                                filters.direction ===
+                                                    option.direction
                                                     ? ''
                                                     : 'pl-6'
                                             }

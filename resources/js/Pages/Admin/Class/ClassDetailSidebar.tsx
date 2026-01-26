@@ -1,11 +1,12 @@
-import { ClassData } from './types';
-import { Mentor } from './types';
+import { ClassData, Mentor } from './types';
 
 interface ClassDetailSidebarProps {
     classData: ClassData;
 }
 
-export default function ClassDetailSidebar({ classData }: ClassDetailSidebarProps) {
+export default function ClassDetailSidebar({
+    classData,
+}: ClassDetailSidebarProps) {
     return (
         <div className="space-y-6">
             {/* Class Detail Card */}
@@ -50,14 +51,13 @@ export default function ClassDetailSidebar({ classData }: ClassDetailSidebarProp
                         </label>
                         <div className="mt-1 text-sm font-medium text-slate-700">
                             {classData.published_at
-                                ? new Date(classData.published_at).toLocaleDateString(
-                                      'id-ID',
-                                      {
-                                          day: 'numeric',
-                                          month: 'long',
-                                          year: 'numeric',
-                                      }
-                                  )
+                                ? new Date(
+                                      classData.published_at,
+                                  ).toLocaleDateString('id-ID', {
+                                      day: 'numeric',
+                                      month: 'long',
+                                      year: 'numeric',
+                                  })
                                 : 'Belum Dipublis'}
                         </div>
                     </div>
@@ -67,11 +67,16 @@ export default function ClassDetailSidebar({ classData }: ClassDetailSidebarProp
                         </label>
                         <div className="mt-1 flex items-baseline gap-2">
                             <span className="text-xl font-bold text-primary">
-                                Rp {classData.price_final?.toLocaleString('id-ID') || 0}
+                                Rp{' '}
+                                {classData.price_final?.toLocaleString(
+                                    'id-ID',
+                                ) || 0}
                             </span>
                             {classData.discount > 0 && (
                                 <span className="text-sm text-slate-400 line-through">
-                                    Rp {classData.price?.toLocaleString('id-ID') || 0}
+                                    Rp{' '}
+                                    {classData.price?.toLocaleString('id-ID') ||
+                                        0}
                                 </span>
                             )}
                         </div>
@@ -92,7 +97,9 @@ export default function ClassDetailSidebar({ classData }: ClassDetailSidebarProp
 
             {/* Mentor Card */}
             <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h3 className="mb-4 text-lg font-bold text-slate-800">Mentor</h3>
+                <h3 className="mb-4 text-lg font-bold text-slate-800">
+                    Mentor
+                </h3>
                 <div className="space-y-3">
                     {classData.mentors && classData.mentors.length > 0 ? (
                         classData.mentors.map((mentor: Mentor) => (
@@ -104,7 +111,7 @@ export default function ClassDetailSidebar({ classData }: ClassDetailSidebarProp
                                     src={
                                         mentor.avatar_url ||
                                         `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                            mentor.name
+                                            mentor.name,
                                         )}&background=random`
                                     }
                                     alt={mentor.name}

@@ -73,7 +73,10 @@ export interface CertificateStatus {
 }
 
 // Extended Module with videos that have progress
-export interface ModuleWithProgress extends Omit<ClassModule, 'videos' | 'quizzes'> {
+export interface ModuleWithProgress extends Omit<
+    ClassModule,
+    'videos' | 'quizzes'
+> {
     videos: VideoWithProgress[];
     quizzes?: ModuleQuizItem[];
 }
@@ -194,7 +197,9 @@ export const getResourceIcon = (fileType: string): string => {
 };
 
 // Helper to get resource color based on file type
-export const getResourceColor = (fileType: string): { bg: string; text: string } => {
+export const getResourceColor = (
+    fileType: string,
+): { bg: string; text: string } => {
     switch (fileType?.toLowerCase()) {
         case 'pdf':
             return { bg: 'bg-red-100', text: 'text-red-500' };

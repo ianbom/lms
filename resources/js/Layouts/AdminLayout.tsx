@@ -1,8 +1,8 @@
 import AdminHeader from '@/Components/Admin/AdminHeader';
 import AdminSidebar from '@/Components/Admin/AdminSidebar';
 import Toast from '@/Components/Toast';
+import { PageProps } from '@/types';
 import { BreadcrumbItem, NavItem } from '@/types/admin';
-import { FlashProps, PageProps } from '@/types';
 import { router, usePage } from '@inertiajs/react';
 import { PropsWithChildren, useEffect, useState } from 'react';
 

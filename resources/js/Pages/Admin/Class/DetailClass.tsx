@@ -35,7 +35,9 @@ export default function DetailClass({
     const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
     const [isEditModuleModalOpen, setIsEditModuleModalOpen] = useState(false);
     const [isEditQuizModalOpen, setIsEditQuizModalOpen] = useState(false);
-    const [selectedModuleId, setSelectedModuleId] = useState<number | null>(null);
+    const [selectedModuleId, setSelectedModuleId] = useState<number | null>(
+        null,
+    );
     const [selectedQuizId, setSelectedQuizId] = useState<number | null>(null);
 
     // Modal handlers
@@ -53,7 +55,7 @@ export default function DetailClass({
     const modules: ModuleData[] = classData.modules.map((m) => {
         const videoDuration = m.videos.reduce(
             (acc, v) => acc + (v.duration_sec || 0),
-            0
+            0,
         );
 
         return {
@@ -259,7 +261,8 @@ function CurriculumSection({
                     ))
                 ) : (
                     <div className="py-10 text-center text-slate-500">
-                        Tidak ada modul ditemukan. Tambahkan modul untuk memulai.
+                        Tidak ada modul ditemukan. Tambahkan modul untuk
+                        memulai.
                     </div>
                 )}
             </div>
@@ -268,7 +271,10 @@ function CurriculumSection({
             <div className="rounded-xl border-2 border-dashed border-[#e2e8f0] bg-[#f8fafc]/50 p-8 text-center transition-all hover:border-[#cbd5e1] hover:bg-[#f8fafc]">
                 <button
                     onClick={() =>
-                        (window.location.href = route('admin.module.create', classId))
+                        (window.location.href = route(
+                            'admin.module.create',
+                            classId,
+                        ))
                     }
                     className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f1f5f9] text-[#64748b] transition-transform hover:scale-110 hover:bg-[#e2e8f0] hover:text-[#1e293b]"
                 >

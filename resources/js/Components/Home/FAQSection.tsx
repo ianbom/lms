@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import Icon from '@/Components/Icon';
+import { useState } from 'react';
 
 interface FAQItem {
     question: string;
@@ -26,7 +26,8 @@ const defaultFAQs: FAQItem[] = [
         answer: 'Setelah mendaftar, Anda mendapatkan akses selamanya ke materi kelas yang telah dibeli. Anda bisa belajar sesuai kecepatan Anda sendiri tanpa batas waktu.',
     },
     {
-        question: 'Apakah ada mentor yang bisa membantu jika saya mengalami kesulitan?',
+        question:
+            'Apakah ada mentor yang bisa membantu jika saya mengalami kesulitan?',
         answer: 'Ya, setiap kelas memiliki mentor berpengalaman yang siap membantu menjawab pertanyaan Anda melalui forum diskusi dan sesi live Q&A.',
     },
     {
@@ -89,7 +90,9 @@ export default function FAQSection({
                                 }`}
                             >
                                 <div className="border-t border-gray-100 px-6 py-5">
-                                    <p className="text-gray-600">{faq.answer}</p>
+                                    <p className="text-gray-600">
+                                        {faq.answer}
+                                    </p>
                                 </div>
                             </div>
                         </div>

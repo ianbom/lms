@@ -42,7 +42,9 @@ export default function QuizSidebar({
         index: number,
     ): 'current' | 'answered' | 'unanswered' => {
         if (index === currentQuestionIndex) return 'current';
-        return userAnswers[index]?.optionId !== null ? 'answered' : 'unanswered';
+        return userAnswers[index]?.optionId !== null
+            ? 'answered'
+            : 'unanswered';
     };
 
     return (
@@ -105,7 +107,7 @@ function TimerCard({
     remainingCount: number;
 }) {
     return (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-card">
+        <div className="shadow-card rounded-xl border border-slate-200 bg-white p-6">
             <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
                     Waktu
@@ -155,7 +157,7 @@ function QuestionNavigationCard({
     onQuestionSelect: (index: number) => void;
 }) {
     return (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-card">
+        <div className="shadow-card rounded-xl border border-slate-200 bg-white p-6">
             <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
                     Navigasi Soal
@@ -226,7 +228,7 @@ function SubmitCard({
     const allAnswered = answeredCount === totalQuestions;
 
     return (
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
+        <div className="shadow-card rounded-xl border border-slate-200 bg-white p-4">
             <p className="mb-3 text-center text-xs text-slate-400">
                 {allAnswered
                     ? 'Semua jawaban sudah terisi.'
@@ -253,7 +255,6 @@ function SubmitCard({
                     </>
                 )}
             </button>
-
         </div>
     );
 }
@@ -266,7 +267,7 @@ function QuizInfoCard({
     totalQuestions: number;
 }) {
     return (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-card">
+        <div className="shadow-card rounded-xl border border-slate-200 bg-white p-6">
             <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-400">
                 Informasi Quiz
             </h4>
@@ -286,12 +287,19 @@ function QuizInfoCard({
 
                 <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-md bg-amber-100">
-                        <Icon name="star" size={20} className="text-amber-600" />
+                        <Icon
+                            name="star"
+                            size={20}
+                            className="text-amber-600"
+                        />
                     </div>
                     <div>
                         <div className="text-lg font-bold text-slate-900">
                             {quiz.total_points ||
-                                quiz.questions.reduce((sum, q) => sum + q.points, 0)}
+                                quiz.questions.reduce(
+                                    (sum, q) => sum + q.points,
+                                    0,
+                                )}
                         </div>
                         <div className="text-sm text-slate-500">Total Poin</div>
                     </div>
@@ -299,20 +307,34 @@ function QuizInfoCard({
 
                 <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-md bg-green-100">
-                        <Icon name="verified" size={20} className="text-green-600" />
+                        <Icon
+                            name="verified"
+                            size={20}
+                            className="text-green-600"
+                        />
                     </div>
                     <div>
-                        <div className="text-lg font-bold text-slate-900">70%</div>
-                        <div className="text-sm text-slate-500">Nilai Minimum Lulus</div>
+                        <div className="text-lg font-bold text-slate-900">
+                            70%
+                        </div>
+                        <div className="text-sm text-slate-500">
+                            Nilai Minimum Lulus
+                        </div>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-md bg-purple-100">
-                        <Icon name="refresh" size={20} className="text-purple-600" />
+                        <Icon
+                            name="refresh"
+                            size={20}
+                            className="text-purple-600"
+                        />
                     </div>
                     <div>
-                        <div className="text-lg font-bold text-slate-900">Unlimited</div>
+                        <div className="text-lg font-bold text-slate-900">
+                            Unlimited
+                        </div>
                         <div className="text-sm text-slate-500">Percobaan</div>
                     </div>
                 </div>
@@ -321,11 +343,17 @@ function QuizInfoCard({
     );
 }
 
-function CourseProgressCard({ progressStats }: { progressStats: ProgressStats }) {
+function CourseProgressCard({
+    progressStats,
+}: {
+    progressStats: ProgressStats;
+}) {
     return (
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
+        <div className="shadow-card rounded-xl border border-slate-200 bg-white p-4">
             <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="font-medium text-slate-500">Progress Kelas</span>
+                <span className="font-medium text-slate-500">
+                    Progress Kelas
+                </span>
                 <span className="font-bold text-primary">
                     {progressStats.progress_percent}%
                 </span>
@@ -337,8 +365,8 @@ function CourseProgressCard({ progressStats }: { progressStats: ProgressStats })
                 ></div>
             </div>
             <div className="mt-2 text-xs text-slate-500">
-                {progressStats.completed_videos} / {progressStats.total_videos} video
-                selesai
+                {progressStats.completed_videos} / {progressStats.total_videos}{' '}
+                video selesai
             </div>
         </div>
     );

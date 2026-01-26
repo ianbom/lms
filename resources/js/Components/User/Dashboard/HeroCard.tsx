@@ -24,17 +24,18 @@ interface HeroCardProps {
 export default function HeroCard({ currentLearning }: HeroCardProps) {
     if (!currentLearning) {
         return (
-            <div className="flex h-full flex-col items-center justify-center rounded-xl border border-border-light bg-white p-8 shadow-card">
+            <div className="border-border-light shadow-card flex h-full flex-col items-center justify-center rounded-xl border bg-white p-8">
                 <Icon name="school" size={48} className="mb-4 text-gray-300" />
                 <h3 className="mb-2 text-xl font-bold text-slate-900">
                     Belum Ada Kelas
                 </h3>
                 <p className="mb-4 text-center text-sm text-slate-500">
-                    Anda belum memiliki kelas yang sedang dipelajari. Mulai belajar sekarang!
+                    Anda belum memiliki kelas yang sedang dipelajari. Mulai
+                    belajar sekarang!
                 </p>
                 <Link
                     href={route('user.classes')}
-                    className="flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+                    className="hover:bg-primary-hover flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors"
                 >
                     <span>Jelajahi Kelas</span>
                     <Icon name="arrow_forward" size={18} />
@@ -44,13 +45,16 @@ export default function HeroCard({ currentLearning }: HeroCardProps) {
     }
 
     return (
-        <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border-light bg-white shadow-card md:flex-row">
+        <div className="border-border-light shadow-card flex h-full flex-col overflow-hidden rounded-xl border bg-white md:flex-row">
             {/* Thumbnail */}
             <div className="relative aspect-video w-full bg-gray-100 md:aspect-auto md:w-2/5">
                 <img
                     alt={currentLearning.title}
                     className="h-full w-full object-cover"
-                    src={currentLearning.thumbnail_url || 'https://via.placeholder.com/400x300?text=No+Image'}
+                    src={
+                        currentLearning.thumbnail_url ||
+                        'https://via.placeholder.com/400x300?text=No+Image'
+                    }
                 />
                 <div className="absolute inset-0 bg-black/10"></div>
                 <div className="absolute bottom-3 left-3 rounded-md bg-black/60 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
@@ -69,7 +73,10 @@ export default function HeroCard({ currentLearning }: HeroCardProps) {
                     </h3>
                     <div className="flex items-center gap-2 text-sm text-slate-500">
                         <Icon name="play_circle" className="text-base" />
-                        <span>Modul {currentLearning.currentModule} • Video {currentLearning.currentVideo}</span>
+                        <span>
+                            Modul {currentLearning.currentModule} • Video{' '}
+                            {currentLearning.currentVideo}
+                        </span>
                     </div>
                 </div>
 
@@ -77,7 +84,9 @@ export default function HeroCard({ currentLearning }: HeroCardProps) {
                 <div className="mb-6 w-full">
                     <div className="mb-2 flex justify-between text-sm font-medium">
                         <span className="text-slate-900">Progress</span>
-                        <span className="text-primary">{currentLearning.progress}%</span>
+                        <span className="text-primary">
+                            {currentLearning.progress}%
+                        </span>
                     </div>
                     <div className="h-2.5 w-full rounded-full bg-gray-100">
                         <div
@@ -88,11 +97,17 @@ export default function HeroCard({ currentLearning }: HeroCardProps) {
                 </div>
 
                 <Link
-                    href={currentLearning.currentVideoId
-                        ? route('user.study.watch', { classId: currentLearning.id, videoId: currentLearning.currentVideoId })
-                        : route('user.classes.show', { classId: currentLearning.id })
+                    href={
+                        currentLearning.currentVideoId
+                            ? route('user.study.watch', {
+                                  classId: currentLearning.id,
+                                  videoId: currentLearning.currentVideoId,
+                              })
+                            : route('user.classes.show', {
+                                  classId: currentLearning.id,
+                              })
                     }
-                    className="flex w-fit items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+                    className="hover:bg-primary-hover flex w-fit items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors"
                 >
                     <span>Lanjutkan Belajar</span>
                     <Icon name="arrow_forward" size={18} />

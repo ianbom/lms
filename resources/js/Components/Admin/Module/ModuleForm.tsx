@@ -58,7 +58,9 @@ export const createEmptyVideo = (id: number): VideoEntry => ({
 interface ModuleFormProps {
     data: ModuleFormData;
     errors: ModuleFormErrors;
-    onDataChange: (data: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData)) => void;
+    onDataChange: (
+        data: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData),
+    ) => void;
     isCompact?: boolean; // For modal mode
 }
 

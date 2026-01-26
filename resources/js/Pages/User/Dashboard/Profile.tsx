@@ -1,17 +1,16 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PageProps } from '@/types';
-import { Head } from '@inertiajs/react';
+import UserDashboardLayout from '@/Layouts/UserDashboardLayout';
 import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm';
 import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm';
-import UserDashboardLayout from '@/Layouts/UserDashboardLayout';
+import { PageProps } from '@/types';
+import { Head } from '@inertiajs/react';
 
 export default function Edit({
     mustVerifyEmail,
     status,
 }: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
     return (
-        <UserDashboardLayout        >
+        <UserDashboardLayout>
             <Head title="Profile" />
 
             <div className="py-12">

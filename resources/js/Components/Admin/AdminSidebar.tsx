@@ -1,4 +1,3 @@
-import Icon from '@/Components/Icon';
 import { NavItem } from '@/types/admin';
 import AdminNavItem from './AdminNavItem';
 import AdminUserProfile from './AdminUserProfile';
@@ -25,11 +24,11 @@ export default function AdminSidebar({
             className={`border-border hidden h-full w-[260px] shrink-0 flex-col border-r bg-white transition-all duration-300 lg:flex ${className}`}
         >
             {/* Logo */}
-            <div className="flex ">
+            <div className="flex">
                 <img
                     src="/ImpactAcademy.png"
                     alt="ImpactAcademy Logo"
-                    className="h-36 w-auto -my-6"
+                    className="-my-6 h-36 w-auto"
                 />
             </div>
 

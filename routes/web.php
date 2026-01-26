@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('User/Home/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -35,6 +35,10 @@ Route::get('/home', function () {
             return Inertia::render('User/Home/Home');
         })->name('home');
 
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 // Public certificate verification route
 Route::get('/certificate/verify', [CertificateController::class, 'verifyCertificate'])->name('certificate.verify');
 Route::get('/certificate/verify', [CertificateController::class, 'downloadCertificatePublic']);
@@ -48,21 +52,19 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
        Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
 
-       // Study Routes - Protected by has.course.access middleware
        Route::middleware(['auth', 'has.course.access'])->group(function () {
-           // Study/Watch Video Routes
+
            Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
            Route::post('/study/{classId}/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
            Route::post('/study/{classId}/video/{videoId}/complete', [StudyController::class, 'markCompleted'])->name('study.complete');
            Route::post('/study/{classId}/video/{videoId}/notes', [StudyController::class, 'addNote'])->name('study.notes.add');
 
-           // Study/Take Quiz Routes
            Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
            Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
            Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
        });
 
-       // Notes routes (not class-specific)
+
        Route::middleware(['auth'])->group(function () {
            Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
            Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
@@ -71,7 +73,6 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
            Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
 
-           // Certificate Routes
            Route::get('/certificates', [CertificateController::class, 'listCertificatePage'])->name('certificates');
            Route::post('/certificates/claim/{classId}', [CertificateController::class, 'claimCertificate'])->name('certificates.claim');
            Route::get('/certificates/{certificateId}/download', [CertificateController::class, 'downloadCertificate'])->name('certificates.download');
@@ -82,10 +83,8 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
     });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+
 
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {

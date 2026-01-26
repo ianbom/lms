@@ -14,7 +14,12 @@ interface UserLayoutProps extends PropsWithChildren {
     fullWidth?: boolean;
 }
 
-export default function UserLayout({ children, navItems, showFooter = true, fullWidth = false }: UserLayoutProps) {
+export default function UserLayout({
+    children,
+    navItems,
+    showFooter = true,
+    fullWidth = false,
+}: UserLayoutProps) {
     const user = usePage().props.auth?.user;
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -164,7 +169,9 @@ export default function UserLayout({ children, navItems, showFooter = true, full
             </header>
 
             {/* Main Content */}
-            <main className={`flex-grow ${fullWidth ? 'w-full' : 'mx-auto w-full max-w-[1280px] px-4 py-8 sm:px-6 md:py-12 lg:px-8'}`}>
+            <main
+                className={`flex-grow ${fullWidth ? 'w-full' : 'mx-auto w-full max-w-[1280px] px-4 py-8 sm:px-6 md:py-12 lg:px-8'}`}
+            >
                 {children}
             </main>
 
@@ -173,8 +180,8 @@ export default function UserLayout({ children, navItems, showFooter = true, full
                 <footer className="mt-12 border-t border-gray-200 bg-white py-8">
                     <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 px-4 sm:px-6 md:flex-row lg:px-8">
                         <p className="text-sm text-gray-500">
-                            © {new Date().getFullYear()} ImpactAcademy. All rights
-                            reserved.
+                            © {new Date().getFullYear()} ImpactAcademy. All
+                            rights reserved.
                         </p>
                         <div className="flex gap-6">
                             <Link

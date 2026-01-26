@@ -49,7 +49,7 @@ interface StatCardProps {
 
 function StatCard({ icon, iconBg, iconColor, value, label }: StatCardProps) {
     return (
-        <div className="flex items-center gap-4 rounded-xl border border-border-light bg-white p-4 shadow-card">
+        <div className="border-border-light shadow-card flex items-center gap-4 rounded-xl border bg-white p-4">
             <div
                 className={`flex h-12 w-12 items-center justify-center rounded-md ${iconBg} ${iconColor}`}
             >

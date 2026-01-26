@@ -167,7 +167,7 @@ export default function MyOrder({ orders, stats, filters }: Props) {
                     ),
             },
         ],
-        []
+        [],
     );
 
     // Empty state configuration
@@ -188,7 +188,7 @@ export default function MyOrder({ orders, stats, filters }: Props) {
                       }
                     : undefined,
         }),
-        [filters.search, filters.status]
+        [filters.search, filters.status],
     );
 
     return (

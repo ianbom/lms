@@ -134,7 +134,8 @@ export default function Home() {
             answer: 'Daftar akun gratis, pilih kelas yang Anda minati, dan langsung mulai belajar. Anda bisa mengakses materi kapan saja dan di mana saja melalui device apapun.',
         },
         {
-            question: 'Apakah saya mendapatkan sertifikat setelah selesai kelas?',
+            question:
+                'Apakah saya mendapatkan sertifikat setelah selesai kelas?',
             answer: 'Ya, setelah menyelesaikan semua materi dan quiz dengan nilai minimum, Anda akan mendapatkan sertifikat digital yang bisa didownload dan dibagikan ke LinkedIn atau CV Anda.',
         },
         {
@@ -142,7 +143,8 @@ export default function Home() {
             answer: 'Setelah mendaftar, Anda mendapatkan akses selamanya ke materi kelas yang telah dibeli. Anda bisa belajar sesuai kecepatan Anda sendiri tanpa batas waktu.',
         },
         {
-            question: 'Apakah ada mentor yang bisa membantu jika saya mengalami kesulitan?',
+            question:
+                'Apakah ada mentor yang bisa membantu jika saya mengalami kesulitan?',
             answer: 'Ya, setiap kelas memiliki mentor berpengalaman yang siap membantu menjawab pertanyaan Anda melalui forum diskusi dan sesi live Q&A.',
         },
         {

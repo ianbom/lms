@@ -133,9 +133,16 @@ export default function DetailClass({
 
     const handleBuy = () => {
         if (isEnrolled && firstVideoId) {
-            router.visit(route('user.study.watch', { classId: classData.id, videoId: firstVideoId }));
+            router.visit(
+                route('user.study.watch', {
+                    classId: classData.id,
+                    videoId: firstVideoId,
+                }),
+            );
         } else {
-            router.visit(route('user.classes.purchase', { classId: classData.id }));
+            router.visit(
+                route('user.classes.purchase', { classId: classData.id }),
+            );
         }
     };
 

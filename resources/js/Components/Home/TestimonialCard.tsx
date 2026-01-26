@@ -42,7 +42,12 @@ export default function TestimonialCard({
                 </div>
                 {/* Rating */}
                 <div className="ml-auto flex items-center gap-1">
-                    <Icon name="star" size={18} className="text-yellow-400" filled />
+                    <Icon
+                        name="star"
+                        size={18}
+                        className="text-yellow-400"
+                        filled
+                    />
                     <span className="font-medium text-gray-700">{rating}</span>
                 </div>
             </div>

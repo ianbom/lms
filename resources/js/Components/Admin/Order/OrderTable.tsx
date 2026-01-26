@@ -65,7 +65,11 @@ interface OrderTableProps {
     pagination: Pagination;
 }
 
-export default function OrderTable({ orders, filters, pagination }: OrderTableProps) {
+export default function OrderTable({
+    orders,
+    filters,
+    pagination,
+}: OrderTableProps) {
     const [search, setSearch] = useState(filters.search || '');
     const [processing, setProcessing] = useState(false);
     const [confirmModal, setConfirmModal] = useState<ConfirmModal>({
@@ -84,10 +88,10 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
             router.get(
                 route('admin.orders'),
                 { ...filters, search: query },
-                { preserveState: true, replace: true }
+                { preserveState: true, replace: true },
             );
         }, 300),
-        [filters]
+        [filters],
     );
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,11 +112,14 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
         router.get(
             route('admin.orders'),
             { ...filters, sort: 'created_at', direction: newDirection },
-            { preserveState: true, replace: true }
+            { preserveState: true, replace: true },
         );
     };
 
-    const openConfirmModal = (orderId: number, action: 'approve' | 'reject') => {
+    const openConfirmModal = (
+        orderId: number,
+        action: 'approve' | 'reject',
+    ) => {
         setConfirmModal({ isOpen: true, orderId, action });
     };
 
@@ -124,7 +131,10 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
         if (!confirmModal.orderId || !confirmModal.action) return;
 
         setProcessing(true);
-        const routeName = confirmModal.action === 'approve' ? 'admin.orders.approve' : 'admin.orders.reject';
+        const routeName =
+            confirmModal.action === 'approve'
+                ? 'admin.orders.approve'
+                : 'admin.orders.reject';
 
         router.post(
             route(routeName, { orderId: confirmModal.orderId }),
@@ -137,7 +147,7 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                 onFinish: () => {
                     setProcessing(false);
                 },
-            }
+            },
         );
     };
 
@@ -193,7 +203,8 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                         >
                             <Icon name="sort" size={20} />
                             <span className="hidden sm:inline">
-                                Sort {filters.direction === 'asc' ? 'Asc' : 'Desc'}
+                                Sort{' '}
+                                {filters.direction === 'asc' ? 'Asc' : 'Desc'}
                             </span>
                         </button>
                     </div>
@@ -237,16 +248,17 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
                                             <div
-                                                className={`flex h-9 w-9 items-center justify-center rounded-full bg-cover bg-center bg-slate-200`}
+                                                className={`flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 bg-cover bg-center`}
                                                 style={
                                                     order.user.avatar
                                                         ? {
-                                                            backgroundImage: `url('${order.user.avatar}')`,
-                                                        }
+                                                              backgroundImage: `url('${order.user.avatar}')`,
+                                                          }
                                                         : {}
                                                 }
                                             >
-                                                {!order.user.avatar && order.user.name.charAt(0)}
+                                                {!order.user.avatar &&
+                                                    order.user.name.charAt(0)}
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-semibold text-slate-900">
@@ -262,22 +274,30 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                         {order.class.title}
                                     </td>
                                     <td className="px-6 py-4 text-right text-sm font-bold text-slate-900">
-                                        {order.formatted_amount || `Rp ${order.amount.toLocaleString('id-ID')}`}
+                                        {order.formatted_amount ||
+                                            `Rp ${order.amount.toLocaleString('id-ID')}`}
                                     </td>
                                     <td className="px-6 py-4">
                                         <span
-                                            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${order.status === 'pending'
-                                                ? 'bg-orange-50 text-orange-700 ring-orange-600/20'
-                                                : order.status === 'approved'
-                                                    ? 'bg-green-50 text-green-700 ring-green-600/20'
-                                                    : 'bg-red-50 text-red-700 ring-red-600/20'
-                                                }`}
+                                            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${
+                                                order.status === 'pending'
+                                                    ? 'bg-orange-50 text-orange-700 ring-orange-600/20'
+                                                    : order.status ===
+                                                        'approved'
+                                                      ? 'bg-green-50 text-green-700 ring-green-600/20'
+                                                      : 'bg-red-50 text-red-700 ring-red-600/20'
+                                            }`}
                                         >
-                                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                            {order.status
+                                                .charAt(0)
+                                                .toUpperCase() +
+                                                order.status.slice(1)}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 text-sm text-slate-600">
-                                        {new Date(order.transfer_date).toLocaleDateString('id-ID', {
+                                        {new Date(
+                                            order.transfer_date,
+                                        ).toLocaleDateString('id-ID', {
                                             day: 'numeric',
                                             month: 'short',
                                             year: 'numeric',
@@ -297,20 +317,36 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                         {order.status === 'pending' ? (
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
-                                                    onClick={() => openConfirmModal(order.id, 'reject')}
+                                                    onClick={() =>
+                                                        openConfirmModal(
+                                                            order.id,
+                                                            'reject',
+                                                        )
+                                                    }
                                                     disabled={processing}
-                                                    className="flex size-8 items-center justify-center rounded-md border border-slate-200 text-red-500 transition-colors hover:border-red-200 hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    className="flex size-8 items-center justify-center rounded-md border border-slate-200 text-red-500 transition-colors hover:border-red-200 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                                                     title="Reject"
                                                 >
-                                                    <Icon name="close" size={18} />
+                                                    <Icon
+                                                        name="close"
+                                                        size={18}
+                                                    />
                                                 </button>
                                                 <button
-                                                    onClick={() => openConfirmModal(order.id, 'approve')}
+                                                    onClick={() =>
+                                                        openConfirmModal(
+                                                            order.id,
+                                                            'approve',
+                                                        )
+                                                    }
                                                     disabled={processing}
-                                                    className="flex size-8 items-center justify-center rounded-md bg-primary text-white shadow-sm transition-colors hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    className="flex size-8 items-center justify-center rounded-md bg-primary text-white shadow-sm transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50"
                                                     title="Approve"
                                                 >
-                                                    <Icon name="check" size={18} />
+                                                    <Icon
+                                                        name="check"
+                                                        size={18}
+                                                    />
                                                 </button>
                                             </div>
                                         ) : order.status === 'rejected' ? (
@@ -327,7 +363,10 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={8} className="px-6 py-12 text-center text-slate-500">
+                                <td
+                                    colSpan={8}
+                                    className="px-6 py-12 text-center text-slate-500"
+                                >
                                     No orders found.
                                 </td>
                             </tr>
@@ -339,9 +378,10 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
             <div className="flex items-center justify-between border-t border-slate-200 bg-white px-6 py-4">
                 <p className="text-sm text-slate-500">
                     Showing{' '}
-                    <span className="font-medium">{pagination.from || 0}</span> to{' '}
-                    <span className="font-medium">{pagination.to || 0}</span> of{' '}
-                    <span className="font-medium">{pagination.total}</span> results
+                    <span className="font-medium">{pagination.from || 0}</span>{' '}
+                    to <span className="font-medium">{pagination.to || 0}</span>{' '}
+                    of <span className="font-medium">{pagination.total}</span>{' '}
+                    results
                 </p>
                 <div className="flex items-center gap-1">
                     {pagination.links.map((link, index) => (
@@ -349,12 +389,13 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                             key={index}
                             onClick={() => handlePageChange(link.url)}
                             disabled={!link.url || link.active}
-                            className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${link.active
+                            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                                link.active
                                     ? 'bg-primary text-white'
                                     : link.url
-                                        ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                                        : 'bg-slate-50 text-slate-400 cursor-not-allowed'
-                                }`}
+                                      ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                      : 'cursor-not-allowed bg-slate-50 text-slate-400'
+                            }`}
                             dangerouslySetInnerHTML={{ __html: link.label }}
                         />
                     ))}
@@ -381,7 +422,11 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                 }`}
                             >
                                 <Icon
-                                    name={confirmModal.action === 'approve' ? 'check_circle' : 'cancel'}
+                                    name={
+                                        confirmModal.action === 'approve'
+                                            ? 'check_circle'
+                                            : 'cancel'
+                                    }
                                     size={32}
                                 />
                             </div>
@@ -399,7 +444,7 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                 </p>
                             </div>
                             {/* Actions */}
-                            <div className="flex w-full gap-3 mt-2">
+                            <div className="mt-2 flex w-full gap-3">
                                 <button
                                     onClick={closeConfirmModal}
                                     disabled={processing}
@@ -419,8 +464,8 @@ export default function OrderTable({ orders, filters, pagination }: OrderTablePr
                                     {processing
                                         ? 'Memproses...'
                                         : confirmModal.action === 'approve'
-                                            ? 'Ya, Setujui'
-                                            : 'Ya, Tolak'}
+                                          ? 'Ya, Setujui'
+                                          : 'Ya, Tolak'}
                                 </button>
                             </div>
                         </div>

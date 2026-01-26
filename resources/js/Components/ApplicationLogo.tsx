@@ -4,7 +4,10 @@ interface ApplicationLogoProps extends ImgHTMLAttributes<HTMLImageElement> {
     className?: string;
 }
 
-export default function ApplicationLogo({ className = '', ...props }: ApplicationLogoProps) {
+export default function ApplicationLogo({
+    className = '',
+    ...props
+}: ApplicationLogoProps) {
     return (
         <img
             src="/ImpactAcademy.png"

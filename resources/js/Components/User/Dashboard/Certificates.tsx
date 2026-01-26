@@ -2,7 +2,7 @@ import Icon from '@/Components/Icon';
 
 export default function Certificates() {
     return (
-        <div className="flex h-full flex-col rounded-xl border border-border-light bg-white p-6 shadow-card">
+        <div className="border-border-light shadow-card flex h-full flex-col rounded-xl border bg-white p-6">
             <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-lg font-bold text-slate-900">
                     Sertifikat Saya
@@ -10,7 +10,7 @@ export default function Certificates() {
             </div>
             <div className="flex flex-col gap-3">
                 {/* Certificate Item 1 */}
-                <div className="flex items-center justify-between rounded-md border border-border-light p-3 hover:bg-gray-50">
+                <div className="border-border-light flex items-center justify-between rounded-md border p-3 hover:bg-gray-50">
                     <div className="flex items-center gap-4">
                         <div className="flex h-12 w-12 items-center justify-center rounded-md bg-green-100 text-green-700">
                             <Icon name="workspace_premium" size={24} />
@@ -24,17 +24,17 @@ export default function Certificates() {
                             </p>
                         </div>
                     </div>
-                    <button className="flex h-8 w-8 items-center justify-center rounded-md border border-border-light bg-white text-slate-900 sm:hidden">
+                    <button className="border-border-light flex h-8 w-8 items-center justify-center rounded-md border bg-white text-slate-900 sm:hidden">
                         <Icon name="download" size={16} />
                     </button>
-                    <button className="hidden items-center gap-2 rounded-md border border-border-light bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
+                    <button className="border-border-light hidden items-center gap-2 rounded-md border bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
                         <Icon name="download" size={16} />
                         Download
                     </button>
                 </div>
 
                 {/* Certificate Item 2 */}
-                <div className="flex items-center justify-between rounded-md border border-border-light p-3 hover:bg-gray-50">
+                <div className="border-border-light flex items-center justify-between rounded-md border p-3 hover:bg-gray-50">
                     <div className="flex items-center gap-4">
                         <div className="flex h-12 w-12 items-center justify-center rounded-md bg-green-100 text-green-700">
                             <Icon name="workspace_premium" size={24} />
@@ -48,10 +48,10 @@ export default function Certificates() {
                             </p>
                         </div>
                     </div>
-                    <button className="flex h-8 w-8 items-center justify-center rounded-md border border-border-light bg-white text-slate-900 sm:hidden">
+                    <button className="border-border-light flex h-8 w-8 items-center justify-center rounded-md border bg-white text-slate-900 sm:hidden">
                         <Icon name="download" size={16} />
                     </button>
-                    <button className="hidden items-center gap-2 rounded-md border border-border-light bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
+                    <button className="border-border-light hidden items-center gap-2 rounded-md border bg-white px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-gray-50 sm:flex">
                         <Icon name="download" size={16} />
                         Download
                     </button>

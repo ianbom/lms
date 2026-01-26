@@ -6,8 +6,8 @@ import PaymentInstructionCard from '@/Components/Modul/PaymentInstructionCard';
 import UploadProofCard from '@/Components/Modul/UploadProofCard';
 import UserLayout from '@/Layouts/UserLayout';
 import { ClassDetail } from '@/types/class';
-import { Head, useForm, router } from '@inertiajs/react';
-import { useState, useEffect } from 'react';
+import { Head, router, useForm } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 interface PurchaseClassProps {
     class: ClassDetail;
@@ -21,7 +21,11 @@ export default function PurchaseClass({
     hasOwnedClass,
 }: PurchaseClassProps) {
     const [showModal, setShowModal] = useState(false);
-    const [modalMessage, setModalMessage] = useState({ title: '', message: '', type: '' });
+    const [modalMessage, setModalMessage] = useState({
+        title: '',
+        message: '',
+        type: '',
+    });
 
     const breadcrumbItems = [
         { label: 'Home', href: route('user.classes') },
@@ -38,15 +42,17 @@ export default function PurchaseClass({
         if (hasOwnedClass) {
             setModalMessage({
                 title: 'Kelas Sudah Dimiliki',
-                message: 'Anda sudah memiliki kelas ini. Silakan akses kelas melalui halaman Dashboard.',
-                type: 'owned'
+                message:
+                    'Anda sudah memiliki kelas ini. Silakan akses kelas melalui halaman Dashboard.',
+                type: 'owned',
             });
             setShowModal(true);
         } else if (hasPendingOrder) {
             setModalMessage({
                 title: 'Pesanan Sedang Diproses',
-                message: 'Anda sudah memiliki pesanan tertunda untuk kelas ini. Silakan tunggu proses verifikasi dari admin.',
-                type: 'pending'
+                message:
+                    'Anda sudah memiliki pesanan tertunda untuk kelas ini. Silakan tunggu proses verifikasi dari admin.',
+                type: 'pending',
             });
             setShowModal(true);
         }
@@ -59,8 +65,9 @@ export default function PurchaseClass({
         if (hasOwnedClass) {
             setModalMessage({
                 title: 'Kelas Sudah Dimiliki',
-                message: 'Anda sudah memiliki kelas ini. Tidak dapat melakukan pembelian ulang.',
-                type: 'owned'
+                message:
+                    'Anda sudah memiliki kelas ini. Tidak dapat melakukan pembelian ulang.',
+                type: 'owned',
             });
             setShowModal(true);
             return;
@@ -69,8 +76,9 @@ export default function PurchaseClass({
         if (hasPendingOrder) {
             setModalMessage({
                 title: 'Pesanan Sedang Diproses',
-                message: 'Anda sudah memiliki pesanan tertunda untuk kelas ini. Silakan tunggu proses verifikasi.',
-                type: 'pending'
+                message:
+                    'Anda sudah memiliki pesanan tertunda untuk kelas ini. Silakan tunggu proses verifikasi.',
+                type: 'pending',
             });
             setShowModal(true);
             return;
@@ -174,13 +182,25 @@ export default function PurchaseClass({
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
                         <div className="mb-4 flex items-center justify-center">
-                            <div className={`flex h-16 w-16 items-center justify-center rounded-full ${
-                                modalMessage.type === 'owned' ? 'bg-green-100' : 'bg-yellow-100'
-                            }`}>
+                            <div
+                                className={`flex h-16 w-16 items-center justify-center rounded-full ${
+                                    modalMessage.type === 'owned'
+                                        ? 'bg-green-100'
+                                        : 'bg-yellow-100'
+                                }`}
+                            >
                                 <Icon
-                                    name={modalMessage.type === 'owned' ? 'check_circle' : 'schedule'}
+                                    name={
+                                        modalMessage.type === 'owned'
+                                            ? 'check_circle'
+                                            : 'schedule'
+                                    }
                                     size={32}
-                                    className={modalMessage.type === 'owned' ? 'text-green-600' : 'text-yellow-600'}
+                                    className={
+                                        modalMessage.type === 'owned'
+                                            ? 'text-green-600'
+                                            : 'text-yellow-600'
+                                    }
                                 />
                             </div>
                         </div>
@@ -192,7 +212,9 @@ export default function PurchaseClass({
                         </p>
                         <div className="flex gap-3">
                             <button
-                                onClick={() => router.visit(route('user.classes'))}
+                                onClick={() =>
+                                    router.visit(route('user.classes'))
+                                }
                                 className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 font-medium text-gray-700 transition-colors hover:bg-gray-50"
                             >
                                 Lihat Kelas Lain
@@ -201,7 +223,9 @@ export default function PurchaseClass({
                                 onClick={handleCloseModal}
                                 className="flex-1 rounded-lg bg-primary px-4 py-2.5 font-medium text-white transition-colors hover:bg-primary-dark"
                             >
-                                {modalMessage.type === 'owned' ? 'Ke Dashboard' : 'Lihat Pesanan'}
+                                {modalMessage.type === 'owned'
+                                    ? 'Ke Dashboard'
+                                    : 'Lihat Pesanan'}
                             </button>
                         </div>
                     </div>

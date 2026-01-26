@@ -43,7 +43,7 @@ export default function VideoNotesInput({
     };
 
     return (
-        <div className="rounded-2xl border border-slate-200 bg-white shadow-card">
+        <div className="shadow-card rounded-2xl border border-slate-200 bg-white">
             {/* Toggle Header */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -51,7 +51,11 @@ export default function VideoNotesInput({
             >
                 <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
-                        <Icon name="edit_note" size={24} className="text-amber-600" />
+                        <Icon
+                            name="edit_note"
+                            size={24}
+                            className="text-amber-600"
+                        />
                     </div>
                     <div className="text-left">
                         <h3 className="font-semibold text-slate-900">
@@ -98,13 +102,16 @@ export default function VideoNotesInput({
                         {hasExistingNote && note?.updated_at && (
                             <span className="text-xs text-slate-400">
                                 Terakhir diperbarui:{' '}
-                                {new Date(note.updated_at).toLocaleDateString('id-ID', {
-                                    day: 'numeric',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                })}
+                                {new Date(note.updated_at).toLocaleDateString(
+                                    'id-ID',
+                                    {
+                                        day: 'numeric',
+                                        month: 'short',
+                                        year: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    },
+                                )}
                             </span>
                         )}
                     </div>
@@ -119,7 +126,9 @@ export default function VideoNotesInput({
                         </button>
                         <button
                             onClick={handleSave}
-                            disabled={!content.trim() || !hasChanges || isSaving}
+                            disabled={
+                                !content.trim() || !hasChanges || isSaving
+                            }
                             className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {isSaving ? (
@@ -134,7 +143,9 @@ export default function VideoNotesInput({
                             ) : (
                                 <>
                                     <Icon name="save" size={16} />
-                                    {hasExistingNote ? 'Perbarui Catatan' : 'Simpan Catatan'}
+                                    {hasExistingNote
+                                        ? 'Perbarui Catatan'
+                                        : 'Simpan Catatan'}
                                 </>
                             )}
                         </button>

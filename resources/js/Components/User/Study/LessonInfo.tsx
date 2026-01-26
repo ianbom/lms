@@ -22,7 +22,6 @@ export default function LessonInfo({
 }: LessonInfoProps) {
     return (
         <div className="flex flex-col gap-6">
-
             {/* About & Resources */}
             <div className="mb-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
                 <div className="flex flex-col gap-4 lg:col-span-2">
@@ -30,9 +29,9 @@ export default function LessonInfo({
                         Tentang Video Ini
                     </h3>
                     <p className="leading-relaxed text-slate-600">
-                        {video.description || 'Tidak ada deskripsi untuk video ini.'}
+                        {video.description ||
+                            'Tidak ada deskripsi untuk video ini.'}
                     </p>
-
                 </div>
 
                 {/* Resources */}

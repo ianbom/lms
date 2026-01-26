@@ -101,7 +101,10 @@ export default function PricingSidebar({
                     }`}
                 >
                     {isEnrolled ? 'Belajar Sekarang' : 'Beli Modul Sekarang'}
-                    <Icon name={isEnrolled ? 'play_arrow' : 'arrow_forward'} size={20} />
+                    <Icon
+                        name={isEnrolled ? 'play_arrow' : 'arrow_forward'}
+                        size={20}
+                    />
                 </button>
             </div>
 

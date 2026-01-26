@@ -1,9 +1,5 @@
-import Certificates from '@/Components/User/Dashboard/Certificates';
 import HeroCard from '@/Components/User/Dashboard/HeroCard';
 import MyClasses from '@/Components/User/Dashboard/MyClasses';
-import NextActions from '@/Components/User/Dashboard/NextActions';
-import OrderHistory from '@/Components/User/Dashboard/OrderHistory';
-import Recommendations from '@/Components/User/Dashboard/Recommendations';
 import StatsGrid from '@/Components/User/Dashboard/StatsGrid';
 import UserDashboardLayout from '@/Layouts/UserDashboardLayout';
 import { Head } from '@inertiajs/react';
@@ -55,7 +51,12 @@ interface DashboardProps {
     myClasses: MyClass[];
 }
 
-export default function Dashboard({ user, stats, currentLearning, myClasses }: DashboardProps) {
+export default function Dashboard({
+    user,
+    stats,
+    currentLearning,
+    myClasses,
+}: DashboardProps) {
     return (
         <UserDashboardLayout>
             <Head title="Dashboard" />

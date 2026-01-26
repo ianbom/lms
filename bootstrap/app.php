@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\HasCourseAccessMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,7 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Register custom middleware aliases
         $middleware->alias([
-            'has.course.access' => \App\Http\Middleware\HasCourseAccessMiddleware::class,
+            'has.course.access' => HasCourseAccessMiddleware::class,
+            'isAdmin' => AdminMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

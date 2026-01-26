@@ -1,10 +1,10 @@
 import Icon from '@/Components/Icon';
-import QuizSidebar from '@/Components/User/Study/QuizSidebar';
 import {
     QuizIntro,
     QuizQuestion,
     QuizResultCard,
 } from '@/Components/User/Study/Quiz';
+import QuizSidebar from '@/Components/User/Study/QuizSidebar';
 import { useQuiz } from '@/hooks/useQuiz';
 import UserDashboardLayout from '@/Layouts/UserDashboardLayout';
 import { TakeQuizProps } from '@/types/study';
@@ -18,7 +18,7 @@ export default function TakeQuiz({
     progressStats,
 }: TakeQuizProps) {
     // Get first video ID from the quiz's module to navigate back
-    const quizModule = classData.modules.find(m => m.id === quiz.module_id);
+    const quizModule = classData.modules.find((m) => m.id === quiz.module_id);
     const firstVideoId = quizModule?.videos?.[0]?.id;
 
     const {
@@ -47,7 +47,12 @@ export default function TakeQuiz({
         goToNextQuestion,
         goToPrevQuestion,
         getCurrentAnswer,
-    } = useQuiz({ quiz, attempt, classId: classData.id, videoId: firstVideoId });
+    } = useQuiz({
+        quiz,
+        attempt,
+        classId: classData.id,
+        videoId: firstVideoId,
+    });
 
     return (
         <UserDashboardLayout
@@ -142,13 +147,7 @@ function Breadcrumbs({ classTitle }: { classTitle: string }) {
     );
 }
 
-function PageHeader({
-    title,
-    subtitle,
-}: {
-    title: string;
-    subtitle?: string;
-}) {
+function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
     return (
         <div className="flex flex-col gap-1">
             <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">

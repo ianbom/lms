@@ -1,26 +1,24 @@
 import Avatar from '@/Components/Admin/Avatar';
 import Badge from '@/Components/Admin/Badge';
-import DataTable from '@/Components/Admin/DataTable';
-import PopularClassItem from '@/Components/Admin/PopularClassItem';
 import StatCard from '@/Components/Admin/StatCard';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { BadgeVariant, Order, PopularClass, StatCardData } from '@/types/admin';
-import { Head, Link } from '@inertiajs/react';
-import { useEffect, useRef, useState } from 'react';
+import { Head } from '@inertiajs/react';
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
     BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Filler,
+    Legend,
+    LinearScale,
+    LineElement,
+    PointElement,
     Title,
     Tooltip,
-    Legend,
-    Filler,
 } from 'chart.js';
-import { Line, Bar } from 'react-chartjs-2';
+import { useEffect, useState } from 'react';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
@@ -31,7 +29,7 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
-    Filler
+    Filler,
 );
 
 interface ChartData {
@@ -79,9 +77,24 @@ const months = [
 ];
 
 const dataTypes = [
-    { value: 'users', label: 'Users', icon: 'group', color: 'rgb(59, 130, 246)' },
-    { value: 'orders', label: 'Orders', icon: 'shopping_bag', color: 'rgb(234, 179, 8)' },
-    { value: 'revenue', label: 'Revenue', icon: 'payments', color: 'rgb(34, 197, 94)' },
+    {
+        value: 'users',
+        label: 'Users',
+        icon: 'group',
+        color: 'rgb(59, 130, 246)',
+    },
+    {
+        value: 'orders',
+        label: 'Orders',
+        icon: 'shopping_bag',
+        color: 'rgb(234, 179, 8)',
+    },
+    {
+        value: 'revenue',
+        label: 'Revenue',
+        icon: 'payments',
+        color: 'rgb(34, 197, 94)',
+    },
 ];
 
 export default function Dashboard({
@@ -93,7 +106,9 @@ export default function Dashboard({
 }: DashboardProps) {
     const [chartData, setChartData] = useState<ChartData>(initialChartData);
     const [selectedType, setSelectedType] = useState<string>('users');
-    const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+    const [selectedYear, setSelectedYear] = useState<number>(
+        new Date().getFullYear(),
+    );
     const [selectedMonth, setSelectedMonth] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -108,7 +123,9 @@ export default function Dashboard({
                 params.append('month', selectedMonth);
             }
 
-            const response = await fetch(`/admin/dashboard/chart-data?${params}`);
+            const response = await fetch(
+                `/admin/dashboard/chart-data?${params}`,
+            );
             const data = await response.json();
             setChartData(data);
         } catch (error) {
@@ -122,7 +139,8 @@ export default function Dashboard({
         fetchChartData();
     }, [selectedType, selectedYear, selectedMonth]);
 
-    const currentTypeConfig = dataTypes.find((t) => t.value === selectedType) || dataTypes[0];
+    const currentTypeConfig =
+        dataTypes.find((t) => t.value === selectedType) || dataTypes[0];
 
     const chartConfig = {
         labels: chartData.labels.map(String),
@@ -131,7 +149,9 @@ export default function Dashboard({
                 label: currentTypeConfig.label,
                 data: chartData.data,
                 borderColor: currentTypeConfig.color,
-                backgroundColor: currentTypeConfig.color.replace('rgb', 'rgba').replace(')', ', 0.1)'),
+                backgroundColor: currentTypeConfig.color
+                    .replace('rgb', 'rgba')
+                    .replace(')', ', 0.1)'),
                 fill: true,
                 tension: 0.4,
                 pointRadius: 4,
@@ -162,9 +182,15 @@ export default function Dashboard({
                             label += ': ';
                         }
                         if (selectedType === 'revenue') {
-                            label += 'Rp ' + new Intl.NumberFormat('id-ID').format(context.parsed.y);
+                            label +=
+                                'Rp ' +
+                                new Intl.NumberFormat('id-ID').format(
+                                    context.parsed.y,
+                                );
                         } else {
-                            label += new Intl.NumberFormat('id-ID').format(context.parsed.y);
+                            label += new Intl.NumberFormat('id-ID').format(
+                                context.parsed.y,
+                            );
                         }
                         return label;
                     },
@@ -190,7 +216,9 @@ export default function Dashboard({
                     callback: function (value: any) {
                         if (selectedType === 'revenue') {
                             if (value >= 1000000) {
-                                return 'Rp ' + (value / 1000000).toFixed(1) + 'M';
+                                return (
+                                    'Rp ' + (value / 1000000).toFixed(1) + 'M'
+                                );
                             } else if (value >= 1000) {
                                 return 'Rp ' + (value / 1000).toFixed(0) + 'K';
                             }
@@ -287,7 +315,9 @@ export default function Dashboard({
                                     }`}
                                 >
                                     <Icon name={type.icon} size={16} />
-                                    <span className="hidden sm:inline">{type.label}</span>
+                                    <span className="hidden sm:inline">
+                                        {type.label}
+                                    </span>
                                 </button>
                             ))}
                         </div>
@@ -295,7 +325,9 @@ export default function Dashboard({
                         {/* Year Selector */}
                         <select
                             value={selectedYear}
-                            onChange={(e) => setSelectedYear(Number(e.target.value))}
+                            onChange={(e) =>
+                                setSelectedYear(Number(e.target.value))
+                            }
                             className="rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                         >
                             {availableYears.map((year) => (
@@ -323,13 +355,20 @@ export default function Dashboard({
                     {isLoading && (
                         <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70">
                             <div className="flex items-center gap-2 text-gray-500">
-                                <Icon name="refresh" size={20} className="animate-spin" />
+                                <Icon
+                                    name="refresh"
+                                    size={20}
+                                    className="animate-spin"
+                                />
                                 <span>Loading...</span>
                             </div>
                         </div>
                     )}
                     <div className="h-[300px]">
-                        <Line data={chartConfig} options={chartOptions as any} />
+                        <Line
+                            data={chartConfig}
+                            options={chartOptions as any}
+                        />
                     </div>
                 </div>
             </div>

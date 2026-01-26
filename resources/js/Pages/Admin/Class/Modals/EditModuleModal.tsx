@@ -7,11 +7,7 @@ import { VideoEntry } from '@/Components/Admin/VideoEntryCard';
 import Icon from '@/Components/Icon';
 import { router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import {
-    extractYouTubeVideoId,
-    formatVideoDuration,
-    Module,
-} from '../types';
+import { extractYouTubeVideoId, formatVideoDuration, Module } from '../types';
 
 interface EditModuleModalProps {
     isOpen: boolean;
@@ -90,7 +86,7 @@ export default function EditModuleModal({
     };
 
     const handleFormChange = (
-        newData: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData)
+        newData: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData),
     ) => {
         if (typeof newData === 'function') {
             setFormData(newData);
@@ -114,28 +110,34 @@ export default function EditModuleModal({
             data.append(`videos[${index}][title]`, v.title);
             data.append(`videos[${index}][description]`, v.description);
             data.append(`videos[${index}][youtube_url]`, v.youtubeUrl);
-            data.append(`videos[${index}][is_preview]`, v.isPreview ? '1' : '0');
-            data.append(`videos[${index}][duration_sec]`, v.durationSec.toString());
+            data.append(
+                `videos[${index}][is_preview]`,
+                v.isPreview ? '1' : '0',
+            );
+            data.append(
+                `videos[${index}][duration_sec]`,
+                v.durationSec.toString(),
+            );
 
             v.files.forEach((f, fIndex) => {
                 data.append(
                     `videos[${index}][resources][${fIndex}][title]`,
-                    f.name
+                    f.name,
                 );
                 data.append(
                     `videos[${index}][resources][${fIndex}][file_type]`,
-                    f.type
+                    f.type,
                 );
                 if (f.file) {
                     data.append(
                         `videos[${index}][resources][${fIndex}][file]`,
-                        f.file
+                        f.file,
                     );
                 }
                 if ((f as any).existingUrl) {
                     data.append(
                         `videos[${index}][resources][${fIndex}][existing_url]`,
-                        (f as any).existingUrl
+                        (f as any).existingUrl,
                     );
                 }
             });
@@ -169,7 +171,9 @@ export default function EditModuleModal({
             <div className="relative z-10 my-8 w-full max-w-5xl rounded-xl bg-slate-100 p-6 shadow-xl">
                 {/* Modal Header */}
                 <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-slate-900">Edit Modul</h2>
+                    <h2 className="text-xl font-bold text-slate-900">
+                        Edit Modul
+                    </h2>
                     <button
                         onClick={handleClose}
                         disabled={processing}

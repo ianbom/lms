@@ -1,8 +1,8 @@
-import Icon from '@/Components/Icon';
 import ModuleForm, {
     createEmptyVideo,
     ModuleFormData,
 } from '@/Components/Admin/Module/ModuleForm';
+import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
@@ -13,14 +13,17 @@ interface CreateModuleProps {
 
 export default function CreateModule({ classId }: CreateModuleProps) {
     // 1. Setup useForm
-    const { data, setData, post, processing, errors, transform } = useForm<ModuleFormData>({
-        title: '',
-        description: '',
-        videos: [createEmptyVideo(1)],
-    });
+    const { data, setData, post, processing, errors, transform } =
+        useForm<ModuleFormData>({
+            title: '',
+            description: '',
+            videos: [createEmptyVideo(1)],
+        });
 
     // Handle data change from ModuleForm
-    const handleDataChange = (newData: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData)) => {
+    const handleDataChange = (
+        newData: ModuleFormData | ((prev: ModuleFormData) => ModuleFormData),
+    ) => {
         if (typeof newData === 'function') {
             setData(newData);
         } else {

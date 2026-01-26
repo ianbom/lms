@@ -58,14 +58,15 @@ export default function EditQuizModal({
                             text: opt.label,
                             isCorrect: opt.is_correct,
                         })) || [],
-                })
+                }),
             ) || [createEmptyQuestion(1)];
 
             setFormData({
                 title: quiz.title,
                 moduleId: quiz.module_id?.toString() || '',
                 quizContext: quiz.is_pretest ? 'pretest' : 'post-test',
-                questions: questions.length > 0 ? questions : [createEmptyQuestion(1)],
+                questions:
+                    questions.length > 0 ? questions : [createEmptyQuestion(1)],
             });
             setErrors({});
         } catch (error) {
@@ -135,7 +136,9 @@ export default function EditQuizModal({
             <div className="relative z-10 my-8 w-full max-w-5xl rounded-xl bg-slate-100 p-6 shadow-xl">
                 {/* Modal Header */}
                 <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-slate-900">Edit Kuis</h2>
+                    <h2 className="text-xl font-bold text-slate-900">
+                        Edit Kuis
+                    </h2>
                     <button
                         onClick={handleClose}
                         disabled={processing || loading}

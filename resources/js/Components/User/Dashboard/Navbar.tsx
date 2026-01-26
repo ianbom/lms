@@ -1,5 +1,3 @@
-import Icon from '@/Components/Icon';
-
 export default function Navbar() {
     return (
         <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-background-light px-8 py-4">
