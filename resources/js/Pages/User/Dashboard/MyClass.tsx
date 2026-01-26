@@ -26,7 +26,6 @@ function PageHeader() {
     );
 }
 
-
 export default function MyClass({ enrollments = [] }: Props) {
     const {
         sortBy,
@@ -70,4 +69,3 @@ export default function MyClass({ enrollments = [] }: Props) {
         </UserDashboardLayout>
     );
 }
-

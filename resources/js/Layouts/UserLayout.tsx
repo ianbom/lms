@@ -14,7 +14,12 @@ interface UserLayoutProps extends PropsWithChildren {
     fullWidth?: boolean;
 }
 
-export default function UserLayout({ children, navItems, showFooter = true, fullWidth = false }: UserLayoutProps) {
+export default function UserLayout({
+    children,
+    navItems,
+    showFooter = true,
+    fullWidth = false,
+}: UserLayoutProps) {
     const user = usePage().props.auth?.user;
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -27,13 +32,8 @@ export default function UserLayout({ children, navItems, showFooter = true, full
         {
             label: 'Kelas',
             href: route('user.classes'),
-            active: route().current('user.classes.*'),
+            active: route().current('user.classes*'),
         },
-        // {
-        //     label: 'Dashboard',
-        //     href: '#',
-        //     active: false,
-        // },
     ];
 
     const navigation = navItems ?? defaultNavItems;
@@ -46,22 +46,11 @@ export default function UserLayout({ children, navItems, showFooter = true, full
                     <div className="flex h-16 items-center justify-between">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-3">
-                            <div className="flex size-8 items-center justify-center text-primary">
-                                <svg
-                                    className="h-full w-full"
-                                    fill="none"
-                                    viewBox="0 0 48 48"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </div>
-                            <h2 className="text-xl font-bold tracking-tight text-gray-900">
-                                LMS Platform
-                            </h2>
+                            <img
+                                src="/ImpactAcademy.png"
+                                alt="ImpactAcademy Logo"
+                                className="h-40 w-auto"
+                            />
                         </Link>
 
                         {/* Desktop Nav */}
@@ -180,7 +169,9 @@ export default function UserLayout({ children, navItems, showFooter = true, full
             </header>
 
             {/* Main Content */}
-            <main className={`flex-grow ${fullWidth ? 'w-full' : 'mx-auto w-full max-w-[1280px] px-4 py-8 sm:px-6 md:py-12 lg:px-8'}`}>
+            <main
+                className={`flex-grow ${fullWidth ? 'w-full' : 'mx-auto w-full max-w-[1280px] px-4 py-8 sm:px-6 md:py-12 lg:px-8'}`}
+            >
                 {children}
             </main>
 
@@ -189,8 +180,8 @@ export default function UserLayout({ children, navItems, showFooter = true, full
                 <footer className="mt-12 border-t border-gray-200 bg-white py-8">
                     <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 px-4 sm:px-6 md:flex-row lg:px-8">
                         <p className="text-sm text-gray-500">
-                            © {new Date().getFullYear()} LMS Platform. All rights
-                            reserved.
+                            © {new Date().getFullYear()} ImpactAcademy. All
+                            rights reserved.
                         </p>
                         <div className="flex gap-6">
                             <Link

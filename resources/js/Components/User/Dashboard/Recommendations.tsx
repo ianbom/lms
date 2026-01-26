@@ -2,9 +2,11 @@ import Icon from '@/Components/Icon';
 
 export default function Recommendations() {
     return (
-        <div className="h-full rounded-xl border border-border-light bg-white p-6 shadow-card">
+        <div className="border-border-light shadow-card h-full rounded-xl border bg-white p-6">
             <div className="mb-4">
-                <h3 className="text-lg font-bold text-slate-900">Rekomendasi</h3>
+                <h3 className="text-lg font-bold text-slate-900">
+                    Rekomendasi
+                </h3>
                 <p className="text-sm text-slate-500">
                     Kursus yang mungkin anda suka
                 </p>
@@ -27,7 +29,10 @@ export default function Recommendations() {
                             Bisnis & Strategi
                         </p>
                         <div className="mt-1 flex items-center gap-1">
-                            <Icon name="star" className="text-xs text-amber-500 text-fill-amber-500" />
+                            <Icon
+                                name="star"
+                                className="text-fill-amber-500 text-xs text-amber-500"
+                            />
                             <span className="text-xs font-semibold">4.8</span>
                         </div>
                     </div>
@@ -50,7 +55,10 @@ export default function Recommendations() {
                             Seni & Design
                         </p>
                         <div className="mt-1 flex items-center gap-1">
-                            <Icon name="star" className="text-xs text-amber-500 text-fill-amber-500" />
+                            <Icon
+                                name="star"
+                                className="text-fill-amber-500 text-xs text-amber-500"
+                            />
                             <span className="text-xs font-semibold">4.9</span>
                         </div>
                     </div>
@@ -73,7 +81,10 @@ export default function Recommendations() {
                             Development
                         </p>
                         <div className="mt-1 flex items-center gap-1">
-                            <Icon name="star" className="text-xs text-amber-500 text-fill-amber-500" />
+                            <Icon
+                                name="star"
+                                className="text-fill-amber-500 text-xs text-amber-500"
+                            />
                             <span className="text-xs font-semibold">4.7</span>
                         </div>
                     </div>

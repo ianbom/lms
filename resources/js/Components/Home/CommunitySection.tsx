@@ -11,7 +11,7 @@ interface CommunitySectionProps {
 
 export default function CommunitySection({
     title = "You're Not Learning Alone",
-    description = 'At LMS Platform, learning is more than just watching videos. Join a vibrant community of learners from around the world. Engage in forums, join peer groups, and attend live workshops.',
+    description = 'At ImpactAcademy, learning is more than just watching videos. Join a vibrant community of learners from around the world. Engage in forums, join peer groups, and attend live workshops.',
     secondaryDescription = "Whether you're diving into AI, design, or marketing, find support, collaboration, and motivation through leaderboards and challenges.",
     buttonText = 'Join Our Community',
     buttonHref = '#',
@@ -31,7 +31,7 @@ export default function CommunitySection({
                             />
 
                             {/* Floating Chat Card */}
-                            <div className="floating-card absolute -right-2 top-6 hidden max-w-[180px] rounded-xl rounded-bl-none border border-gray-100 bg-white p-2 shadow-lg sm:block sm:-right-6 sm:top-10 sm:max-w-[200px] sm:p-3">
+                            <div className="floating-card absolute -right-2 top-6 hidden max-w-[180px] rounded-xl rounded-bl-none border border-gray-100 bg-white p-2 shadow-lg sm:-right-6 sm:top-10 sm:block sm:max-w-[200px] sm:p-3">
                                 <div className="flex items-start gap-2">
                                     <div className="size-8 rounded-full bg-blue-100"></div>
                                     <div>
@@ -47,7 +47,7 @@ export default function CommunitySection({
                             </div>
 
                             {/* Floating Live Session Card */}
-                            <div className="floating-card-delayed absolute -left-2 bottom-12 hidden max-w-[200px] rounded-xl rounded-br-none bg-primary p-3 shadow-lg sm:block sm:-left-6 sm:bottom-20 sm:max-w-[240px] sm:p-4">
+                            <div className="floating-card-delayed absolute -left-2 bottom-12 hidden max-w-[200px] rounded-xl rounded-br-none bg-primary p-3 shadow-lg sm:-left-6 sm:bottom-20 sm:block sm:max-w-[240px] sm:p-4">
                                 <p className="mb-2 text-xs font-medium text-white">
                                     Live Session This Friday: "Designing for
                                     Impact"

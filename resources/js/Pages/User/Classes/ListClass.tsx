@@ -185,7 +185,7 @@ export default function ListClass({
                 />
             )}
 
-            <div className="space-y-8 ">
+            <div className="space-y-8">
                 {/* Hero Section */}
                 <div className="space-y-2 text-center sm:space-y-4 sm:text-left">
                     <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">

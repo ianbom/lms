@@ -1,4 +1,7 @@
-import { Category, Mentor as MentorOption } from '@/Components/Admin/Class/ClassForm';
+import {
+    Category,
+    Mentor as MentorOption,
+} from '@/Components/Admin/Class/ClassForm';
 
 export interface VideoResource {
     id: number;

@@ -1,9 +1,9 @@
-import Icon from '@/Components/Icon';
 import QuizForm, {
     createEmptyQuestion,
     QuizFormData,
     QuizFormErrors,
 } from '@/Components/Admin/Quiz/QuizForm';
+import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';

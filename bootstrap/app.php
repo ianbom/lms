@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\HasCourseAccessMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,7 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        //
+        // Register custom middleware aliases
+        $middleware->alias([
+            'has.course.access' => HasCourseAccessMiddleware::class,
+            'isAdmin' => AdminMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

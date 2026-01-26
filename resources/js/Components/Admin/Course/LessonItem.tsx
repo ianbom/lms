@@ -47,15 +47,17 @@ export default function LessonItem({ lesson }: LessonItemProps) {
                         <span>{isVideo ? 'Video' : 'Quiz'}</span>
                         <span className="h-1 w-1 rounded-full bg-[#cbd5e1]"></span>
                         <span>{lesson.durationOrQuestions}</span>
-                        {isVideo && lesson.resourcesCount !== undefined && lesson.resourcesCount > 0 && (
-                            <>
-                                <span className="h-1 w-1 rounded-full bg-[#cbd5e1]"></span>
-                                <span className="flex items-center gap-1">
-                                    <Icon name="attach_file" size={12} />
-                                    {lesson.resourcesCount} File
-                                </span>
-                            </>
-                        )}
+                        {isVideo &&
+                            lesson.resourcesCount !== undefined &&
+                            lesson.resourcesCount > 0 && (
+                                <>
+                                    <span className="h-1 w-1 rounded-full bg-[#cbd5e1]"></span>
+                                    <span className="flex items-center gap-1">
+                                        <Icon name="attach_file" size={12} />
+                                        {lesson.resourcesCount} File
+                                    </span>
+                                </>
+                            )}
                     </div>
                 </div>
             </div>

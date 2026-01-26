@@ -56,7 +56,7 @@ export default function OrderStats({ stats }: OrderStatsProps) {
             {statConfig.map((item) => (
                 <div
                     key={item.key}
-                    className="flex items-center gap-4 rounded-xl border border-border-light bg-white p-4 shadow-card"
+                    className="border-border-light shadow-card flex items-center gap-4 rounded-xl border bg-white p-4"
                 >
                     <div
                         className={`flex h-12 w-12 items-center justify-center rounded-md ${item.bgColor} ${item.textColor}`}

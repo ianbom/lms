@@ -17,7 +17,7 @@ export default {
                     DEFAULT: '#007537',
                     dark: '#005a2f',
                     light: '#e6f4ed',
-                    ctm: '#00A84C'
+                    ctm: '#00A84C',
                 },
                 background: {
                     light: '#f9fafa',

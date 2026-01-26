@@ -204,7 +204,7 @@ export default function Success({
                             </Link>
                             <Link
                                 href={route('user.classes')}
-                                className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white font-medium text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300"
+                                className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white font-medium text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-50"
                             >
                                 <Icon name="search" size={18} />
                                 Eksplorasi Kelas

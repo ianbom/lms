@@ -94,12 +94,17 @@ export default function ModuleCard({
                 <div className="bg-[#f8fafc]">
                     <div className="border-t border-[#f1f5f9]">
                         {module.lessons.map((lesson) => (
-                            <LessonItem key={`${lesson.type}-${lesson.id}`} lesson={lesson} />
+                            <LessonItem
+                                key={`${lesson.type}-${lesson.id}`}
+                                lesson={lesson}
+                            />
                         ))}
                     </div>
 
                     {/* Edit Buttons */}
-                    <div className={`grid gap-4 p-4 ${hasQuizzes ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                    <div
+                        className={`grid gap-4 p-4 ${hasQuizzes ? 'grid-cols-2' : 'grid-cols-1'}`}
+                    >
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();

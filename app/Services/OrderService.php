@@ -136,4 +136,18 @@ class OrderService
             'status' => 'rejected',
         ]);
     }
+
+    public function checkPendingOrder($classId, $userId){
+        $pendingOrder = ClassOrder::where('class_id', $classId)
+        ->where('user_id', $userId)
+        ->where('status', 'pending')->exists();
+        return $pendingOrder;
+    }
+
+    public function checkOwnedClass($classId, $userId){
+        $ownedClass = ClassOrder::where('class_id', $classId)
+        ->where('user_id', $userId)
+        ->where('status', 'approved')->exists();
+        return $ownedClass;
+    }
 }

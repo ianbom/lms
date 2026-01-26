@@ -27,7 +27,7 @@ export default function CTASection({
                         <h2 className="text-2xl font-extrabold text-white sm:text-3xl md:text-4xl lg:text-5xl">
                             {title || (
                                 <>
-                                    Ready to Grow <br /> with LMS Platform?
+                                    Ready to Grow <br /> with ImpactAcademy?
                                 </>
                             )}
                         </h2>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClassController as AdmClassController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MentorController;
 use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
 use App\Http\Controllers\Admin\QuizController as AdmQuizController;
@@ -11,13 +12,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
+use App\Http\Controllers\User\CertificateController;
 use App\Http\Controllers\User\StudyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('User/Home/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -26,12 +28,20 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('User/Home/Home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/home', function () {
             return Inertia::render('User/Home/Home');
         })->name('home');
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+// Public certificate verification route
+Route::get('/certificate/verify', [CertificateController::class, 'verifyCertificate'])->name('certificate.verify');
+Route::get('/certificate/verify', [CertificateController::class, 'downloadCertificatePublic']);
 
     // User Modul Routes
     Route::prefix('user')->name('user.')->group(function () {
@@ -42,35 +52,44 @@ Route::get('/home', function () {
        Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
 
-       Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
-       Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
+       Route::middleware(['auth', 'has.course.access'])->group(function () {
 
-       // Study/Watch Video Routes
-       Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
-       Route::post('/study/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
-       Route::post('/study/video/{videoId}/complete', [StudyController::class, 'markCompleted'])->name('study.complete');
-       Route::post('/study/video/{videoId}/notes', [StudyController::class, 'addNote'])->name('study.notes.add');
-       Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
-       Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
+           Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
+           Route::post('/study/{classId}/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
+           Route::post('/study/{classId}/video/{videoId}/complete', [StudyController::class, 'markCompleted'])->name('study.complete');
+           Route::post('/study/{classId}/video/{videoId}/notes', [StudyController::class, 'addNote'])->name('study.notes.add');
 
-       // Study/Take Quiz Routes
-       Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
-       Route::post('/study/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
-       Route::post('/study/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
-       Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
+           Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
+           Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
+           Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
+       });
+
+
+       Route::middleware(['auth'])->group(function () {
+           Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
+           Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
+           Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
+           Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
+           Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
+           Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
+
+           Route::get('/certificates', [CertificateController::class, 'listCertificatePage'])->name('certificates');
+           Route::post('/certificates/claim/{classId}', [CertificateController::class, 'claimCertificate'])->name('certificates.claim');
+           Route::get('/certificates/{certificateId}/download', [CertificateController::class, 'downloadCertificate'])->name('certificates.download');
+           Route::get('/certificates/{certificateId}/view', [CertificateController::class, 'viewCertificate'])->name('certificates.view');
+       });
+
+
     });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+
 
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', function () {
-            return Inertia::render('Admin/Dashboard/Dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/chart-data', [DashboardController::class, 'getChartData'])->name('dashboard.chart');
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
         Route::get('/classes/{classId}', [AdmClassController::class, 'detailClassPage'])->name('classes.show');
         Route::put('/classes/{classId}', [AdmClassController::class, 'updateClass'])->name('classes.update');

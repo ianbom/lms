@@ -66,10 +66,7 @@ export default function WhyChooseUsSection({
                     </p>
                     <ul className="space-y-4">
                         {benefits.map((benefit, index) => (
-                            <li
-                                key={index}
-                                className="flex items-start gap-3"
-                            >
+                            <li key={index} className="flex items-start gap-3">
                                 <Icon
                                     name="check_circle"
                                     size={24}

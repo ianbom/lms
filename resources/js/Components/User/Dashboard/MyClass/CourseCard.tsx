@@ -26,7 +26,7 @@ export default function CourseCard({
     return (
         <Link
             href={href}
-            className="group flex flex-col overflow-hidden rounded-xl border border-border-light bg-white shadow-card transition-all hover:shadow-card-hover"
+            className="border-border-light shadow-card hover:shadow-card-hover group flex flex-col overflow-hidden rounded-xl border bg-white transition-all"
         >
             {/* Thumbnail */}
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">

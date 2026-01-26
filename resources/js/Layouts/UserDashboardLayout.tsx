@@ -1,5 +1,4 @@
 import Icon from '@/Components/Icon';
-import Navbar from '@/Components/User/Dashboard/Navbar';
 import Sidebar from '@/Components/User/Dashboard/Sidebar';
 import { PropsWithChildren, ReactNode, useState } from 'react';
 
@@ -46,12 +45,11 @@ export default function UserDashboardLayout({
                     >
                         <Icon name="menu" size={24} />
                     </button>
-                    <div className="flex items-center gap-2">
-                        <div className="rounded-md bg-primary/10 p-1.5 text-primary">
-                            <Icon name="school" size={18} />
-                        </div>
-                        <span className="font-bold text-slate-900">ImpactAcademy</span>
-                    </div>
+                    <img
+                        src="/ImpactAcademy.png"
+                        alt="ImpactAcademy Logo"
+                        className="h-8 w-auto"
+                    />
                     {rightSidebar ? (
                         <button
                             onClick={() => setRightSidebarOpen(true)}
@@ -74,15 +72,15 @@ export default function UserDashboardLayout({
                     </div>
 
                     {/* Right Sidebar (Optional) - Desktop */}
-                    <div className="hidden lg:block">
-                        {rightSidebar}
-                    </div>
+                    <div className="hidden lg:block">{rightSidebar}</div>
 
                     {/* Right Sidebar (Optional) - Mobile */}
                     {rightSidebar && (
                         <div
                             className={`fixed inset-y-0 right-0 z-40 w-full max-w-[340px] transform transition-transform duration-300 ease-in-out lg:hidden ${
-                                rightSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+                                rightSidebarOpen
+                                    ? 'translate-x-0'
+                                    : 'translate-x-full'
                             }`}
                         >
                             <div className="relative h-full">

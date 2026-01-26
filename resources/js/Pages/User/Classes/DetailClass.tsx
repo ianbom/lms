@@ -21,11 +21,15 @@ import { useEffect, useMemo, useState } from 'react';
 interface DetailClassProps {
     class: ClassDetail;
     previewVideos?: ClassDetail;
+    isEnrolled?: boolean;
+    firstVideoId?: number | null;
 }
 
 export default function DetailClass({
     class: classData,
     previewVideos,
+    isEnrolled = false,
+    firstVideoId = null,
 }: DetailClassProps) {
     // Breadcrumb items
     const breadcrumbItems = [
@@ -128,7 +132,18 @@ export default function DetailClass({
     };
 
     const handleBuy = () => {
-        router.visit(route('user.classes.purchase', { classId: classData.id }));
+        if (isEnrolled && firstVideoId) {
+            router.visit(
+                route('user.study.watch', {
+                    classId: classData.id,
+                    videoId: firstVideoId,
+                }),
+            );
+        } else {
+            router.visit(
+                route('user.classes.purchase', { classId: classData.id }),
+            );
+        }
     };
 
     const handleAddWishlist = () => {
@@ -141,7 +156,7 @@ export default function DetailClass({
 
     return (
         <UserLayout>
-            <Head title={`${classData.title} - LMS Platform`} />
+            <Head title={`${classData.title} - ImpactAcademy`} />
 
             {/* Breadcrumb */}
             <Breadcrumb items={breadcrumbItems} />
@@ -397,6 +412,7 @@ export default function DetailClass({
                         quizCount={totalQuizzes}
                         onBuy={handleBuy}
                         onAddWishlist={handleAddWishlist}
+                        isEnrolled={isEnrolled}
                     />
 
                     {/* Mentor Card(s) */}

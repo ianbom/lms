@@ -31,7 +31,7 @@ export default function AdminUserProfile({
                     <p className="text-text-primary truncate text-sm font-semibold">
                         {name}
                     </p>
-                    <p className="text-text-muted truncate text-xs">{role}</p>
+                    <p className="text-text-muted truncate text-xs">Admin</p>
                 </div>
                 <button
                     onClick={onLogout}

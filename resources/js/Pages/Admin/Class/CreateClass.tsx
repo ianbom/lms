@@ -25,7 +25,9 @@ export default function CreateClass({ categories, mentors }: Props) {
         status: 'draft',
     });
     const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-    const [thumbnailPreview, setThumbnailPreview] = useState<string | undefined>();
+    const [thumbnailPreview, setThumbnailPreview] = useState<
+        string | undefined
+    >();
     const [selectedMentors, setSelectedMentors] = useState<Mentor[]>([]);
     const [errors, setErrors] = useState<ClassFormErrors>({});
 

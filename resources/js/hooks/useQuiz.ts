@@ -9,6 +9,7 @@ interface UseQuizOptions {
     quiz: Quiz;
     attempt: QuizAttempt | null;
     classId: number;
+    videoId?: number;
 }
 
 interface UseQuizReturn {
@@ -41,7 +42,12 @@ interface UseQuizReturn {
     formatTimeSpent: (seconds: number) => string;
 }
 
-export function useQuiz({ quiz, attempt, classId }: UseQuizOptions): UseQuizReturn {
+export function useQuiz({
+    quiz,
+    attempt,
+    classId,
+    videoId,
+}: UseQuizOptions): UseQuizReturn {
     const [quizState, setQuizState] = useState<QuizState>(
         attempt?.submitted_at ? 'submitted' : 'intro',
     );
@@ -81,14 +87,14 @@ export function useQuiz({ quiz, attempt, classId }: UseQuizOptions): UseQuizRetu
     // Start quiz
     const handleStartQuiz = useCallback(async () => {
         try {
-            await axios.post(`/user/study/quiz/${quiz.id}/start`);
+            await axios.post(`/user/study/${classId}/quiz/${quiz.id}/start`);
             setQuizState('in-progress');
         } catch (error) {
             console.error('Failed to start quiz:', error);
             // Start anyway for better UX
             setQuizState('in-progress');
         }
-    }, [quiz.id]);
+    }, [classId, quiz.id]);
 
     // Select answer
     const handleSelectAnswer = useCallback(
@@ -136,7 +142,7 @@ export function useQuiz({ quiz, attempt, classId }: UseQuizOptions): UseQuizRetu
         setIsSubmitting(true);
         try {
             const response = await axios.post(
-                `/user/study/quiz/${quiz.id}/submit`,
+                `/user/study/${classId}/quiz/${quiz.id}/submit`,
                 { answers: userAnswers },
             );
             setQuizResult(response.data.result);
@@ -147,7 +153,7 @@ export function useQuiz({ quiz, attempt, classId }: UseQuizOptions): UseQuizRetu
         } finally {
             setIsSubmitting(false);
         }
-    }, [quiz.id, userAnswers]);
+    }, [classId, quiz.id, userAnswers]);
 
     // Review answers
     const handleReviewAnswers = useCallback(() => {
@@ -166,17 +172,21 @@ export function useQuiz({ quiz, attempt, classId }: UseQuizOptions): UseQuizRetu
         setQuizState('intro');
     }, [quiz.questions]);
 
-    // Back to class
+    // Back to class/study page
     const handleBackToClass = useCallback(() => {
-        router.visit(`/user/classes/${classId}`);
-    }, [classId]);
+        if (videoId) {
+            router.visit(`/user/study/${classId}/video/${videoId}`);
+        } else {
+            router.visit(`/user/classes/${classId}`);
+        }
+    }, [classId, videoId]);
 
     // Get current answer for question
     const getCurrentAnswer = useCallback(
         (questionId: number): number | null => {
             return (
-                userAnswers.find((a) => a.questionId === questionId)?.optionId ??
-                null
+                userAnswers.find((a) => a.questionId === questionId)
+                    ?.optionId ?? null
             );
         },
         [userAnswers],

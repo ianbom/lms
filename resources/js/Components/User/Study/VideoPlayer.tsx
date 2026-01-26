@@ -69,12 +69,20 @@ export default function VideoPlayer({
     const [isReady, setIsReady] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [showQualityMenu, setShowQualityMenu] = useState(false);
-    const [availableQualities, setAvailableQualities] = useState<QualityLevel[]>([]);
-    const [selectedQuality, setSelectedQuality] = useState<QualityLevel>('auto');
-    const [actualPlayingQuality, setActualPlayingQuality] = useState<string>('');
+    const [availableQualities, setAvailableQualities] = useState<
+        QualityLevel[]
+    >([]);
+    const [selectedQuality, setSelectedQuality] =
+        useState<QualityLevel>('auto');
+    const [actualPlayingQuality, setActualPlayingQuality] =
+        useState<string>('');
     const hasSeekToInitial = useRef(false);
-    const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-    const qualityCheckIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+        null,
+    );
+    const qualityCheckIntervalRef = useRef<ReturnType<
+        typeof setInterval
+    > | null>(null);
 
     // YouTube player options
     const opts = {
@@ -167,13 +175,15 @@ export default function VideoPlayer({
         const qualities = event.target.getAvailableQualityLevels();
         if (qualities && qualities.length > 0) {
             // Sort qualities by resolution (highest first)
-            const sortedQualities = (qualities as QualityLevel[]).sort((a, b) => {
-                const indexA = QUALITY_ORDER.indexOf(a);
-                const indexB = QUALITY_ORDER.indexOf(b);
-                if (indexA === -1) return 1;
-                if (indexB === -1) return -1;
-                return indexA - indexB;
-            });
+            const sortedQualities = (qualities as QualityLevel[]).sort(
+                (a, b) => {
+                    const indexA = QUALITY_ORDER.indexOf(a);
+                    const indexB = QUALITY_ORDER.indexOf(b);
+                    if (indexA === -1) return 1;
+                    if (indexB === -1) return -1;
+                    return indexA - indexB;
+                },
+            );
             setAvailableQualities(sortedQualities);
             const currentQ = event.target.getPlaybackQuality();
             setActualPlayingQuality(currentQ || '');
@@ -218,13 +228,15 @@ export default function VideoPlayer({
             if (playerRef.current) {
                 const qualities = playerRef.current.getAvailableQualityLevels();
                 if (qualities && qualities.length > 0) {
-                    const sortedQualities = (qualities as QualityLevel[]).sort((a, b) => {
-                        const indexA = QUALITY_ORDER.indexOf(a);
-                        const indexB = QUALITY_ORDER.indexOf(b);
-                        if (indexA === -1) return 1;
-                        if (indexB === -1) return -1;
-                        return indexA - indexB;
-                    });
+                    const sortedQualities = (qualities as QualityLevel[]).sort(
+                        (a, b) => {
+                            const indexA = QUALITY_ORDER.indexOf(a);
+                            const indexB = QUALITY_ORDER.indexOf(b);
+                            if (indexA === -1) return 1;
+                            if (indexB === -1) return -1;
+                            return indexA - indexB;
+                        },
+                    );
                     setAvailableQualities(sortedQualities);
                 }
 
@@ -579,12 +591,20 @@ export default function VideoPlayer({
                                             >
                                                 <span>Auto</span>
                                                 <div className="flex items-center gap-2">
-                                                    {selectedQuality === 'auto' && actualPlayingQuality && (
-                                                        <span className="text-xs text-white/50">
-                                                            ({QUALITY_LABELS[actualPlayingQuality] || actualPlayingQuality})
-                                                        </span>
-                                                    )}
-                                                    {selectedQuality === 'auto' && (
+                                                    {selectedQuality ===
+                                                        'auto' &&
+                                                        actualPlayingQuality && (
+                                                            <span className="text-xs text-white/50">
+                                                                (
+                                                                {QUALITY_LABELS[
+                                                                    actualPlayingQuality
+                                                                ] ||
+                                                                    actualPlayingQuality}
+                                                                )
+                                                            </span>
+                                                        )}
+                                                    {selectedQuality ===
+                                                        'auto' && (
                                                         <Icon
                                                             name="check"
                                                             size={16}
@@ -594,7 +614,11 @@ export default function VideoPlayer({
                                             </button>
                                             <div className="my-1 border-t border-white/10" />
                                             {availableQualities
-                                                .filter((q) => q !== 'auto' && q !== 'default')
+                                                .filter(
+                                                    (q) =>
+                                                        q !== 'auto' &&
+                                                        q !== 'default',
+                                                )
                                                 .map((quality) => (
                                                     <button
                                                         key={quality}
@@ -616,11 +640,14 @@ export default function VideoPlayer({
                                                             ] || quality}
                                                         </span>
                                                         <div className="flex items-center gap-2">
-                                                            {actualPlayingQuality === quality && selectedQuality !== quality && (
-                                                                <span className="text-xs text-white/50">
-                                                                    (current)
-                                                                </span>
-                                                            )}
+                                                            {actualPlayingQuality ===
+                                                                quality &&
+                                                                selectedQuality !==
+                                                                    quality && (
+                                                                    <span className="text-xs text-white/50">
+                                                                        (current)
+                                                                    </span>
+                                                                )}
                                                             {selectedQuality ===
                                                                 quality && (
                                                                 <Icon

@@ -96,7 +96,9 @@ export default function ClassForm({
                         <RichTextEditor
                             label="Deskripsi"
                             value={formData.description}
-                            onChange={(val) => handleFieldChange('description', val)}
+                            onChange={(val) =>
+                                handleFieldChange('description', val)
+                            }
                             placeholder="Mulai ketik deskripsi kelas di sini..."
                             maxLength={2000}
                             error={errors.description}
@@ -108,7 +110,9 @@ export default function ClassForm({
                                 placeholder="Pilih kategori"
                                 options={categoryOptions}
                                 value={formData.category_id}
-                                onChange={(val) => handleFieldChange('category_id', val)}
+                                onChange={(val) =>
+                                    handleFieldChange('category_id', val)
+                                }
                                 error={errors.category_id}
                             />
                         </div>
@@ -149,12 +153,16 @@ export default function ClassForm({
                             label="Diskon (%)"
                             type="number"
                             value={formData.discount}
-                            onChange={(val) => handleFieldChange('discount', val)}
+                            onChange={(val) =>
+                                handleFieldChange('discount', val)
+                            }
                             error={errors.discount}
                         />
 
                         <div className="flex items-center justify-between border-t border-[#f0f5f2] pt-4">
-                            <span className="text-sm text-[#5e6a62]">Harga Akhir</span>
+                            <span className="text-sm text-[#5e6a62]">
+                                Harga Akhir
+                            </span>
                             <div className="text-right">
                                 {discountPercent > 0 && (
                                     <span className="mr-2 text-sm text-[#a0b3a9] line-through">

@@ -27,13 +27,14 @@ class StudyController extends Controller
             'currentVideo' => $studyData['current_video'],
             'progressStats' => $studyData['progress_stats'],
             'navigation' => $studyData['navigation'],
+            'certificateStatus' => $studyData['certificate_status'],
         ]);
     }
 
     /**
      * Update video progress (AJAX)
      */
-    public function updateProgress(Request $request, $videoId)
+    public function updateProgress(Request $request, $classId, $videoId)
     {
         $request->validate([
             'last_time_sec' => 'required|integer|min:0',
@@ -50,31 +51,24 @@ class StudyController extends Controller
         ]);
     }
 
-    public function markCompleted($videoId)
+    public function markCompleted($classId, $videoId)
     {
+        try {
         $progress = $this->studyService->markVideoCompleted($videoId);
-
         return response()->json([
             'success' => true,
             'progress' => $progress,
         ]);
-    }
-
-    /**
-     * Mark all videos in class as completed (AJAX)
-     */
-    public function markClassCompleted($classId)
-    {
-        $result = $this->studyService->markClassCompleted($classId);
-
+    } catch (\Throwable $th) {
         return response()->json([
-            'success' => true,
-            'completed_count' => $result['completed_count'],
-            'progress_stats' => $result['progress_stats'],
-        ]);
+            'success' => false,
+            'message' => $th->getMessage(),
+        ], 500);
     }
 
-    public function addNote(Request $request, $videoId)
+    }
+
+    public function addNote(Request $request, $classId, $videoId)
     {
         $request->validate([
             'content' => 'required|string|max:5000',
@@ -132,7 +126,7 @@ class StudyController extends Controller
     /**
      * Start quiz attempt (AJAX)
      */
-    public function startQuiz($quizId)
+    public function startQuiz($classId, $quizId)
     {
         $attempt = $this->studyService->startQuizAttempt($quizId);
 
@@ -145,7 +139,7 @@ class StudyController extends Controller
     /**
      * Submit quiz answers (AJAX)
      */
-    public function submitQuiz(Request $request, $quizId)
+    public function submitQuiz(Request $request, $classId, $quizId)
     {
         $request->validate([
             'answers' => 'required|array',

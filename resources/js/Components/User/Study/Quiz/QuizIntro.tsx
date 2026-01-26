@@ -20,7 +20,8 @@ export default function QuizIntro({
             : null;
 
     const totalPoints =
-        quiz.total_points || quiz.questions.reduce((sum, q) => sum + q.points, 0);
+        quiz.total_points ||
+        quiz.questions.reduce((sum, q) => sum + q.points, 0);
 
     return (
         <div className="shadow-card mx-auto w-full max-w-2xl rounded-2xl border border-slate-100 bg-white p-8">
@@ -41,10 +42,7 @@ export default function QuizIntro({
 
             {/* Stats Grid */}
             <div className="mb-8 grid grid-cols-3 gap-4">
-                <StatCard
-                    value={quiz.questions.length}
-                    label="Pertanyaan"
-                />
+                <StatCard value={quiz.questions.length} label="Pertanyaan" />
                 <StatCard value={totalPoints} label="Total Poin" />
                 <StatCard value="70%" label="Nilai Lulus" />
             </div>
@@ -85,7 +83,9 @@ export default function QuizIntro({
 function StatCard({ value, label }: { value: string | number; label: string }) {
     return (
         <div className="rounded-xl bg-slate-50 p-4 text-center">
-            <div className="mb-1 text-2xl font-bold text-slate-900">{value}</div>
+            <div className="mb-1 text-2xl font-bold text-slate-900">
+                {value}
+            </div>
             <div className="text-sm text-slate-500">{label}</div>
         </div>
     );
@@ -131,7 +131,9 @@ function PreviousAttemptsCard({
                         <span className="font-medium text-slate-700">
                             Nilai Terbaik
                         </span>
-                        <span className="font-bold text-primary">{bestScore}%</span>
+                        <span className="font-bold text-primary">
+                            {bestScore}%
+                        </span>
                     </div>
                 </div>
             )}
@@ -149,7 +151,9 @@ function InstructionsCard() {
             <ul className="space-y-1 text-sm text-amber-700">
                 <li>• Jawab semua pertanyaan dengan memilih satu opsi</li>
                 <li>• Anda dapat berpindah antar pertanyaan dengan bebas</li>
-                <li>• Pastikan semua pertanyaan terjawab sebelum mengumpulkan</li>
+                <li>
+                    • Pastikan semua pertanyaan terjawab sebelum mengumpulkan
+                </li>
                 <li>• Nilai minimal untuk lulus adalah 70%</li>
             </ul>
         </div>

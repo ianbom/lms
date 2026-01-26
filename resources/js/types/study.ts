@@ -46,10 +46,37 @@ export interface ModuleQuizItem {
     id: number;
     title: string;
     questions_count?: number;
+    attempts?: QuizAttempt[];
+}
+
+// Quiz attempt for certificate eligibility check
+export interface QuizAttempt {
+    id: number;
+    user_id: number;
+    quiz_id: number;
+    score: number;
+    passed: boolean;
+    completed_at: string | null;
+    created_at: string;
+}
+
+// Certificate eligibility status
+export interface CertificateStatus {
+    is_eligible: boolean;
+    all_videos_completed: boolean;
+    all_quizzes_passed: boolean;
+    total_videos: number;
+    completed_videos: number;
+    total_quizzes: number;
+    passed_quizzes: number;
+    min_quiz_score: number;
 }
 
 // Extended Module with videos that have progress
-export interface ModuleWithProgress extends Omit<ClassModule, 'videos' | 'quizzes'> {
+export interface ModuleWithProgress extends Omit<
+    ClassModule,
+    'videos' | 'quizzes'
+> {
     videos: VideoWithProgress[];
     quizzes?: ModuleQuizItem[];
 }
@@ -117,6 +144,7 @@ export interface WatchVideoProps {
     currentVideo: CurrentVideoData;
     progressStats: ProgressStats;
     navigation: VideoNavigation;
+    certificateStatus: CertificateStatus;
 }
 
 // Helper function to format seconds to mm:ss or hh:mm:ss
@@ -169,7 +197,9 @@ export const getResourceIcon = (fileType: string): string => {
 };
 
 // Helper to get resource color based on file type
-export const getResourceColor = (fileType: string): { bg: string; text: string } => {
+export const getResourceColor = (
+    fileType: string,
+): { bg: string; text: string } => {
     switch (fileType?.toLowerCase()) {
         case 'pdf':
             return { bg: 'bg-red-100', text: 'text-red-500' };

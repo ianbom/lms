@@ -9,7 +9,7 @@ export default function MentorSection({ mentors }: MentorSectionProps) {
     if (mentors.length === 0) return null;
 
     return (
-        <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-card">
+        <div className="shadow-card rounded-2xl border border-slate-100 bg-white p-6">
             {/* Section Header */}
             <div className="mb-6 flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light">
@@ -20,7 +20,10 @@ export default function MentorSection({ mentors }: MentorSectionProps) {
                         Mentor Kelas
                     </h3>
                     <p className="text-sm text-slate-500">
-                        {mentors.length} mentor {mentors.length > 1 ? 'siap membimbing Anda' : 'membimbing kelas ini'}
+                        {mentors.length} mentor{' '}
+                        {mentors.length > 1
+                            ? 'siap membimbing Anda'
+                            : 'membimbing kelas ini'}
                     </p>
                 </div>
             </div>
@@ -45,7 +48,7 @@ function MentorCard({ mentor }: MentorCardProps) {
             {/* Avatar */}
             <div className="relative mb-4">
                 <div
-                    className="h-20 w-20 rounded-full border-2 border-white bg-cover bg-center bg-slate-200 shadow-md ring-2 ring-primary/10 transition-all group-hover:ring-primary/30"
+                    className="h-20 w-20 rounded-full border-2 border-white bg-slate-200 bg-cover bg-center shadow-md ring-2 ring-primary/10 transition-all group-hover:ring-primary/30"
                     style={{
                         backgroundImage: mentor.avatar_url
                             ? `url('${mentor.avatar_url}')`

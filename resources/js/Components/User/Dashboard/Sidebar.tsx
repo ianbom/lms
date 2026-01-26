@@ -24,17 +24,11 @@ export default function Sidebar({ onClose }: SidebarProps) {
                             <Icon name="close" size={20} />
                         </button>
                     )}
-                    <div className="rounded-xl bg-white/20 p-2 text-white">
-                        <Icon name="school" size={20} />
-                    </div>
-                    <div className="flex flex-col">
-                        <h1 className="text-lg font-bold leading-tight tracking-tight text-white">
-                            ImpactAcademy
-                        </h1>
-                        <span className="text-xs font-medium text-white/70">
-                            Learning Platform
-                        </span>
-                    </div>
+                    <img
+                        src="/ImpactAcademy.png"
+                        alt="ImpactAcademy Logo"
+                        className="h-40 w-auto brightness-0 invert"
+                    />
                 </div>
             </div>
 
@@ -52,7 +46,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="dashboard"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/user/dashboard') ? 'font-bold' : 'font-medium'}`}>
+                    <span
+                        className={`text-sm ${isActive('/user/dashboard') ? 'font-bold' : 'font-medium'}`}
+                    >
                         Dashboard
                     </span>
                 </Link>
@@ -68,7 +64,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="shopping_bag"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/user/myOrder') ? 'font-bold' : 'font-medium'}`}>
+                    <span
+                        className={`text-sm ${isActive('/user/myOrder') ? 'font-bold' : 'font-medium'}`}
+                    >
                         My Orders
                     </span>
                 </Link>
@@ -84,7 +82,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                         name="book_2"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className={`text-sm ${isActive('/user/myClass') || isActive('/user/study') ? 'font-bold' : 'font-medium'}`}>
+                    <span
+                        className={`text-sm ${isActive('/user/myClass') || isActive('/user/study') ? 'font-bold' : 'font-medium'}`}
+                    >
                         My Classes
                     </span>
                 </Link>
@@ -99,14 +99,18 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     <span className="text-sm font-medium">Certificates</span>
                 </Link>
                 <Link
-                    href="#"
+                    href={route('user.profile.edit')}
                     className="group flex items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                 >
                     <Icon
                         name="settings"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className="text-sm font-medium">Settings</span>
+                    <span
+                        className={`text-sm ${isActive('/user/profile') || isActive('/user/profile') ? 'font-bold' : 'font-medium'}`}
+                    >
+                        My Profile
+                    </span>
                 </Link>
                 <Link
                     href="/home"

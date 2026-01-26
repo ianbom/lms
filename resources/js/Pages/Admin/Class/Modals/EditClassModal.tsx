@@ -35,7 +35,9 @@ export default function EditClassModal({
         status: 'draft',
     });
     const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-    const [thumbnailPreview, setThumbnailPreview] = useState<string | undefined>();
+    const [thumbnailPreview, setThumbnailPreview] = useState<
+        string | undefined
+    >();
     const [selectedMentors, setSelectedMentors] = useState<MentorOption[]>([]);
 
     // Reset form when modal opens
@@ -56,7 +58,7 @@ export default function EditClassModal({
                     id: m.id,
                     name: m.name,
                     avatar: m.avatar_url,
-                })) || []
+                })) || [],
             );
             setErrors({});
         }
@@ -139,7 +141,9 @@ export default function EditClassModal({
             <div className="relative z-10 my-8 w-full max-w-5xl rounded-xl bg-slate-100 p-6 shadow-xl">
                 {/* Modal Header */}
                 <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-slate-900">Edit Kelas</h2>
+                    <h2 className="text-xl font-bold text-slate-900">
+                        Edit Kelas
+                    </h2>
                     <button
                         onClick={onClose}
                         className="rounded-md p-2 text-slate-400 hover:bg-slate-200 hover:text-slate-600"

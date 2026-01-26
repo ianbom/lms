@@ -49,16 +49,19 @@ export default function QuizQuestion({
         if (optionId === answerResult.correctOptionId) {
             return 'correct';
         }
-        if (optionId === answerResult.selectedOptionId && !answerResult.isCorrect) {
+        if (
+            optionId === answerResult.selectedOptionId &&
+            !answerResult.isCorrect
+        ) {
             return 'incorrect';
         }
         return null;
     };
 
     return (
-        <div className="flex min-h-[600px] flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card">
+        <div className="shadow-card flex min-h-[600px] flex-col overflow-hidden rounded-xl border border-slate-200 bg-white">
             {/* Card Header */}
-            <div className="px-6 pb-4 pt-8 bg-pri">
+            <div className="bg-pri px-6 pb-4 pt-8">
                 <div className="mb-4 flex items-start justify-between">
                     <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
                         Soal {questionIndex + 1} dari {totalQuestions}
@@ -72,7 +75,9 @@ export default function QuizQuestion({
                 </div>
                 <h2
                     className="text-xl font-bold leading-tight text-slate-900 md:text-2xl"
-                    dangerouslySetInnerHTML={{ __html: formatQuestion(question.question) }}
+                    dangerouslySetInnerHTML={{
+                        __html: formatQuestion(question.question),
+                    }}
                 />
             </div>
 
@@ -179,7 +184,10 @@ function OptionButton({
     };
 
     return (
-        <label className={getOptionClasses()} onClick={!isReviewing ? onSelect : undefined}>
+        <label
+            className={getOptionClasses()}
+            onClick={!isReviewing ? onSelect : undefined}
+        >
             <div className="relative mt-0.5 flex flex-shrink-0 items-center justify-center">
                 <input
                     type="radio"
@@ -234,7 +242,6 @@ function QuestionFooter({
     return (
         <div className="mt-auto border-t border-slate-100 bg-slate-50/50 px-6 py-6">
             <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
-
                 {/* Right: Navigation */}
                 <div className="flex w-full items-center gap-3 sm:w-auto">
                     <button

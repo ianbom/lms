@@ -1,5 +1,6 @@
 import Icon from '@/Components/Icon';
 import {
+    CertificateStatus,
     formatTime,
     ProgressStats,
     StudyClassData,
@@ -12,6 +13,7 @@ interface CurriculumSidebarProps {
     currentVideoId: number;
     progressStats: ProgressStats;
     onVideoSelect: (videoId: number) => void;
+    certificateStatus?: CertificateStatus;
 }
 
 export default function CurriculumSidebar({
@@ -19,6 +21,7 @@ export default function CurriculumSidebar({
     currentVideoId,
     progressStats,
     onVideoSelect,
+    certificateStatus,
 }: CurriculumSidebarProps) {
     // Find next video for preview section
     const findNextVideo = (): {
@@ -56,10 +59,21 @@ export default function CurriculumSidebar({
         router.visit(`/user/study/${classData.id}/quiz/${quizId}`);
     };
 
+    // Navigate to claim certificate page
+    const handleClaimCertificate = () => {
+        router.visit(`/user/certificate/claim/${classData.id}`);
+    };
+
+    // Check if quiz is passed (score >= 80)
+    const isQuizPassed = (quiz: any): boolean => {
+        const attempt = quiz.attempts?.[0];
+        return attempt && attempt.score >= 80;
+    };
+
     return (
-        <aside className="z-20 flex h-full w-full shrink-0 flex-col border-l border-slate-200 bg-white lg:mt-6 lg:w-[340px]">
+        <aside className="z-20 flex h-full w-full shrink-0 flex-col border-l border-slate-200 bg-white lg:w-[340px]">
             {/* Progress Header */}
-            <div className="border-b border-slate-100 bg-white p-4 pt-14 sm:p-6 lg:pt-6">
+            <div className="border-b border-slate-100 bg-white p-4 pt-6 sm:p-6">
                 <h3 className="mb-1 text-lg font-bold text-slate-900">
                     Kurikulum Kelas
                 </h3>
@@ -68,7 +82,8 @@ export default function CurriculumSidebar({
                         {progressStats.progress_percent}% Selesai
                     </span>
                     <span className="font-bold text-primary">
-                        {progressStats.completed_videos}/{progressStats.total_videos}
+                        {progressStats.completed_videos}/
+                        {progressStats.total_videos}
                     </span>
                 </div>
                 <div className="h-2.5 w-full rounded-full bg-slate-100">
@@ -182,36 +197,174 @@ export default function CurriculumSidebar({
                             })}
 
                             {/* Show quizzes in module if any */}
-                            {module.quizzes?.map((quiz) => (
-                                <button
-                                    key={`quiz-${quiz.id}`}
-                                    onClick={() => navigateToQuiz(quiz.id)}
-                                    className="group flex w-full items-start gap-3 rounded-xl p-3 text-left transition-colors hover:bg-amber-50"
-                                >
-                                    <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-amber-400 text-amber-400">
-                                        <Icon
-                                            name="quiz"
-                                            size={10}
-                                            className="font-bold"
-                                        />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h5 className="text-sm font-medium text-slate-600 transition-colors group-hover:text-amber-600">
-                                            {quiz.title}
-                                        </h5>
-                                        <span className="mt-1 block text-xs text-slate-400">
-                                            {quiz.questions_count || 0} Pertanyaan
-                                        </span>
-                                    </div>
-                                </button>
-                            ))}
+                            {module.quizzes?.map((quiz) => {
+                                const passed = isQuizPassed(quiz);
+                                const attempted =
+                                    quiz.attempts && quiz.attempts.length > 0;
+                                const score = quiz.attempts?.[0]?.score;
+
+                                return (
+                                    <button
+                                        key={`quiz-${quiz.id}`}
+                                        onClick={() => navigateToQuiz(quiz.id)}
+                                        className={`group flex w-full items-start gap-3 rounded-xl p-3 text-left transition-colors ${
+                                            passed
+                                                ? 'hover:bg-green-50'
+                                                : attempted
+                                                  ? 'hover:bg-red-50'
+                                                  : 'hover:bg-amber-50'
+                                        }`}
+                                    >
+                                        <div
+                                            className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                                                passed
+                                                    ? 'bg-green-500 text-white'
+                                                    : attempted
+                                                      ? 'border-2 border-red-400 bg-red-100 text-red-400'
+                                                      : 'border-2 border-amber-400 text-amber-400'
+                                            }`}
+                                        >
+                                            <Icon
+                                                name={passed ? 'check' : 'quiz'}
+                                                size={passed ? 14 : 10}
+                                                className="font-bold"
+                                            />
+                                        </div>
+                                        <div className="flex-1">
+                                            <h5
+                                                className={`text-sm font-medium transition-colors ${
+                                                    passed
+                                                        ? 'text-green-600'
+                                                        : attempted
+                                                          ? 'text-red-600 group-hover:text-red-700'
+                                                          : 'text-slate-600 group-hover:text-amber-600'
+                                                }`}
+                                            >
+                                                {quiz.title}
+                                            </h5>
+                                            <div className="mt-1 flex items-center gap-2">
+                                                <span className="text-xs text-slate-400">
+                                                    {quiz.questions_count || 0}{' '}
+                                                    Pertanyaan
+                                                </span>
+                                                {attempted && (
+                                                    <span
+                                                        className={`text-xs font-medium ${
+                                                            passed
+                                                                ? 'text-green-500'
+                                                                : 'text-red-500'
+                                                        }`}
+                                                    >
+                                                        • Nilai: {score}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </button>
+                                );
+                            })}
                         </div>
                     </div>
                 ))}
             </div>
 
+            {/* Certificate Claim Button */}
+            {certificateStatus?.is_eligible && (
+                <div className="border-t border-slate-100 bg-gradient-to-r from-amber-50 to-yellow-50 p-4">
+                    <div className="mb-3 flex items-center gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100">
+                            <Icon
+                                name="emoji_events"
+                                size={18}
+                                className="text-amber-600"
+                            />
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold text-slate-800">
+                                Selamat! 🎉
+                            </p>
+                            <p className="text-xs text-slate-500">
+                                Anda telah menyelesaikan kelas ini
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        onClick={handleClaimCertificate}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition-all hover:from-amber-600 hover:to-yellow-600 hover:shadow-amber-500/40"
+                    >
+                        <Icon name="workspace_premium" size={20} />
+                        Klaim Sertifikat
+                    </button>
+                </div>
+            )}
+
+            {/* Progress Status (if not eligible) */}
+            {certificateStatus && !certificateStatus.is_eligible && (
+                <div className="border-t border-slate-100 bg-slate-50 p-4">
+                    <p className="mb-2 text-xs font-bold uppercase text-slate-400">
+                        Syarat Sertifikat
+                    </p>
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm">
+                            <Icon
+                                name={
+                                    certificateStatus.all_videos_completed
+                                        ? 'check_circle'
+                                        : 'radio_button_unchecked'
+                                }
+                                size={16}
+                                className={
+                                    certificateStatus.all_videos_completed
+                                        ? 'text-green-500'
+                                        : 'text-slate-300'
+                                }
+                            />
+                            <span
+                                className={
+                                    certificateStatus.all_videos_completed
+                                        ? 'text-green-600'
+                                        : 'text-slate-500'
+                                }
+                            >
+                                Video: {certificateStatus.completed_videos}/
+                                {certificateStatus.total_videos}
+                            </span>
+                        </div>
+                        {certificateStatus.total_quizzes > 0 && (
+                            <div className="flex items-center gap-2 text-sm">
+                                <Icon
+                                    name={
+                                        certificateStatus.all_quizzes_passed
+                                            ? 'check_circle'
+                                            : 'radio_button_unchecked'
+                                    }
+                                    size={16}
+                                    className={
+                                        certificateStatus.all_quizzes_passed
+                                            ? 'text-green-500'
+                                            : 'text-slate-300'
+                                    }
+                                />
+                                <span
+                                    className={
+                                        certificateStatus.all_quizzes_passed
+                                            ? 'text-green-600'
+                                            : 'text-slate-500'
+                                    }
+                                >
+                                    Quiz lulus (min{' '}
+                                    {certificateStatus.min_quiz_score}):{' '}
+                                    {certificateStatus.passed_quizzes}/
+                                    {certificateStatus.total_quizzes}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
             {/* Next Lesson Preview (Sticky Bottom) */}
-            {nextVideo && (
+            {/* {nextVideo && (
                 <div className="border-t border-slate-100 bg-slate-50 p-4">
                     <span className="mb-1 block text-xs font-bold uppercase text-slate-400">
                         Selanjutnya
@@ -237,7 +390,7 @@ export default function CurriculumSidebar({
                         </div>
                     </button>
                 </div>
-            )}
+            )} */}
         </aside>
     );
 }

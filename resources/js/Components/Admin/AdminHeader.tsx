@@ -1,7 +1,5 @@
-import Icon from '@/Components/Icon';
 import { BreadcrumbItem } from '@/types/admin';
 import { Link } from '@inertiajs/react';
-import SearchInput from './SearchInput';
 
 interface AdminHeaderProps {
     breadcrumbs: BreadcrumbItem[];
