@@ -44,7 +44,7 @@ export default function DataTable<T>({
                         {columns.map((col) => (
                             <th
                                 key={col.key}
-                                className={`px-6 py-4 font-semibold ${col.headerClassName || ''}`}
+                                className={`whitespace-nowrap px-6 py-4 font-semibold ${col.headerClassName || ''}`}
                             >
                                 {col.header}
                             </th>

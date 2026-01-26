@@ -95,7 +95,7 @@ export default function MyOrder({ orders, stats, filters }: Props) {
                 key: 'id',
                 header: 'Order ID',
                 render: (order: Order) => (
-                    <span className="text-sm font-medium text-slate-900">
+                    <span className="whitespace-nowrap text-sm font-medium text-slate-900">
                         #ORD-{order.id}
                     </span>
                 ),

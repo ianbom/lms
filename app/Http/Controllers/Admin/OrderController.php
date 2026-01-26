@@ -21,8 +21,6 @@ class OrderController extends Controller
         $orders = $this->orderService->getAllOrders($filters);
         $stats = $this->orderService->getOrderStats();
 
-        // return response()->json($orders);
-
         return Inertia::render('Admin/Order/ListOrder', [
             'orders' => $orders,
             'stats' => $stats,

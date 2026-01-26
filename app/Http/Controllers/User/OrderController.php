@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateOrderRequest;
+use App\Models\ClassOrder;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +22,7 @@ class OrderController extends Controller
     public function orderClass($classId, CreateOrderRequest $request)
     {
         $userId = Auth::id();
-
-        // Check BEFORE creating order
+        
         $pendingOrder = $this->orderService->checkPendingOrder($classId, $userId);
         $ownedClass = $this->orderService->checkOwnedClass($classId, $userId);
 
@@ -45,17 +45,22 @@ class OrderController extends Controller
                 $request->file('proof_file')
             );
 
-            return redirect()->route('user.order.success')
-                ->with('orderNumber', 'ORD-' . str_pad($order->id, 8, '0', STR_PAD_LEFT));
+            return redirect()->route('user.order.success', ['order' => $order->id]);
         } catch (\Throwable $th) {
             return redirect()->back()->withErrors(['order' => $th->getMessage()]);
         }
     }
 
-    public function orderSuccessPage()
+    public function orderSuccessPage(Request $request)
     {
+        $orderId = $request->query('order');
+        $order = ClassOrder::with(['class', 'user'])
+            ->where('id', $orderId)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
         return Inertia::render('User/Order/Success', [
-            'orderNumber' => session('orderNumber', 'ORD-00000000'),
+            'order' => $order,
         ]);
     }
 }
