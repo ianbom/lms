@@ -30,10 +30,21 @@ class MentorController extends Controller
             $data = $request->validated();
             $avatar = $request->file('avatar');
             $this->mentorService->storeMentor($data, $avatar);
-            return redirect()->route('admin.mentors')->with('success', 'Mentor created successfully');
+            return redirect()->route('admin.mentors')->with('success', 'Mentor berhasil ditambahkan');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Terjadi kesalahan');
         }
         
+    }
+
+    public function updateMentor(CreateMentorRequest $request, $id){ 
+        try {
+            $data = $request->validated();
+            $avatar = $request->file('avatar');
+            $this->mentorService->updateMentor($id, $data, $avatar);
+            return redirect()->route('admin.mentors')->with('success', 'Mentor updated successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
+        }
     }
 }

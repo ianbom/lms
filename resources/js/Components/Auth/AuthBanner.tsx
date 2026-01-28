@@ -24,7 +24,7 @@ export default function AuthBanner() {
                     <div className="inline-flex items-center gap-2 text-white/90">
                         <Icon name="school" className="text-3xl" />
                         <span className="text-lg font-semibold uppercase tracking-wide opacity-90">
-                            EduPro
+                            ImpactAcademy
                         </span>
                     </div>
                 </div>
@@ -68,7 +68,7 @@ export default function AuthBanner() {
                     </div>
                 </div>
                 <div className="mt-auto flex items-center justify-between pb-12 text-xs font-medium uppercase tracking-wider text-white/40">
-                    <span>© 2024 EduPro Inc.</span>
+                    <span>© 2024 ImpactAcademy Inc.</span>
                     <span className="flex gap-4">
                         <a
                             href="#"

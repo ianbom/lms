@@ -4,6 +4,9 @@ export interface User {
     email: string;
     email_verified_at?: string;
     avatar?: string;
+    phone?: string;
+    company?: string;
+    position?: string;
 }
 
 export interface FlashProps {

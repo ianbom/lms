@@ -31,7 +31,7 @@ export default function LoginForm({
                 <div className="mb-8 flex items-center gap-2 lg:hidden">
                     <Icon name="school" className="text-3xl text-primary" />
                     <span className="text-xl font-bold text-gray-900">
-                        EduPro
+                        ImpactAcademy
                     </span>
                 </div>
                 <div className="space-y-2 text-left">

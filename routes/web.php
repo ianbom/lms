@@ -13,6 +13,7 @@ use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Controllers\User\CertificateController;
+use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\User\StudyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +88,7 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
            Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
            Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
+           Route::patch('/profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
            Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
 
            Route::get('/certificates', [CertificateController::class, 'listCertificatePage'])->name('certificates');
@@ -127,6 +129,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/mentors', [MentorController::class, 'listMentorPage'])->name('mentors');
         Route::get('/mentors/create', [MentorController::class, 'createMentorPage'])->name('mentors.create');
         Route::post('/mentors', [MentorController::class, 'storeMentor'])->name('mentors.store');
+        Route::put('/mentors/{mentor}', [MentorController::class, 'updateMentor'])->name('mentors.update');
 
         Route::get('/categories', [CategoryController::class, 'listCategoryPage'])->name('categories');
         Route::get('/categories/create', [CategoryController::class, 'createCategoryPage'])->name('categories.create');

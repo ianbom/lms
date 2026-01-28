@@ -25,9 +25,9 @@ export default function TCSidebar() {
                             <a
                                 href="#general"
                                 onClick={(e) => scrollToSection(e, 'general')}
-                                className="group flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-sm font-medium text-primary transition-all"
+                                className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
                             >
-                                <Icon name="info" className="text-[20px]" />
+                                <Icon name="info" className="text-[20px] text-gray-400 transition-colors group-hover:text-primary" />
                                 A. Ketentuan Umum
                             </a>
                         </li>

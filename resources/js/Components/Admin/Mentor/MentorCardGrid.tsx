@@ -4,11 +4,13 @@ import MentorCard from './MentorCard';
 interface MentorCardGridProps {
     mentors: Mentor[];
     onMentorClick?: (mentor: Mentor) => void;
+    onMentorEdit?: (mentor: Mentor) => void;
 }
 
 export default function MentorCardGrid({
     mentors,
     onMentorClick,
+    onMentorEdit,
 }: MentorCardGridProps) {
     if (mentors.length === 0) {
         return (
@@ -35,6 +37,7 @@ export default function MentorCardGrid({
                     key={mentor.id}
                     mentor={mentor}
                     onClick={onMentorClick}
+                    onEdit={onMentorEdit}
                 />
             ))}
         </div>
