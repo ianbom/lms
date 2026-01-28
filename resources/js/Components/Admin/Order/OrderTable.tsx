@@ -73,8 +73,6 @@ const FILTER_OPTIONS = [
     { value: 'pending', label: 'Pending' },
     { value: 'approved', label: 'Approved' },
     { value: 'rejected', label: 'Rejected' },
-
-
 ];
 
 export default function OrderTable({
@@ -91,7 +89,7 @@ export default function OrderTable({
 
     const openConfirmModal = (
         orderId: number,
-        action: 'approve' |  'reject',
+        action: 'approve' | 'reject',
     ) => {
         setConfirmModal({ isOpen: true, orderId, action });
     };
@@ -146,8 +144,8 @@ export default function OrderTable({
                             style={
                                 order.user.avatar
                                     ? {
-                                        backgroundImage: `url('${order.user.avatar}')`,
-                                    }
+                                          backgroundImage: `url('${order.user.avatar}')`,
+                                      }
                                     : {}
                             }
                         >
@@ -190,12 +188,13 @@ export default function OrderTable({
                 header: 'Status',
                 render: (order: Order) => (
                     <span
-                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${order.status === 'pending'
+                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${
+                            order.status === 'pending'
                                 ? 'bg-orange-50 text-orange-700 ring-orange-600/20'
                                 : order.status === 'approved'
-                                    ? 'bg-green-50 text-green-700 ring-green-600/20'
-                                    : 'bg-red-50 text-red-700 ring-red-600/20'
-                            }`}
+                                  ? 'bg-green-50 text-green-700 ring-green-600/20'
+                                  : 'bg-red-50 text-red-700 ring-red-600/20'
+                        }`}
                     >
                         {order.status.charAt(0).toUpperCase() +
                             order.status.slice(1)}
@@ -229,10 +228,11 @@ export default function OrderTable({
                         href={order.proof_url}
                         target="_blank"
                         rel="noreferrer"
-                        className={`inline-flex justify-center transition-colors ${!order.proof_url
+                        className={`inline-flex justify-center transition-colors ${
+                            !order.proof_url
                                 ? 'cursor-not-allowed text-slate-300'
                                 : 'text-slate-400 hover:text-primary'
-                            }`}
+                        }`}
                     >
                         <Icon name="receipt_long" />
                     </a>
@@ -356,10 +356,11 @@ export default function OrderTable({
                         <div className="flex flex-col items-center gap-4 text-center">
                             {/* Icon */}
                             <div
-                                className={`flex h-14 w-14 items-center justify-center rounded-full ${confirmModal.action === 'approve'
+                                className={`flex h-14 w-14 items-center justify-center rounded-full ${
+                                    confirmModal.action === 'approve'
                                         ? 'bg-green-100 text-green-600'
                                         : 'bg-red-100 text-red-600'
-                                    }`}
+                                }`}
                             >
                                 <Icon
                                     name={
@@ -395,16 +396,17 @@ export default function OrderTable({
                                 <button
                                     onClick={handleConfirmAction}
                                     disabled={processing}
-                                    className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors disabled:opacity-50 ${confirmModal.action === 'approve'
+                                    className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors disabled:opacity-50 ${
+                                        confirmModal.action === 'approve'
                                             ? 'bg-green-600 hover:bg-green-700'
                                             : 'bg-red-600 hover:bg-red-700'
-                                        }`}
+                                    }`}
                                 >
                                     {processing
                                         ? 'Memproses...'
                                         : confirmModal.action === 'approve'
-                                            ? 'Ya, Setujui'
-                                            : 'Ya, Tolak'}
+                                          ? 'Ya, Setujui'
+                                          : 'Ya, Tolak'}
                                 </button>
                             </div>
                         </div>

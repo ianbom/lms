@@ -3,7 +3,6 @@ import {
     QuizIntro,
     QuizQuestion,
     QuizResultCard,
-    
 } from '@/Components/User/Study/Quiz';
 import QuizSidebar from '@/Components/User/Study/QuizSidebar';
 import { useQuiz } from '@/hooks/useQuiz';
@@ -110,9 +109,9 @@ export default function TakeQuiz({
                         backToVideoUrl={
                             firstVideoId
                                 ? route('user.study.watch', {
-                                    classId: classData.id,
-                                    videoId: firstVideoId,
-                                })
+                                      classId: classData.id,
+                                      videoId: firstVideoId,
+                                  })
                                 : undefined
                         }
                     />

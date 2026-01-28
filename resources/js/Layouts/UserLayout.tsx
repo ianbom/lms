@@ -34,6 +34,26 @@ export default function UserLayout({
             href: route('user.classes'),
             active: route().current('user.classes*'),
         },
+        {
+            label: 'FAQ',
+            href: route('faq'),
+            active: route().current('faq'),
+        },
+        {
+            label: 'Kontak',
+            href: route('contact'),
+            active: route().current('contact'),
+        },
+        {
+            label: 'Privacy Policy',
+            href: route('privacy'),
+            active: route().current('privacy'),
+        },
+        {
+            label: 'Terms of Service',
+            href: route('terms'),
+            active: route().current('terms'),
+        },
     ];
 
     const navigation = navItems ?? defaultNavItems;
@@ -185,22 +205,28 @@ export default function UserLayout({
                         </p>
                         <div className="flex gap-6">
                             <Link
-                                href="#"
+                                href={route('privacy')}
                                 className="text-sm text-gray-500 transition-colors hover:text-primary"
                             >
                                 Privacy Policy
                             </Link>
                             <Link
-                                href="#"
+                                href={route('terms')}
                                 className="text-sm text-gray-500 transition-colors hover:text-primary"
                             >
                                 Terms of Service
                             </Link>
                             <Link
-                                href="#"
+                                href={route('faq')}
                                 className="text-sm text-gray-500 transition-colors hover:text-primary"
                             >
                                 Help Center
+                            </Link>
+                            <Link
+                                href={route('contact')}
+                                className="text-sm text-gray-500 transition-colors hover:text-primary"
+                            >
+                                Contact Us
                             </Link>
                         </div>
                     </div>

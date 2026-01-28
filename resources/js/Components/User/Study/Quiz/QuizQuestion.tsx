@@ -197,7 +197,7 @@ function OptionButton({
                     type="radio"
                     name="answer"
                     checked={isSelected}
-                    onChange={() => { }}
+                    onChange={() => {}}
                     className="peer sr-only"
                     disabled={isReviewing}
                 />

@@ -86,7 +86,7 @@ export default function CurriculumSidebar({
                         {progressStats.total_videos}
                     </span>
                 </div>
-                <div className="h-2.5 w-full rounded-full bg-slate-100 ">
+                <div className="h-2.5 w-full rounded-full bg-slate-100">
                     <div
                         className="h-2.5 rounded-full bg-primary transition-all duration-300"
                         style={{ width: `${progressStats.progress_percent}%` }}
@@ -95,7 +95,7 @@ export default function CurriculumSidebar({
             </div>
 
             {/* Scrollable Lesson List */}
-            <div className="custom-scrollbar flex-1 space-y-6 overflow-y-auto p-4 ">
+            <div className="custom-scrollbar flex-1 space-y-6 overflow-y-auto p-4">
                 {classData.modules.map((module, moduleIndex) => (
                     <div key={module.id}>
                         <h4 className="mb-3 px-2 text-xs font-bold uppercase tracking-wider text-slate-400">

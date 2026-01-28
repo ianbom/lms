@@ -35,6 +35,22 @@ Route::get('/home', function () {
             return Inertia::render('User/Home/Home');
         })->name('home');
 
+Route::get('/privacy-policy', function () {
+    return Inertia::render('Privacy');
+})->name('privacy');
+
+Route::get('/faq', function () {
+    return Inertia::render('FAQ');
+})->name('faq');
+
+Route::get('/terms-and-conditions', function () {
+    return Inertia::render('TermCondition');
+})->name('terms');
+
+Route::get('/contact-us', function () {
+    return Inertia::render('ContactUs');
+})->name('contact');
+
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
