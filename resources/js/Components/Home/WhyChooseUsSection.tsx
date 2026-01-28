@@ -13,40 +13,38 @@ interface WhyChooseUsSectionProps {
     features?: Feature[];
 }
 
-const defaultBenefits: string[] = [
-    'Akses selamanya ke materi kelas',
-    'Konsultasi karir gratis',
-];
+const defaultBenefits: string[] = [];
 
 const defaultFeatures: Feature[] = [
     {
-        icon: 'school',
-        title: 'Learning Path Jelas',
+        icon: 'work',
+        title: 'Kurikulum Praktis Berbasis Kebutuhan Industri',
         description:
-            'Kurikulum disusun sistematis dari level pemula hingga mahir.',
+            'Disusun langsung oleh praktisi agar skill yang Anda pelajari siap diterapkan di dunia kerja.',
     },
     {
-        icon: 'folder_shared',
-        title: 'Real Portfolio',
+        icon: 'update',
+        title: 'Akses Materi Fleksibel Kapan Saja',
         description:
-            'Kerjakan proyek nyata yang bisa kamu pamerkan saat melamar kerja.',
-    },
-    {
-        icon: 'people_alt',
-        title: 'Expert Mentor',
-        description: 'Belajar dan tanya jawab langsung dengan praktisi senior.',
+            'Belajar tanpa batas waktu, ulang materi sesuai ritme Anda.',
     },
     {
         icon: 'verified',
-        title: 'Sertifikat Resmi',
+        title: 'Sertifikasi Resmi Penunjang Karier',
         description:
-            'Validasi kemampuanmu dengan sertifikat kelulusan yang diakui.',
+            'Tingkatkan kredibilitas profesional dengan sertifikat yang diakui industri.',
+    },
+    {
+        icon: 'groups',
+        title: 'Komunitas Eksklusif untuk Networking & Kolaborasi',
+        description:
+            'Terhubung dengan sesama profesional, mentor, dan pelaku dampak sosial.',
     },
 ];
 
 export default function WhyChooseUsSection({
-    title = 'Investasi Terbaik untuk Masa Depan Karirmu',
-    description = 'Kami tidak hanya memberikan materi, tapi juga membimbingmu membangun portofolio yang meyakinkan para recruiter. Metode belajar yang adaptif sesuai kebutuhan industri saat ini.',
+    title = 'Kenapa Impact Academy Jadi Pilihan Profesional untuk Upgrade Skill?',
+    description = 'Platform pembelajaran digital dengan sistem terstruktur, mentor praktisi, dan sertifikasi terpercaya untuk membantu Anda berkembang lebih cepat dan lebih berdampak.',
     benefits = defaultBenefits,
     features = defaultFeatures,
 }: WhyChooseUsSectionProps) {

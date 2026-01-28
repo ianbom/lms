@@ -23,66 +23,85 @@ export default function TCSidebar() {
                     <ul className="flex flex-col space-y-1">
                         <li>
                             <a
-                                href="#intro"
-                                onClick={(e) => scrollToSection(e, 'intro')}
+                                href="#general"
+                                onClick={(e) => scrollToSection(e, 'general')}
                                 className="group flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-sm font-medium text-primary transition-all"
                             >
                                 <Icon name="info" className="text-[20px]" />
-                                Pendahuluan
+                                A. Ketentuan Umum
                             </a>
                         </li>
                         <li>
                             <a
-                                href="#definitions"
+                                href="#responsibilities"
                                 onClick={(e) =>
-                                    scrollToSection(e, 'definitions')
+                                    scrollToSection(e, 'responsibilities')
                                 }
-                                className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
-                            >
-                                <Icon
-                                    name="menu_book"
-                                    className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
-                                />
-                                Definisi
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#account"
-                                onClick={(e) => scrollToSection(e, 'account')}
                                 className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
                             >
                                 <Icon
                                     name="person"
                                     className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
                                 />
-                                Akun Pengguna
+                                B. Tanggung Jawab Pengguna
                             </a>
                         </li>
                         <li>
                             <a
-                                href="#payment"
-                                onClick={(e) => scrollToSection(e, 'payment')}
+                                href="#violations"
+                                onClick={(e) =>
+                                    scrollToSection(e, 'violations')
+                                }
+                                className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
+                            >
+                                <Icon
+                                    name="warning"
+                                    className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
+                                />
+                                C. Pelanggaran dan Sanksi
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#payments"
+                                onClick={(e) => scrollToSection(e, 'payments')}
                                 className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
                             >
                                 <Icon
                                     name="payments"
                                     className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
                                 />
-                                Pembayaran & Langganan
+                                D. Pemesanan & Pembayaran
                             </a>
                         </li>
                         <li>
                             <a
-                                href="#ip"
-                                onClick={(e) => scrollToSection(e, 'ip')}
+                                href="#intellectual-property"
+                                onClick={(e) =>
+                                    scrollToSection(e, 'intellectual-property')
+                                }
                                 className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
                             >
                                 <Icon
                                     name="copyright"
                                     className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
                                 />
-                                Hak Kekayaan Intelektual
+                                E. Hak Kekayaan Intelektual
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#third-party"
+                                onClick={(e) =>
+                                    scrollToSection(e, 'third-party')
+                                }
+                                className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
+                            >
+                                <Icon
+                                    name="link"
+                                    className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
+                                />
+                                F. Tautan Pihak Ketiga
                             </a>
                         </li>
                         <li>
@@ -95,7 +114,33 @@ export default function TCSidebar() {
                                     name="gavel"
                                     className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
                                 />
-                                Batasan Tanggung Jawab
+                                G. Batasan Tanggung Jawab
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#law"
+                                onClick={(e) => scrollToSection(e, 'law')}
+                                className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
+                            >
+                                <Icon
+                                    name="account_balance"
+                                    className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
+                                />
+                                H. Hukum yang Berlaku
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#contact"
+                                onClick={(e) => scrollToSection(e, 'contact')}
+                                className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-primary"
+                            >
+                                <Icon
+                                    name="contact_support"
+                                    className="text-[20px] text-gray-400 transition-colors group-hover:text-primary"
+                                />
+                                I. Hubungi Kami
                             </a>
                         </li>
                     </ul>

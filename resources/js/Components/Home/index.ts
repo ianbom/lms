@@ -1,3 +1,4 @@
+export { default as AboutSection } from './AboutSection';
 export { default as CommunitySection } from './CommunitySection';
 export { default as CourseCard } from './CourseCard';
 export { default as CoursesSection } from './CoursesSection';

@@ -1,6 +1,6 @@
-import Icon from '@/Components/Icon';
 import { Link } from '@inertiajs/react';
 import { ReactNode } from 'react';
+import Icon from '../Icon';
 
 interface HeroButton {
     text: string;
@@ -132,12 +132,6 @@ export default function HeroSection({
 
                             {/* Rating */}
                             <div className="flex items-center gap-2">
-                                <Icon
-                                    name="star"
-                                    size={24}
-                                    className="text-yellow-400"
-                                    filled
-                                />
                                 <div className="text-left">
                                     <p className="font-bold text-white">
                                         {rating}/5

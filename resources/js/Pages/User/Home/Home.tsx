@@ -1,4 +1,5 @@
 import {
+    AboutSection,
     CoursesSection,
     CTASection,
     FAQSection,
@@ -140,7 +141,7 @@ export default function Home() {
         },
         {
             question: 'Berapa lama akses kelas saya aktif?',
-            answer: 'Setelah mendaftar, Anda mendapatkan akses selamanya ke materi kelas yang telah dibeli. Anda bisa belajar sesuai kecepatan Anda sendiri tanpa batas waktu.',
+            answer: 'Ya, Anda akan mendapatkan akses selamanya ke materi kelas yang telah dibeli. Anda bisa belajar sesuai kecepatan Anda sendiri tanpa batas waktu.',
         },
         {
             question:
@@ -163,14 +164,14 @@ export default function Home() {
                     badge="🚀 Diskon 50% untuk Kelas Baru!"
                     title={
                         <>
-                            Tingkatkan Skill Anda
+                            Belajar Berdampak
                             <br />
                             <span className="text-primary">
-                                Bersama Mentor Terbaik
+                                Tumbuh Bersama Impact Academy
                             </span>
                         </>
                     }
-                    description="Platform pembelajaran online dengan kurikulum terstruktur, mentor berpengalaman, dan sertifikasi yang diakui industri."
+                    description="Kurikulum terstruktur, mentor praktisi berpengalaman, sertifikasi untuk membangun kompetensi yang relevan dan menciptakan dampak sosial berkelanjutan."
                     buttons={[
                         {
                             text: 'Mulai Belajar',
@@ -192,6 +193,9 @@ export default function Home() {
                     userCount="10,000+"
                     rating={4.9}
                 />
+
+                {/* About Section */}
+                <AboutSection />
 
                 {/* Courses Section */}
                 <div id="courses">
