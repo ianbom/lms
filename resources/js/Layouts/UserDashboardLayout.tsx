@@ -1,6 +1,9 @@
 import Icon from '@/Components/Icon';
+import Toast from '@/Components/Toast';
 import Sidebar from '@/Components/User/Dashboard/Sidebar';
-import { PropsWithChildren, ReactNode, useState } from 'react';
+import { PropsWithChildren, ReactNode, useState, useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
+import { PageProps } from '@/types';
 
 interface UserDashboardLayoutProps extends PropsWithChildren {
     rightSidebar?: ReactNode;
@@ -10,11 +13,32 @@ export default function UserDashboardLayout({
     children,
     rightSidebar,
 }: UserDashboardLayoutProps) {
+    const { flash } = usePage<PageProps>().props;
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
+    const [toast, setToast] = useState<{
+        message: string;
+        type: 'success' | 'error';
+    } | null>(null);
+
+    useEffect(() => {
+        if (flash?.success) {
+            setToast({ message: flash.success, type: 'success' });
+        } else if (flash?.error) {
+            setToast({ message: flash.error, type: 'error' });
+        }
+    }, [flash]);
 
     return (
         <div className="flex h-screen overflow-hidden bg-background-light font-sans text-slate-900">
+            {/* Global Toast */}
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast(null)}
+                />
+            )} 
             {/* Mobile Overlay */}
             {(sidebarOpen || rightSidebarOpen) && (
                 <div

@@ -1,10 +1,8 @@
 import { PageHeader } from '@/Components/Admin';
-import FormCard from '@/Components/Admin/FormCard';
-import FormInput from '@/Components/Admin/FormInput';
-import ImageUpload from '@/Components/Admin/ImageUpload';
 import { MentorCardGrid, MentorSearchBar } from '@/Components/Admin/Mentor';
-import MentorForm, { MentorFormData } from '@/Components/Admin/Mentor/MentorForm';
-import RichTextEditor from '@/Components/Admin/RichTextEditor';
+import MentorForm, {
+    MentorFormData,
+} from '@/Components/Admin/Mentor/MentorForm';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Mentor } from '@/types/admin';
@@ -18,6 +16,8 @@ interface BackendMentor {
     headline: string;
     bio: string;
     avatar_url?: string;
+    classes_count?: number;
+    students_count?: number;
 }
 
 interface ListMentorProps {
@@ -51,8 +51,8 @@ export default function ListMentor({ mentors }: ListMentorProps) {
             avatarUrl: item.avatar_url,
             isOnline: false, // Default
             stats: {
-                classes: 0, // Default
-                activeStudents: 0, // Default
+                classes: item.classes_count || 0,
+                activeStudents: item.students_count || 0,
                 rating: 0, // Default
             },
         }));
@@ -100,13 +100,6 @@ export default function ListMentor({ mentors }: ListMentorProps) {
                 handleCloseModal();
             },
         });
-    };
-
-    const getAvatarPreview = () => {
-        if (data.avatar instanceof File) {
-            return URL.createObjectURL(data.avatar);
-        }
-        return data.avatar_url || undefined;
     };
 
     return (

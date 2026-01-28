@@ -7,16 +7,20 @@ use Illuminate\Support\Facades\Storage;
 
 class MentorService
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        //
-    }
 
     public function getAllMentors(){ 
-        $mentors = Mentor::orderBy('name', 'asc')->get(); 
+        $mentors = Mentor::withCount('classes')
+            ->with(['classes' => function($query) {
+                $query->withCount('enrollments');
+            }])
+            ->orderBy('name', 'asc')
+            ->get();
+            
+        $mentors->each(function($mentor) {
+            $mentor->students_count = $mentor->classes->sum('enrollments_count');
+            unset($mentor->classes); 
+        });
+
         return $mentors;
     }
 
