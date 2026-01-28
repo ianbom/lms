@@ -27,7 +27,7 @@ export default function ContactHero() {
                                 key={star}
                                 name="star"
                                 className="fill-current text-[20px]"
-                                style={{ fontVariationSettings: "'FILL' 1" }}
+                                // style={{ fontVariationSettings: "'FILL' 1" }}
                             />
                         ))}
                     </div>
