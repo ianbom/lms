@@ -4,14 +4,33 @@ import { Mentor } from '@/types/admin';
 interface MentorCardProps {
     mentor: Mentor;
     onClick?: (mentor: Mentor) => void;
+    onEdit?: (mentor: Mentor) => void;
 }
 
-export default function MentorCard({ mentor, onClick }: MentorCardProps) {
+export default function MentorCard({
+    mentor,
+    onClick,
+    onEdit,
+}: MentorCardProps) {
     return (
         <div
-            className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
+            className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
             onClick={() => onClick?.(mentor)}
         >
+            {/* Edit Button */}
+            {onEdit && (
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onEdit(mentor);
+                    }}
+                    className="absolute right-3 top-3 z-10 rounded-lg bg-white p-2 text-slate-400 shadow-sm transition-all hover:bg-primary hover:text-white"
+                    title="Edit Mentor"
+                >
+                    <Icon name="edit" size={18} />
+                </button>
+            )}
+
             {/* Profile Section */}
             <div className="flex flex-1 flex-col items-center p-6">
                 {/* Avatar with Online Status */}
@@ -30,11 +49,6 @@ export default function MentorCard({ mentor, onClick }: MentorCardProps) {
                             </div>
                         )}
                     </div>
-                    {/* <div
-                        className={`absolute bottom-1 right-1 size-4 rounded-full border-2 border-white ${
-                            mentor.isOnline ? 'bg-primary' : 'bg-slate-300'
-                        }`}
-                    /> */}
                 </div>
 
                 {/* Name & Email */}

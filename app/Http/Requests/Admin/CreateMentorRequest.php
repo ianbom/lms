@@ -28,4 +28,15 @@ class CreateMentorRequest extends FormRequest
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama mentor wajib diisi.',
+            'name.max' => 'Nama mentor maksimal 150 karakter.',
+            'headline.max' => 'Headline maksimal 200 karakter.',
+            'bio.max' => 'Bio maksimal 200 karakter.',
+            'avatar.max' => 'Avatar maksimal 2048 KB.',
+        ];
+    }
 }

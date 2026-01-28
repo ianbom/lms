@@ -127,6 +127,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/mentors', [MentorController::class, 'listMentorPage'])->name('mentors');
         Route::get('/mentors/create', [MentorController::class, 'createMentorPage'])->name('mentors.create');
         Route::post('/mentors', [MentorController::class, 'storeMentor'])->name('mentors.store');
+        Route::put('/mentors/{mentor}', [MentorController::class, 'updateMentor'])->name('mentors.update');
 
         Route::get('/categories', [CategoryController::class, 'listCategoryPage'])->name('categories');
         Route::get('/categories/create', [CategoryController::class, 'createCategoryPage'])->name('categories.create');
