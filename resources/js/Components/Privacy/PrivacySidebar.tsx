@@ -96,7 +96,7 @@ export default function PrivacySidebar() {
                         J. Kontak Kami
                     </a>
                 </nav>
-                <div className="mt-8 rounded-xl border border-primary/10 bg-primary/5 p-4">
+                <div className="mt-8 rounded-xl border border-primary/10 p-4">
                     <p className="mb-2 text-xs font-semibold uppercase text-primary">
                         Butuh Bantuan?
                     </p>

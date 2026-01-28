@@ -2,7 +2,7 @@ import Icon from '@/Components/Icon';
 
 export default function TCHero() {
     return (
-        <div className="relative w-full border-b border-gray-200 bg-gradient-to-br from-emerald-300 to-white px-6 py-16 md:px-10 md:py-24">
+        <div className="relative w-full border-b border-gray-200 px-6 py-16 md:px-10 md:py-24">
             <div className="mx-auto max-w-7xl">
                 <div className="max-w-3xl">
                     <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
