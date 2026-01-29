@@ -34,26 +34,26 @@ export default function UserLayout({
             href: route('user.classes'),
             active: route().current('user.classes*'),
         },
-        {
-            label: 'FAQ',
-            href: route('faq'),
-            active: route().current('faq'),
-        },
+        // {
+        //     label: 'FAQ',
+        //     href: route('faq'),
+        //     active: route().current('faq'),
+        // },
         {
             label: 'Kontak',
             href: route('contact'),
             active: route().current('contact'),
         },
-        {
-            label: 'Privacy Policy',
-            href: route('privacy'),
-            active: route().current('privacy'),
-        },
-        {
-            label: 'Terms of Service',
-            href: route('terms'),
-            active: route().current('terms'),
-        },
+        // {
+        //     label: 'Privacy Policy',
+        //     href: route('privacy'),
+        //     active: route().current('privacy'),
+        // },
+        // {
+        //     label: 'Terms of Service',
+        //     href: route('terms'),
+        //     active: route().current('terms'),
+        // },
     ];
 
     const navigation = navItems ?? defaultNavItems;

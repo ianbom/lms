@@ -142,8 +142,8 @@ export default function Privacy() {
                                         Mengidentifikasi Pengguna
                                     </h2>
                                 </div>
-                                <ul className="list-disc space-y-4 pl-5 marker:text-primary">
-                                    <li>
+                                <ul className="list-disc space-y-4 pl-1 marker:text-primary">
+                                    <p>
                                         <strong>1. Pendaftaran Akun:</strong>{' '}
                                         Untuk mengakses fitur pembelajaran
                                         secara penuh, Pengguna perlu membuat
@@ -151,8 +151,8 @@ export default function Privacy() {
                                         nama, email, dan kata sandi. Dengan
                                         mendaftar, Kamu menyetujui seluruh
                                         ketentuan keanggotaan Impact Academy.
-                                    </li>
-                                    <li>
+                                    </p>
+                                    <p>
                                         <strong>
                                             2. Program, Kuis, dan Penawaran
                                             Khusus:
@@ -163,8 +163,8 @@ export default function Privacy() {
                                         informasi akan dibagikan kepada pihak
                                         ketiga, Kamu akan diberi pemberitahuan
                                         terlebih dahulu.
-                                    </li>
-                                    <li>
+                                    </p>
+                                    <p>
                                         <strong>
                                             3. Survei dan Riset Pengguna:
                                         </strong>{' '}
@@ -174,15 +174,15 @@ export default function Privacy() {
                                         keperluan analisis dan pengembangan
                                         layanan, serta dibagikan dalam bentuk
                                         agregat bila diperlukan.
-                                    </li>
-                                    <li>
+                                    </p>
+                                    <p>
                                         <strong>4. Promosi dan Event:</strong>{' '}
                                         Impact Academy dapat menginformasikan
                                         kegiatan, program pelatihan, atau acara
                                         kolaborasi dengan mitra. Pengguna akan
                                         selalu diberi kejelasan mengenai data
                                         yang dibutuhkan dalam kegiatan tersebut.
-                                    </li>
+                                    </p>
                                 </ul>
                             </section>
 
