@@ -8,8 +8,8 @@ export default function Footer() {
                 <div className="mb-16 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
                     <div className="max-w-xl">
                         <h2 className="text-3xl font-medium leading-tight tracking-tight text-white md:text-4xl">
-                            Belajar Bersama —{' '}
-                            <br className="hidden md:block" /> Impact Academy.
+                            Belajar Bersama — <br className="hidden md:block" />{' '}
+                            Impact Academy.
                         </h2>
                     </div>
                     {/* <div className="w-full min-w-[320px] lg:w-auto">
@@ -73,8 +73,12 @@ export default function Footer() {
                             Company
                         </h3>
                         <ul className="space-y-3">
-                            <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
-                            <FooterLink href="/terms-and-conditions">Terms & Conditions</FooterLink>
+                            <FooterLink href="/privacy-policy">
+                                Privacy Policy
+                            </FooterLink>
+                            <FooterLink href="/terms-and-conditions">
+                                Terms & Conditions
+                            </FooterLink>
                             <FooterLink href="/contact-us">Contact</FooterLink>
                             {/* <FooterLink href="#">Pricing</FooterLink> */}
                         </ul>

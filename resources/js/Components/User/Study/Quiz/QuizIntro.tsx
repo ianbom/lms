@@ -44,7 +44,7 @@ export default function QuizIntro({
             <div className="mb-8 grid grid-cols-3 gap-4">
                 <StatCard value={quiz.questions.length} label="Pertanyaan" />
                 <StatCard value={totalPoints} label="Total Poin" />
-                <StatCard value="70%" label="Nilai Lulus" />
+                <StatCard value="80%" label="Nilai Lulus" />
             </div>
 
             {/* Previous Attempts */}
@@ -154,7 +154,7 @@ function InstructionsCard() {
                 <li>
                     • Pastikan semua pertanyaan terjawab sebelum mengumpulkan
                 </li>
-                <li>• Nilai minimal untuk lulus adalah 70%</li>
+                <li>• Nilai minimal untuk lulus adalah 80%</li>
             </ul>
         </div>
     );

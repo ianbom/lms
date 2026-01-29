@@ -23,9 +23,9 @@ export default function CTASection({
     };
 
     return (
-        <section className="flex items-center justify-center p-4 mb-16">
+        <section className="mb-16 flex items-center justify-center p-4">
             <div className="mx-auto w-full max-w-6xl">
-                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#00C853] to-[#00753D] shadow-2xl dark:shadow-green-900/20 md:rounded-[2rem]">
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#00C853] to-[#00753D] shadow-2xl md:rounded-[2rem] dark:shadow-green-900/20">
                     {/* Background Grid Pattern */}
                     <div
                         className="pointer-events-none absolute inset-0"
@@ -65,7 +65,8 @@ export default function CTASection({
                         <h2 className="mb-6 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-white drop-shadow-sm md:text-5xl">
                             {title || (
                                 <>
-                                    Transform scattered marketing <br className="hidden md:block" />
+                                    Transform scattered marketing{' '}
+                                    <br className="hidden md:block" />
                                     into predictable growth
                                 </>
                             )}
@@ -83,7 +84,7 @@ export default function CTASection({
                         >
                             {buttonText}
                             <svg
-                                className="ml-2 -mr-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                                className="-mr-1 ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"

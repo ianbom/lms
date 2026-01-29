@@ -315,7 +315,7 @@ function QuizInfoCard({
                     </div>
                     <div>
                         <div className="text-lg font-bold text-slate-900">
-                            70%
+                            80%
                         </div>
                         <div className="text-sm text-slate-500">
                             Nilai Minimum Lulus

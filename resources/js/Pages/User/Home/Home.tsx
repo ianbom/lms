@@ -10,15 +10,16 @@ import {
 import UserLayout from '@/Layouts/UserLayout';
 import { Head } from '@inertiajs/react';
 
-
 interface HomeProps {
     classes: any[];
 }
 
 export default function Home({ classes }: HomeProps) {
     // Map controller data to Course interface structure if necessary
-    const courses = classes.map(cls => ({
-        image: cls.thumbnail_url ? `${cls.thumbnail_url}` : 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800',
+    const courses = classes.map((cls) => ({
+        image: cls.thumbnail_url
+            ? `${cls.thumbnail_url}`
+            : 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800',
         title: cls.name,
         description: cls.description,
         duration: '40 Jam', // Placeholder or add field to DB
@@ -196,9 +197,7 @@ export default function Home({ classes }: HomeProps) {
                 />
 
                 {/* CTA Section */}
-                <CTASection
-
-                />
+                <CTASection />
 
                 {/* Footer */}
                 {/* <Footer /> */}
