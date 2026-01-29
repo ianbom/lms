@@ -28,7 +28,7 @@ export default function AdminSidebar({
                 <img
                     src="/ImpactAcademy.png"
                     alt="ImpactAcademy Logo"
-                    className="-my-6 h-36 w-auto"
+                    className="my-4 ml-5 h-10 w-auto"
                 />
             </div>
 

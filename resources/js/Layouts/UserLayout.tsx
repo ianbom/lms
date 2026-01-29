@@ -70,7 +70,7 @@ export default function UserLayout({
                             <img
                                 src="/ImpactAcademy.png"
                                 alt="ImpactAcademy Logo"
-                                className="h-40 w-auto"
+                                className="h-8 w-auto"
                             />
                         </Link>
 

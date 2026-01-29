@@ -27,7 +27,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     <img
                         src="/ImpactAcademy.png"
                         alt="ImpactAcademy Logo"
-                        className="h-40 w-auto brightness-0 invert"
+                        className="h-10 w-auto brightness-0 invert"
                     />
                 </div>
             </div>
