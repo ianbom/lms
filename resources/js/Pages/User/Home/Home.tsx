@@ -155,7 +155,7 @@ export default function Home() {
     ];
 
     return (
-        <UserLayout showFooter={false} fullWidth>
+        <UserLayout fullWidth>
             <Head title="Home - ImpactAcademy" />
 
             <div>
@@ -272,7 +272,7 @@ export default function Home() {
                 />
 
                 {/* Footer */}
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </UserLayout>
     );
