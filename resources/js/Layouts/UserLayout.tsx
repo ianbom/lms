@@ -1,3 +1,4 @@
+import { Footer } from '@/Components/Home';
 import Icon from '@/Components/Icon';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren, useState } from 'react';
@@ -196,42 +197,7 @@ export default function UserLayout({
             </main>
 
             {/* Footer */}
-            {showFooter && (
-                <footer className="mt-12 border-t border-gray-200 bg-white py-8">
-                    <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 px-4 sm:px-6 md:flex-row lg:px-8">
-                        <p className="text-sm text-gray-500">
-                            © {new Date().getFullYear()} ImpactAcademy. All
-                            rights reserved.
-                        </p>
-                        <div className="flex gap-6">
-                            <Link
-                                href={route('privacy')}
-                                className="text-sm text-gray-500 transition-colors hover:text-primary"
-                            >
-                                Privacy Policy
-                            </Link>
-                            <Link
-                                href={route('terms')}
-                                className="text-sm text-gray-500 transition-colors hover:text-primary"
-                            >
-                                Terms of Service
-                            </Link>
-                            <Link
-                                href={route('faq')}
-                                className="text-sm text-gray-500 transition-colors hover:text-primary"
-                            >
-                                Help Center
-                            </Link>
-                            <Link
-                                href={route('contact')}
-                                className="text-sm text-gray-500 transition-colors hover:text-primary"
-                            >
-                                Contact Us
-                            </Link>
-                        </div>
-                    </div>
-                </footer>
-            )}
+            {showFooter && <Footer />}
         </div>
     );
 }

@@ -108,11 +108,10 @@ export default function CoursesSection({
                                     onClick={() =>
                                         setActiveCategory(category.id)
                                     }
-                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-                                        activeCategory === category.id
-                                            ? 'bg-slate-900 text-white'
-                                            : 'border border-slate-200 bg-white text-slate-600 hover:border-primary hover:text-primary'
-                                    }`}
+                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${activeCategory === category.id
+                                        ? 'bg-slate-900 text-white'
+                                        : 'border border-slate-200 bg-white text-slate-600 hover:border-primary hover:text-primary'
+                                        }`}
                                 >
                                     {category.label}
                                 </button>

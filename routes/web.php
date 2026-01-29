@@ -32,9 +32,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('User/Home/Home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home', function () {
-            return Inertia::render('User/Home/Home');
-        })->name('home');
+Route::get('/home', [UserDashboardController::class, 'homePage'])->name('home');
 
 Route::get('/privacy-policy', function () {
     return Inertia::render('Privacy');

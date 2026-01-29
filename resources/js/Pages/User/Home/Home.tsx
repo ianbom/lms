@@ -3,7 +3,6 @@ import {
     CoursesSection,
     CTASection,
     FAQSection,
-    Footer,
     HeroSection,
     TestimonialsSection,
     WhyChooseUsSection,
@@ -11,87 +10,25 @@ import {
 import UserLayout from '@/Layouts/UserLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Home() {
-    const courses = [
-        {
-            image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&h=400&fit=crop',
-            title: 'Full-Stack Web Development dengan React & Laravel',
-            description:
-                'Pelajari cara membangun aplikasi web modern dari frontend hingga backend dengan teknologi terkini.',
-            duration: '40 Jam',
-            videoCount: 120,
-            price: 599000,
-            originalPrice: 1299000,
-            isPopular: true,
-            category: 'web',
-            href: '#',
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=600&h=400&fit=crop',
-            title: 'UI/UX Design Masterclass: Dari Pemula hingga Pro',
-            description:
-                'Kuasai prinsip desain, Figma, dan proses design thinking untuk membuat produk yang user-friendly.',
-            duration: '25 Jam',
-            videoCount: 85,
-            price: 449000,
-            originalPrice: 999000,
-            isPopular: true,
-            category: 'design',
-            href: '#',
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&h=400&fit=crop',
-            title: 'Data Science & Machine Learning dengan Python',
-            description:
-                'Analisis data, machine learning, dan AI praktis untuk memulai karir di bidang data science.',
-            duration: '35 Jam',
-            videoCount: 100,
-            price: 699000,
-            originalPrice: 1499000,
-            isPopular: false,
-            category: 'data',
-            href: '#',
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&h=400&fit=crop',
-            title: 'Digital Marketing: SEO, Ads & Social Media',
-            description:
-                'Strategi pemasaran digital lengkap untuk meningkatkan visibility dan konversi bisnis Anda.',
-            duration: '20 Jam',
-            videoCount: 65,
-            price: 349000,
-            originalPrice: 799000,
-            isPopular: false,
-            category: 'web',
-            href: '#',
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&h=400&fit=crop',
-            title: 'Mobile App Development dengan Flutter',
-            description:
-                'Bangun aplikasi mobile cross-platform untuk iOS dan Android dengan satu codebase.',
-            duration: '30 Jam',
-            videoCount: 90,
-            price: 549000,
-            originalPrice: 1199000,
-            isPopular: false,
-            category: 'web',
-            href: '#',
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&h=400&fit=crop',
-            title: 'Leadership & Manajemen Tim untuk Profesional',
-            description:
-                'Kembangkan skill kepemimpinan dan kemampuan mengelola tim untuk mencapai target bersama.',
-            duration: '15 Jam',
-            videoCount: 45,
-            price: 299000,
-            originalPrice: 649000,
-            isPopular: false,
-            category: 'data',
-            href: '#',
-        },
-    ];
+
+interface HomeProps {
+    classes: any[];
+}
+
+export default function Home({ classes }: HomeProps) {
+    // Map controller data to Course interface structure if necessary
+    const courses = classes.map(cls => ({
+        image: cls.thumbnail_url ? `${cls.thumbnail_url}` : 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800',
+        title: cls.name,
+        description: cls.description,
+        duration: '40 Jam', // Placeholder or add field to DB
+        videoCount: 120, // Placeholder or add field to DB
+        price: cls.price,
+        originalPrice: cls.price * 1.5, // Placeholder logic
+        isPopular: true,
+        category: 'web', // Placeholder or add field to DB
+        href: route('user.classes.show', cls.id),
+    }));
 
     const testimonials = [
         {
@@ -166,7 +103,7 @@ export default function Home() {
                         <>
                             Belajar Berdampak
                             <br />
-                            <span className="text-primary">
+                            <span className="text-green-500">
                                 Tumbuh Bersama Impact Academy
                             </span>
                         </>
@@ -194,9 +131,6 @@ export default function Home() {
                     rating={4.9}
                 />
 
-                {/* About Section */}
-                <AboutSection />
-
                 {/* Courses Section */}
                 <div id="courses">
                     <CoursesSection
@@ -205,6 +139,9 @@ export default function Home() {
                         courses={courses}
                     />
                 </div>
+
+                {/* About Section */}
+                <AboutSection />
 
                 {/* Why Choose Us Section */}
                 <WhyChooseUsSection
@@ -260,15 +197,7 @@ export default function Home() {
 
                 {/* CTA Section */}
                 <CTASection
-                    title={
-                        <>
-                            Siap Memulai
-                            <br />
-                            Perjalanan Belajar Anda?
-                        </>
-                    }
-                    description="Gabung dengan 10.000+ learner yang telah meningkatkan skill mereka. Daftar sekarang dan dapatkan akses ke kelas gratis!"
-                    buttonText="Daftar Gratis Sekarang"
+
                 />
 
                 {/* Footer */}
