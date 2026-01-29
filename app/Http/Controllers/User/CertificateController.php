@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\CertificateService;
 use App\Services\ClassService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CertificateController extends Controller
@@ -22,17 +23,16 @@ class CertificateController extends Controller
      * Display list of user's certificates
      */
     public function listCertificatePage()
-    {
-        $certificates = $this->certificateService->getUserCertificates();
+    {   
+        $userId = Auth::id();
+        $certificates = $this->certificateService->getUserCertificates($userId);
 
         return Inertia::render('User/Dashboard/MyCertificate', [
             'certificates' => $certificates,
         ]);
     }
 
-    /**
-     * Claim certificate for a class
-     */
+
     public function claimCertificate(Request $request, $classId)
     {
         try {
@@ -40,7 +40,7 @@ class CertificateController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Sertifikat berhasil diklaim!',
+                'message' => 'Sertifikat berhasil diklaim',
                 'certificate' => $certificate,
             ]);
         } catch (\Exception $e) {
@@ -51,9 +51,7 @@ class CertificateController extends Controller
         }
     }
 
-    /**
-     * Download certificate as PDF
-     */
+
     public function downloadCertificate($certificateId)
     {
         try {
@@ -63,9 +61,6 @@ class CertificateController extends Controller
         }
     }
 
-    /**
-     * View certificate in browser (stream PDF)
-     */
     public function viewCertificate($certificateId)
     {
         try {
@@ -75,9 +70,6 @@ class CertificateController extends Controller
         }
     }
 
-    /**
-     * Verify certificate by code (public route)
-     */
     public function verifyCertificate(Request $request)
     {
         $request->validate([

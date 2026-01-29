@@ -40,7 +40,7 @@ export default function AboutSection() {
                             </span>
                         </h2>
 
-                        <div className="space-y-6 text-lg leading-relaxed text-slate-600">
+                        <div className="space-y-6 text-lg text-sm leading-relaxed text-slate-600">
                             <p>
                                 <span className="font-semibold text-gray-900">
                                     Impact Academy

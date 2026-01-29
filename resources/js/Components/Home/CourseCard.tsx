@@ -47,14 +47,14 @@ export default function CourseCard({
                 />
             </div>
             <div className="flex flex-grow flex-col p-6">
-                <div className="mb-3 flex items-center gap-2 text-xs font-medium text-slate-500">
+                {/* <div className="mb-3 flex items-center gap-2 text-xs font-medium text-slate-500">
                     <span className="flex items-center gap-1">
                         <Icon name="schedule" size={14} />
                         {duration}
                     </span>
                     <span className="h-1 w-1 rounded-full bg-slate-300" />
                     <span>{videoCount} Video</span>
-                </div>
+                </div> */}
                 <h3 className="mb-2 text-xl font-bold text-slate-900 transition-colors group-hover:text-primary">
                     {title}
                 </h3>

@@ -27,7 +27,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     <img
                         src="/ImpactAcademy.png"
                         alt="ImpactAcademy Logo"
-                        className="h-40 w-auto brightness-0 invert"
+                        className="h-10 w-auto brightness-0 invert"
                     />
                 </div>
             </div>
@@ -89,18 +89,30 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     </span>
                 </Link>
                 <Link
-                    href="#"
-                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                    href={route('user.certificates')}
+                    className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-colors ${
+                        isActive('/user/certificates')
+                            ? 'bg-white/20 text-white'
+                            : 'text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
                 >
                     <Icon
                         name="workspace_premium"
                         className="transition-transform group-hover:scale-110"
                     />
-                    <span className="text-sm font-medium">Certificates</span>
+                    <span
+                        className={`text-sm ${isActive('/user/certificates') ? 'font-bold' : 'font-medium'}`}
+                    >
+                        My Certificates
+                    </span>
                 </Link>
                 <Link
                     href={route('user.profile.edit')}
-                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                    className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-colors ${
+                        isActive('/user/profile')
+                            ? 'bg-white/20 text-white'
+                            : 'text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
                 >
                     <Icon
                         name="settings"

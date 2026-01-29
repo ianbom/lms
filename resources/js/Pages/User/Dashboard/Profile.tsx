@@ -38,7 +38,7 @@ export default function Profile({ auth }: PageProps) {
         <UserDashboardLayout>
             <Head title="Edit Profile" />
 
-            <div className="mb-4 py-6 flex flex-col gap-2">
+            <div className="mb-4 flex flex-col gap-2 py-6">
                 <h1 className="text-3xl font-black tracking-tight text-[#111814] md:text-4xl">
                     Edit Profile
                 </h1>

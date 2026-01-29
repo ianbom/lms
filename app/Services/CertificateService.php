@@ -21,10 +21,8 @@ class CertificateService
     /**
      * Get user's certificates
      */
-    public function getUserCertificates($userId = null)
+    public function getUserCertificates($userId)
     {
-        $userId = $userId ?? Auth::id();
-
         return CertificateIssuance::with(['class', 'user'])
             ->where('user_id', $userId)
             ->orderBy('issued_at', 'desc')
@@ -133,7 +131,6 @@ class CertificateService
     {
         $userId = $userId ?? Auth::id();
 
-        // Check if can claim
         $canClaim = $this->canClaimCertificate($classId, $userId);
 
         if (!$canClaim['can_claim']) {
@@ -143,7 +140,6 @@ class CertificateService
             throw new \Exception('Tidak dapat mengklaim sertifikat: ' . $canClaim['reason']);
         }
 
-        // Create certificate
         $certificate = CertificateIssuance::create([
             'class_id' => $classId,
             'user_id' => $userId,
@@ -189,9 +185,6 @@ class CertificateService
         return $pdf->download($filename);
     }
 
-    /**
-     * View certificate in browser
-     */
     public function streamCertificate($certificateId, $userId = null)
     {
         $certificate = $this->getCertificate($certificateId, $userId);
@@ -202,9 +195,6 @@ class CertificateService
         return $pdf->stream($filename);
     }
 
-    /**
-     * Verify certificate by code
-     */
     public function verifyCertificate($code)
     {
         $certificate = CertificateIssuance::verify($code);

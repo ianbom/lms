@@ -3,7 +3,7 @@ import LessonList from '@/Components/Modul/LessonList';
 import MentorCard from '@/Components/Modul/MentorCard';
 import PricingSidebar from '@/Components/Modul/PricingSidebar';
 import TagList from '@/Components/Modul/TagList';
-import VideoPreview from '@/Components/Modul/VideoPreview';
+import VideoPlayer from '@/Components/User/Study/VideoPlayer';
 import UserLayout from '@/Layouts/UserLayout';
 import {
     calculateTotalDuration,
@@ -31,6 +31,13 @@ export default function DetailClass({
     isEnrolled = false,
     firstVideoId = null,
 }: DetailClassProps) {
+    // Helper function to extract YouTube video ID from URL
+    const extractYouTubeId = (url: string | undefined): string | null => {
+        if (!url) return null;
+        const match = url.match(/(?:v=|\/)([\w-]{11})(?:\?|&|$)/);
+        return match ? match[1] : null;
+    };
+
     // Breadcrumb items
     const breadcrumbItems = [
         { label: 'Beranda', href: '/' },
@@ -167,14 +174,32 @@ export default function DetailClass({
                 <div className="min-w-0">
                     {/* Video Preview / Thumbnail */}
                     <div id="video-player-container" className="scroll-mt-24">
-                        <VideoPreview
-                            thumbnailUrl={
-                                classData.thumbnail_url ||
-                                'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop'
-                            }
-                            videoUrl={selectedVideo?.youtube_url}
-                            onPlay={handlePlayPreview}
-                        />
+                        {selectedVideo?.youtube_url ? (
+                            <VideoPlayer
+                                videoId={
+                                    extractYouTubeId(
+                                        selectedVideo.youtube_url,
+                                    ) || ''
+                                }
+                                onPlay={handlePlayPreview}
+                            />
+                        ) : (
+                            <div className="relative aspect-video w-full overflow-hidden rounded-md bg-gray-900">
+                                <img
+                                    src={
+                                        classData.thumbnail_url ||
+                                        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=450&fit=crop'
+                                    }
+                                    alt={classData.title}
+                                    className="h-full w-full object-cover"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                    <span className="text-white/80">
+                                        Pilih video preview untuk diputar
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Preview List */}

@@ -101,7 +101,8 @@ export default function PrivacySidebar() {
                         Butuh Bantuan?
                     </p>
                     <p className="mb-3 text-sm text-slate-600">
-                        Silahkan menghubungi customer service, kami akan menjawab 24/7 pertanyaan anda
+                        Silahkan menghubungi customer service, kami akan
+                        menjawab 24/7 pertanyaan anda
                     </p>
                     <a
                         className="flex items-center gap-1 text-sm font-bold text-primary hover:underline"

@@ -7,6 +7,8 @@ import {
     VideoWithProgress,
 } from '@/types/study';
 import { router } from '@inertiajs/react';
+import axios from 'axios';
+import { useState } from 'react';
 
 interface CurriculumSidebarProps {
     classData: StudyClassData;
@@ -23,6 +25,8 @@ export default function CurriculumSidebar({
     onVideoSelect,
     certificateStatus,
 }: CurriculumSidebarProps) {
+    const [isClaiming, setIsClaiming] = useState(false);
+
     // Find next video for preview section
     const findNextVideo = (): {
         video: VideoWithProgress;
@@ -59,9 +63,34 @@ export default function CurriculumSidebar({
         router.visit(`/user/study/${classData.id}/quiz/${quizId}`);
     };
 
-    // Navigate to claim certificate page
-    const handleClaimCertificate = () => {
-        router.visit(`/user/certificate/claim/${classData.id}`);
+    // Navigate to claim certificate - uses axios POST
+    const handleClaimCertificate = async () => {
+        if (isClaiming) return;
+        setIsClaiming(true);
+        try {
+            const response = await axios.post(
+                `/user/certificates/claim/${classData.id}`,
+            );
+            if (response.data.success && response.data.certificate) {
+                // Open certificate in new tab
+                window.open(
+                    `/user/certificates/${response.data.certificate.id}/view`,
+                    '_blank',
+                );
+                // Reload page data to update certificate status
+                router.reload({ only: ['certificateStatus'] });
+            }
+        } catch (error: unknown) {
+            const axiosError = error as {
+                response?: { data?: { message?: string } };
+            };
+            console.error(
+                'Gagal mengklaim sertifikat:',
+                axiosError.response?.data?.message || 'Terjadi kesalahan',
+            );
+        } finally {
+            setIsClaiming(false);
+        }
     };
 
     // Check if quiz is passed (score >= 80)
@@ -290,10 +319,24 @@ export default function CurriculumSidebar({
                     </div>
                     <button
                         onClick={handleClaimCertificate}
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition-all hover:from-amber-600 hover:to-yellow-600 hover:shadow-amber-500/40"
+                        disabled={isClaiming}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition-all hover:from-amber-600 hover:to-yellow-600 hover:shadow-amber-500/40 disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                        <Icon name="workspace_premium" size={20} />
-                        Klaim Sertifikat
+                        {isClaiming ? (
+                            <>
+                                <Icon
+                                    name="progress_activity"
+                                    size={20}
+                                    className="animate-spin"
+                                />
+                                Memproses...
+                            </>
+                        ) : (
+                            <>
+                                <Icon name="workspace_premium" size={20} />
+                                Klaim Sertifikat
+                            </>
+                        )}
                     </button>
                 </div>
             )}

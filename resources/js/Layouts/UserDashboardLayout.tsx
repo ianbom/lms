@@ -1,9 +1,9 @@
 import Icon from '@/Components/Icon';
 import Toast from '@/Components/Toast';
 import Sidebar from '@/Components/User/Dashboard/Sidebar';
-import { PropsWithChildren, ReactNode, useState, useEffect } from 'react';
-import { usePage } from '@inertiajs/react';
 import { PageProps } from '@/types';
+import { usePage } from '@inertiajs/react';
+import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
 
 interface UserDashboardLayoutProps extends PropsWithChildren {
     rightSidebar?: ReactNode;
@@ -38,7 +38,7 @@ export default function UserDashboardLayout({
                     type={toast.type}
                     onClose={() => setToast(null)}
                 />
-            )} 
+            )}
             {/* Mobile Overlay */}
             {(sidebarOpen || rightSidebarOpen) && (
                 <div

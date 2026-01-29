@@ -2,14 +2,14 @@ import Icon from '@/Components/Icon';
 import PrivacyContactCard from '@/Components/Privacy/PrivacyContactCard';
 import PrivacySidebar from '@/Components/Privacy/PrivacySidebar';
 import UserLayout from '@/Layouts/UserLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 
 export default function Privacy() {
     return (
         <UserLayout>
             <Head title="Privacy Policy" />
 
-            <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6 lg:px-4 lg:py-18">
+            <div className="lg:py-18 mx-auto max-w-[1280px] px-4 py-8 sm:px-6 lg:px-4">
                 <div className="flex flex-col gap-12 lg:flex-row lg:gap-20">
                     <PrivacySidebar />
 

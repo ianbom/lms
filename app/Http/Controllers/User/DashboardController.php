@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classes;
+use App\Services\ClassService;
 use App\Services\OrderService;
 use App\Services\UserDashboardService;
 use Illuminate\Http\Request;
@@ -14,11 +16,17 @@ class DashboardController extends Controller
 
     protected $orderService;
     protected $userDashboardService;
-
-    public function __construct(OrderService $orderService, UserDashboardService $userDashboardService)
+    protected $classService;
+    public function __construct(OrderService $orderService, UserDashboardService $userDashboardService, ClassService $classService)
     {
         $this->orderService = $orderService;
         $this->userDashboardService = $userDashboardService;
+        $this->classService = $classService;
+    }
+
+    public function homePage(){ 
+        $classes = $this->classService->getAllClasses()->take(6);
+        return Inertia::render('User/Home/Home', ['classes' => $classes]);
     }
 
     public function dashboardPage(){
