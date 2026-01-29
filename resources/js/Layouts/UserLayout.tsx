@@ -39,6 +39,8 @@ export default function UserLayout({
         //     href: route('faq'),
         //     active: route().current('faq'),
         // },
+        //
+        //
         {
             label: 'Kontak',
             href: route('contact'),
@@ -200,8 +202,7 @@ export default function UserLayout({
                 <footer className="mt-12 border-t border-gray-200 bg-white py-8">
                     <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 px-4 sm:px-6 md:flex-row lg:px-8">
                         <p className="text-sm text-gray-500">
-                            © {new Date().getFullYear()} ImpactAcademy. All
-                            rights reserved.
+                            © {new Date().getFullYear()} ImpactAcademy.
                         </p>
                         <div className="flex gap-6">
                             <Link
