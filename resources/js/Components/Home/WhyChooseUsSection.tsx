@@ -49,33 +49,42 @@ export default function WhyChooseUsSection({
     features = defaultFeatures,
 }: WhyChooseUsSectionProps) {
     return (
-        <section className="mx-4 rounded-3xl border border-slate-100 bg-white py-16 shadow-sm md:mx-8">
-            <div className="mx-auto flex max-w-7xl flex-col items-center gap-16 px-4 sm:px-6 lg:flex-row lg:px-8">
+        <section className="relative mx-4 overflow-hidden rounded-3xl py-20 md:mx-8">
+            {/* Decorative Elements */}
+            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br from-primary/10 to-teal-500/5 blur-3xl"></div>
+            <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-gradient-to-tr from-primary/10 to-teal-500/5 blur-3xl"></div>
+
+            <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-16 px-4 sm:px-6 lg:flex-row lg:px-8">
                 {/* Left Content */}
                 <div className="w-full lg:w-1/3">
-                    <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                    <span className="inline-block rounded-full bg-gradient-to-r from-primary to-teal-600 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-md">
                         Kenapa Memilih Kami
                     </span>
-                    <h2 className="mb-6 mt-2 text-3xl font-bold text-slate-900 md:text-4xl">
+                    <h2 className="mb-6 mt-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-3xl font-extrabold leading-tight text-transparent md:text-4xl">
                         {title}
                     </h2>
-                    <p className="mb-8 leading-relaxed text-slate-600">
+                    <p className="mb-8 text-lg leading-relaxed text-slate-600">
                         {description}
                     </p>
-                    <ul className="space-y-4">
-                        {benefits.map((benefit, index) => (
-                            <li key={index} className="flex items-start gap-3">
-                                <Icon
-                                    name="check_circle"
-                                    size={24}
-                                    className="mt-1 text-primary"
-                                />
-                                <span className="text-slate-700">
-                                    {benefit}
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
+                    {benefits.length > 0 && (
+                        <ul className="space-y-4">
+                            {benefits.map((benefit, index) => (
+                                <li
+                                    key={index}
+                                    className="flex items-start gap-3"
+                                >
+                                    <Icon
+                                        name="check_circle"
+                                        size={24}
+                                        className="mt-1 text-primary"
+                                    />
+                                    <span className="text-slate-700">
+                                        {benefit}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
 
                 {/* Right Content - Features Grid */}
@@ -83,17 +92,32 @@ export default function WhyChooseUsSection({
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            className="group rounded-2xl bg-slate-50 p-8 transition-colors hover:bg-teal-50"
+                            className="group relative overflow-hidden rounded-2xl border border-slate-200/50 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-2xl"
                         >
-                            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-primary shadow-sm transition-transform group-hover:scale-110">
-                                <Icon name={feature.icon} size={24} />
+                            {/* Gradient Overlay on Hover */}
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 to-teal-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+
+                            {/* Content */}
+                            <div className="relative">
+                                {/* Icon with animated background */}
+                                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-teal-600 text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl">
+                                    <Icon name={feature.icon} size={28} />
+                                </div>
+
+                                {/* Checkmark prefix */}
+                                <div className="mb-3 flex items-start gap-2">
+                                    <h3 className="flex-1 text-lg font-bold leading-tight text-slate-900">
+                                        {feature.title}
+                                    </h3>
+                                </div>
+
+                                <p className="text-sm leading-relaxed text-slate-600">
+                                    {feature.description}
+                                </p>
                             </div>
-                            <h3 className="mb-2 text-lg font-bold text-slate-900">
-                                {feature.title}
-                            </h3>
-                            <p className="text-sm text-slate-500">
-                                {feature.description}
-                            </p>
+
+                            {/* Bottom accent line */}
+                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-teal-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                         </div>
                     ))}
                 </div>

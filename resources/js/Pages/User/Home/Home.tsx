@@ -145,42 +145,7 @@ export default function Home({ classes }: HomeProps) {
                 <AboutSection />
 
                 {/* Why Choose Us Section */}
-                <WhyChooseUsSection
-                    title="Mengapa Belajar di ImpactAcademy?"
-                    description="Kami berkomitmen memberikan pengalaman belajar terbaik untuk Anda"
-                    benefits={[
-                        'Kurikulum disusun oleh praktisi industri',
-                        'Akses materi selamanya tanpa batas waktu',
-                        'Sertifikat yang diakui perusahaan',
-                        'Komunitas aktif untuk networking',
-                    ]}
-                    features={[
-                        {
-                            icon: 'route',
-                            title: 'Learning Path',
-                            description:
-                                'Jalur belajar terstruktur dari dasar hingga mahir',
-                        },
-                        {
-                            icon: 'work',
-                            title: 'Real Portfolio',
-                            description:
-                                'Bangun portfolio dengan project nyata',
-                        },
-                        {
-                            icon: 'support_agent',
-                            title: 'Expert Mentor',
-                            description:
-                                'Dibimbing langsung oleh praktisi industri',
-                        },
-                        {
-                            icon: 'workspace_premium',
-                            title: 'Sertifikat Resmi',
-                            description:
-                                'Dapatkan sertifikat yang diakui industri',
-                        },
-                    ]}
-                />
+                <WhyChooseUsSection />
 
                 {/* Testimonials Section */}
                 <TestimonialsSection
