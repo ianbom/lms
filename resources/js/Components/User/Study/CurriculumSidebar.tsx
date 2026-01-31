@@ -236,20 +236,22 @@ export default function CurriculumSidebar({
                                     <button
                                         key={`quiz-${quiz.id}`}
                                         onClick={() => navigateToQuiz(quiz.id)}
-                                        className={`group flex w-full items-start gap-3 rounded-xl p-3 text-left transition-colors ${passed
+                                        className={`group flex w-full items-start gap-3 rounded-xl p-3 text-left transition-colors ${
+                                            passed
                                                 ? 'hover:bg-green-50'
                                                 : attempted
-                                                    ? 'hover:bg-red-50'
-                                                    : 'hover:bg-amber-50'
-                                            }`}
+                                                  ? 'hover:bg-red-50'
+                                                  : 'hover:bg-amber-50'
+                                        }`}
                                     >
                                         <div
-                                            className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${passed
+                                            className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                                                passed
                                                     ? 'bg-green-500 text-white'
                                                     : attempted
-                                                        ? 'border-2 border-red-400 bg-red-100 text-red-400'
-                                                        : 'border-2 border-amber-400 text-amber-400'
-                                                }`}
+                                                      ? 'border-2 border-red-400 bg-red-100 text-red-400'
+                                                      : 'border-2 border-amber-400 text-amber-400'
+                                            }`}
                                         >
                                             <Icon
                                                 name={passed ? 'check' : 'quiz'}
@@ -259,12 +261,13 @@ export default function CurriculumSidebar({
                                         </div>
                                         <div className="flex-1">
                                             <h5
-                                                className={`text-sm font-medium transition-colors ${passed
+                                                className={`text-sm font-medium transition-colors ${
+                                                    passed
                                                         ? 'text-green-600'
                                                         : attempted
-                                                            ? 'text-red-600 group-hover:text-red-700'
-                                                            : 'text-slate-600 group-hover:text-amber-600'
-                                                    }`}
+                                                          ? 'text-red-600 group-hover:text-red-700'
+                                                          : 'text-slate-600 group-hover:text-amber-600'
+                                                }`}
                                             >
                                                 {quiz.title}
                                             </h5>
@@ -275,10 +278,11 @@ export default function CurriculumSidebar({
                                                 </span>
                                                 {attempted && (
                                                     <span
-                                                        className={`text-xs font-medium ${passed
+                                                        className={`text-xs font-medium ${
+                                                            passed
                                                                 ? 'text-green-500'
                                                                 : 'text-red-500'
-                                                            }`}
+                                                        }`}
                                                     >
                                                         • Nilai: {score}
                                                     </span>
@@ -434,7 +438,9 @@ export default function CurriculumSidebar({
             {/* Review Class Button */}
             <div className="border-t border-slate-100 bg-gradient-to-r from-purple-50 to-indigo-50 p-4">
                 <button
-                    onClick={() => router.visit(`/user/study/${classData.id}/review`)}
+                    onClick={() =>
+                        router.visit(`/user/study/${classData.id}/review`)
+                    }
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 px-4 py-3 font-bold text-white shadow-lg shadow-purple-500/30 transition-all hover:from-purple-600 hover:to-indigo-700 hover:shadow-purple-500/40"
                 >
                     <Icon name="rate_review" size={20} />
@@ -444,4 +450,3 @@ export default function CurriculumSidebar({
         </aside>
     );
 }
-

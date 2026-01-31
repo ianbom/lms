@@ -58,7 +58,10 @@ export default function ReviewClass({
     };
 
     const handleDelete = () => {
-        if (userReview && confirm('Apakah Anda yakin ingin menghapus review ini?')) {
+        if (
+            userReview &&
+            confirm('Apakah Anda yakin ingin menghapus review ini?')
+        ) {
             router.delete(`/user/reviews/${userReview.id}`);
         }
     };
@@ -72,15 +75,23 @@ export default function ReviewClass({
                         type={interactive ? 'button' : undefined}
                         disabled={!interactive}
                         onClick={() => interactive && setData('rating', star)}
-                        onMouseEnter={() => interactive && setHoveredRating(star)}
+                        onMouseEnter={() =>
+                            interactive && setHoveredRating(star)
+                        }
                         onMouseLeave={() => interactive && setHoveredRating(0)}
                         className={`transition-transform ${interactive ? 'cursor-pointer hover:scale-110' : 'cursor-default'}`}
                     >
                         <Icon
-                            name={star <= (interactive ? hoveredRating || rating : rating) ? 'star' : 'star_border'}
+                            name={
+                                star <=
+                                (interactive ? hoveredRating || rating : rating)
+                                    ? 'star'
+                                    : 'star_border'
+                            }
                             size={size}
                             className={
-                                star <= (interactive ? hoveredRating || rating : rating)
+                                star <=
+                                (interactive ? hoveredRating || rating : rating)
                                     ? 'text-amber-400'
                                     : 'text-slate-300'
                             }
@@ -125,7 +136,9 @@ export default function ReviewClass({
                         <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">
                             Review Kelas
                         </h1>
-                        <p className="text-sm text-slate-500">{classData.title}</p>
+                        <p className="text-sm text-slate-500">
+                            {classData.title}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -145,7 +158,9 @@ export default function ReviewClass({
                             </label>
                             {renderStars(data.rating, true, 32)}
                             {errors.rating && (
-                                <p className="mt-1 text-sm text-red-500">{errors.rating}</p>
+                                <p className="mt-1 text-sm text-red-500">
+                                    {errors.rating}
+                                </p>
                             )}
                         </div>
 
@@ -156,13 +171,17 @@ export default function ReviewClass({
                             </label>
                             <textarea
                                 value={data.comment}
-                                onChange={(e) => setData('comment', e.target.value)}
+                                onChange={(e) =>
+                                    setData('comment', e.target.value)
+                                }
                                 placeholder="Bagikan pengalaman Anda mengikuti kelas ini..."
                                 rows={4}
                                 className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-800 placeholder-slate-400 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                             />
                             {errors.comment && (
-                                <p className="mt-1 text-sm text-red-500">{errors.comment}</p>
+                                <p className="mt-1 text-sm text-red-500">
+                                    {errors.comment}
+                                </p>
                             )}
                         </div>
 
@@ -175,13 +194,19 @@ export default function ReviewClass({
                             >
                                 {processing ? (
                                     <>
-                                        <Icon name="progress_activity" size={18} className="animate-spin" />
+                                        <Icon
+                                            name="progress_activity"
+                                            size={18}
+                                            className="animate-spin"
+                                        />
                                         Menyimpan...
                                     </>
                                 ) : (
                                     <>
                                         <Icon name="send" size={18} />
-                                        {userReview ? 'Update Review' : 'Kirim Review'}
+                                        {userReview
+                                            ? 'Update Review'
+                                            : 'Kirim Review'}
                                     </>
                                 )}
                             </button>
@@ -213,7 +238,9 @@ export default function ReviewClass({
                                 </span>
                             </div>
                             {userReview.comment && (
-                                <p className="text-slate-600">{userReview.comment}</p>
+                                <p className="text-slate-600">
+                                    {userReview.comment}
+                                </p>
                             )}
                             <div className="flex gap-3 pt-2">
                                 <button
@@ -240,7 +267,8 @@ export default function ReviewClass({
             {reviews.length > 0 && (
                 <div className="mt-8">
                     <h2 className="mb-4 text-lg font-bold text-slate-900">
-                        Review Lainnya ({reviews.filter((r) => r.id !== userReview?.id).length})
+                        Review Lainnya (
+                        {reviews.filter((r) => r.id !== userReview?.id).length})
                     </h2>
                     <div className="space-y-4">
                         {reviews
@@ -253,23 +281,33 @@ export default function ReviewClass({
                                     <div className="flex items-start justify-between">
                                         <div className="flex items-center gap-3">
                                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                                                {review.user.name.charAt(0).toUpperCase()}
+                                                {review.user.name
+                                                    .charAt(0)
+                                                    .toUpperCase()}
                                             </div>
                                             <div>
                                                 <p className="font-semibold text-slate-800">
                                                     {review.user.name}
                                                 </p>
                                                 <div className="flex items-center gap-2">
-                                                    {renderStars(review.rating, false, 14)}
+                                                    {renderStars(
+                                                        review.rating,
+                                                        false,
+                                                        14,
+                                                    )}
                                                     <span className="text-xs text-slate-400">
-                                                        {formatDate(review.created_at)}
+                                                        {formatDate(
+                                                            review.created_at,
+                                                        )}
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     {review.comment && (
-                                        <p className="mt-3 text-sm text-slate-600">{review.comment}</p>
+                                        <p className="mt-3 text-sm text-slate-600">
+                                            {review.comment}
+                                        </p>
                                     )}
                                 </div>
                             ))}

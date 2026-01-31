@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Classes;
 use App\Models\Mentor;
 use App\Services\CategoryService;
+use App\Services\ClassReviewService;
 use App\Services\ClassService;
 use App\Services\MentorService;
 use App\Services\ModuleService;
@@ -17,13 +18,14 @@ use Inertia\Inertia;
 
 class ClassController extends Controller
 {
-    protected $classService, $mentorService, $categoryService, $moduleService;
+    protected $classService, $mentorService, $categoryService, $moduleService, $classReviewService;
 
-    public function __construct(ClassService $classService, MentorService $mentorService, CategoryService $categoryService, ModuleService $moduleService){
+    public function __construct(ClassService $classService, MentorService $mentorService, CategoryService $categoryService, ModuleService $moduleService, ClassReviewService $classReviewService){
         $this->classService = $classService;
         $this->mentorService = $mentorService;
         $this->categoryService = $categoryService;
         $this->moduleService = $moduleService;
+        $this->classReviewService = $classReviewService;
     }
 
     public function listClassPage(){
@@ -83,5 +85,36 @@ class ClassController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Terjadi kesalahan');
         }
+    }
+
+    public function reviewClassPage(Request $request, $classId)
+    {
+
+
+        // Get filters from query params
+        $filters = [
+            'search' => $request->query('search', ''),
+            'class_id' => $classId,
+            'sort' => $request->query('sort', 'newest'),
+        ];
+
+        // Fetch data
+        $stats = $this->classReviewService->getReviewStats((int) $classId);
+        $distribution = $this->classReviewService->getRatingDistribution((int) $classId);
+        $reviews = $this->classReviewService->getReviewsPaginated($filters);
+
+        // Get class info for breadcrumb
+        $class = $this->classService->getClassDetailsById($classId);
+
+        return Inertia::render('Admin/Class/ClassReviewDetail', [
+            'classData' => [
+                'id' => $class->id,
+                'title' => $class->title,
+            ],
+            'stats' => $stats,
+            'distribution' => $distribution,
+            'reviews' => $reviews,
+            'filters' => $filters,
+        ]);
     }
 }

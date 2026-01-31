@@ -33,6 +33,9 @@ Route::get('/home', [UserDashboardController::class, 'homePage'])->name('home');
 Route::get('/privacy-policy', function () {
     return Inertia::render('Privacy');
 })->name('privacy');
+Route::get('/review', function () {
+    return Inertia::render('Admin/Class/ClassReviewDetail');
+})->name('review');
 
 Route::get('/faq', function () {
     return Inertia::render('FAQ');
@@ -114,6 +117,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/classes/{classId}', [AdmClassController::class, 'detailClassPage'])->name('classes.show');
         Route::put('/classes/{classId}', [AdmClassController::class, 'updateClass'])->name('classes.update');
         Route::post('/classes/{classId}/publish', [AdmClassController::class, 'publishClass'])->name('classes.publish');
+        Route::get('/classes/{classId}/review', [AdmClassController::class, 'reviewClassPage'])->name('classes.review');
 
         Route::get('/classes', [AdmClassController::class, 'listClassPage'])->name('classes');
         Route::get('/create/classes', [AdmClassController::class, 'createClassPage'])->name('classes.create');

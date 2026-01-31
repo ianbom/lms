@@ -91,6 +91,14 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                         <Icon name="quiz" size={14} />
                         Kuis
                     </Link>
+                    <Link
+                        href={route('admin.classes.review', classItem.id)}
+                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-purple-500 hover:text-purple-500"
+                        title="Lihat Review"
+                    >
+                        <Icon name="reviews" size={14} />
+                        Review
+                    </Link>
                 </div>
             </td>
         </tr>
