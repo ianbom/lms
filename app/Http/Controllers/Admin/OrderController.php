@@ -46,5 +46,12 @@ class OrderController extends Controller
         }
     }
 
-
+    public function pendingOrder($orderId){ 
+        try {
+        $this->orderService->pendingOrder($orderId);
+        return redirect()->back()->with('success', 'Order berhasil dipending.');
+        } catch (\Throwable $th) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
+        }
+    }
 }

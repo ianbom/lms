@@ -143,11 +143,10 @@ export default function TableToolbar({
                                 setIsFilterOpen(!isFilterOpen);
                                 setIsSortOpen(false);
                             }}
-                            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
-                                isFilterActive
+                            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${isFilterActive
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                            }`}
+                                }`}
                         >
                             <Icon name="filter_list" size={20} />
                             <span>{currentFilterLabel}</span>
@@ -166,26 +165,25 @@ export default function TableToolbar({
                                         onClick={() =>
                                             handleFilter(option.value)
                                         }
-                                        className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors ${
-                                            filters[filterKey] ===
+                                        className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors ${filters[filterKey] ===
                                                 option.value ||
-                                            (!filters[filterKey] &&
-                                                option.value === null)
+                                                (!filters[filterKey] &&
+                                                    option.value === null)
                                                 ? 'bg-primary/10 font-medium text-primary'
                                                 : 'text-slate-700 hover:bg-slate-50'
-                                        }`}
+                                            }`}
                                     >
                                         {(filters[filterKey] === option.value ||
                                             (!filters[filterKey] &&
                                                 option.value === null)) && (
-                                            <Icon name="check" size={16} />
-                                        )}
+                                                <Icon name="check" size={16} />
+                                            )}
                                         <span
                                             className={
                                                 filters[filterKey] ===
                                                     option.value ||
-                                                (!filters[filterKey] &&
-                                                    option.value === null)
+                                                    (!filters[filterKey] &&
+                                                        option.value === null)
                                                     ? ''
                                                     : 'pl-6'
                                             }
@@ -207,11 +205,10 @@ export default function TableToolbar({
                                 setIsSortOpen(!isSortOpen);
                                 setIsFilterOpen(false);
                             }}
-                            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
-                                isSortActive
+                            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${isSortActive
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                            }`}
+                                }`}
                         >
                             <Icon name="sort" size={20} />
                             <span>{currentSortLabel}</span>
@@ -224,27 +221,26 @@ export default function TableToolbar({
 
                         {isSortOpen && (
                             <div className="absolute left-0 top-full z-10 mt-1 min-w-[180px] overflow-hidden rounded-md border border-slate-200 bg-white py-1 shadow-lg">
-                                {sortOptions.map((option, index) => (
+                                {sortOptions.map((option) => (
                                     <button
                                         key={`${option.value}-${option.direction}`}
                                         onClick={() => handleSort(option)}
-                                        className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors ${
-                                            filters.sort === option.value &&
-                                            filters.direction ===
+                                        className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm transition-colors ${filters.sort === option.value &&
+                                                filters.direction ===
                                                 option.direction
                                                 ? 'bg-primary/10 font-medium text-primary'
                                                 : 'text-slate-700 hover:bg-slate-50'
-                                        }`}
+                                            }`}
                                     >
                                         {filters.sort === option.value &&
                                             filters.direction ===
-                                                option.direction && (
+                                            option.direction && (
                                                 <Icon name="check" size={16} />
                                             )}
                                         <span
                                             className={
                                                 filters.sort === option.value &&
-                                                filters.direction ===
+                                                    filters.direction ===
                                                     option.direction
                                                     ? ''
                                                     : 'pl-6'

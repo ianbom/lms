@@ -137,6 +137,22 @@ class OrderService
         ]);
     }
 
+    public function pendingOrder($orderId){
+        $order = ClassOrder::findOrFail($orderId);
+        $order->status = 'pending';
+        $order->decided_at = now();
+        $order->save();
+
+        ClassOrderStatusLog::create([
+            'order_id' => $order->id,
+            'status' => 'pending',
+        ]);
+
+        Enrollment::where('user_id', $order->user_id)
+        ->where('class_id', $order->class_id)
+        ->delete();
+    }
+
     public function checkPendingOrder($classId, $userId){
         $pendingOrder = ClassOrder::where('class_id', $classId)
         ->where('user_id', $userId)

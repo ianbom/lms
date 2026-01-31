@@ -24,8 +24,8 @@ export default function Home({ classes }: HomeProps) {
         description: cls.description,
         duration: '40 Jam', // Placeholder or add field to DB
         videoCount: 120, // Placeholder or add field to DB
-        price: cls.price,
-        originalPrice: cls.price * 1.5, // Placeholder logic
+        price: cls.price_final,
+        originalPrice: cls.price, // Placeholder logic
         isPopular: true,
         category: 'web', // Placeholder or add field to DB
         href: route('user.classes.show', cls.id),
@@ -163,9 +163,6 @@ export default function Home({ classes }: HomeProps) {
 
                 {/* CTA Section */}
                 <CTASection />
-
-                {/* Footer */}
-                {/* <Footer /> */}
             </div>
         </UserLayout>
     );

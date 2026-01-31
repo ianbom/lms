@@ -14,6 +14,7 @@ use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Controllers\User\CertificateController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
+use App\Http\Controllers\User\ClassReviewController;
 use App\Http\Controllers\User\StudyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,9 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
            Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
            Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
+
+           // Review Page
+           Route::get('/study/{classId}/review', [ClassReviewController::class, 'reviewPage'])->name('study.review');
        });
 
 
@@ -88,6 +92,11 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::post('/certificates/claim/{classId}', [CertificateController::class, 'claimCertificate'])->name('certificates.claim');
            Route::get('/certificates/{certificateId}/download', [CertificateController::class, 'downloadCertificate'])->name('certificates.download');
            Route::get('/certificates/{certificateId}/view', [CertificateController::class, 'viewCertificate'])->name('certificates.view');
+
+           // Class Review Routes
+           Route::post('/classes/{classId}/reviews', [ClassReviewController::class, 'store'])->name('reviews.store');
+           Route::put('/reviews/{reviewId}', [ClassReviewController::class, 'update'])->name('reviews.update');
+           Route::delete('/reviews/{reviewId}', [ClassReviewController::class, 'destroy'])->name('reviews.destroy');
        });
 
 
@@ -131,6 +140,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/orders', [OrderController::class, 'listOrderPage'])->name('orders');
         Route::post('/orders/{orderId}/approve', [OrderController::class, 'approveOrder'])->name('orders.approve');
         Route::post('/orders/{orderId}/reject', [OrderController::class, 'rejectOrder'])->name('orders.reject');
+        Route::post('/orders/{orderId}/pending', [OrderController::class, 'pendingOrder'])->name('orders.pending');
 
         Route::get('/users', [AdmUserController::class, 'listUserPage'])->name('users');
         Route::delete('/users/{userId}', [AdmUserController::class, 'deleteUser'])->name('users.delete');

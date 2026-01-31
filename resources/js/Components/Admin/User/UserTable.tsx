@@ -303,11 +303,10 @@ export default function UserTable({
                                         </td>
                                         <td className="px-6 py-4">
                                             <span
-                                                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                                                    user.role === 'admin'
+                                                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${user.role === 'admin'
                                                         ? 'bg-purple-100 text-purple-800'
                                                         : 'bg-blue-100 text-blue-800'
-                                                }`}
+                                                    }`}
                                             >
                                                 {user.role === 'admin'
                                                     ? 'Admin'
@@ -393,13 +392,12 @@ export default function UserTable({
                                     key={index}
                                     onClick={() => handlePageChange(link.url)}
                                     disabled={!link.url}
-                                    className={`min-w-[36px] rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                                        link.active
+                                    className={`min-w-[36px] rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${link.active
                                             ? 'bg-primary text-white'
                                             : link.url
-                                              ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                              : 'cursor-not-allowed bg-slate-50 text-slate-300'
-                                    }`}
+                                                ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                                : 'cursor-not-allowed bg-slate-50 text-slate-300'
+                                        }`}
                                     dangerouslySetInnerHTML={{
                                         __html: link.label,
                                     }}

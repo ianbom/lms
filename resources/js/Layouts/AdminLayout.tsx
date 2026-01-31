@@ -68,12 +68,6 @@ export default function AdminLayout({
             active: route().current('admin.users'),
         },
         {
-            label: 'Certificates',
-            href: '#',
-            icon: 'workspace_premium',
-            active: false,
-        },
-        {
             label: 'Settings',
             href: route('admin.profile'),
             icon: 'settings',

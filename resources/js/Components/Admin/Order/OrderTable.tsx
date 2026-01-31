@@ -2,13 +2,13 @@ import Icon from '@/Components/Icon';
 import DataTable from '@/Components/User/Dashboard/DataTable';
 import Pagination from '@/Components/User/Dashboard/Pagination';
 import TableToolbar from '@/Components/User/Dashboard/TableToolbar';
-import { router } from '@inertiajs/react'; // Import Inertia router
+import { router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 
 interface ConfirmModal {
     isOpen: boolean;
     orderId: number | null;
-    action: 'approve' | 'reject' | null;
+    action: 'approve' | 'reject' | 'pending' | null;
 }
 
 interface User {
@@ -89,7 +89,7 @@ export default function OrderTable({
 
     const openConfirmModal = (
         orderId: number,
-        action: 'approve' | 'reject',
+        action: 'approve' | 'reject' | 'pending',
     ) => {
         setConfirmModal({ isOpen: true, orderId, action });
     };
@@ -102,13 +102,14 @@ export default function OrderTable({
         if (!confirmModal.orderId || !confirmModal.action) return;
 
         setProcessing(true);
-        const routeName =
-            confirmModal.action === 'approve'
-                ? 'admin.orders.approve'
-                : 'admin.orders.reject';
+        const routeNames = {
+            approve: 'admin.orders.approve',
+            reject: 'admin.orders.reject',
+            pending: 'admin.orders.pending',
+        };
 
         router.post(
-            route(routeName, { orderId: confirmModal.orderId }),
+            route(routeNames[confirmModal.action], { orderId: confirmModal.orderId }),
             {},
             {
                 preserveScroll: true,
@@ -121,7 +122,40 @@ export default function OrderTable({
             },
         );
     };
-    //
+
+    const getModalConfig = () => {
+        switch (confirmModal.action) {
+            case 'approve':
+                return {
+                    icon: 'check_circle',
+                    iconBg: 'bg-green-100 text-green-600',
+                    title: 'Approve Order',
+                    description: 'Apakah Anda yakin ingin menyetujui order ini? Peserta akan didaftarkan ke kelas.',
+                    buttonBg: 'bg-green-600 hover:bg-green-700',
+                    buttonText: 'Ya, Setujui',
+                };
+            case 'reject':
+                return {
+                    icon: 'cancel',
+                    iconBg: 'bg-red-100 text-red-600',
+                    title: 'Reject Order',
+                    description: 'Apakah Anda yakin ingin menolak order ini? Peserta tidak akan didaftarkan ke kelas.',
+                    buttonBg: 'bg-red-600 hover:bg-red-700',
+                    buttonText: 'Ya, Tolak',
+                };
+            case 'pending':
+                return {
+                    icon: 'schedule',
+                    iconBg: 'bg-orange-100 text-orange-600',
+                    title: 'Set Pending Order',
+                    description: 'Apakah Anda yakin ingin mengubah status order ini menjadi pending? Jika sebelumnya approved, peserta akan dihapus dari kelas.',
+                    buttonBg: 'bg-orange-600 hover:bg-orange-700',
+                    buttonText: 'Ya, Set Pending',
+                };
+            default:
+                return null;
+        }
+    };
 
     const columns = useMemo(
         () => [
@@ -144,8 +178,8 @@ export default function OrderTable({
                             style={
                                 order.user.avatar
                                     ? {
-                                          backgroundImage: `url('${order.user.avatar}')`,
-                                      }
+                                        backgroundImage: `url('${order.user.avatar}')`,
+                                    }
                                     : {}
                             }
                         >
@@ -188,13 +222,12 @@ export default function OrderTable({
                 header: 'Status',
                 render: (order: Order) => (
                     <span
-                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${
-                            order.status === 'pending'
+                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${order.status === 'pending'
                                 ? 'bg-orange-50 text-orange-700 ring-orange-600/20'
                                 : order.status === 'approved'
-                                  ? 'bg-green-50 text-green-700 ring-green-600/20'
-                                  : 'bg-red-50 text-red-700 ring-red-600/20'
-                        }`}
+                                    ? 'bg-green-50 text-green-700 ring-green-600/20'
+                                    : 'bg-red-50 text-red-700 ring-red-600/20'
+                            }`}
                     >
                         {order.status.charAt(0).toUpperCase() +
                             order.status.slice(1)}
@@ -228,11 +261,10 @@ export default function OrderTable({
                         href={order.proof_url}
                         target="_blank"
                         rel="noreferrer"
-                        className={`inline-flex justify-center transition-colors ${
-                            !order.proof_url
+                        className={`inline-flex justify-center transition-colors ${!order.proof_url
                                 ? 'cursor-not-allowed text-slate-300'
                                 : 'text-slate-400 hover:text-primary'
-                        }`}
+                            }`}
                     >
                         <Icon name="receipt_long" />
                     </a>
@@ -241,43 +273,47 @@ export default function OrderTable({
             {
                 key: 'actions',
                 header: 'Aksi',
-                headerClassName: 'text-right',
-                className: 'text-right',
+                headerClassName: 'text-center',
+                className: 'text-center',
                 render: (order: Order) => (
-                    <>
-                        {order.status === 'pending' ? (
-                            <div className="flex items-center justify-end gap-2">
-                                <button
-                                    onClick={() =>
-                                        openConfirmModal(order.id, 'reject')
-                                    }
-                                    disabled={processing}
-                                    className="flex size-8 items-center justify-center rounded-md border border-slate-200 text-red-500 transition-colors hover:border-red-200 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
-                                    title="Reject"
-                                >
-                                    <Icon name="close" size={18} />
-                                </button>
-                                <button
-                                    onClick={() =>
-                                        openConfirmModal(order.id, 'approve')
-                                    }
-                                    disabled={processing}
-                                    className="flex size-8 items-center justify-center rounded-md bg-primary text-white shadow-sm transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50"
-                                    title="Approve"
-                                >
-                                    <Icon name="check" size={18} />
-                                </button>
-                            </div>
-                        ) : order.status === 'rejected' ? (
-                            <span className="text-xs font-medium text-red-400">
-                                Rejected
-                            </span>
-                        ) : (
-                            <span className="text-xs font-medium text-green-500">
-                                Approved
-                            </span>
-                        )}
-                    </>
+                    <div className="flex items-center justify-center gap-1">
+                        {/* Approve Button */}
+                        <button
+                            onClick={() => openConfirmModal(order.id, 'approve')}
+                            disabled={processing || order.status === 'approved'}
+                            className={`flex size-8 items-center justify-center rounded-md transition-colors ${order.status === 'approved'
+                                    ? 'cursor-not-allowed bg-green-100 text-green-600'
+                                    : 'border border-slate-200 text-green-500 hover:border-green-200 hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-50'
+                                }`}
+                            title="Approve"
+                        >
+                            <Icon name="check" size={18} />
+                        </button>
+                        {/* Pending Button */}
+                        <button
+                            onClick={() => openConfirmModal(order.id, 'pending')}
+                            disabled={processing || order.status === 'pending'}
+                            className={`flex size-8 items-center justify-center rounded-md transition-colors ${order.status === 'pending'
+                                    ? 'cursor-not-allowed bg-orange-100 text-orange-600'
+                                    : 'border border-slate-200 text-orange-500 hover:border-orange-200 hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-50'
+                                }`}
+                            title="Pending"
+                        >
+                            <Icon name="schedule" size={18} />
+                        </button>
+                        {/* Reject Button */}
+                        <button
+                            onClick={() => openConfirmModal(order.id, 'reject')}
+                            disabled={processing || order.status === 'rejected'}
+                            className={`flex size-8 items-center justify-center rounded-md transition-colors ${order.status === 'rejected'
+                                    ? 'cursor-not-allowed bg-red-100 text-red-600'
+                                    : 'border border-slate-200 text-red-500 hover:border-red-200 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50'
+                                }`}
+                            title="Reject"
+                        >
+                            <Icon name="close" size={18} />
+                        </button>
+                    </div>
                 ),
             },
         ],
@@ -295,6 +331,8 @@ export default function OrderTable({
         }),
         [filters.search, filters.status],
     );
+
+    const modalConfig = getModalConfig();
 
     return (
         <div className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
@@ -344,7 +382,7 @@ export default function OrderTable({
             />
 
             {/* Confirmation Modal */}
-            {confirmModal.isOpen && (
+            {confirmModal.isOpen && modalConfig && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     {/* Backdrop */}
                     <div
@@ -356,32 +394,17 @@ export default function OrderTable({
                         <div className="flex flex-col items-center gap-4 text-center">
                             {/* Icon */}
                             <div
-                                className={`flex h-14 w-14 items-center justify-center rounded-full ${
-                                    confirmModal.action === 'approve'
-                                        ? 'bg-green-100 text-green-600'
-                                        : 'bg-red-100 text-red-600'
-                                }`}
+                                className={`flex h-14 w-14 items-center justify-center rounded-full ${modalConfig.iconBg}`}
                             >
-                                <Icon
-                                    name={
-                                        confirmModal.action === 'approve'
-                                            ? 'check_circle'
-                                            : 'cancel'
-                                    }
-                                    size={32}
-                                />
+                                <Icon name={modalConfig.icon} size={32} />
                             </div>
                             {/* Title & Description */}
                             <div>
                                 <h3 className="text-lg font-semibold text-slate-900">
-                                    {confirmModal.action === 'approve'
-                                        ? 'Approve Order'
-                                        : 'Reject Order'}
+                                    {modalConfig.title}
                                 </h3>
                                 <p className="mt-1 text-sm text-slate-500">
-                                    {confirmModal.action === 'approve'
-                                        ? 'Apakah Anda yakin ingin menyetujui order ini? Peserta akan didaftarkan ke kelas.'
-                                        : 'Apakah Anda yakin ingin menolak order ini? Tindakan ini tidak dapat dibatalkan.'}
+                                    {modalConfig.description}
                                 </p>
                             </div>
                             {/* Actions */}
@@ -396,17 +419,9 @@ export default function OrderTable({
                                 <button
                                     onClick={handleConfirmAction}
                                     disabled={processing}
-                                    className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors disabled:opacity-50 ${
-                                        confirmModal.action === 'approve'
-                                            ? 'bg-green-600 hover:bg-green-700'
-                                            : 'bg-red-600 hover:bg-red-700'
-                                    }`}
+                                    className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors disabled:opacity-50 ${modalConfig.buttonBg}`}
                                 >
-                                    {processing
-                                        ? 'Memproses...'
-                                        : confirmModal.action === 'approve'
-                                          ? 'Ya, Setujui'
-                                          : 'Ya, Tolak'}
+                                    {processing ? 'Memproses...' : modalConfig.buttonText}
                                 </button>
                             </div>
                         </div>
