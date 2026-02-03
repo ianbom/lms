@@ -222,11 +222,11 @@ export default function ContactSection() {
                                 </div>
                             </div>
                             <button
-                                className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#13ec7c] text-base font-bold text-[#111814] shadow-md transition-all hover:bg-[#0fd66e] hover:shadow-lg active:scale-[0.99]"
+                                className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary/90 text-base font-bold text-[#111814] shadow-md transition-all hover:bg-primary hover:shadow-lg active:scale-[0.99]"
                                 type="button"
                             >
-                                <span>Kirim Pesan</span>
-                                <Icon name="arrow_forward" size={18} />
+                                <span className='text-white'>Kirim Pesan</span>
+                                <Icon className='text-white' name="arrow_forward" size={18} />
                             </button>
                             <p className="mt-2 text-center text-xs text-gray-500">
                                 Dengan mengirimkan formulir ini, kamu menyetujui{' '}
