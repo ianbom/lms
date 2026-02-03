@@ -111,7 +111,7 @@ export default function ContactForm() {
                         ]}
                         error={errors.company_size}
                     />
-                    <FloatingSelect
+                    {/* <FloatingSelect
                         id="program"
                         label="Program Pelatihan"
                         name="program"
@@ -131,7 +131,7 @@ export default function ContactForm() {
                             { label: 'Custom Program', value: 'custom' },
                         ]}
                         error={errors.program}
-                    />
+                    /> */}
                 </div>
 
                 <div className="pt-4">

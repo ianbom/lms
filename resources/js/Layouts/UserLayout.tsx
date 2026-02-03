@@ -47,6 +47,11 @@ export default function UserLayout({
             href: route('contact'),
             active: route().current('contact'),
         },
+        {
+            label: 'Corporate Training',
+            href: route('corporate-training'),
+            active: route().current('corporate-training'),
+        },
         // {
         //     label: 'Privacy Policy',
         //     href: route('privacy'),

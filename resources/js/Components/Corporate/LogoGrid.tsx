@@ -5,7 +5,7 @@ export default function LogoGrid() {
         <section className="w-full border-t border-[#f0f4f2] bg-white py-16">
             <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
                 <h3 className="mb-10 text-center text-sm font-bold uppercase tracking-widest text-gray-400">
-                    Trusted by Industry Leaders
+                    Dipercaya oleh
                 </h3>
                 <div className="grid grid-cols-2 items-center justify-items-center gap-8 opacity-70 md:grid-cols-4 md:gap-16">
                     {/* Logo 1: Google Style */}

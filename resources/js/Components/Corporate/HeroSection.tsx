@@ -3,9 +3,9 @@ export default function HeroSection() {
         <section className="w-full max-w-[1440px] px-4 pb-16 pt-10 md:px-10">
             <div className="mb-10 flex flex-col gap-6 text-center md:text-left">
                 <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-[#111814] md:text-6xl">
-                    Start the conversation <br />
+                    Mulai percakapan <br />
                     <span className="text-gray-400">
-                        that defines your future.
+                        yang menentukan masa depanmu.
                     </span>
                 </h1>
             </div>
@@ -39,7 +39,7 @@ export default function HeroSection() {
                                     98%
                                 </span>
                                 <p className="mt-1 text-sm font-medium text-gray-600">
-                                    Placement Rate
+                                    Tingkat Penempatan
                                 </p>
                             </div>
                         </div>

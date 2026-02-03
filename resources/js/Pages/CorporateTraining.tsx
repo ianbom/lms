@@ -7,7 +7,7 @@ import { Head } from '@inertiajs/react';
 export default function CorporateTraining() {
     return (
         <UserLayout fullWidth>
-            <Head title="Impact Academy - Contact" />
+            <Head title="Impact Academy - Kontak" />
 
             <div className="flex min-h-screen w-full flex-col bg-[#f6f8f7] text-[#111814]">
                 <main className="flex w-full flex-grow flex-col items-center">

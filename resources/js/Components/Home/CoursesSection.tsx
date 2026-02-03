@@ -30,50 +30,15 @@ interface CoursesSectionProps {
 
 const defaultCategories: Category[] = [
     { id: 'all', label: 'Semua' },
-    { id: 'web', label: 'Web Development' },
-    { id: 'design', label: 'UI/UX Design' },
-    { id: 'data', label: 'Data Science' },
-];
-
-const defaultCourses: Course[] = [
-    {
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuACWVui-Brh-ivR68csTQg9xkj3lDhvT3fikQ-ctYLLbFn8Qgr8C6Pn9BrKSq5eAyVz2BWU-kUhUpL7TQzvD1OrDxEZzsvXKGyhP5NxIZixXB9hr1Wup1G6VtQ_WnqUzLmlBXqIMfwF2b9HmJdZeeOjERV97r1ldWeR_qhguIp1yYYLhjOnaEEVhHNlkpn66ojmMHfALeRhg65avmrHFOWK-oCb82EzXM0GYY_Nd6lCrY-XjeJ_Han0U6PE7yPRYQMW75cQTEl9gYU',
-        title: 'Full-Stack Web Developer Bootcamp',
-        description:
-            'Pelajari HTML, CSS, JavaScript, React, dan Node.js dari nol sampai mahir.',
-        duration: '12 Minggu',
-        videoCount: 45,
-        price: 999000,
-        originalPrice: 2500000,
-        isPopular: true,
-        category: 'web',
-    },
-    {
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDQWN5yZWceGZYC48E8Q_4gyAT9gwArHauJ3o6HiWXwVN90WHQPxsxXdn_TmzYvz6MTp0Tctz5mlpH0bcfcu0A_cEphrLFC3qYKjk-WfNb5w8Wtjp6iHBOS0yA950OrRENASkzHspL3vApUwJkRD9PYKgYjjoiENhFQspoMz3FggdboGBF2g3UQBkkMu4xJxB1pOdE8eHxsGQ-p7TI8GH7H_UO8kUG40u3xeU2r9o-b_ddTyVW86qAfhdOF4jV6UbzUhTxo5hTh2EA',
-        title: 'Mastering UI/UX Design',
-        description:
-            'Desain antarmuka aplikasi mobile dan website yang user-friendly menggunakan Figma.',
-        duration: '8 Minggu',
-        videoCount: 32,
-        price: 750000,
-        category: 'design',
-    },
-    {
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCFxUJRNZnWRQVROI-RNKRJxyeSbnQ6oZ8dWtQ-2vNkIaAWyBB04ZV5iPfdlwtJRImMv0JjzLb7Qn0wbQVEEbByJauH6r761Wy0ijky79IfD5J9cNBXiK7_7IgEOvZWhCWRKt4amovJPa1MxP0bCA61HfilGasIm6jmP_z9mD_3u7ceRNqndqqfwWqJk5JZ5u_5mWDbVHHZkQVQSl3RDwYyH5ebQI87RZnpomedEUEvn_fMjI9obkc406Dm-kwondcDPNRuVpwsU0M',
-        title: 'Data Science for Beginners',
-        description:
-            'Analisis data menggunakan Python, Pandas, dan Visualisasi Data.',
-        duration: '16 Minggu',
-        videoCount: 50,
-        price: 1200000,
-        category: 'data',
-    },
+    { id: 'sertifikasi-bnsp', label: 'Sertifikasi BNSP' },
+    { id: 'impact-measurement', label: 'Impact Measurement' },
+    { id: 'iso-26000', label: 'ISO 26000' },
 ];
 
 export default function CoursesSection({
     title = 'Kelas Populer',
     description,
-    courses = defaultCourses,
+    courses = [], // Empty default to avoid using stale data if not provided
     categories = defaultCategories,
 }: CoursesSectionProps) {
     const [activeCategory, setActiveCategory] = useState('all');
@@ -92,7 +57,7 @@ export default function CoursesSection({
                         <span className="text-xs font-bold uppercase tracking-wider text-primary">
                             Explore Courses
                         </span>
-                        <h2 className="mt-2 text-3xl font-bold text-slate-900">
+                        <h2 className="mt-2 text-3xl font-bold text-gray-900">
                             {title}
                         </h2>
                         {description && (
@@ -108,11 +73,10 @@ export default function CoursesSection({
                                     onClick={() =>
                                         setActiveCategory(category.id)
                                     }
-                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-                                        activeCategory === category.id
-                                            ? 'bg-slate-900 text-white'
-                                            : 'border border-slate-200 bg-white text-slate-600 hover:border-primary hover:text-primary'
-                                    }`}
+                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${activeCategory === category.id
+                                            ? 'bg-gray-900 text-white'
+                                            : 'border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary'
+                                        }`}
                                 >
                                     {category.label}
                                 </button>
@@ -135,6 +99,10 @@ export default function CoursesSection({
                             originalPrice={course.originalPrice}
                             isPopular={course.isPopular}
                             href={course.href}
+                            category={
+                                categories.find((c) => c.id === course.category)
+                                    ?.label || 'General'
+                            }
                         />
                     ))}
                 </div>

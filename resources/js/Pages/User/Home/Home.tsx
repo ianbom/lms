@@ -20,14 +20,14 @@ export default function Home({ classes }: HomeProps) {
         image: cls.thumbnail_url
             ? `${cls.thumbnail_url}`
             : 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800',
-        title: cls.name,
+        title: cls.title,
         description: cls.description,
         duration: '40 Jam', // Placeholder or add field to DB
         videoCount: 120, // Placeholder or add field to DB
         price: cls.price_final,
         originalPrice: cls.price, // Placeholder logic
         isPopular: true,
-        category: 'web', // Placeholder or add field to DB
+        category: cls.category?.slug || 'sertifikasi-bnsp', // Use slug from DB or default to one of the new categories
         href: route('user.classes.show', cls.id),
     }));
 

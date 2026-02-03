@@ -9,15 +9,15 @@ export default function ContactSection() {
                 <div className="flex flex-1 flex-col justify-between">
                     <div className="space-y-6">
                         <div className="text-premium-green inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#00753D]">
-                            Contact Us
+                            Hubungi Kami
                         </div>
                         <h2 className="text-3xl font-bold leading-tight text-[#111814] md:text-4xl">
-                            We help you build <br /> your future.
+                            Kami bantu kamu <br /> bangun masa depanmu.
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-gray-600">
-                            Whether you're looking to upskill your team or
-                            launch a new career, our advisors are here to guide
-                            you through the process.
+                            Baik kamu ingin meningkatkan keterampilan tim atau
+                            memulai karir baru, penasihat kami siap memandu
+                            prosesnya.
                         </p>
                     </div>
                     {/* Editorial Testimonial */}
@@ -27,8 +27,8 @@ export default function ContactSection() {
                         </span>
                         <blockquote className="relative z-10">
                             <p className="mb-8 text-2xl font-medium leading-snug tracking-tight text-[#111814] md:text-3xl">
-                                "The curriculum transformed my career path
-                                entirely. The mentorship is unmatched."
+                                "Kurikulumnya benar-benar mengubah jalur karir
+                                saya. Mentorship-nya tak tertandingi."
                             </p>
                             <div className="flex items-center gap-4">
                                 <div
@@ -43,7 +43,7 @@ export default function ContactSection() {
                                         Jessica Setiawan
                                     </cite>
                                     <span className="text-sm text-gray-500">
-                                        Alumni, Class of 2023
+                                        Alumni, Angkatan 2023
                                     </span>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@ export default function ContactSection() {
                                         className="ml-1 text-sm font-semibold text-[#111814]"
                                         htmlFor="firstName"
                                     >
-                                        First Name
+                                        Nama Depan
                                     </label>
                                     <input
                                         className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] active:ring-[#13ec7c]"
@@ -74,7 +74,7 @@ export default function ContactSection() {
                                         className="ml-1 text-sm font-semibold text-[#111814]"
                                         htmlFor="lastName"
                                     >
-                                        Last Name
+                                        Nama Belakang
                                     </label>
                                     <input
                                         className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
@@ -89,7 +89,7 @@ export default function ContactSection() {
                                     className="ml-1 text-sm font-semibold text-[#111814]"
                                     htmlFor="email"
                                 >
-                                    Work Email
+                                    Email Kerja
                                 </label>
                                 <input
                                     className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
@@ -103,7 +103,7 @@ export default function ContactSection() {
                                     className="ml-1 text-sm font-semibold text-[#111814]"
                                     htmlFor="interest"
                                 >
-                                    How can we help?
+                                    Apa yang bisa kami bantu?
                                 </label>
                                 <div className="relative">
                                     <select
@@ -112,19 +112,25 @@ export default function ContactSection() {
                                         defaultValue=""
                                     >
                                         <option disabled value="">
-                                            Select a topic
+                                            Sertifikasi BNSP
                                         </option>
                                         <option value="admissions">
-                                            Program Admissions
+                                            Impact Measurement
                                         </option>
                                         <option value="partnerships">
-                                            Corporate Partnerships
+                                            ISO 26000
                                         </option>
                                         <option value="careers">
-                                            Careers at Impact
+                                            ESG
                                         </option>
                                         <option value="other">
-                                            Other Inquiry
+                                            Theory of Change
+                                        </option>
+                                        <option value="other">
+                                            Logical Framework Approach
+                                        </option>
+                                        <option value="other">
+                                            System Thinking
                                         </option>
                                     </select>
                                     <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
@@ -137,12 +143,12 @@ export default function ContactSection() {
                                     className="ml-1 text-sm font-semibold text-[#111814]"
                                     htmlFor="message"
                                 >
-                                    Message
+                                    Pesan
                                 </label>
                                 <textarea
                                     className="bg-input-bg w-full resize-none rounded-lg border-none bg-[#E6F4EF] p-4 text-[#111814] transition-all placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
                                     id="message"
-                                    placeholder="Tell us a bit about your goals..."
+                                    placeholder="Ceritakan sedikit tentang tujuanmu..."
                                     rows={4}
                                 ></textarea>
                             </div>
@@ -150,18 +156,18 @@ export default function ContactSection() {
                                 className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#13ec7c] text-base font-bold text-[#111814] shadow-md transition-all hover:bg-[#0fd66e] hover:shadow-lg active:scale-[0.99]"
                                 type="button"
                             >
-                                <span>Start your Journey</span>
+                                <span>Mulai Perjalananku</span>
                                 <Icon name="arrow_forward" size={18} />
                             </button>
                             <p className="mt-2 text-center text-xs text-gray-500">
-                                By submitting this form, you agree to our{' '}
+                                Dengan mengirimkan formulir ini, kamu menyetujui{' '}
                                 <Link
                                     className="underline hover:text-[#13ec7c]"
                                     href="#"
                                 >
-                                    Privacy Policy
-                                </Link>
-                                .
+                                    Kebijakan Privasi
+                                </Link>{' '}
+                                kami.
                             </p>
                         </form>
                     </div>

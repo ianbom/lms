@@ -43,8 +43,8 @@ class ClassSeeder extends Seeder
             'discount' => 20,
             'price_final' => 400000,
             'thumbnail_url' => 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800',
-            'status' => 'published',
-            'published_at' => now(),
+            'status' => 'draft',
+            'published_at' => null,
         ]);
 
         // Attach mentors to class 1
