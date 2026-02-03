@@ -43,7 +43,7 @@ const defaultFeatures: Feature[] = [
 ];
 
 export default function WhyChooseUsSection({
-    title = 'Kenapa Impact Academy Jadi Pilihan untuk Upgrade Skill dan Pengetahuan?',
+    title = 'Kenapa Impact Academy Jadi Pilihan untuk Upgrade Pengetahuan dan Keahlian?',
     description = 'Platform pembelajaran digital dengan sistem terstruktur, mentor praktisi, dan sertifikasi terpercaya untuk membantu Anda berkembang lebih cepat dan lebih berdampak.',
     benefits = defaultBenefits,
     features = defaultFeatures,

@@ -5,15 +5,17 @@ export default function LogoGrid() {
         <section className="w-full border-t border-[#f0f4f2] bg-white py-16">
             <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
                 <h3 className="mb-10 text-center text-sm font-bold uppercase tracking-widest text-gray-400">
-                    Dipercaya oleh
+                    Mitra Kami
                 </h3>
                 <div className="grid grid-cols-2 items-center justify-items-center gap-8 opacity-70 md:grid-cols-5 md:gap-16">
                     {/* Logo Mitra */}
                     {[
+                        '1.pertaminaGas.png',
                         '1.Pertamina.png',
                         '2.Pln.png',
                         '3.Pelindo.png',
-                        '4.bri.png',
+                        '4.Taspen.png',
+                        '11.Bri.png',
                         '5.Pegadaian.png',
                         '6.Astra.png',
                         '7.Biofarma.png',
