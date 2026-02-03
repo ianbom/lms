@@ -262,58 +262,6 @@ export default function ReviewClass({
                     )
                 )}
             </div>
-
-            {/* Other Reviews */}
-            {reviews.length > 0 && (
-                <div className="mt-8">
-                    <h2 className="mb-4 text-lg font-bold text-slate-900">
-                        Review Lainnya (
-                        {reviews.filter((r) => r.id !== userReview?.id).length})
-                    </h2>
-                    <div className="space-y-4">
-                        {reviews
-                            .filter((review) => review.id !== userReview?.id)
-                            .map((review) => (
-                                <div
-                                    key={review.id}
-                                    className="rounded-xl border border-slate-200 bg-white p-5"
-                                >
-                                    <div className="flex items-start justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                                                {review.user.name
-                                                    .charAt(0)
-                                                    .toUpperCase()}
-                                            </div>
-                                            <div>
-                                                <p className="font-semibold text-slate-800">
-                                                    {review.user.name}
-                                                </p>
-                                                <div className="flex items-center gap-2">
-                                                    {renderStars(
-                                                        review.rating,
-                                                        false,
-                                                        14,
-                                                    )}
-                                                    <span className="text-xs text-slate-400">
-                                                        {formatDate(
-                                                            review.created_at,
-                                                        )}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {review.comment && (
-                                        <p className="mt-3 text-sm text-slate-600">
-                                            {review.comment}
-                                        </p>
-                                    )}
-                                </div>
-                            ))}
-                    </div>
-                </div>
-            )}
         </UserDashboardLayout>
     );
 }

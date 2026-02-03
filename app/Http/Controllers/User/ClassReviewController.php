@@ -24,12 +24,10 @@ class ClassReviewController extends Controller
     {
         $class = $this->classService->getClassDetailsById($classId);
         $userReview = $this->classReviewService->getUserReviewForClass($classId);
-        $reviews = $this->classReviewService->getReviewsForClass($classId);
 
         return Inertia::render('User/Study/ReviewClass', [
             'classData' => $class,
             'userReview' => $userReview,
-            'reviews' => $reviews,
         ]);
     }
 

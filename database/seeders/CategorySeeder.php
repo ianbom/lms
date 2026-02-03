@@ -14,34 +14,39 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Design',
-                'slug' => 'design',
-                'description' => 'Master the art of visual communication, from UI/UX to graphic design.',
+                'name' => 'Sertifikasi BNSP',
+                'slug' => 'sertifikasi-bnsp',
+                'description' => 'Program sertifikasi kompetensi profesi standar nasional yang diakui secara resmi.',
             ],
             [
-                'name' => 'Development',
-                'slug' => 'development',
-                'description' => 'Learn coding languages, frameworks, and software engineering principles.',
+                'name' => 'Impact Measurement',
+                'slug' => 'impact-measurement',
+                'description' => 'Pelajari cara mengukur, mengelola, dan melaporkan dampak sosial dan lingkungan.',
             ],
             [
-                'name' => 'Business',
-                'slug' => 'business',
-                'description' => 'Develop leadership skills, entrepreneurship, and business strategies.',
+                'name' => 'ISO 26000',
+                'slug' => 'iso-26000',
+                'description' => 'Panduan panduan tanggung jawab sosial untuk organisasi yang berkelanjutan dan etis.',
             ],
             [
-                'name' => 'Marketing',
-                'slug' => 'marketing',
-                'description' => 'Explore digital marketing, SEO, content creation, and brand management.',
+                'name' => 'ESG',
+                'slug' => 'esg',
+                'description' => 'Pahami prinsip Environmental, Social, dan Governance untuk bisnis yang berkelanjutan.',
             ],
             [
-                'name' => 'Creative Arts',
-                'slug' => 'creative-arts',
-                'description' => 'Develope your creativity in music, writing, photography, and more.',
+                'name' => 'Theory of Change',
+                'slug' => 'theory-of-change',
+                'description' => 'Kerangka kerja untuk merencanakan dan mengevaluasi perubahan sosial jangka panjang.',
             ],
             [
-                'name' => 'Personal Development',
-                'slug' => 'personal-development',
-                'description' => 'Improve productivity, soft skills, and personal growth.',
+                'name' => 'Logical Framework Approach',
+                'slug' => 'logical-framework-approach',
+                'description' => 'Metodologi perencanaan dan manajemen proyek yang sistematis dan terstruktur.',
+            ],
+            [
+                'name' => 'System Thinking',
+                'slug' => 'system-thinking',
+                'description' => 'Kembangkan pola pikir holistik untuk memecahkan masalah kompleks dalam sistem.',
             ],
         ];
 

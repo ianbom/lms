@@ -168,4 +168,8 @@ class Classes extends Model
     {
         return 'Rp ' . number_format($this->price_final ?? $this->price, 0, ',', '.');
     }
+
+    public function reviews(){
+        return $this->hasMany(ClassReview::class, 'class_id');
+    }
 }

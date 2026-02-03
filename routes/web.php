@@ -49,6 +49,10 @@ Route::get('/contact-us', function () {
     return Inertia::render('ContactUs');
 })->name('contact');
 
+Route::get('/corporate-training', function () {
+    return Inertia::render('CorporateTraining');
+})->name('corporate-training');
+
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -118,6 +122,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::put('/classes/{classId}', [AdmClassController::class, 'updateClass'])->name('classes.update');
         Route::post('/classes/{classId}/publish', [AdmClassController::class, 'publishClass'])->name('classes.publish');
         Route::get('/classes/{classId}/review', [AdmClassController::class, 'reviewClassPage'])->name('classes.review');
+        Route::delete('/classes/{classId}', [AdmClassController::class, 'deleteClass'])->name('classes.delete');
 
         Route::get('/classes', [AdmClassController::class, 'listClassPage'])->name('classes');
         Route::get('/create/classes', [AdmClassController::class, 'createClassPage'])->name('classes.create');
@@ -140,6 +145,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/categories', [CategoryController::class, 'listCategoryPage'])->name('categories');
         Route::get('/categories/create', [CategoryController::class, 'createCategoryPage'])->name('categories.create');
         Route::post('/categories', [CategoryController::class, 'storeCategory'])->name('categories.store');
+        Route::put('/categories/{categoryId}', [CategoryController::class, 'updateCategory'])->name('categories.update');
+        Route::delete('/categories/{categoryId}', [CategoryController::class, 'deleteCategory'])->name('categories.delete');
 
         Route::get('/orders', [OrderController::class, 'listOrderPage'])->name('orders');
         Route::post('/orders/{orderId}/approve', [OrderController::class, 'approveOrder'])->name('orders.approve');

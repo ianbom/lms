@@ -117,4 +117,15 @@ class ClassController extends Controller
             'filters' => $filters,
         ]);
     }
+
+    public function deleteClass($classId)
+    {
+        try {
+            $this->classService->deleteClass((int) $classId);
+            return redirect()->route('admin.classes')->with('success', 'Kelas berhasil dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
 }
+

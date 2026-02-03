@@ -123,5 +123,58 @@ class ClassService
         return $class;
     }
 
+    /**
+     * Delete a class by ID.
+     * Only draft classes can be deleted.
+     * All related data will be cascaded deleted.
+     */
+    public function deleteClass(int $classId): bool
+    {
+        $class = Classes::findOrFail($classId);
 
+        // Only draft classes can be deleted
+        if ($class->status !== 'draft') {
+            throw new \Exception('Hanya kelas dengan status draft yang dapat dihapus.');
+        }
+
+        // Delete related data manually (in case cascade not set in DB)
+        // Delete mentors pivot
+        $class->mentors()->detach();
+
+        // Delete modules and their children
+        foreach ($class->modules as $module) {
+            // Delete videos and their resources
+            foreach ($module->videos as $video) {
+                $video->resources()->delete();
+                $video->notes()->delete();
+                $video->progress()->delete();
+                $video->delete();
+            }
+            
+            // Delete quizzes and their children
+            foreach ($module->quizzes as $quiz) {
+                foreach ($quiz->questions as $question) {
+                    $question->options()->delete();
+                    $question->delete();
+                }
+                $quiz->attempts()->delete();
+                $quiz->delete();
+            }
+            
+            $module->delete();
+        }
+
+        // Delete enrollments and related
+        $class->enrollments()->delete();
+        
+        // Delete orders
+        $class->orders()->delete();
+        
+        // Delete reviews
+        $class->reviews()->delete();
+
+        // Finally delete the class
+        return $class->delete();
+    }
 }
+

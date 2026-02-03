@@ -436,12 +436,12 @@ export default function CurriculumSidebar({
             )} */}
 
             {/* Review Class Button */}
-            <div className="border-t border-slate-100 bg-gradient-to-r from-purple-50 to-indigo-50 p-4">
+            <div className="border-t border-slate-100 bg-gradient-to-r from-yellow-50 to-yellow-50 p-4">
                 <button
                     onClick={() =>
                         router.visit(`/user/study/${classData.id}/review`)
                     }
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 px-4 py-3 font-bold text-white shadow-lg shadow-purple-500/30 transition-all hover:from-purple-600 hover:to-indigo-700 hover:shadow-purple-500/40"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 px-4 py-3 font-bold text-white shadow-lg shadow-yellow-500/30 transition-all hover:from-yellow-600 hover:to-yellow-700 hover:shadow-yellow-500/40"
                 >
                     <Icon name="rate_review" size={20} />
                     Review Kelas

@@ -37,9 +37,7 @@ interface RatingDistributionProps {
     period?: string;
 }
 
-export default function RatingDistribution({
-    data,
-}: RatingDistributionProps) {
+export default function RatingDistribution({ data }: RatingDistributionProps) {
     return (
         <div className="flex flex-col justify-center rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
             <div className="mb-3 flex items-center justify-between">

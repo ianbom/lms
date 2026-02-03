@@ -1,6 +1,6 @@
 import Icon from '@/Components/Icon';
 import { ClassItem } from '@/types/admin';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import StatusBadge from './StatusBadge';
 
 interface ClassTableRowProps {
@@ -27,6 +27,23 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                 )}
             </div>
         );
+    };
+
+    const handleDelete = () => {
+        if (classItem.status !== 'draft') {
+            alert('Hanya kelas dengan status draft yang dapat dihapus.');
+            return;
+        }
+
+        if (
+            confirm(
+                `Yakin ingin menghapus kelas "${classItem.title}"? Semua data yang terkait akan ikut terhapus.`,
+            )
+        ) {
+            router.delete(route('admin.classes.delete', classItem.id), {
+                preserveScroll: true,
+            });
+        }
     };
 
     return (
@@ -99,6 +116,16 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                         <Icon name="reviews" size={14} />
                         Review
                     </Link>
+                    {classItem.status === 'draft' && (
+                        <button
+                            onClick={handleDelete}
+                            className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-red-500 hover:bg-red-50 hover:text-red-500"
+                            title="Hapus Kelas"
+                        >
+                            <Icon name="delete" size={14} />
+                            Hapus
+                        </button>
+                    )}
                 </div>
             </td>
         </tr>
