@@ -12,12 +12,11 @@ export default function ContactSection() {
                             Hubungi Kami
                         </div>
                         <h2 className="text-3xl font-bold leading-tight text-[#111814] md:text-4xl">
-                            Kami bantu kamu <br /> bangun masa depanmu.
+                            Kami bantu perusahaanmu <br /> bangun masa depan.
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-gray-600">
-                            Baik kamu ingin meningkatkan keterampilan tim atau
-                            memulai karir baru, penasihat kami siap memandu
-                            prosesnya.
+                            Bangun kompetensi strategis melalui pelatihan berbasis praktik,
+                            mentor profesional, dan ekosistem pembelajaran yang mendukung pertumbuhan organisasi berkelanjutan.
                         </p>
                     </div>
                     {/* Editorial Testimonial */}
@@ -54,103 +53,173 @@ export default function ContactSection() {
                 <div className="flex-1">
                     <div className="mx-auto max-w-lg lg:mr-0">
                         <form className="flex flex-col gap-5">
-                            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                            <div className="flex flex-col gap-5">
                                 <div className="flex flex-col gap-2">
                                     <label
                                         className="ml-1 text-sm font-semibold text-[#111814]"
-                                        htmlFor="firstName"
+                                        htmlFor="fullName"
                                     >
-                                        Nama Depan
+                                        Nama Lengkap
                                     </label>
                                     <input
                                         className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] active:ring-[#13ec7c]"
-                                        id="firstName"
-                                        placeholder="Jane"
+                                        id="fullName"
+                                        placeholder="John Doe"
                                         type="text"
                                     />
                                 </div>
+
+                                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                                    <div className="flex flex-col gap-2">
+                                        <label
+                                            className="ml-1 text-sm font-semibold text-[#111814]"
+                                            htmlFor="officeName"
+                                        >
+                                            Nama Kantor
+                                        </label>
+                                        <input
+                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            id="officeName"
+                                            placeholder="Cabang Jakarta"
+                                            type="text"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label
+                                            className="ml-1 text-sm font-semibold text-[#111814]"
+                                            htmlFor="companyName"
+                                        >
+                                            Nama Perusahaan
+                                        </label>
+                                        <input
+                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            id="companyName"
+                                            placeholder="PT. Impact Academy"
+                                            type="text"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                                    <div className="flex flex-col gap-2">
+                                        <label
+                                            className="ml-1 text-sm font-semibold text-[#111814]"
+                                            htmlFor="email"
+                                        >
+                                            Email Kerja
+                                        </label>
+                                        <input
+                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            id="email"
+                                            placeholder="jane@company.com"
+                                            type="email"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label
+                                            className="ml-1 text-sm font-semibold text-[#111814]"
+                                            htmlFor="phone"
+                                        >
+                                            Nomor Handphone
+                                        </label>
+                                        <input
+                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            id="phone"
+                                            placeholder="+62 812 3456 7890"
+                                            type="tel"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                                    <div className="flex flex-col gap-2">
+                                        <label
+                                            className="ml-1 text-sm font-semibold text-[#111814]"
+                                            htmlFor="jobTitle"
+                                        >
+                                            Jabatan
+                                        </label>
+                                        <input
+                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            id="jobTitle"
+                                            placeholder="HR Manager"
+                                            type="text"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label
+                                            className="ml-1 text-sm font-semibold text-[#111814]"
+                                            htmlFor="companySize"
+                                        >
+                                            Skala Perusahaan
+                                        </label>
+                                        <div className="relative">
+                                            <select
+                                                className="bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                                id="companySize"
+                                                defaultValue=""
+                                            >
+                                                <option disabled value="">
+                                                    Pilih skala
+                                                </option>
+                                                <option value="<10">&lt; 10 Karyawan</option>
+                                                <option value="11-50">11 - 50 Karyawan</option>
+                                                <option value="51-200">51 - 200 Karyawan</option>
+                                                <option value="201-500">201 - 500 Karyawan</option>
+                                                <option value="501-1000">501 - 1000 Karyawan</option>
+                                                <option value=">1000">&gt; 1000 Karyawan</option>
+                                            </select>
+                                            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+                                                <Icon name="expand_more" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="flex flex-col gap-2">
                                     <label
                                         className="ml-1 text-sm font-semibold text-[#111814]"
-                                        htmlFor="lastName"
+                                        htmlFor="interest"
                                     >
-                                        Nama Belakang
+                                        Pelatihan yang diinginkan
                                     </label>
-                                    <input
-                                        className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
-                                        id="lastName"
-                                        placeholder="Doe"
-                                        type="text"
-                                    />
+                                    <div className="relative">
+                                        <select
+                                            className="bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            id="interest"
+                                            defaultValue=""
+                                        >
+                                            <option disabled value="">
+                                                Pilih program
+                                            </option>
+                                            <option value="sertifikasi-bnsp">Sertifikasi BNSP</option>
+                                            <option value="impact-measurement">Impact Measurement</option>
+                                            <option value="iso-26000">ISO 26000</option>
+                                            <option value="esg">ESG</option>
+                                            <option value="theory-of-change">Theory of Change</option>
+                                            <option value="logical-framework-approach">Logical Framework Approach</option>
+                                            <option value="system-thinking">System Thinking</option>
+                                        </select>
+                                        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+                                            <Icon name="expand_more" />
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label
-                                    className="ml-1 text-sm font-semibold text-[#111814]"
-                                    htmlFor="email"
-                                >
-                                    Email Kerja
-                                </label>
-                                <input
-                                    className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
-                                    id="email"
-                                    placeholder="jane@company.com"
-                                    type="email"
-                                />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label
-                                    className="ml-1 text-sm font-semibold text-[#111814]"
-                                    htmlFor="interest"
-                                >
-                                    Apa yang bisa kami bantu?
-                                </label>
-                                <div className="relative">
-                                    <select
-                                        className="bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
-                                        id="interest"
-                                        defaultValue=""
+
+                                <div className="flex flex-col gap-2">
+                                    <label
+                                        className="ml-1 text-sm font-semibold text-[#111814]"
+                                        htmlFor="message"
                                     >
-                                        <option disabled value="">
-                                            Sertifikasi BNSP
-                                        </option>
-                                        <option value="admissions">
-                                            Impact Measurement
-                                        </option>
-                                        <option value="partnerships">
-                                            ISO 26000
-                                        </option>
-                                        <option value="careers">
-                                            ESG
-                                        </option>
-                                        <option value="other">
-                                            Theory of Change
-                                        </option>
-                                        <option value="other">
-                                            Logical Framework Approach
-                                        </option>
-                                        <option value="other">
-                                            System Thinking
-                                        </option>
-                                    </select>
-                                    <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
-                                        <Icon name="expand_more" />
-                                    </span>
+                                        Pesan
+                                    </label>
+                                    <textarea
+                                        className="bg-input-bg w-full resize-none rounded-lg border-none bg-[#E6F4EF] p-4 text-[#111814] transition-all placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                        id="message"
+                                        placeholder="Ceritakan sedikit tentang kebutuhan pelatihanmu..."
+                                        rows={4}
+                                    ></textarea>
                                 </div>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label
-                                    className="ml-1 text-sm font-semibold text-[#111814]"
-                                    htmlFor="message"
-                                >
-                                    Pesan
-                                </label>
-                                <textarea
-                                    className="bg-input-bg w-full resize-none rounded-lg border-none bg-[#E6F4EF] p-4 text-[#111814] transition-all placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
-                                    id="message"
-                                    placeholder="Ceritakan sedikit tentang tujuanmu..."
-                                    rows={4}
-                                ></textarea>
                             </div>
                             <button
                                 className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#13ec7c] text-base font-bold text-[#111814] shadow-md transition-all hover:bg-[#0fd66e] hover:shadow-lg active:scale-[0.99]"

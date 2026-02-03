@@ -46,23 +46,23 @@ export default function Footer() {
                             <li>
                                 <a
                                     className="group flex items-center gap-3 text-gray-300 transition-colors hover:text-[#00753D]"
-                                    href="mailto:support@teacircle.com"
+                                    href="mailto:info@socialimpact.id"
                                 >
                                     <div className="flex h-5 w-5 items-center justify-center text-[#00753D] transition-transform group-hover:scale-110">
                                         <Icon name="mail" size={20} />
                                     </div>
-                                    <span>support@teacircle.com</span>
+                                    <span>info@socialimpact.id</span>
                                 </a>
                             </li>
                             <li>
                                 <a
                                     className="group flex items-center gap-3 text-gray-300 transition-colors hover:text-[#00753D]"
-                                    href="tel:1800-3232-8686"
+                                    href="tel:+62811106066"
                                 >
                                     <div className="flex h-5 w-5 items-center justify-center text-[#00753D] transition-transform group-hover:scale-110">
                                         <Icon name="call" size={20} />
                                     </div>
-                                    <span>1800-3232-8686</span>
+                                    <span>+62 811 106 066</span>
                                 </a>
                             </li>
                         </ul>
@@ -80,7 +80,6 @@ export default function Footer() {
                                 Terms & Conditions
                             </FooterLink>
                             <FooterLink href="/contact-us">Contact</FooterLink>
-                            {/* <FooterLink href="#">Pricing</FooterLink> */}
                         </ul>
                     </div>
 
@@ -100,16 +99,22 @@ export default function Footer() {
                             Follow Us
                         </h3>
                         <div className="flex gap-4">
-                            <SocialButton href="#" label="Facebook">
+                            <SocialButton
+                                href="https://www.linkedin.com/company/socialimpactid"
+                                label="LinkedIn"
+                            >
                                 <svg
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                     className="h-5 w-5"
                                 >
-                                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                                 </svg>
                             </SocialButton>
-                            <SocialButton href="#" label="Instagram">
+                            <SocialButton
+                                href="https://www.instagram.com/socialimpact_id/"
+                                label="Instagram"
+                            >
                                 <svg
                                     fill="none"
                                     stroke="currentColor"
@@ -130,7 +135,10 @@ export default function Footer() {
                                     <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01" />
                                 </svg>
                             </SocialButton>
-                            <SocialButton href="#" label="YouTube">
+                            <SocialButton
+                                href="https://www.youtube.com/@SocialimpactID"
+                                label="YouTube"
+                            >
                                 <svg
                                     fill="currentColor"
                                     viewBox="0 0 24 24"

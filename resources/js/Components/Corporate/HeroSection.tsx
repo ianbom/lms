@@ -3,10 +3,7 @@ export default function HeroSection() {
         <section className="w-full max-w-[1440px] px-4 pb-16 pt-10 md:px-10">
             <div className="mb-10 flex flex-col gap-6 text-center md:text-left">
                 <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-[#111814] md:text-6xl">
-                    Mulai percakapan <br />
-                    <span className="text-gray-400">
-                        yang menentukan masa depanmu.
-                    </span>
+                    Perkuat Kapasitas Tim Anda Bersama Impact Academy <br />
                 </h1>
             </div>
             <div className="grid w-full grid-cols-1 gap-4 md:h-[500px] md:grid-cols-4">

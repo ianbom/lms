@@ -148,11 +148,11 @@ export default function Home({ classes }: HomeProps) {
                 <WhyChooseUsSection />
 
                 {/* Testimonials Section */}
-                <TestimonialsSection
+                {/* <TestimonialsSection
                     title="Apa Kata Alumni Kami"
                     description="Ribuan alumni telah berhasil mengembangkan karir mereka bersama kami"
                     testimonials={testimonials}
-                />
+                /> */}
 
                 {/* FAQ Section */}
                 <FAQSection

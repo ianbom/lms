@@ -65,16 +65,16 @@ export default function CTASection({
                         <h2 className="mb-6 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-white drop-shadow-sm md:text-5xl">
                             {title || (
                                 <>
-                                    Transform scattered marketing{' '}
+                                    Asah Skill & Tumbuh{' '}
                                     <br className="hidden md:block" />
-                                    into predictable growth
+                                    Bersama dengan Impact Academy
                                 </>
                             )}
                         </h2>
 
                         <p className="mb-10 max-w-2xl text-base font-medium leading-relaxed text-white/80 md:text-lg">
                             {description ||
-                                'The only Allbound agency that seamlessly combines inbound attraction with outbound acceleration for SMEs generating €50K+ monthly revenue.'}
+                                'Daftar dan mulai perjalanan belajarmu bersama mentor praktisi berpengalaman.'}
                         </p>
 
                         {/* Button */}
