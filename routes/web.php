@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController as AdmUserController;
+use App\Http\Controllers\CorporateContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
@@ -52,6 +53,8 @@ Route::get('/contact-us', function () {
 Route::get('/corporate-training', function () {
     return Inertia::render('CorporateTraining');
 })->name('corporate-training');
+
+Route::post('/corporate-training/contact', [CorporateContactController::class, 'send'])->name('corporate-training.contact');
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

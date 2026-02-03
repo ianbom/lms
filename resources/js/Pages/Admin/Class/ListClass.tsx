@@ -197,7 +197,7 @@ export default function ClassManagement({ classes }: Props) {
             {/* Footer Copyright */}
             <div className="mt-auto py-6 text-center">
                 <p className="text-xs text-[#9aabb1]">
-                    © {new Date().getFullYear()} EduManage System. Hak cipta
+                    © {new Date().getFullYear()} ImpactAcademy. Hak cipta
                     dilindungi.
                 </p>
             </div>

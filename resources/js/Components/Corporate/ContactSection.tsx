@@ -1,7 +1,36 @@
 import Icon from '@/Components/Icon';
-import { Link } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
+import { FormEventHandler, useEffect, useState } from 'react';
 
 export default function ContactSection() {
+    const { flash } = usePage().props as { flash?: { success?: string } };
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        full_name: '',
+        office_address: '',
+        company_name: '',
+        email: '',
+        phone: '',
+        job_title: '',
+        company_size: '',
+        interest: '',
+        message: '',
+    });
+
+    useEffect(() => {
+        if (flash?.success) {
+            setShowSuccess(true);
+            reset();
+            setTimeout(() => setShowSuccess(false), 5000);
+        }
+    }, [flash?.success]);
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('corporate-training.contact'));
+    };
+
     return (
         <section className="w-full max-w-[1200px] px-6 py-12 lg:px-10 lg:py-24">
             <div className="flex flex-col gap-16 lg:flex-row lg:gap-24">
@@ -54,36 +83,66 @@ export default function ContactSection() {
                 {/* Right Column: Airy Form */}
                 <div className="flex-1">
                     <div className="mx-auto max-w-lg lg:mr-0">
-                        <form className="flex flex-col gap-5">
+                        {/* Success Message */}
+                        {showSuccess && (
+                            <div className="mb-6 flex items-center gap-3 rounded-lg bg-green-50 p-4 text-green-800">
+                                <Icon name="check_circle" size={24} />
+                                <p className="text-sm font-medium">
+                                    Pesan Anda telah berhasil dikirim. Kami akan
+                                    segera menghubungi Anda.
+                                </p>
+                            </div>
+                        )}
+
+                        <form onSubmit={submit} className="flex flex-col gap-5">
                             <div className="flex flex-col gap-5">
                                 <div className="flex flex-col gap-2">
                                     <label
                                         className="ml-1 text-sm font-semibold text-[#111814]"
                                         htmlFor="fullName"
                                     >
-                                        Nama Lengkap
+                                        Nama Lengkap *
                                     </label>
                                     <input
-                                        className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] active:ring-[#13ec7c]"
+                                        className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.full_name
+                                                ? 'ring-2 ring-red-500'
+                                                : ''
+                                            }`}
                                         id="fullName"
                                         placeholder="Budi Santoso"
                                         type="text"
+                                        value={data.full_name}
+                                        onChange={(e) =>
+                                            setData('full_name', e.target.value)
+                                        }
                                     />
+                                    {errors.full_name && (
+                                        <p className="text-xs text-red-500">
+                                            {errors.full_name}
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                                     <div className="flex flex-col gap-2">
                                         <label
                                             className="ml-1 text-sm font-semibold text-[#111814]"
-                                            htmlFor="officeName"
+                                            htmlFor="officeAddress"
                                         >
                                             Alamat Kantor
                                         </label>
                                         <input
                                             className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
-                                            id="officeName"
+                                            id="officeAddress"
                                             placeholder="Jl. Sudirman No. 123"
                                             type="text"
+                                            value={data.office_address}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'office_address',
+                                                    e.target.value,
+                                                )
+                                            }
                                         />
                                     </div>
                                     <div className="flex flex-col gap-2">
@@ -91,14 +150,29 @@ export default function ContactSection() {
                                             className="ml-1 text-sm font-semibold text-[#111814]"
                                             htmlFor="companyName"
                                         >
-                                            Nama Perusahaan
+                                            Nama Perusahaan *
                                         </label>
                                         <input
-                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_name
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                                }`}
                                             id="companyName"
                                             placeholder="PT Dampak Sosial Indonesia"
                                             type="text"
+                                            value={data.company_name}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'company_name',
+                                                    e.target.value,
+                                                )
+                                            }
                                         />
+                                        {errors.company_name && (
+                                            <p className="text-xs text-red-500">
+                                                {errors.company_name}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -108,28 +182,52 @@ export default function ContactSection() {
                                             className="ml-1 text-sm font-semibold text-[#111814]"
                                             htmlFor="email"
                                         >
-                                            Email Kerja
+                                            Email Kerja *
                                         </label>
                                         <input
-                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.email
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                                }`}
                                             id="email"
                                             placeholder="ptputrajaya@company.com"
                                             type="email"
+                                            value={data.email}
+                                            onChange={(e) =>
+                                                setData('email', e.target.value)
+                                            }
                                         />
+                                        {errors.email && (
+                                            <p className="text-xs text-red-500">
+                                                {errors.email}
+                                            </p>
+                                        )}
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <label
                                             className="ml-1 text-sm font-semibold text-[#111814]"
                                             htmlFor="phone"
                                         >
-                                            Nomor Handphone
+                                            Nomor Handphone *
                                         </label>
                                         <input
-                                            className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.phone
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                                }`}
                                             id="phone"
                                             placeholder="+62 812 3456 7890"
                                             type="tel"
+                                            value={data.phone}
+                                            onChange={(e) =>
+                                                setData('phone', e.target.value)
+                                            }
                                         />
+                                        {errors.phone && (
+                                            <p className="text-xs text-red-500">
+                                                {errors.phone}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -146,6 +244,13 @@ export default function ContactSection() {
                                             id="jobTitle"
                                             placeholder="HR Manager"
                                             type="text"
+                                            value={data.job_title}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'job_title',
+                                                    e.target.value,
+                                                )
+                                            }
                                         />
                                     </div>
                                     <div className="flex flex-col gap-2">
@@ -153,13 +258,22 @@ export default function ContactSection() {
                                             className="ml-1 text-sm font-semibold text-[#111814]"
                                             htmlFor="companySize"
                                         >
-                                            Skala Perusahaan
+                                            Skala Perusahaan *
                                         </label>
                                         <div className="relative">
                                             <select
-                                                className="bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                                className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_size
+                                                        ? 'ring-2 ring-red-500'
+                                                        : ''
+                                                    }`}
                                                 id="companySize"
-                                                defaultValue=""
+                                                value={data.company_size}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'company_size',
+                                                        e.target.value,
+                                                    )
+                                                }
                                             >
                                                 <option disabled value="">
                                                     Pilih skala
@@ -187,6 +301,11 @@ export default function ContactSection() {
                                                 <Icon name="expand_more" />
                                             </span>
                                         </div>
+                                        {errors.company_size && (
+                                            <p className="text-xs text-red-500">
+                                                {errors.company_size}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -195,44 +314,56 @@ export default function ContactSection() {
                                         className="ml-1 text-sm font-semibold text-[#111814]"
                                         htmlFor="interest"
                                     >
-                                        Pelatihan yang diinginkan
+                                        Pelatihan yang diinginkan *
                                     </label>
                                     <div className="relative">
                                         <select
-                                            className="bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
+                                            className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.interest
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                                }`}
                                             id="interest"
-                                            defaultValue=""
+                                            value={data.interest}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'interest',
+                                                    e.target.value,
+                                                )
+                                            }
                                         >
                                             <option disabled value="">
                                                 Pilih program
                                             </option>
-                                            <option value="sertifikasi-bnsp">
+                                            <option value="Sertifikasi BNSP">
                                                 Sertifikasi BNSP
                                             </option>
-                                            <option value="impact-measurement">
+                                            <option value="Impact Measurement">
                                                 Impact Measurement
                                             </option>
-                                            <option value="iso-26000">
+                                            <option value="ISO 26000">
                                                 ISO 26000
                                             </option>
-                                            <option value="esg">ESG</option>
-                                            <option value="theory-of-change">
+                                            <option value="ESG">ESG</option>
+                                            <option value="Theory of Change">
                                                 Theory of Change
                                             </option>
-                                            <option value="logical-framework-approach">
+                                            <option value="Logical Framework Approach">
                                                 Logical Framework Approach
                                             </option>
-                                            <option value="system-thinking">
+                                            <option value="System Thinking">
                                                 System Thinking
                                             </option>
-                                            <option value="ghg">
-                                                GHG
-                                            </option>
+                                            <option value="GHG">GHG</option>
                                         </select>
                                         <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
                                             <Icon name="expand_more" />
                                         </span>
                                     </div>
+                                    {errors.interest && (
+                                        <p className="text-xs text-red-500">
+                                            {errors.interest}
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div className="flex flex-col gap-2">
@@ -247,19 +378,41 @@ export default function ContactSection() {
                                         id="message"
                                         placeholder="Ceritakan sedikit tentang kebutuhan pelatihanmu..."
                                         rows={4}
+                                        value={data.message}
+                                        onChange={(e) =>
+                                            setData('message', e.target.value)
+                                        }
                                     ></textarea>
                                 </div>
                             </div>
                             <button
-                                className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary/90 text-base font-bold text-[#111814] shadow-md transition-all hover:bg-primary hover:shadow-lg active:scale-[0.99]"
-                                type="button"
+                                className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary/90 text-base font-bold text-[#111814] shadow-md transition-all hover:bg-primary hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50"
+                                type="submit"
+                                disabled={processing}
                             >
-                                <span className="text-white">Kirim Pesan</span>
-                                <Icon
-                                    className="text-white"
-                                    name="arrow_forward"
-                                    size={18}
-                                />
+                                {processing ? (
+                                    <>
+                                        <Icon
+                                            name="progress_activity"
+                                            className="animate-spin text-white"
+                                            size={18}
+                                        />
+                                        <span className="text-white">
+                                            Mengirim...
+                                        </span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="text-white">
+                                            Kirim Pesan
+                                        </span>
+                                        <Icon
+                                            className="text-white"
+                                            name="arrow_forward"
+                                            size={18}
+                                        />
+                                    </>
+                                )}
                             </button>
                             <p className="mt-2 text-center text-xs text-gray-500">
                                 Dengan mengirimkan formulir ini, kamu menyetujui{' '}
@@ -278,3 +431,4 @@ export default function ContactSection() {
         </section>
     );
 }
+
