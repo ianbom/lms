@@ -17,14 +17,16 @@ export default function VerifyEmail({ status }: { status?: string }) {
             <Head title="Email Verification" />
 
             <div className="mb-4 text-sm text-gray-600">
-                Terima kasih telah mendaftar! Sebelum memulai, bisakah Anda memverifikasi
-                alamat email Anda dengan mengklik tautan yang baru saja kami kirimkan melalui email?
-                Jika Anda tidak menerima email tersebut, kami akan dengan senang hati mengirimkannya lagi.
+                Terima kasih telah mendaftar! Sebelum memulai, bisakah Anda
+                memverifikasi alamat email Anda dengan mengklik tautan yang baru
+                saja kami kirimkan melalui email? Jika Anda tidak menerima email
+                tersebut, kami akan dengan senang hati mengirimkannya lagi.
             </div>
 
             {status === 'verification-link-sent' && (
                 <div className="mb-4 text-sm font-medium text-green-600">
-                    Tautan verifikasi baru telah dikirim ke alamat email yang Anda berikan saat registrasi.
+                    Tautan verifikasi baru telah dikirim ke alamat email yang
+                    Anda berikan saat registrasi.
                 </div>
             )}
 

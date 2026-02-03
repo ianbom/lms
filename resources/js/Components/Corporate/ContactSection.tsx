@@ -15,8 +15,10 @@ export default function ContactSection() {
                             Kami bantu perusahaanmu <br /> bangun masa depan.
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-gray-600">
-                            Bangun kompetensi strategis melalui pelatihan berbasis praktik,
-                            mentor profesional, dan ekosistem pembelajaran yang mendukung pertumbuhan organisasi berkelanjutan.
+                            Bangun kompetensi strategis melalui pelatihan
+                            berbasis praktik, mentor profesional, dan ekosistem
+                            pembelajaran yang mendukung pertumbuhan organisasi
+                            berkelanjutan.
                         </p>
                     </div>
                     {/* Editorial Testimonial */}
@@ -64,7 +66,7 @@ export default function ContactSection() {
                                     <input
                                         className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] active:ring-[#13ec7c]"
                                         id="fullName"
-                                        placeholder="John Doe"
+                                        placeholder="Budi Santoso"
                                         type="text"
                                     />
                                 </div>
@@ -75,12 +77,12 @@ export default function ContactSection() {
                                             className="ml-1 text-sm font-semibold text-[#111814]"
                                             htmlFor="officeName"
                                         >
-                                            Nama Kantor
+                                            Alamat Kantor
                                         </label>
                                         <input
                                             className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
                                             id="officeName"
-                                            placeholder="Cabang Jakarta"
+                                            placeholder="Jl. Sudirman No. 123"
                                             type="text"
                                         />
                                     </div>
@@ -94,7 +96,7 @@ export default function ContactSection() {
                                         <input
                                             className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
                                             id="companyName"
-                                            placeholder="PT. Impact Academy"
+                                            placeholder="PT Dampak Sosial Indonesia"
                                             type="text"
                                         />
                                     </div>
@@ -111,7 +113,7 @@ export default function ContactSection() {
                                         <input
                                             className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
                                             id="email"
-                                            placeholder="jane@company.com"
+                                            placeholder="[EMAIL_ADDRESS]"
                                             type="email"
                                         />
                                     </div>
@@ -162,12 +164,24 @@ export default function ContactSection() {
                                                 <option disabled value="">
                                                     Pilih skala
                                                 </option>
-                                                <option value="<10">&lt; 10 Karyawan</option>
-                                                <option value="11-50">11 - 50 Karyawan</option>
-                                                <option value="51-200">51 - 200 Karyawan</option>
-                                                <option value="201-500">201 - 500 Karyawan</option>
-                                                <option value="501-1000">501 - 1000 Karyawan</option>
-                                                <option value=">1000">&gt; 1000 Karyawan</option>
+                                                <option value="<10">
+                                                    &lt; 10 Karyawan
+                                                </option>
+                                                <option value="11-50">
+                                                    11 - 50 Karyawan
+                                                </option>
+                                                <option value="51-200">
+                                                    51 - 200 Karyawan
+                                                </option>
+                                                <option value="201-500">
+                                                    201 - 500 Karyawan
+                                                </option>
+                                                <option value="501-1000">
+                                                    501 - 1000 Karyawan
+                                                </option>
+                                                <option value=">1000">
+                                                    &gt; 1000 Karyawan
+                                                </option>
                                             </select>
                                             <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
                                                 <Icon name="expand_more" />
@@ -192,13 +206,28 @@ export default function ContactSection() {
                                             <option disabled value="">
                                                 Pilih program
                                             </option>
-                                            <option value="sertifikasi-bnsp">Sertifikasi BNSP</option>
-                                            <option value="impact-measurement">Impact Measurement</option>
-                                            <option value="iso-26000">ISO 26000</option>
+                                            <option value="sertifikasi-bnsp">
+                                                Sertifikasi BNSP
+                                            </option>
+                                            <option value="impact-measurement">
+                                                Impact Measurement
+                                            </option>
+                                            <option value="iso-26000">
+                                                ISO 26000
+                                            </option>
                                             <option value="esg">ESG</option>
-                                            <option value="theory-of-change">Theory of Change</option>
-                                            <option value="logical-framework-approach">Logical Framework Approach</option>
-                                            <option value="system-thinking">System Thinking</option>
+                                            <option value="theory-of-change">
+                                                Theory of Change
+                                            </option>
+                                            <option value="logical-framework-approach">
+                                                Logical Framework Approach
+                                            </option>
+                                            <option value="system-thinking">
+                                                System Thinking
+                                            </option>
+                                            <option value="ghg">
+                                                GHG
+                                            </option>
                                         </select>
                                         <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
                                             <Icon name="expand_more" />
@@ -225,8 +254,12 @@ export default function ContactSection() {
                                 className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary/90 text-base font-bold text-[#111814] shadow-md transition-all hover:bg-primary hover:shadow-lg active:scale-[0.99]"
                                 type="button"
                             >
-                                <span className='text-white'>Kirim Pesan</span>
-                                <Icon className='text-white' name="arrow_forward" size={18} />
+                                <span className="text-white">Kirim Pesan</span>
+                                <Icon
+                                    className="text-white"
+                                    name="arrow_forward"
+                                    size={18}
+                                />
                             </button>
                             <p className="mt-2 text-center text-xs text-gray-500">
                                 Dengan mengirimkan formulir ini, kamu menyetujui{' '}

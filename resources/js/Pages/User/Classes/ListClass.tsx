@@ -208,10 +208,10 @@ export default function ListClass({
 
                         {/* Filter Group */}
                         <div className="flex flex-wrap items-center gap-3">
-                            <FilterChips
+                            {/* <FilterChips
                                 activeTab={activeTab}
                                 onTabChange={handleTabChange}
-                            />
+                            /> */}
 
                             <div className="hidden h-8 w-px bg-slate-200 sm:block" />
 

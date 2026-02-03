@@ -1,6 +1,5 @@
 import Breadcrumb from '@/Components/Breadcrumb';
 import LessonList from '@/Components/Modul/LessonList';
-import MentorCard from '@/Components/Modul/MentorCard';
 import PricingSidebar from '@/Components/Modul/PricingSidebar';
 import TagList from '@/Components/Modul/TagList';
 import VideoPlayer from '@/Components/User/Study/VideoPlayer';
@@ -323,10 +322,11 @@ export default function DetailClass({
                                             >
                                                 <div className="flex items-center gap-3">
                                                     <div
-                                                        className={`flex h-8 w-8 items-center justify-center rounded-full ${video.is_preview
-                                                            ? 'bg-green-100 text-green-600'
-                                                            : 'bg-gray-100 text-gray-400'
-                                                            }`}
+                                                        className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                                                            video.is_preview
+                                                                ? 'bg-green-100 text-green-600'
+                                                                : 'bg-gray-100 text-gray-400'
+                                                        }`}
                                                     >
                                                         {video.is_preview ? (
                                                             <svg
@@ -451,9 +451,10 @@ export default function DetailClass({
                                     <div
                                         className="size-12 flex-shrink-0 rounded-full bg-gray-200 bg-cover bg-center"
                                         style={{
-                                            backgroundImage: `url('${mentor.avatar_url ||
+                                            backgroundImage: `url('${
+                                                mentor.avatar_url ||
                                                 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'
-                                                }')`,
+                                            }')`,
                                         }}
                                     />
                                     <div>

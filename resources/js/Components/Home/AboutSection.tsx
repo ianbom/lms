@@ -45,10 +45,34 @@ export default function AboutSection() {
                                 <span className="font-semibold text-gray-900">
                                     Impact Academy
                                 </span>{' '}
-                                merupakan sebuah program unggulan yang kami rancang secara khusus untuk menjadi katalisator bagi Anda yang berdedikasi pada bidang keberlanjutan. Impact Academy hadir sebagai platform pembelajaran transformatif yang berfokus pada pelatihan berbasis dampak. Kami tidak hanya membekali peserta dengan teori, melainkan juga dengan pengetahuan praktis dan strategi implementatif yang telah teruji dalam domain Sustainability, Corporate Social Responsibility (CSR), Environmental, Social, and Governance (ESG) dan Community Involvement and Development (CID). Kurikulum kami dirancang dengan pendekatan terkini dan berpegang teguh pada praktik terbaik industri, memastikan bahwa setiap materi yang disampaikan relevan dengan tantangan dan peluang yang ada saat ini.
+                                merupakan sebuah program unggulan yang kami
+                                rancang secara khusus untuk menjadi katalisator
+                                bagi Anda yang berdedikasi pada bidang
+                                keberlanjutan. Impact Academy hadir sebagai
+                                platform pembelajaran transformatif yang
+                                berfokus pada pelatihan berbasis dampak. Kami
+                                tidak hanya membekali peserta dengan teori,
+                                melainkan juga dengan pengetahuan praktis dan
+                                strategi implementatif yang telah teruji dalam
+                                domain Sustainability, Corporate Social
+                                Responsibility (CSR), Environmental, Social, and
+                                Governance (ESG) dan Community Involvement and
+                                Development (CID). Kurikulum kami dirancang
+                                dengan pendekatan terkini dan berpegang teguh
+                                pada praktik terbaik industri, memastikan bahwa
+                                setiap materi yang disampaikan relevan dengan
+                                tantangan dan peluang yang ada saat ini.
                             </p>
                             <p>
-                               Melalui program ini, peserta akan dibimbing untuk tidak hanya memahami konsep keberlanjutan secara mendalam, tetapi juga untuk mengidentifikasi, merancang, dan mengimplementasikan inisiatif yang menghasilkan perubahan positif yang terukur. Impact Academy membekali Anda dengan kemampuan untuk menjawab tuntutan global akan praktik bisnis yang lebih bertanggung jawab dan berkelanjutan.
+                                Melalui program ini, peserta akan dibimbing
+                                untuk tidak hanya memahami konsep keberlanjutan
+                                secara mendalam, tetapi juga untuk
+                                mengidentifikasi, merancang, dan
+                                mengimplementasikan inisiatif yang menghasilkan
+                                perubahan positif yang terukur. Impact Academy
+                                membekali Anda dengan kemampuan untuk menjawab
+                                tuntutan global akan praktik bisnis yang lebih
+                                bertanggung jawab dan berkelanjutan.
                             </p>
                         </div>
                     </div>

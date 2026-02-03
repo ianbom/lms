@@ -43,7 +43,7 @@ const defaultFeatures: Feature[] = [
 ];
 
 export default function WhyChooseUsSection({
-    title = 'Kenapa Impact Academy Jadi Pilihan untuk Upgrade Skill?',
+    title = 'Kenapa Impact Academy Jadi Pilihan untuk Upgrade Skill dan Pengetahuan?',
     description = 'Platform pembelajaran digital dengan sistem terstruktur, mentor praktisi, dan sertifikasi terpercaya untuk membantu Anda berkembang lebih cepat dan lebih berdampak.',
     benefits = defaultBenefits,
     features = defaultFeatures,
@@ -57,10 +57,10 @@ export default function WhyChooseUsSection({
             <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-16 px-4 sm:px-6 lg:flex-row lg:px-8">
                 {/* Left Content */}
                 <div className="w-full lg:w-1/3">
-                    <span className="inline-block rounded-full bg-gradient-to-r from-primary to-teal-600 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-md">
+                    {/* <span className="inline-block rounded-full bg-gradient-to-r from-primary to-teal-600 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-md">
                         Kenapa Memilih Kami
-                    </span>
-                    <h2 className="mb-6 mt-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-3xl font-extrabold leading-tight text-transparent md:text-4xl">
+                    </span> */}
+                    <h2 className="mb-6 mt-2 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-3xl font-extrabold leading-tight text-transparent md:text-4xl">
                         {title}
                     </h2>
                     <p className="mb-8 text-lg leading-relaxed text-slate-600">

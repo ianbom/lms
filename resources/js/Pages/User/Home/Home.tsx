@@ -1,10 +1,8 @@
 import {
     AboutSection,
     CoursesSection,
-    CTASection,
     FAQSection,
     HeroSection,
-    TestimonialsSection,
     WhyChooseUsSection,
 } from '@/Components/Home';
 import UserLayout from '@/Layouts/UserLayout';

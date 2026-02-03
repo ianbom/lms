@@ -1,3 +1,4 @@
+import Dropdown from '@/Components/Dropdown';
 import { Footer } from '@/Components/Home';
 import Icon from '@/Components/Icon';
 import { Link, usePage } from '@inertiajs/react';
@@ -7,6 +8,7 @@ interface NavItem {
     label: string;
     href: string;
     active: boolean;
+    children?: NavItem[];
 }
 
 interface UserLayoutProps extends PropsWithChildren {
@@ -31,21 +33,26 @@ export default function UserLayout({
             active: route().current('home'),
         },
         {
-            label: 'Kelas',
+            label: 'E-Learning',
             href: route('user.classes'),
             active: route().current('user.classes*'),
         },
-        // {
-        //     label: 'FAQ',
-        //     href: route('faq'),
-        //     active: route().current('faq'),
-        // },
-        //
-        //
         {
             label: 'Corporate Training',
-            href: route('corporate-training'),
-            active: route().current('corporate-training'),
+            href: '#',
+            active: route().current('corporate-training'), // Update logic as needed
+            children: [
+                {
+                    label: 'Corporate Training',
+                    href: route('corporate-training'), // Temporary mapping to existing page
+                    active: route().current('corporate-training'),
+                },
+            ],
+        },
+        {
+            label: 'Kontak',
+            href: route('contact'),
+            active: route().current('contact'),
         },
         // {
         //     label: 'Privacy Policy',
@@ -78,18 +85,60 @@ export default function UserLayout({
 
                         {/* Desktop Nav */}
                         <nav className="hidden items-center gap-8 md:flex">
-                            {navigation.map((item) => (
-                                <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    className={`text-sm font-medium transition-colors ${item.active
-                                            ? 'border-b-2 border-primary pb-0.5 text-gray-900'
-                                            : 'text-gray-600 hover:text-primary'
+                            {navigation.map((item) =>
+                                item.children ? (
+                                    <div key={item.label} className="relative">
+                                        <Dropdown>
+                                            <Dropdown.Trigger>
+                                                <button
+                                                    type="button"
+                                                    className={`group inline-flex items-center text-sm font-medium transition-colors ${
+                                                        item.active
+                                                            ? 'text-gray-900'
+                                                            : 'text-gray-600 hover:text-primary'
+                                                    }`}
+                                                >
+                                                    {item.label}
+                                                    <Icon
+                                                        name="expand_more"
+                                                        className="h-4 w-4 transition-transform group-hover:text-primary"
+                                                    />
+                                                </button>
+                                            </Dropdown.Trigger>
+                                            <Dropdown.Content
+                                                align="right"
+                                                width="48"
+                                            >
+                                                {item.children.map((child) => (
+                                                    <Dropdown.Link
+                                                        key={child.label}
+                                                        href={child.href}
+                                                        className={
+                                                            child.active
+                                                                ? 'bg-gray-100 text-gray-900'
+                                                                : ''
+                                                        }
+                                                    >
+                                                        {child.label}
+                                                    </Dropdown.Link>
+                                                ))}
+                                            </Dropdown.Content>
+                                        </Dropdown>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        className={`text-sm font-medium transition-colors ${
+                                            item.active
+                                                ? 'border-b-2 border-primary pb-0.5 text-gray-900'
+                                                : 'text-gray-600 hover:text-primary'
                                         }`}
-                                >
-                                    {item.label}
-                                </Link>
-                            ))}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ),
+                            )}
                         </nav>
 
                         {/* Profile Actions */}
@@ -142,18 +191,45 @@ export default function UserLayout({
                     {showMobileMenu && (
                         <div className="border-t border-gray-200 py-4 md:hidden">
                             <div className="flex flex-col gap-2">
-                                {navigation.map((item) => (
-                                    <Link
-                                        key={item.label}
-                                        href={item.href}
-                                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${item.active
-                                                ? 'bg-primary/10 text-primary'
-                                                : 'text-gray-600 hover:bg-gray-50'
+                                {navigation.map((item) =>
+                                    item.children ? (
+                                        <div
+                                            key={item.label}
+                                            className="space-y-1"
+                                        >
+                                            <div className="px-3 py-2 text-sm font-medium text-gray-900">
+                                                {item.label}
+                                            </div>
+                                            <div className="ml-4 flex flex-col gap-1 border-l-2 border-gray-100 pl-2">
+                                                {item.children.map((child) => (
+                                                    <Link
+                                                        key={child.label}
+                                                        href={child.href}
+                                                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                                                            child.active
+                                                                ? 'bg-primary/10 text-primary'
+                                                                : 'text-gray-600 hover:bg-gray-50'
+                                                        }`}
+                                                    >
+                                                        {child.label}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <Link
+                                            key={item.label}
+                                            href={item.href}
+                                            className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                                                item.active
+                                                    ? 'bg-primary/10 text-primary'
+                                                    : 'text-gray-600 hover:bg-gray-50'
                                             }`}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                ))}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ),
+                                )}
 
                                 {/* Mobile Auth Buttons */}
                                 {!user && (

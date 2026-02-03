@@ -7,51 +7,31 @@ export default function LogoGrid() {
                 <h3 className="mb-10 text-center text-sm font-bold uppercase tracking-widest text-gray-400">
                     Dipercaya oleh
                 </h3>
-                <div className="grid grid-cols-2 items-center justify-items-center gap-8 opacity-70 md:grid-cols-4 md:gap-16">
-                    {/* Logo 1: Google Style */}
-                    <div className="flex h-8 w-auto items-center justify-center grayscale transition-all duration-300 hover:grayscale-0">
-                        <div className="flex items-center gap-2">
-                            <span className="text-3xl text-gray-700">
-                                <Icon name="cloud_circle" size={32} />
-                            </span>
-                            <span className="font-sans text-xl font-bold text-gray-700">
-                                CloudCorp
-                            </span>
+                <div className="grid grid-cols-2 items-center justify-items-center gap-8 opacity-70 md:grid-cols-5 md:gap-16">
+                    {/* Logo Mitra */}
+                    {[
+                        '1.Pertamina.png',
+                        '2.Pln.png',
+                        '3.Pelindo.png',
+                        '4.bri.png',
+                        '5.Pegadaian.png',
+                        '6.Astra.png',
+                        '7.Biofarma.png',
+                        '8.Hutamakarya.png',
+                        '9.Jasamarga.png',
+                        '10.Danareksa.png',
+                    ].map((logo, index) => (
+                        <div
+                            key={index}
+                            className="flex h-12 w-auto items-center justify-center grayscale transition-all duration-300 hover:grayscale-0"
+                        >
+                            <img
+                                src={`/LogoMitra/${logo}`}
+                                alt={logo.split('.')[1]}
+                                className="h-full w-auto object-contain"
+                            />
                         </div>
-                    </div>
-                    {/* Logo 2: Microsoft Style */}
-                    <div className="flex h-8 w-auto items-center justify-center grayscale transition-all duration-300 hover:grayscale-0">
-                        <div className="flex items-center gap-2">
-                            <span className="text-3xl text-gray-700">
-                                <Icon name="grid_view" size={32} />
-                            </span>
-                            <span className="font-sans text-xl font-bold text-gray-700">
-                                Nexus
-                            </span>
-                        </div>
-                    </div>
-                    {/* Logo 3: Spotify Style */}
-                    <div className="flex h-8 w-auto items-center justify-center grayscale transition-all duration-300 hover:grayscale-0">
-                        <div className="flex items-center gap-2">
-                            <span className="text-3xl text-gray-700">
-                                <Icon name="graphic_eq" size={32} />
-                            </span>
-                            <span className="font-sans text-xl font-bold text-gray-700">
-                                AudioStream
-                            </span>
-                        </div>
-                    </div>
-                    {/* Logo 4: Airbnb Style */}
-                    <div className="flex h-8 w-auto items-center justify-center grayscale transition-all duration-300 hover:grayscale-0">
-                        <div className="flex items-center gap-2">
-                            <span className="text-3xl text-gray-700">
-                                <Icon name="travel_explore" size={32} />
-                            </span>
-                            <span className="font-sans text-xl font-bold text-gray-700">
-                                Destiny
-                            </span>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </section>
