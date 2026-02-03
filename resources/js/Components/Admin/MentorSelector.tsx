@@ -21,7 +21,7 @@ interface MentorSelectorProps {
 }
 
 export default function MentorSelector({
-    label = 'Instructors & Mentors',
+    label = 'Trainers',
     selectedMentors,
     availableMentors = [],
     onAddMentor,

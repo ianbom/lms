@@ -24,7 +24,7 @@ class ClassController extends Controller
     }
 
     public function listClassPage(){
-        $classes = $this->classService->getAllClasses();
+        $classes = $this->classService->getAllPublishedClasses();
         $mentors = $this->mentorService->getAllMentors();
         $categories = $this->categoryService->getAllCategories();
         return Inertia::render('User/Classes/ListClass', [

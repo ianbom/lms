@@ -207,18 +207,6 @@ export default function ListCategory({ categories }: ListCategoryProps) {
             <Head title="Kategori" />
 
             <div className="space-y-6">
-                {/* Flash Messages */}
-                {flash?.success && (
-                    <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-                        {flash.success}
-                    </div>
-                )}
-                {flash?.error && (
-                    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                        {flash.error}
-                    </div>
-                )}
-
                 <div className="flex items-center justify-between">
                     <div>
                         <h2 className="text-2xl font-bold tracking-tight text-gray-900">

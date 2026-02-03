@@ -236,22 +236,20 @@ export default function CurriculumSidebar({
                                     <button
                                         key={`quiz-${quiz.id}`}
                                         onClick={() => navigateToQuiz(quiz.id)}
-                                        className={`group flex w-full items-start gap-3 rounded-xl p-3 text-left transition-colors ${
-                                            passed
-                                                ? 'hover:bg-green-50'
-                                                : attempted
-                                                  ? 'hover:bg-red-50'
-                                                  : 'hover:bg-amber-50'
-                                        }`}
+                                        className={`group flex w-full items-start gap-3 rounded-xl p-3 text-left transition-colors ${passed
+                                            ? 'hover:bg-green-50'
+                                            : attempted
+                                                ? 'hover:bg-red-50'
+                                                : 'hover:bg-amber-50'
+                                            }`}
                                     >
                                         <div
-                                            className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-                                                passed
-                                                    ? 'bg-green-500 text-white'
-                                                    : attempted
-                                                      ? 'border-2 border-red-400 bg-red-100 text-red-400'
-                                                      : 'border-2 border-amber-400 text-amber-400'
-                                            }`}
+                                            className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${passed
+                                                ? 'bg-green-500 text-white'
+                                                : attempted
+                                                    ? 'border-2 border-red-400 bg-red-100 text-red-400'
+                                                    : 'border-2 border-amber-400 text-amber-400'
+                                                }`}
                                         >
                                             <Icon
                                                 name={passed ? 'check' : 'quiz'}
@@ -261,13 +259,12 @@ export default function CurriculumSidebar({
                                         </div>
                                         <div className="flex-1">
                                             <h5
-                                                className={`text-sm font-medium transition-colors ${
-                                                    passed
-                                                        ? 'text-green-600'
-                                                        : attempted
-                                                          ? 'text-red-600 group-hover:text-red-700'
-                                                          : 'text-slate-600 group-hover:text-amber-600'
-                                                }`}
+                                                className={`text-sm font-medium transition-colors ${passed
+                                                    ? 'text-green-600'
+                                                    : attempted
+                                                        ? 'text-red-600 group-hover:text-red-700'
+                                                        : 'text-slate-600 group-hover:text-amber-600'
+                                                    }`}
                                             >
                                                 {quiz.title}
                                             </h5>
@@ -278,11 +275,10 @@ export default function CurriculumSidebar({
                                                 </span>
                                                 {attempted && (
                                                     <span
-                                                        className={`text-xs font-medium ${
-                                                            passed
-                                                                ? 'text-green-500'
-                                                                : 'text-red-500'
-                                                        }`}
+                                                        className={`text-xs font-medium ${passed
+                                                            ? 'text-green-500'
+                                                            : 'text-red-500'
+                                                            }`}
                                                     >
                                                         • Nilai: {score}
                                                     </span>
@@ -296,50 +292,6 @@ export default function CurriculumSidebar({
                     </div>
                 ))}
             </div>
-
-            {/* Certificate Claim Button */}
-            {certificateStatus?.is_eligible && (
-                <div className="border-t border-slate-100 bg-gradient-to-r from-amber-50 to-yellow-50 p-4">
-                    <div className="mb-3 flex items-center gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100">
-                            <Icon
-                                name="emoji_events"
-                                size={18}
-                                className="text-amber-600"
-                            />
-                        </div>
-                        <div>
-                            <p className="text-sm font-bold text-slate-800">
-                                Selamat! 🎉
-                            </p>
-                            <p className="text-xs text-slate-500">
-                                Anda telah menyelesaikan kelas ini
-                            </p>
-                        </div>
-                    </div>
-                    <button
-                        onClick={handleClaimCertificate}
-                        disabled={isClaiming}
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition-all hover:from-amber-600 hover:to-yellow-600 hover:shadow-amber-500/40 disabled:cursor-not-allowed disabled:opacity-70"
-                    >
-                        {isClaiming ? (
-                            <>
-                                <Icon
-                                    name="progress_activity"
-                                    size={20}
-                                    className="animate-spin"
-                                />
-                                Memproses...
-                            </>
-                        ) : (
-                            <>
-                                <Icon name="workspace_premium" size={20} />
-                                Klaim Sertifikat
-                            </>
-                        )}
-                    </button>
-                </div>
-            )}
 
             {/* Progress Status (if not eligible) */}
             {certificateStatus && !certificateStatus.is_eligible && (
@@ -406,46 +358,50 @@ export default function CurriculumSidebar({
                 </div>
             )}
 
-            {/* Next Lesson Preview (Sticky Bottom) */}
-            {/* {nextVideo && (
-                <div className="border-t border-slate-100 bg-slate-50 p-4">
-                    <span className="mb-1 block text-xs font-bold uppercase text-slate-400">
-                        Selanjutnya
-                    </span>
-                    <button
-                        onClick={() => onVideoSelect(nextVideo.video.id)}
-                        className="flex w-full items-center gap-3 text-left transition-colors hover:opacity-80"
-                    >
-                        <div className="flex h-10 w-16 items-center justify-center rounded-md bg-slate-200">
-                            <Icon
-                                name="play_circle"
-                                size={24}
-                                className="text-slate-400"
-                            />
-                        </div>
-                        <div className="flex flex-col overflow-hidden">
-                            <span className="truncate text-sm font-bold text-slate-800">
-                                {nextVideo.video.title}
-                            </span>
-                            <span className="text-xs text-slate-500">
-                                {nextVideo.moduleTitle}
-                            </span>
-                        </div>
-                    </button>
-                </div>
-            )} */}
-
-            {/* Review Class Button */}
-            <div className="border-t border-slate-100 bg-gradient-to-r from-yellow-50 to-yellow-50 p-4">
-                <button
-                    onClick={() =>
-                        router.visit(`/user/study/${classData.id}/review`)
-                    }
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 px-4 py-3 font-bold text-white shadow-lg shadow-yellow-500/30 transition-all hover:from-yellow-600 hover:to-yellow-700 hover:shadow-yellow-500/40"
+            {/* Footer Actions */}
+            <div className="border-t border-slate-100 bg-white p-4">
+                <div
+                    className={`grid gap-3 ${certificateStatus?.is_eligible
+                        ? 'grid-cols-2'
+                        : 'grid-cols-1'
+                        }`}
                 >
-                    <Icon name="rate_review" size={20} />
-                    Review Kelas
-                </button>
+                    {/* Review Kelas Button - Primary Green */}
+                    <button
+                        onClick={() =>
+                            router.visit(`/user/study/${classData.id}/review`)
+                        }
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-dark hover:shadow-primary/40"
+                    >
+                        <Icon name="rate_review" size={20} />
+                        <span className="text-sm">Review</span>
+                    </button>
+
+                    {/* Certificate Claim Button - Yellow */}
+                    {certificateStatus?.is_eligible && (
+                        <button
+                            onClick={handleClaimCertificate}
+                            disabled={isClaiming}
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-3 font-bold text-white shadow-lg shadow-amber-500/30 transition-all hover:from-amber-600 hover:to-yellow-600 hover:shadow-amber-500/40 disabled:cursor-not-allowed disabled:opacity-70"
+                        >
+                            {isClaiming ? (
+                                <>
+                                    <Icon
+                                        name="progress_activity"
+                                        size={20}
+                                        className="animate-spin"
+                                    />
+                                    <span className="text-sm">Proses...</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Icon name="workspace_premium" size={20} />
+                                    <span className="text-sm">Klaim</span>
+                                </>
+                            )}
+                        </button>
+                    )}
+                </div>
             </div>
         </aside>
     );

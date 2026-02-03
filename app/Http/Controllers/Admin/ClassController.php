@@ -89,8 +89,6 @@ class ClassController extends Controller
 
     public function reviewClassPage(Request $request, $classId)
     {
-
-
         // Get filters from query params
         $filters = [
             'search' => $request->query('search', ''),

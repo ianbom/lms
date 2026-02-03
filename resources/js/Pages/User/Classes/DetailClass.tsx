@@ -440,7 +440,7 @@ export default function DetailClass({
                     {/* Mentors */}
                     <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-5">
                         <p className="mb-4 text-xs font-bold uppercase tracking-wider text-gray-500">
-                            MENTOR KELAS
+                            Trainer KELAS
                         </p>
                         <div className="flex flex-col gap-4">
                             {classData.mentors.map((mentor) => (

@@ -26,16 +26,16 @@ export default function CreateMentor() {
     return (
         <AdminLayout
             breadcrumbs={[
-                { label: 'Mentors', href: route('admin.mentors') },
-                { label: 'Create Mentor' },
+                { label: 'Trainers', href: route('admin.mentors') },
+                { label: 'Create Trainer' },
             ]}
         >
-            <Head title="Create Mentor" />
+            <Head title="Create Trainer" />
 
             {/* Page Header */}
             <PageHeader
-                title="Create Mentor"
-                description="Add a new mentor to the platform."
+                title="Create Trainer"
+                description="Add a new Trainer to the platform."
             />
 
             <MentorForm
@@ -44,7 +44,7 @@ export default function CreateMentor() {
                 errors={errors}
                 processing={processing}
                 onSubmit={submit}
-                submitLabel="Create Mentor"
+                submitLabel="Create Trainer"
             />
         </AdminLayout>
     );

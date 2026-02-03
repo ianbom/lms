@@ -17,7 +17,7 @@ export default function MentorSection({ mentors }: MentorSectionProps) {
                 </div>
                 <div>
                     <h3 className="text-lg font-bold text-slate-900">
-                        Mentor Kelas
+                        Trainer Kelas
                     </h3>
                     <p className="text-sm text-slate-500">
                         {mentors.length} mentor{' '}

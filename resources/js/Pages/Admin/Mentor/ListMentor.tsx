@@ -103,15 +103,15 @@ export default function ListMentor({ mentors }: ListMentorProps) {
     };
 
     return (
-        <AdminLayout breadcrumbs={[{ label: 'Direktori Mentor' }]}>
-            <Head title="Direktori Mentor" />
+        <AdminLayout breadcrumbs={[{ label: 'List Trainer' }]}>
+            <Head title="List Trainer" />
 
             <div className="flex flex-col gap-8">
                 {/* Header Section */}
                 <PageHeader
-                    title="Direktori Mentor"
-                    description="Kelola semua mentor dan performa mereka di sini."
-                    actionLabel="Tambah Mentor"
+                    title="List Trainer"
+                    description="Kelola semua trainer dan performa mereka di sini."
+                    actionLabel="Tambah Trainer"
                     onAction={() =>
                         (window.location.href = route('admin.mentors.create'))
                     }

@@ -49,7 +49,7 @@ export default function AdminLayout({
             active: route().current('admin.classes'),
         },
         {
-            label: 'Mentors',
+            label: 'Trainers',
             href: route('admin.mentors'),
             icon: 'groups',
             active: route().current('admin.mentors'),

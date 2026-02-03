@@ -25,7 +25,7 @@ class DashboardController extends Controller
     }
 
     public function homePage(){ 
-        $classes = $this->classService->getAllClasses()->take(6);
+        $classes = $this->classService->getAllPublishedClasses()->take(6);
         return Inertia::render('User/Home/Home', ['classes' => $classes]);
     }
 
