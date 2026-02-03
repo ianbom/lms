@@ -74,8 +74,8 @@ export default function CoursesSection({
                                         setActiveCategory(category.id)
                                     }
                                     className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${activeCategory === category.id
-                                            ? 'bg-gray-900 text-white'
-                                            : 'border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary'
+                                        ? 'bg-gray-900 text-white'
+                                        : 'border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary'
                                         }`}
                                 >
                                     {category.label}
@@ -110,7 +110,7 @@ export default function CoursesSection({
                 {/* View All Button */}
                 <div className="mt-12 text-center">
                     <Link
-                        href="/classes"
+                        href={route('user.classes')}
                         className="mx-auto flex items-center justify-center gap-2 font-semibold text-primary hover:text-primary-dark"
                     >
                         Lihat Semua Kelas{' '}

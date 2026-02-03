@@ -137,13 +137,19 @@ export default function LoginForm({
                     <button
                         type="submit"
                         disabled={processing}
-                        className="btn-primary hover:bg-primary-hover group flex w-full justify-center rounded-lg bg-primary px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        className="btn-primary hover:bg-primary-hover group flex w-full justify-center rounded-lg bg-primary px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        <span>Login</span>
-                        <Icon
-                            name="arrow_forward"
-                            className="ml-2 text-[18px] transition-transform group-hover:translate-x-1"
-                        />
+                        {processing ? (
+                            <span>Memproses...</span>
+                        ) : (
+                            <>
+                                <span>Login</span>
+                                <Icon
+                                    name="arrow_forward"
+                                    className="ml-2 text-[18px] transition-transform group-hover:translate-x-1"
+                                />
+                            </>
+                        )}
                     </button>
                 </form>
 

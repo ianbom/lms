@@ -120,7 +120,7 @@ export default function DetailClass({
     }, [classData]);
 
     // Get first mentor for the mentor card
-    const primaryMentor = classData.mentors[0];
+    // const primaryMentor = classData.mentors[0];
 
     const handlePlayPreview = () => {
         console.log('Playing preview video');
@@ -203,7 +203,7 @@ export default function DetailClass({
                     </div>
 
                     {/* Preview List */}
-                    {allPreviewVideos.length > 0 && (
+                    {/* {allPreviewVideos.length > 0 && (
                         <div className="mt-4">
                             <h3 className="mb-2 text-sm font-semibold text-gray-900">
                                 Video Preview ({allPreviewVideos.length})
@@ -215,14 +215,13 @@ export default function DetailClass({
                                         onClick={() =>
                                             handlePreviewSelect(video)
                                         }
-                                        className={`group relative min-w-[200px] flex-shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all ${
-                                            selectedVideo?.id === video.id
-                                                ? 'border-primary ring-2 ring-primary ring-opacity-50'
-                                                : 'border-gray-200 hover:border-gray-300'
-                                        }`}
+                                        className={`group relative min-w-[200px] flex-shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all ${selectedVideo?.id === video.id
+                                            ? 'border-primary ring-2 ring-primary ring-opacity-50'
+                                            : 'border-gray-200 hover:border-gray-300'
+                                            }`}
                                     >
                                         <div className="relative aspect-video w-full bg-gray-100">
-                                            {/* YouTube Thumbnail if available */}
+                                           
                                             {video.youtube_url ? (
                                                 <img
                                                     src={`https://img.youtube.com/vi/${video.youtube_url.split('v=')[1]?.split('&')[0]}/mqdefault.jpg`}
@@ -237,7 +236,7 @@ export default function DetailClass({
                                                 </div>
                                             )}
 
-                                            {/* Playing Indicator */}
+                                          
                                             {selectedVideo?.id === video.id && (
                                                 <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                                                     <div className="rounded-full bg-primary p-1.5 text-white">
@@ -254,12 +253,11 @@ export default function DetailClass({
                                         </div>
                                         <div className="p-2 text-left">
                                             <p
-                                                className={`line-clamp-2 text-sm font-medium ${
-                                                    selectedVideo?.id ===
+                                                className={`line-clamp-2 text-sm font-medium ${selectedVideo?.id ===
                                                     video.id
-                                                        ? 'text-primary'
-                                                        : 'text-gray-900 group-hover:text-primary'
-                                                }`}
+                                                    ? 'text-primary'
+                                                    : 'text-gray-900 group-hover:text-primary'
+                                                    }`}
                                             >
                                                 {video.title}
                                             </p>
@@ -273,7 +271,7 @@ export default function DetailClass({
                                 ))}
                             </div>
                         </div>
-                    )}
+                    )} */}
 
                     {/* Tags */}
                     <div className="mt-6">
@@ -325,11 +323,10 @@ export default function DetailClass({
                                             >
                                                 <div className="flex items-center gap-3">
                                                     <div
-                                                        className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                                                            video.is_preview
-                                                                ? 'bg-green-100 text-green-600'
-                                                                : 'bg-gray-100 text-gray-400'
-                                                        }`}
+                                                        className={`flex h-8 w-8 items-center justify-center rounded-full ${video.is_preview
+                                                            ? 'bg-green-100 text-green-600'
+                                                            : 'bg-gray-100 text-gray-400'
+                                                            }`}
                                                     >
                                                         {video.is_preview ? (
                                                             <svg
@@ -440,53 +437,37 @@ export default function DetailClass({
                         isEnrolled={isEnrolled}
                     />
 
-                    {/* Mentor Card(s) */}
-                    {primaryMentor && (
-                        <MentorCard
-                            mentor={{
-                                name: primaryMentor.name,
-                                avatarUrl:
-                                    primaryMentor.avatar_url ||
-                                    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-                                title: primaryMentor.headline,
-                                company: undefined,
-                            }}
-                        />
-                    )}
-
-                    {/* Additional Mentors */}
-                    {classData.mentors.length > 1 && (
-                        <div className="mt-4">
-                            <h3 className="mb-3 text-sm font-semibold text-gray-700">
-                                Mentor Lainnya
-                            </h3>
-                            <div className="space-y-3">
-                                {classData.mentors.slice(1).map((mentor) => (
+                    {/* Mentors */}
+                    <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-5">
+                        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-gray-500">
+                            MENTOR KELAS
+                        </p>
+                        <div className="flex flex-col gap-4">
+                            {classData.mentors.map((mentor) => (
+                                <div
+                                    key={mentor.id}
+                                    className="flex items-center gap-3"
+                                >
                                     <div
-                                        key={mentor.id}
-                                        className="flex items-center gap-3 rounded-md border border-gray-100 bg-white p-3"
-                                    >
-                                        <img
-                                            src={
-                                                mentor.avatar_url ||
+                                        className="size-12 flex-shrink-0 rounded-full bg-gray-200 bg-cover bg-center"
+                                        style={{
+                                            backgroundImage: `url('${mentor.avatar_url ||
                                                 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'
-                                            }
-                                            alt={mentor.name}
-                                            className="h-10 w-10 rounded-full object-cover"
-                                        />
-                                        <div>
-                                            <p className="font-medium text-gray-900">
-                                                {mentor.name}
-                                            </p>
-                                            <p className="text-xs text-gray-500">
-                                                {mentor.headline}
-                                            </p>
-                                        </div>
+                                                }')`,
+                                        }}
+                                    />
+                                    <div>
+                                        <p className="font-bold text-gray-900">
+                                            {mentor.name}
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                            {mentor.headline}
+                                        </p>
                                     </div>
-                                ))}
-                            </div>
+                                </div>
+                            ))}
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </UserLayout>

@@ -162,7 +162,7 @@ export default function Home({ classes }: HomeProps) {
                 />
 
                 {/* CTA Section */}
-                <CTASection />
+                {/* <CTASection /> */}
             </div>
         </UserLayout>
     );

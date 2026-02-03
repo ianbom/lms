@@ -10,8 +10,8 @@ interface MentorSearchBarProps {
 export default function MentorSearchBar({
     searchValue,
     onSearchChange,
-    onFilter,
-    onExport,
+    // onFilter,
+    // onExport,
 }: MentorSearchBarProps) {
     return (
         <div className="flex w-full flex-col gap-4 md:flex-row">
@@ -29,12 +29,12 @@ export default function MentorSearchBar({
                     value={searchValue}
                     onChange={(e) => onSearchChange(e.target.value)}
                     className="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm font-medium text-[#101815] placeholder-slate-400 shadow-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    placeholder="Cari mentor berdasarkan nama atau email..."
+                    placeholder="Cari mentor berdasarkan nama..."
                 />
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
                 {onFilter && (
                     <button
                         onClick={onFilter}
@@ -53,7 +53,7 @@ export default function MentorSearchBar({
                         <span>Ekspor</span>
                     </button>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 }

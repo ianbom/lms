@@ -35,7 +35,10 @@ export default function CourseCard({
     };
 
     return (
-        <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-xl">
+        <Link
+            href={href}
+            className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-xl"
+        >
             {isPopular && (
                 <div className="absolute left-4 top-4 z-10 rounded-full bg-yellow-400 px-3 py-1 text-xs font-bold text-yellow-900 shadow-sm">
                     Terpopuler
@@ -66,14 +69,11 @@ export default function CourseCard({
                             {formatPrice(price)}
                         </p>
                     </div>
-                    <Link
-                        href={href}
-                        className="rounded-full bg-slate-100 p-2 text-primary transition-colors hover:bg-primary hover:text-white"
-                    >
+                    <div className="rounded-full bg-slate-100 p-2 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                         <Icon name="arrow_outward" size={20} />
-                    </Link>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

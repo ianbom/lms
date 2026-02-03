@@ -63,14 +63,13 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
 
     // User Modul Routes
     Route::prefix('user')->name('user.')->group(function () {
-       Route::get('/dashboard', [UserDashboardController::class, 'dashboardPage'])->name('dashboard');
+       
        Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
        Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->name('classes.show');
-       Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->name('classes.purchase');
-       Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
+       
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
 
-       Route::middleware(['auth', 'has.course.access'])->group(function () {
+       Route::middleware(['auth', 'verified', 'has.course.access'])->group(function () {
 
            Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
            Route::post('/study/{classId}/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
@@ -86,7 +85,11 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
        });
 
 
-       Route::middleware(['auth'])->group(function () {
+       Route::middleware(['auth', 'verified'])->group(function () {
+           Route::get('/dashboard', [UserDashboardController::class, 'dashboardPage'])->name('dashboard');
+           Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->name('classes.purchase');
+           Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
+
            Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
            Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
            Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
@@ -111,8 +114,6 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
 
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
-
-
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

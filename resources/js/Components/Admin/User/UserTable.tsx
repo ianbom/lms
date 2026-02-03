@@ -269,9 +269,9 @@ export default function UserTable({
                                         />
                                     </button>
                                 </th>
-                                <th className="px-6 py-4 text-right font-semibold">
+                                {/* <th className="px-6 py-4 text-right font-semibold">
                                     Aksi
-                                </th>
+                                </th> */}
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 bg-white">
@@ -336,7 +336,7 @@ export default function UserTable({
                                         <td className="px-6 py-4 text-sm text-slate-600">
                                             {user.formatted_created_at}
                                         </td>
-                                        <td className="px-6 py-4 text-right">
+                                        {/* <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
                                                     onClick={() =>
@@ -354,7 +354,7 @@ export default function UserTable({
                                                     />
                                                 </button>
                                             </div>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))
                             ) : (
