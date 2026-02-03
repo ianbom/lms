@@ -2,7 +2,7 @@ import Icon from '@/Components/Icon';
 
 export default function PaymentInstructionCard() {
     const handleCopy = () => {
-        navigator.clipboard.writeText('829310293848');
+        navigator.clipboard.writeText('5035288896');
     };
 
     return (
@@ -65,7 +65,7 @@ export default function PaymentInstructionCard() {
                         </p>
                         <div className="flex items-center gap-3">
                             <span className="font-mono text-2xl font-bold tracking-wide text-gray-900">
-                                8293 1029 3848
+                                5035288896
                             </span>
                             <button
                                 onClick={handleCopy}
@@ -76,7 +76,7 @@ export default function PaymentInstructionCard() {
                             </button>
                         </div>
                         <p className="mt-2 text-sm text-gray-600">
-                            a.n. PT LMS Growth Indonesia
+                            a.n. DAMPAK SOSIAL INDONESIA
                         </p>
                     </div>
 
