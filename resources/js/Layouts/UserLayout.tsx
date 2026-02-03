@@ -32,25 +32,31 @@ export default function UserLayout({
             href: '/home',
             active: route().current('home'),
         },
+        
         {
-            label: 'E-Learning',
-            href: route('user.classes'),
-            active: route().current('user.classes*'),
-        },
-        {
-            label: 'Corporate Training',
+            label: 'Public Classes',
             href: '#',
             active: route().current('corporate-training'), // Update logic as needed
             children: [
                 {
-                    label: 'Corporate Training',
-                    href: route('corporate-training'), // Temporary mapping to existing page
-                    active: route().current('corporate-training'),
+                    label: 'E-Learning',
+                    href: route('user.classes'), // Temporary mapping to existing page
+                    active: route().current('user.classes'),
+                },
+                {
+                    label: 'Learning Package',
+                    href: '#', // Temporary mapping to existing page
+                    active: false,
                 },
             ],
         },
         {
-            label: 'Kontak',
+            label: 'Corporate Training',
+            href: route('corporate-training'),
+            active: route().current('corporate-training'),
+        },
+        {
+            label: 'Contact',
             href: route('contact'),
             active: route().current('contact'),
         },

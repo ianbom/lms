@@ -113,7 +113,7 @@ export default function ContactSection() {
                                         <input
                                             className="bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c]"
                                             id="email"
-                                            placeholder="[EMAIL_ADDRESS]"
+                                            placeholder="ptputrajaya@company.com"
                                             type="email"
                                         />
                                     </div>
