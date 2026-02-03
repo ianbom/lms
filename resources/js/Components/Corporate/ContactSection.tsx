@@ -225,7 +225,7 @@ export default function ContactSection() {
                                 className="mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#13ec7c] text-base font-bold text-[#111814] shadow-md transition-all hover:bg-[#0fd66e] hover:shadow-lg active:scale-[0.99]"
                                 type="button"
                             >
-                                <span>Mulai Perjalananku</span>
+                                <span>Kirim Pesan</span>
                                 <Icon name="arrow_forward" size={18} />
                             </button>
                             <p className="mt-2 text-center text-xs text-gray-500">

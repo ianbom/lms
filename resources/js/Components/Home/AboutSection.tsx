@@ -45,49 +45,10 @@ export default function AboutSection() {
                                 <span className="font-semibold text-gray-900">
                                     Impact Academy
                                 </span>{' '}
-                                merupakan sebuah program unggulan yang kami
-                                rancang secara khusus untuk menjadi katalisator
-                                bagi para profesional yang berdedikasi pada
-                                bidang keberlanjutan. Kami memahami bahwa
-                                lanskap keberlanjutan global terus berkembang,
-                                menuntut individu dan organisasi untuk tidak
-                                hanya adaptif, tetapi juga proaktif dalam
-                                menciptakan dampak yang bermakna.
+                                merupakan sebuah program unggulan yang kami rancang secara khusus untuk menjadi katalisator bagi Anda yang berdedikasi pada bidang keberlanjutan. Impact Academy hadir sebagai platform pembelajaran transformatif yang berfokus pada pelatihan berbasis dampak. Kami tidak hanya membekali peserta dengan teori, melainkan juga dengan pengetahuan praktis dan strategi implementatif yang telah teruji dalam domain Sustainability, Corporate Social Responsibility (CSR), Environmental, Social, and Governance (ESG) dan Community Involvement and Development (CID). Kurikulum kami dirancang dengan pendekatan terkini dan berpegang teguh pada praktik terbaik industri, memastikan bahwa setiap materi yang disampaikan relevan dengan tantangan dan peluang yang ada saat ini.
                             </p>
                             <p>
-                                Impact Academy hadir sebagai platform
-                                pembelajaran transformatif yang berfokus pada
-                                pelatihan berbasis dampak. Kami tidak hanya
-                                membekali peserta dengan teori, melainkan juga
-                                dengan pengetahuan praktis dan strategi
-                                implementatif yang telah teruji dalam domain{' '}
-                                <span className="font-medium text-primary">
-                                    Corporate Social Responsibility (CSR)
-                                </span>{' '}
-                                dan{' '}
-                                <span className="font-medium text-primary">
-                                    Environmental, Social, and Governance (ESG)
-                                </span>
-                                . Kurikulum kami dirancang dengan pendekatan
-                                terkini dan berpegang teguh pada praktik terbaik
-                                industri.
-                            </p>
-                            <p>
-                                Melalui program ini, peserta akan dibimbing
-                                untuk tidak hanya memahami konsep keberlanjutan
-                                secara mendalam, tetapi juga untuk
-                                mengidentifikasi, merancang, dan
-                                mengimplementasikan inisiatif yang menghasilkan
-                                perubahan positif yang terukur. Kami percaya
-                                bahwa dampak sejati tidak hanya diukur dari niat
-                                baik, tetapi dari hasil nyata yang dapat
-                                dievaluasi dan dipertanggungjawabkan.
-                            </p>
-                            <p>
-                                Kami berkomitmen untuk mendukung setiap peserta
-                                dalam perjalanan mereka untuk menjadi agen
-                                perubahan yang efektif, siap untuk memimpin dan
-                                mewujudkan masa depan yang lebih baik.
+                               Melalui program ini, peserta akan dibimbing untuk tidak hanya memahami konsep keberlanjutan secara mendalam, tetapi juga untuk mengidentifikasi, merancang, dan mengimplementasikan inisiatif yang menghasilkan perubahan positif yang terukur. Impact Academy membekali Anda dengan kemampuan untuk menjawab tuntutan global akan praktik bisnis yang lebih bertanggung jawab dan berkelanjutan.
                             </p>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ class ClassService
     }
 
     public function getAllClasses(){
-        $classes = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->get();
+        $classes = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->where('status', 'published')->get();
         return $classes;
     }
 

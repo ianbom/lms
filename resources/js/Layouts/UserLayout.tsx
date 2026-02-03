@@ -43,11 +43,6 @@ export default function UserLayout({
         //
         //
         {
-            label: 'Kontak',
-            href: route('contact'),
-            active: route().current('contact'),
-        },
-        {
             label: 'Corporate Training',
             href: route('corporate-training'),
             active: route().current('corporate-training'),
@@ -206,7 +201,7 @@ export default function UserLayout({
 
             {/* Floating WhatsApp CTA */}
             <a
-                href="https://wa.me/6281234567890" // Replace with actual number
+                href="https://wa.me/62811106066" // Replace with actual number
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-[#25D366]/30"

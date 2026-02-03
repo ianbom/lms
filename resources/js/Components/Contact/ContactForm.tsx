@@ -10,9 +10,9 @@ export default function ContactForm() {
         email: '',
         phone: '',
         job_title: '',
-        company: '',
         company_size: '',
         program: '',
+        message: '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -75,27 +75,8 @@ export default function ContactForm() {
                         onChange={(e) => setData('phone', e.target.value)}
                         error={errors.phone}
                     />
-                    <FloatingInput
-                        id="job-title"
-                        label="Jabatan"
-                        name="job_title"
-                        value={data.job_title}
-                        onChange={(e) => setData('job_title', e.target.value)}
-                        error={errors.job_title}
-                    />
-                </div>
 
-                <FloatingInput
-                    id="company"
-                    label="Nama Perusahaan"
-                    name="company"
-                    value={data.company}
-                    onChange={(e) => setData('company', e.target.value)}
-                    error={errors.company}
-                />
-
-                <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2">
-                    <FloatingSelect
+                     <FloatingSelect
                         id="company-size"
                         label="Skala Perusahaan"
                         name="company_size"
@@ -111,27 +92,33 @@ export default function ContactForm() {
                         ]}
                         error={errors.company_size}
                     />
-                    {/* <FloatingSelect
-                        id="program"
-                        label="Program Pelatihan"
-                        name="program"
-                        value={data.program}
-                        onChange={(e) => setData('program', e.target.value)}
-                        options={[
-                            {
-                                label: 'Leadership & Management',
-                                value: 'leadership',
-                            },
-                            {
-                                label: 'Digital Transformation',
-                                value: 'digital',
-                            },
-                            { label: 'Sales & Marketing', value: 'sales' },
-                            { label: 'Soft Skills', value: 'softskills' },
-                            { label: 'Custom Program', value: 'custom' },
-                        ]}
-                        error={errors.program}
-                    /> */}
+                </div>
+
+                <div className="relative">
+                    <textarea
+                        id="message"
+                        name="message"
+                        value={data.message}
+                        onChange={(e) => setData('message', e.target.value)}
+                        placeholder=" "
+                        rows={4}
+                        className={`peer block w-full appearance-none rounded-t-lg border-0 border-b-2 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-[#00753D] focus:outline-none focus:ring-0 ${errors.message
+                                ? 'border-red-600'
+                                : 'border-gray-300'
+                            }`}
+                    />
+                    <label
+                        htmlFor="message"
+                        className={`absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-[#00753D] ${errors.message ? 'text-red-600' : ''
+                            }`}
+                    >
+                        Pesan
+                    </label>
+                    {errors.message && (
+                        <p className="mt-2 text-xs text-red-600">
+                            {errors.message}
+                        </p>
+                    )}
                 </div>
 
                 <div className="pt-4">
