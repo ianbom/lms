@@ -7,20 +7,20 @@ export default function ContactHero() {
                 <img
                     alt="Corporate Training Session"
                     className="h-full w-full object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaGg3mi1RpXhtVHF1MXQuTdeqZNluGfSG__FBzF2wgw7WnFfxRhKf-kdfX5cffzbdQNMHgIzsojAMR9nCKzVibr1sqW-aar4814-GzGZ_0Ov_Tp6--B-47E4xUVqJTfsbUFTggZOUG5z-w2bmngmmFMXzUf-d29yva6Q37M5HZY5ipa0oSbHh-QGcKlRiUBBmZ_-BNGsqPx4C1BOQJnKoWVtXk2CpyoOH6v7tleBn7IXdEQiTB04yTkrBzs4sMuM_UJVDfRW7WrMCK"
+                    src="/ImpactCompressed/DSC00288.jpg"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-primary/40 mix-blend-multiply"></div>
-                <div className="absolute inset-0 bg-black/10"></div>
+                {/* <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-primary/40 mix-blend-multiply"></div>
+                <div className="absolute inset-0 bg-black/10"></div> */}
             </div>
 
             <div className="relative z-10 text-white">
-                <h2 className="mb-8 text-3xl font-bold leading-snug">
+                {/* <h2 className="mb-8 text-3xl font-bold leading-snug">
                     Empowering Teams,
                     <br />
                     Transforming Leaders.
-                </h2>
+                </h2> */}
 
-                <div className="rounded-2xl border border-white/20 bg-white/10 p-6 shadow-lg backdrop-blur-md">
+                {/* <div className="rounded-2xl border border-white/20 bg-white/10 p-6 shadow-lg backdrop-blur-md">
                     <div className="mb-3 flex gap-1 text-yellow-400">
                         {[1, 2, 3, 4, 5].map((star) => (
                             <Icon
@@ -50,7 +50,7 @@ export default function ContactHero() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -47,7 +47,7 @@ export default function HeroSection({
     rating = 4.9,
 }: HeroSectionProps) {
     return (
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] pb-32 pt-32 text-white">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] pb-40 pt-40 text-white">
             {/* Grid Pattern Overlay */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -69,10 +69,10 @@ export default function HeroSection({
                     {/* Left Content */}
                     <div className="w-full text-center lg:w-1/2 lg:text-left">
                         {/* Badge */}
-                        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-emerald-300 backdrop-blur-md">
+                        {/* <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-emerald-300 backdrop-blur-md">
                             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
                             {badge}
-                        </div>
+                        </div> */}
 
                         {/* Title */}
                         <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
