@@ -7,7 +7,7 @@ export default function Footer() {
             <div className="mx-auto w-full max-w-[1200px] px-8 py-12 md:px-12 md:py-16">
                 <div className="mb-16 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
                     <div className="max-w-xl">
-                        <h2 className="text-3xl font-medium leading-tight tracking-tight text-white md:text-4xl">
+                        <h2 className="text-3xl font-medium leading-tight tracking-tight text-white md:text-3xl">
                             Mari Belajar Bersama Impact Academy — <br className="hidden md:block" />{' '}
                             Make a Greatest and Sustainable Impact.
                         </h2>
