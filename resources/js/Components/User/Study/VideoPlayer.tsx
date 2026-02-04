@@ -121,6 +121,12 @@ export default function VideoPlayer({
                 const prog = (current / total) * 100;
                 setProgress(prog);
                 onProgress?.(prog, current);
+
+                // Auto-pause when less than 1 second remaining
+                const remaining = total - current;
+                if (remaining > 0 && remaining < 1) {
+                    playerRef.current.pauseVideo();
+                }
             }
         }, 500);
     }, [onProgress]);
@@ -242,9 +248,8 @@ export default function VideoPlayer({
     return (
         <div
             ref={containerRef}
-            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-md bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${
-                isFullscreen ? 'rounded-none' : ''
-            }`}
+            className={`video-player-container group relative aspect-video w-full overflow-hidden rounded-md bg-gradient-to-br from-gray-900 to-black shadow-2xl shadow-primary/10 ring-1 ring-white/10 ${isFullscreen ? 'rounded-none' : ''
+                }`}
             onContextMenu={handleContextMenu}
             style={{ userSelect: 'none' }}
         >
@@ -370,8 +375,8 @@ export default function VideoPlayer({
                                             isMuted || volume === 0
                                                 ? 'volume_off'
                                                 : volume < 50
-                                                  ? 'volume_down'
-                                                  : 'volume_up'
+                                                    ? 'volume_down'
+                                                    : 'volume_up'
                                         }
                                         size={22}
                                     />

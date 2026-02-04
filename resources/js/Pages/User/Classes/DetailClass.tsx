@@ -202,7 +202,7 @@ export default function DetailClass({
                     </div>
 
                     {/* Preview List */}
-                    {/* {allPreviewVideos.length > 0 && (
+                    {allPreviewVideos.length > 0 && (
                         <div className="mt-4">
                             <h3 className="mb-2 text-sm font-semibold text-gray-900">
                                 Video Preview ({allPreviewVideos.length})
@@ -270,7 +270,7 @@ export default function DetailClass({
                                 ))}
                             </div>
                         </div>
-                    )} */}
+                    )}
 
                     {/* Tags */}
                     <div className="mt-6">
