@@ -14,7 +14,7 @@ export default function HeroSection() {
                         className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                         style={{
                             backgroundImage:
-                                "url('/ImpactCompressed/DSC01305.jpg')",
+                                "url('/ImpactCompressed/fotonew.jpeg')",
                         }}
                     ></div>
                     <div className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent"></div>
