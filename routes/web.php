@@ -84,7 +84,7 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
            Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
            Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
-
+           
            // Review Page
            Route::get('/study/{classId}/review', [ClassReviewController::class, 'reviewPage'])->name('study.review');
        });
@@ -113,8 +113,6 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::put('/reviews/{reviewId}', [ClassReviewController::class, 'update'])->name('reviews.update');
            Route::delete('/reviews/{reviewId}', [ClassReviewController::class, 'destroy'])->name('reviews.destroy');
        });
-
-
     });
 
 

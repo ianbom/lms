@@ -299,7 +299,7 @@ export default function ListClass({
 
                 {/* Content Grid */}
                 {paginatedClasses.length > 0 ? (
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                         {paginatedClasses.map((item) => (
                             <ClassCard key={item.id} item={item} />
                         ))}

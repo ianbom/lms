@@ -41,7 +41,7 @@ export default function HeroSection({
     ),
     description = 'Platform pembelajaran online dengan kurikulum terstruktur, mentor berpengalaman, dan sertifikasi yang diakui industri.',
     buttons = defaultButtons,
-    heroImage = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&h=600&fit=crop',
+    heroImage = '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg',
     users = defaultUsers,
     userCount = '10,000+',
     rating = 4.9,
@@ -151,10 +151,10 @@ export default function HeroSection({
                             <img
                                 alt="Modern Workspace"
                                 className="h-auto w-full transform object-cover transition-transform duration-700 hover:scale-105"
-                                src={heroImage}
+                                src={'/ImpactCompressed/CSR, ESG and Sustainability Training.jpg'}
                             />
                             {/* Floating Card */}
-                            <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                            {/* <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
                                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white">
                                     <Icon name="check_circle" size={24} />
                                 </div>
@@ -166,7 +166,7 @@ export default function HeroSection({
                                         Target Tercapai 85%
                                     </p>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

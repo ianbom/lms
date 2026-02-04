@@ -32,7 +32,7 @@ const defaultFAQs: FAQItem[] = [
     },
     {
         question: 'Metode pembayaran apa saja yang tersedia?',
-        answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank, kartu kredit/debit, e-wallet (GoPay, OVO, DANA), dan pembayaran melalui minimarket.',
+        answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank.',
     },
 ];
 

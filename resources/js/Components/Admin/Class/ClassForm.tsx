@@ -178,6 +178,25 @@ export default function ClassForm({
                         </div>
                     </div>
                 </SidebarCard>
+
+                {/* Status */}
+                <SidebarCard title="Status Publikasi">
+                    <FormSelect
+                        label=""
+                        placeholder="Pilih status"
+                        options={[
+                            { value: 'draft', label: 'Draft' },
+                            { value: 'published', label: 'Published' },
+                        ]}
+                        value={formData.status}
+                        onChange={(val) => handleFieldChange('status', val)}
+                    />
+                    <p className="mt-2 text-xs text-slate-500">
+                        {formData.status === 'published'
+                            ? 'Kelas sudah dipublikasikan dan dapat diakses oleh pengguna.'
+                            : 'Kelas masih dalam mode draft dan belum bisa diakses oleh pengguna.'}
+                    </p>
+                </SidebarCard>
             </div>
         </div>
     );

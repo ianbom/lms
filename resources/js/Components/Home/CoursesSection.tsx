@@ -1,20 +1,8 @@
+import ClassCard from '@/Components/Class/ClassCard';
 import Icon from '@/Components/Icon';
+import { ClassData } from '@/types/class';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
-import CourseCard from './CourseCard';
-
-interface Course {
-    image: string;
-    title: string;
-    description: string;
-    duration: string;
-    videoCount: number;
-    price: number;
-    originalPrice?: number;
-    isPopular?: boolean;
-    category: string;
-    href?: string;
-}
 
 interface Category {
     id: string;
@@ -24,7 +12,7 @@ interface Category {
 interface CoursesSectionProps {
     title?: string;
     description?: string;
-    courses?: Course[];
+    classes?: ClassData[];
     categories?: Category[];
 }
 
@@ -38,15 +26,17 @@ const defaultCategories: Category[] = [
 export default function CoursesSection({
     title = 'Kelas Populer',
     description,
-    courses = [], // Empty default to avoid using stale data if not provided
+    classes = [],
     categories = defaultCategories,
 }: CoursesSectionProps) {
     const [activeCategory, setActiveCategory] = useState('all');
 
-    const filteredCourses =
+    const filteredClasses =
         activeCategory === 'all'
-            ? courses
-            : courses.filter((course) => course.category === activeCategory);
+            ? classes
+            : classes.filter(
+                (cls) => cls.category?.slug === activeCategory,
+            );
 
     return (
         <section className="bg-background-light py-16">
@@ -73,11 +63,10 @@ export default function CoursesSection({
                                     onClick={() =>
                                         setActiveCategory(category.id)
                                     }
-                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-                                        activeCategory === category.id
+                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${activeCategory === category.id
                                             ? 'bg-gray-900 text-white'
                                             : 'border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary'
-                                    }`}
+                                        }`}
                                 >
                                     {category.label}
                                 </button>
@@ -88,23 +77,8 @@ export default function CoursesSection({
 
                 {/* Courses Grid */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {filteredCourses.map((course, index) => (
-                        <CourseCard
-                            key={index}
-                            image={course.image}
-                            title={course.title}
-                            description={course.description}
-                            duration={course.duration}
-                            videoCount={course.videoCount}
-                            price={course.price}
-                            originalPrice={course.originalPrice}
-                            isPopular={course.isPopular}
-                            href={course.href}
-                            category={
-                                categories.find((c) => c.id === course.category)
-                                    ?.label || 'General'
-                            }
-                        />
+                    {filteredClasses.map((classItem) => (
+                        <ClassCard key={classItem.id} item={classItem} />
                     ))}
                 </div>
 

@@ -13,22 +13,6 @@ interface HomeProps {
 }
 
 export default function Home({ classes }: HomeProps) {
-    // Map controller data to Course interface structure if necessary
-    const courses = classes.map((cls) => ({
-        image: cls.thumbnail_url
-            ? `${cls.thumbnail_url}`
-            : 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800',
-        title: cls.title,
-        description: cls.description,
-        duration: '40 Jam', // Placeholder or add field to DB
-        videoCount: 120, // Placeholder or add field to DB
-        price: cls.price_final,
-        originalPrice: cls.price, // Placeholder logic
-        isPopular: true,
-        category: cls.category?.slug || 'sertifikasi-bnsp', // Use slug from DB or default to one of the new categories
-        href: route('user.classes.show', cls.id),
-    }));
-
     const testimonials = [
         {
             rating: 5,
@@ -86,7 +70,7 @@ export default function Home({ classes }: HomeProps) {
         },
         {
             question: 'Metode pembayaran apa saja yang tersedia?',
-            answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank, kartu kredit/debit, e-wallet (GoPay, OVO, DANA), dan pembayaran melalui minimarket.',
+            answer: 'Kami menerima metode pembayaran transfer bank',
         },
     ];
 
@@ -135,7 +119,7 @@ export default function Home({ classes }: HomeProps) {
                     <CoursesSection
                         title="Kelas Populer"
                         description="Pilih kelas yang sesuai dengan kebutuhan karir Anda"
-                        courses={courses}
+                        classes={classes}
                     />
                 </div>
 
