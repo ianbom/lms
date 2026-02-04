@@ -50,6 +50,8 @@ Route::get('/contact-us', function () {
     return Inertia::render('ContactUs');
 })->name('contact');
 
+Route::post('/contact-us', [CorporateContactController::class, 'sendContactUs'])->name('contact.store');
+
 Route::get('/corporate-training', function () {
     return Inertia::render('CorporateTraining');
 })->name('corporate-training');

@@ -45,7 +45,7 @@ export default function ContactSection() {
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-gray-600">
                             Bangun kompetensi strategis melalui pelatihan
-                            berbasis praktik, mentor profesional, dan ekosistem
+                            berbasis praktik, trainer profesional, dan ekosistem
                             pembelajaran yang mendukung pertumbuhan organisasi
                             berkelanjutan.
                         </p>
@@ -58,7 +58,7 @@ export default function ContactSection() {
                         <blockquote className="relative z-10">
                             <p className="mb-8 text-2xl font-medium leading-snug tracking-tight text-[#111814] md:text-3xl">
                                 "Kurikulumnya benar-benar mengubah jalur karir
-                                saya. Mentorship-nya tak tertandingi."
+                                saya. trainership-nya tak tertandingi."
                             </p>
                             <div className="flex items-center gap-4">
                                 <div

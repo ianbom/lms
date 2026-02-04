@@ -193,7 +193,7 @@ export default function ListClass({
                     </h1>
                     <p className="mx-auto max-w-2xl text-sm text-slate-500 sm:mx-0 sm:text-base md:text-lg">
                         Tingkatkan keahlian Anda dengan kurikulum terstruktur
-                        dari mentor berpengalaman.
+                        dari trainer berpengalaman.
                     </p>
                 </div>
 
@@ -237,7 +237,7 @@ export default function ListClass({
                                 />
 
                                 <FilterDropdown
-                                    label="Mentor"
+                                    label="Trainer"
                                     options={mentors.map((m) => ({
                                         id: m.id,
                                         name: m.name,
@@ -252,7 +252,7 @@ export default function ListClass({
                                         setShowCategoryDropdown(false);
                                         setShowSortDropdown(false);
                                     }}
-                                    allLabel="Semua Mentor"
+                                    allLabel="Semua Trainer"
                                 />
 
                                 {/* Reset Button */}

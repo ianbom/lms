@@ -34,7 +34,7 @@ export default function Home({ classes }: HomeProps) {
             rating: 5,
             title: 'Kursus yang sangat membantu!',
             content:
-                'Saya berhasil mendapatkan pekerjaan sebagai web developer setelah menyelesaikan kursus di sini. Materinya sangat praktis dan mentornya sangat helpful!',
+                'Saya berhasil mendapatkan pekerjaan sebagai web developer setelah menyelesaikan kursus di sini. Materinya sangat praktis dan trainernya sangat helpful!',
             user: {
                 name: 'Andi Pratama',
                 role: 'Web Developer di TechCorp',
@@ -81,8 +81,8 @@ export default function Home({ classes }: HomeProps) {
         },
         {
             question:
-                'Apakah ada mentor yang bisa membantu jika saya mengalami kesulitan?',
-            answer: 'Ya, setiap kelas memiliki mentor berpengalaman yang siap membantu menjawab pertanyaan Anda melalui forum diskusi dan sesi live Q&A.',
+                'Apakah ada trainer yang bisa membantu jika saya mengalami kesulitan?',
+            answer: 'Ya, setiap kelas memiliki trainer berpengalaman yang siap membantu menjawab pertanyaan Anda melalui forum diskusi dan sesi live Q&A.',
         },
         {
             question: 'Metode pembayaran apa saja yang tersedia?',
@@ -107,7 +107,7 @@ export default function Home({ classes }: HomeProps) {
                             </span>
                         </>
                     }
-                    description="Kurikulum terstruktur, mentor praktisi berpengalaman, sertifikasi untuk membangun kompetensi yang relevan dan menciptakan dampak sosial berkelanjutan."
+                    description="Kurikulum terstruktur, trainer praktisi berpengalaman, sertifikasi untuk membangun kompetensi yang relevan dan menciptakan dampak sosial berkelanjutan."
                     buttons={[
                         {
                             text: 'Mulai Belajar',

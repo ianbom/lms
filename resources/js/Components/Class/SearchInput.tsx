@@ -10,7 +10,7 @@ interface SearchInputProps {
 export default function SearchInput({
     value,
     onChange,
-    placeholder = 'Cari topik, kelas, atau mentor...',
+    placeholder = 'Cari topik, kelas, atau...',
     className = '',
 }: SearchInputProps) {
     return (

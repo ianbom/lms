@@ -10,11 +10,11 @@ export default function LogoGrid() {
                 <div className="grid grid-cols-2 items-center justify-items-center gap-8 opacity-70 md:grid-cols-5 md:gap-16">
                     {/* Logo Mitra */}
                     {[
-                        '1.PertaminaGas.png',
+                        // '1.PertaminaGas.png',
                         '1.Pertamina.png',
                         '2.Pln.png',
                         '3.Pelindo.png',
-                        '4.Taspen.png',
+                        // '4.Taspen.png',
                         '11.Bri.png',
                         '5.Pegadaian.png',
                         '6.Astra.png',

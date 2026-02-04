@@ -1,26 +1,32 @@
 import Icon from '@/Components/Icon';
-import { useForm } from '@inertiajs/react';
-import React from 'react';
+import { useForm, usePage } from '@inertiajs/react';
+import React, { useEffect, useState } from 'react';
 import FloatingInput from './FloatingInput';
 import FloatingSelect from './FloatingSelect';
 
 export default function ContactForm() {
-    const { data, setData, post, processing, errors } = useForm({
+    const { flash } = usePage().props as { flash?: { success?: string } };
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    const { data, setData, post, processing, errors, reset } = useForm({
         full_name: '',
         email: '',
         phone: '',
-        job_title: '',
         company_size: '',
-        program: '',
         message: '',
     });
 
+    useEffect(() => {
+        if (flash?.success) {
+            setShowSuccess(true);
+            reset();
+            setTimeout(() => setShowSuccess(false), 5000);
+        }
+    }, [flash?.success]);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Since we don't have a backend route specified yet, we can mock it or just log.
-        // Assuming there might be a route later, but for now user just extracted UI.
-        console.log('Form submitted', data);
-        // post(route('contact.store'));
+        post(route('contact.store'));
     };
 
     return (
@@ -44,11 +50,22 @@ export default function ContactForm() {
                 </p>
             </div>
 
+            {/* Success Message */}
+            {showSuccess && (
+                <div className="mb-6 flex items-center gap-3 rounded-lg bg-green-50 p-4 text-green-800">
+                    <Icon name="check_circle" size={24} />
+                    <p className="text-sm font-medium">
+                        Pesan Anda telah berhasil dikirim. Kami akan segera
+                        menghubungi Anda.
+                    </p>
+                </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2">
                     <FloatingInput
                         id="full-name"
-                        label="Nama Lengkap"
+                        label="Nama Lengkap *"
                         name="full_name"
                         value={data.full_name}
                         onChange={(e) => setData('full_name', e.target.value)}
@@ -56,7 +73,7 @@ export default function ContactForm() {
                     />
                     <FloatingInput
                         id="email"
-                        label="Email Kantor"
+                        label="Email Kantor *"
                         type="email"
                         name="email"
                         value={data.email}
@@ -68,7 +85,7 @@ export default function ContactForm() {
                 <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2">
                     <FloatingInput
                         id="phone"
-                        label="Nomor Handphone"
+                        label="Nomor Handphone *"
                         type="tel"
                         name="phone"
                         value={data.phone}
@@ -85,10 +102,10 @@ export default function ContactForm() {
                             setData('company_size', e.target.value)
                         }
                         options={[
-                            { label: '1 - 50 Karyawan', value: 'small' },
-                            { label: '51 - 200 Karyawan', value: 'medium' },
-                            { label: '201 - 1000 Karyawan', value: 'large' },
-                            { label: '1000+ Karyawan', value: 'enterprise' },
+                            { label: '1 - 50 Karyawan', value: '1 - 50 Karyawan' },
+                            { label: '51 - 200 Karyawan', value: '51 - 200 Karyawan' },
+                            { label: '201 - 1000 Karyawan', value: '201 - 1000 Karyawan' },
+                            { label: '1000+ Karyawan', value: '1000+ Karyawan' },
                         ]}
                         error={errors.company_size}
                     />
@@ -102,17 +119,15 @@ export default function ContactForm() {
                         onChange={(e) => setData('message', e.target.value)}
                         placeholder=" "
                         rows={4}
-                        className={`peer block w-full appearance-none rounded-t-lg border-0 border-b-2 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-[#00753D] focus:outline-none focus:ring-0 ${
-                            errors.message
+                        className={`peer block w-full appearance-none rounded-t-lg border-0 border-b-2 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-[#00753D] focus:outline-none focus:ring-0 ${errors.message
                                 ? 'border-red-600'
                                 : 'border-gray-300'
-                        }`}
+                            }`}
                     />
                     <label
                         htmlFor="message"
-                        className={`absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-[#00753D] ${
-                            errors.message ? 'text-red-600' : ''
-                        }`}
+                        className={`absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-[#00753D] ${errors.message ? 'text-red-600' : ''
+                            }`}
                     >
                         Pesan
                     </label>
@@ -127,16 +142,29 @@ export default function ContactForm() {
                     <button
                         type="submit"
                         disabled={processing}
-                        className="group flex w-full cursor-pointer items-center justify-center rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-white shadow-md shadow-primary/30 transition-all hover:bg-[#006232] hover:shadow-lg hover:shadow-primary/40 sm:w-auto"
+                        className="group flex w-full cursor-pointer items-center justify-center rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-white shadow-md shadow-primary/30 transition-all hover:bg-[#006232] hover:shadow-lg hover:shadow-primary/40 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
                     >
-                        <span className="mr-2">Kirim Pesan</span>
-                        <Icon
-                            name="arrow_forward"
-                            className="text-lg transition-transform group-hover:translate-x-1"
-                        />
+                        {processing ? (
+                            <>
+                                <Icon
+                                    name="progress_activity"
+                                    className="mr-2 animate-spin text-lg"
+                                />
+                                <span>Mengirim...</span>
+                            </>
+                        ) : (
+                            <>
+                                <span className="mr-2">Kirim Pesan</span>
+                                <Icon
+                                    name="arrow_forward"
+                                    className="text-lg transition-transform group-hover:translate-x-1"
+                                />
+                            </>
+                        )}
                     </button>
                 </div>
             </form>
         </div>
     );
 }
+

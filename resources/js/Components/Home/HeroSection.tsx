@@ -47,7 +47,7 @@ export default function HeroSection({
     rating = 4.9,
 }: HeroSectionProps) {
     return (
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] pb-12 pt-24 text-white">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] pb-32 pt-32 text-white">
             {/* Grid Pattern Overlay */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -105,8 +105,8 @@ export default function HeroSection({
                         </div>
 
                         {/* Stats */}
-                        <div className="mt-12 flex items-center justify-center gap-8 lg:justify-start">
-                            {/* Users */}
+                        {/* <div className="mt-12 flex items-center justify-center gap-8 lg:justify-start">
+                          
                             <div className="flex items-center gap-2">
                                 <div className="flex -space-x-3">
                                     {users.map((userImage, index) => (
@@ -130,7 +130,7 @@ export default function HeroSection({
 
                             <div className="h-10 w-px bg-white/10" />
 
-                            {/* Rating */}
+                          
                             <div className="flex items-center gap-2">
                                 <div className="text-left">
                                     <p className="font-bold text-white">
@@ -141,7 +141,7 @@ export default function HeroSection({
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Right Content - Hero Image */}

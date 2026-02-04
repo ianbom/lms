@@ -38,13 +38,13 @@ const defaultFeatures: Feature[] = [
         icon: 'groups',
         title: 'Komunitas Eksklusif untuk Networking & Kolaborasi',
         description:
-            'Terhubung dengan sesama profesional, mentor, dan pelaku dampak sosial.',
+            'Terhubung dengan sesama profesional, trainer, dan pelaku dampak sosial.',
     },
 ];
 
 export default function WhyChooseUsSection({
     title = 'Kenapa Impact Academy Jadi Pilihan untuk Upgrade Pengetahuan dan Keahlian?',
-    description = 'Platform pembelajaran digital dengan sistem terstruktur, mentor praktisi, dan sertifikasi terpercaya untuk membantu Anda berkembang lebih cepat dan lebih berdampak.',
+    description = 'Platform pembelajaran digital dengan sistem terstruktur, trainer praktisi, dan sertifikasi terpercaya untuk membantu Anda berkembang lebih cepat dan lebih berdampak.',
     benefits = defaultBenefits,
     features = defaultFeatures,
 }: WhyChooseUsSectionProps) {
