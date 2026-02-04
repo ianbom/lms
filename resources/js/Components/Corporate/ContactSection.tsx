@@ -41,13 +41,12 @@ export default function ContactSection() {
                             Hubungi Kami
                         </div>
                         <h2 className="text-3xl font-bold leading-tight text-[#111814] md:text-4xl">
-                            Kami bantu perusahaanmu <br /> bangun masa depan.
+                            Perkuat Kapasitas Tim Anda Bersama Impact Academy
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-gray-600">
-                            Bangun kompetensi strategis melalui pelatihan
-                            berbasis praktik, trainer profesional, dan ekosistem
-                            pembelajaran yang mendukung pertumbuhan organisasi
-                            berkelanjutan.
+                            Tingkatkan kapabilitas tim melalui Program Corporate Training 
+                            berbasis dampak yang dirancang untuk menjawab tantangan bisnis 
+                            modern dan agenda keberlanjutan perusahaan.
                         </p>
                     </div>
                     {/* Editorial Testimonial */}

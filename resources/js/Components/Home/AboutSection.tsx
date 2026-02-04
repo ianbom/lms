@@ -8,7 +8,7 @@ export default function AboutSection() {
                     <div className="order-2 lg:order-1">
                         <div className="relative overflow-hidden rounded-2xl shadow-xl">
                             <img
-                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&h=1000&fit=crop"
+                                src="/ImpactCompressed/presentasi.jpeg"
                                 alt="Team collaboration"
                                 className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                             />
@@ -34,9 +34,9 @@ export default function AboutSection() {
                         </div>
 
                         <h2 className="mb-6 text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
-                            Katalisator bagi Profesional <br />
+                            Platform Pembelajaran  <br /> Berbasis Dampak
                             <span className="text-primary">
-                                di Bidang Keberlanjutan
+                                <br /> di Bidang Keberlanjutan
                             </span>
                         </h2>
 
@@ -45,34 +45,12 @@ export default function AboutSection() {
                                 <span className="font-semibold text-gray-900">
                                     Impact Academy
                                 </span>{' '}
-                                merupakan sebuah program unggulan yang kami
-                                rancang secara khusus untuk menjadi katalisator
-                                bagi Anda yang berdedikasi pada bidang
-                                keberlanjutan. Impact Academy hadir sebagai
-                                platform pembelajaran transformatif yang
-                                berfokus pada pelatihan berbasis dampak. Kami
-                                tidak hanya membekali peserta dengan teori,
-                                melainkan juga dengan pengetahuan praktis dan
-                                strategi implementatif yang telah teruji dalam
-                                domain Sustainability, Corporate Social
-                                Responsibility (CSR), Environmental, Social, and
-                                Governance (ESG) dan Community Involvement and
-                                Development (CID). Kurikulum kami dirancang
-                                dengan pendekatan terkini dan berpegang teguh
-                                pada praktik terbaik industri, memastikan bahwa
-                                setiap materi yang disampaikan relevan dengan
-                                tantangan dan peluang yang ada saat ini.
-                            </p>
-                            <p>
-                                Melalui program ini, peserta akan dibimbing
-                                untuk tidak hanya memahami konsep keberlanjutan
-                                secara mendalam, tetapi juga untuk
-                                mengidentifikasi, merancang, dan
-                                mengimplementasikan inisiatif yang menghasilkan
-                                perubahan positif yang terukur. Impact Academy
-                                membekali Anda dengan kemampuan untuk menjawab
-                                tuntutan global akan praktik bisnis yang lebih
-                                bertanggung jawab dan berkelanjutan.
+                                adalah program unggulan yang dirancang sebagai mitra strategis dalam pengembangan kapasitas profesional di bidang keberlanjutan. 
+                                Melalui pembelajaran berbasis dampak yang menggabungkan pemahaman konseptual dan praktik 
+                                implementatif, Anda akan dibekali keterampilan aplikatif serta strategi teruji di 
+                                bidang Sustainability, ESG, dan CSR. Kurikulum disusun selaras dengan kebutuhan industri, 
+                                regulasi, dan tantangan global, sehingga peserta mampu merancang serta mengimplementasikan 
+                                inisiatif keberlanjutan yang relevan, terukur, dan berorientasi pada perubahan positif.
                             </p>
                         </div>
                     </div>
