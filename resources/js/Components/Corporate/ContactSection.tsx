@@ -51,7 +51,7 @@ export default function ContactSection() {
                         </p>
                     </div>
                     {/* Editorial Testimonial */}
-                    <div className="relative mt-12 lg:mt-24">
+                    {/* <div className="relative mt-12 lg:mt-24">
                         <span className="absolute -left-4 -top-10 select-none text-6xl text-primary/20">
                             <Icon name="format_quote" size={60} />
                         </span>
@@ -78,7 +78,7 @@ export default function ContactSection() {
                                 </div>
                             </div>
                         </blockquote>
-                    </div>
+                    </div> */}
                 </div>
                 {/* Right Column: Airy Form */}
                 <div className="flex-1">
