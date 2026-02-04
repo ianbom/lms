@@ -98,11 +98,11 @@ export default function Home({ classes }: HomeProps) {
                             href: '#courses',
                             variant: 'primary',
                         },
-                        {
-                            text: 'Lihat Kelas',
-                            href: '#courses',
-                            variant: 'secondary',
-                        },
+                        // {
+                        //     text: 'Lihat Kelas',
+                        //     href: '#courses',
+                        //     variant: 'secondary',
+                        // },
                     ]}
                     heroImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&h=600&fit=crop"
                     users={[
