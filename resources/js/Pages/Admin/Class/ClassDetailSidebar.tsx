@@ -98,7 +98,7 @@ export default function ClassDetailSidebar({
             {/* Mentor Card */}
             <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 className="mb-4 text-lg font-bold text-slate-800">
-                    Mentor
+                    Trainer
                 </h3>
                 <div className="space-y-3">
                     {classData.mentors && classData.mentors.length > 0 ? (
@@ -124,7 +124,7 @@ export default function ClassDetailSidebar({
                         ))
                     ) : (
                         <div className="text-sm text-slate-500">
-                            Belum ada mentor
+                            Belum ada trainer
                         </div>
                     )}
                 </div>
