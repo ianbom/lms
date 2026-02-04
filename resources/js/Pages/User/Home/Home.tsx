@@ -84,14 +84,14 @@ export default function Home({ classes }: HomeProps) {
                     badge="🚀 Diskon 50% untuk Kelas Baru!"
                     title={
                         <>
-                            Belajar Berdampak
+                            Berdampak Bersama
                             <br />
                             <span className="text-green-500">
-                                Tumbuh Bersama Impact Academy
+                                Impact Academy
                             </span>
                         </>
                     }
-                    description="Kurikulum terstruktur, trainer praktisi berpengalaman, sertifikasi untuk membangun kompetensi yang relevan dan menciptakan dampak sosial berkelanjutan."
+                    description="Platform pembelajaran keberlanjutan dengan kurikulum terstruktur, trainer yang merupakan praktisi berpengalaman, bersertifikasi sesuai dengan standard nasional sehingga dapat meningkatkan pengetahuan dan keahlian untuk menciptakan dampak positif berkelanjutan."
                     buttons={[
                         {
                             text: 'Mulai Belajar',
