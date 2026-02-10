@@ -35,6 +35,7 @@ class UpdateModuleRequest extends FormRequest
             'videos.*.resources.*.file' => ['nullable', 'file', 'max:25600', 'mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,zip'],
             'videos.*.resources.*.file_type' => ['nullable', 'string', 'in:pdf,doc,docx,ppt,pptx,xls,xlsx,zip,other'],
             'videos.*.resources.*.existing_url' => ['nullable', 'string'],
+            'videos.*.resources.*.existing_file_size' => ['nullable', 'integer'],
         ];
     }
 }

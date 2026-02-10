@@ -1,4 +1,3 @@
-
 import { Footer } from '@/Components/Home';
 import Icon from '@/Components/Icon';
 import { Link, usePage } from '@inertiajs/react';
@@ -93,31 +92,36 @@ export default function UserLayout({
                         <nav className="hidden h-full items-center gap-8 md:flex">
                             {navigation.map((item) =>
                                 item.children ? (
-                                    <div key={item.label} className="group relative h-full flex items-center">
+                                    <div
+                                        key={item.label}
+                                        className="group relative flex h-full items-center"
+                                    >
                                         <button
                                             type="button"
-                                            className={`inline-flex items-center text-sm font-medium transition-colors ${item.active
-                                                ? 'text-gray-900'
-                                                : 'text-gray-600 group-hover:text-primary'
-                                                }`}
+                                            className={`inline-flex items-center text-sm font-medium transition-colors ${
+                                                item.active
+                                                    ? 'text-gray-900'
+                                                    : 'text-gray-600 group-hover:text-primary'
+                                            }`}
                                         >
                                             {item.label}
                                             <Icon
                                                 name="expand_more"
-                                                className="ml-1 mb-0.5 h-4 w-4 transition-transform group-hover:rotate-180 group-hover:text-primary"
+                                                className="mb-0.5 ml-1 h-4 w-4 transition-transform group-hover:rotate-180 group-hover:text-primary"
                                             />
                                         </button>
 
-                                        <div className="absolute right-0 top-full z-50 w-48 origin-top-right scale-95 opacity-0 invisible transition-all duration-200 group-hover:visible group-hover:scale-100 group-hover:opacity-100 pt-2">
+                                        <div className="invisible absolute right-0 top-full z-50 w-48 origin-top-right scale-95 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:scale-100 group-hover:opacity-100">
                                             <div className="rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                                                 {item.children.map((child) => (
                                                     <Link
                                                         key={child.label}
                                                         href={child.href}
-                                                        className={`block w-full px-4 py-2 text-start text-sm leading-5 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none ${child.active
-                                                            ? 'bg-gray-100 text-gray-900'
-                                                            : 'text-gray-700'
-                                                            }`}
+                                                        className={`block w-full px-4 py-2 text-start text-sm leading-5 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none ${
+                                                            child.active
+                                                                ? 'bg-gray-100 text-gray-900'
+                                                                : 'text-gray-700'
+                                                        }`}
                                                     >
                                                         {child.label}
                                                     </Link>
@@ -129,10 +133,11 @@ export default function UserLayout({
                                     <Link
                                         key={item.label}
                                         href={item.href}
-                                        className={`text-sm font-medium transition-colors ${item.active
-                                            ? 'border-b-2 border-primary pb-0.5 text-gray-900'
-                                            : 'text-gray-600 hover:text-primary'
-                                            }`}
+                                        className={`text-sm font-medium transition-colors ${
+                                            item.active
+                                                ? 'border-b-2 border-primary pb-0.5 text-gray-900'
+                                                : 'text-gray-600 hover:text-primary'
+                                        }`}
                                     >
                                         {item.label}
                                     </Link>
@@ -204,10 +209,11 @@ export default function UserLayout({
                                                     <Link
                                                         key={child.label}
                                                         href={child.href}
-                                                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${child.active
-                                                            ? 'bg-primary/10 text-primary'
-                                                            : 'text-gray-600 hover:bg-gray-50'
-                                                            }`}
+                                                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                                                            child.active
+                                                                ? 'bg-primary/10 text-primary'
+                                                                : 'text-gray-600 hover:bg-gray-50'
+                                                        }`}
                                                     >
                                                         {child.label}
                                                     </Link>
@@ -218,10 +224,11 @@ export default function UserLayout({
                                         <Link
                                             key={item.label}
                                             href={item.href}
-                                            className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${item.active
-                                                ? 'bg-primary/10 text-primary'
-                                                : 'text-gray-600 hover:bg-gray-50'
-                                                }`}
+                                            className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                                                item.active
+                                                    ? 'bg-primary/10 text-primary'
+                                                    : 'text-gray-600 hover:bg-gray-50'
+                                            }`}
                                         >
                                             {item.label}
                                         </Link>

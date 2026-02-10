@@ -57,12 +57,23 @@ class ModuleService
 
             // Handle videos
             if (isset($data['videos']) && is_array($data['videos'])) {
+                $preservedUrls = [];
+                foreach ($data['videos'] as $videoData) {
+                    if (isset($videoData['resources']) && is_array($videoData['resources'])) {
+                        foreach ($videoData['resources'] as $resourceData) {
+                            if (!empty($resourceData['existing_url'])) {
+                                $preservedUrls[] = $resourceData['existing_url'];
+                            }
+                        }
+                    }
+                }
+
                 $existingVideoIds = $module->videos()->pluck('id')->toArray();
                 foreach ($existingVideoIds as $videoId) {
                     $video = Video::find($videoId);
                     if ($video) {
                         foreach ($video->resources as $resource) {
-                            if ($resource->file_url && str_starts_with($resource->file_url, '/storage/')) {
+                            if ($resource->file_url && str_starts_with($resource->file_url, '/storage/') && !in_array($resource->file_url, $preservedUrls)) {
                                 $path = str_replace('/storage/', '', $resource->file_url);
                                 Storage::disk('public')->delete($path);
                             }

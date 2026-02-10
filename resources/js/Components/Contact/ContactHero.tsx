@@ -1,5 +1,3 @@
-import Icon from '@/Components/Icon';
-
 export default function ContactHero() {
     return (
         <div className="relative hidden w-1/2 flex-col justify-end overflow-hidden bg-primary p-12 lg:flex">

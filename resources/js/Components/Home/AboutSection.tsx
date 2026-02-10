@@ -34,7 +34,7 @@ export default function AboutSection() {
                         </div>
 
                         <h2 className="mb-6 text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
-                            Platform Pembelajaran  <br /> Berbasis Dampak
+                            Platform Pembelajaran <br /> Berbasis Dampak
                             <span className="text-primary">
                                 <br /> di Bidang Keberlanjutan
                             </span>
@@ -45,12 +45,19 @@ export default function AboutSection() {
                                 <span className="font-semibold text-gray-900">
                                     Impact Academy
                                 </span>{' '}
-                                adalah program unggulan yang dirancang sebagai mitra strategis dalam pengembangan kapasitas profesional di bidang keberlanjutan. 
-                                Melalui pembelajaran berbasis dampak yang menggabungkan pemahaman konseptual dan praktik 
-                                implementatif, Anda akan dibekali keterampilan aplikatif serta strategi teruji di 
-                                bidang Sustainability, ESG, dan CSR. Kurikulum disusun selaras dengan kebutuhan industri, 
-                                regulasi, dan tantangan global, sehingga peserta mampu merancang serta mengimplementasikan 
-                                inisiatif keberlanjutan yang relevan, terukur, dan berorientasi pada perubahan positif.
+                                adalah program unggulan yang dirancang sebagai
+                                mitra strategis dalam pengembangan kapasitas
+                                profesional di bidang keberlanjutan. Melalui
+                                pembelajaran berbasis dampak yang menggabungkan
+                                pemahaman konseptual dan praktik implementatif,
+                                Anda akan dibekali keterampilan aplikatif serta
+                                strategi teruji di bidang Sustainability, ESG,
+                                dan CSR. Kurikulum disusun selaras dengan
+                                kebutuhan industri, regulasi, dan tantangan
+                                global, sehingga peserta mampu merancang serta
+                                mengimplementasikan inisiatif keberlanjutan yang
+                                relevan, terukur, dan berorientasi pada
+                                perubahan positif.
                             </p>
                         </div>
                     </div>

@@ -1,6 +1,5 @@
 import AuthBanner from '@/Components/Auth/AuthBanner';
 import Icon from '@/Components/Icon';
-import TextInput from '@/Components/TextInput';
 import { Head, router } from '@inertiajs/react';
 import { FormEventHandler, useRef, useState } from 'react';
 
@@ -73,9 +72,7 @@ export default function AdminOtpVerify({ email, status }: AdminOtpVerifyProps) {
             { otp_code: code },
             {
                 onError: (errors) => {
-                    setError(
-                        errors.otp_code || 'Kode OTP tidak valid.',
-                    );
+                    setError(errors.otp_code || 'Kode OTP tidak valid.');
                     setOtpDigits(['', '', '', '', '', '']);
                     inputRefs.current[0]?.focus();
                 },
@@ -86,10 +83,14 @@ export default function AdminOtpVerify({ email, status }: AdminOtpVerifyProps) {
 
     const resendOtp = () => {
         setResending(true);
-        router.post(route('admin.otp.resend'), {}, {
-            onFinish: () => setResending(false),
-            preserveScroll: true,
-        });
+        router.post(
+            route('admin.otp.resend'),
+            {},
+            {
+                onFinish: () => setResending(false),
+                preserveScroll: true,
+            },
+        );
     };
 
     return (
@@ -102,10 +103,7 @@ export default function AdminOtpVerify({ email, status }: AdminOtpVerifyProps) {
                 <div className="w-full max-w-[420px] space-y-8">
                     {/* Mobile Logo */}
                     <div className="mb-8 flex items-center gap-2 lg:hidden">
-                        <Icon
-                            name="school"
-                            className="text-3xl text-primary"
-                        />
+                        <Icon name="school" className="text-3xl text-primary" />
                         <span className="text-xl font-bold text-gray-900">
                             ImpactAcademy
                         </span>
@@ -168,12 +166,13 @@ export default function AdminOtpVerify({ email, status }: AdminOtpVerifyProps) {
                                             handleKeyDown(index, e)
                                         }
                                         autoFocus={index === 0}
-                                        className={`h-14 w-14 rounded-xl border-2 text-center text-2xl font-bold transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 ${error
+                                        className={`h-14 w-14 rounded-xl border-2 text-center text-2xl font-bold transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 ${
+                                            error
                                                 ? 'border-red-300 bg-red-50'
                                                 : digit
-                                                    ? 'border-primary/30 bg-primary/5'
-                                                    : 'border-gray-200 bg-gray-50'
-                                            }`}
+                                                  ? 'border-primary/30 bg-primary/5'
+                                                  : 'border-gray-200 bg-gray-50'
+                                        }`}
                                     />
                                 ))}
                             </div>
@@ -195,9 +194,7 @@ export default function AdminOtpVerify({ email, status }: AdminOtpVerifyProps) {
                                     disabled={resending}
                                     className="font-semibold text-primary transition-colors hover:text-primary/80 disabled:cursor-not-allowed disabled:opacity-50"
                                 >
-                                    {resending
-                                        ? 'Mengirim...'
-                                        : 'Kirim Ulang'}
+                                    {resending ? 'Mengirim...' : 'Kirim Ulang'}
                                 </button>
                             </p>
                         </div>

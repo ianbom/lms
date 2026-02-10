@@ -8,7 +8,9 @@ export interface UploadedFile {
     uploadedAt?: string;
     progress?: number;
     isUploading?: boolean;
-    file?: File; // Actual file object for upload
+    file?: File;
+    existingUrl?: string;
+    existingFileSize?: number;
 }
 
 interface FileItemProps {

@@ -34,9 +34,7 @@ export default function CoursesSection({
     const filteredClasses =
         activeCategory === 'all'
             ? classes
-            : classes.filter(
-                (cls) => cls.category?.slug === activeCategory,
-            );
+            : classes.filter((cls) => cls.category?.slug === activeCategory);
 
     return (
         <section className="bg-background-light py-16">
@@ -63,10 +61,11 @@ export default function CoursesSection({
                                     onClick={() =>
                                         setActiveCategory(category.id)
                                     }
-                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${activeCategory === category.id
+                                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+                                        activeCategory === category.id
                                             ? 'bg-gray-900 text-white'
                                             : 'border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary'
-                                        }`}
+                                    }`}
                                 >
                                     {category.label}
                                 </button>

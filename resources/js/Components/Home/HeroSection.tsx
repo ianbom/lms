@@ -151,7 +151,9 @@ export default function HeroSection({
                             <img
                                 alt="Modern Workspace"
                                 className="h-auto w-full transform object-cover transition-transform duration-700 hover:scale-105"
-                                src={'/ImpactCompressed/CSR, ESG and Sustainability Training.jpg'}
+                                src={
+                                    '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg'
+                                }
                             />
                             {/* Floating Card */}
                             {/* <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">

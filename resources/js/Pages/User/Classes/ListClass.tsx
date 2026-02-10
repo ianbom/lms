@@ -1,7 +1,6 @@
 import {
     ClassCard,
     EmptyState,
-    FilterChips,
     FilterDropdown,
     Pagination,
     SearchInput,

@@ -8,8 +8,9 @@ export default function Footer() {
                 <div className="mb-16 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
                     <div className="max-w-xl">
                         <h2 className="text-3xl font-medium leading-tight tracking-tight text-white md:text-3xl">
-                            Mari Belajar Bersama Impact Academy — <br className="hidden md:block" />{' '}
-                            Make a Greatest and Sustainable Impact.
+                            Mari Belajar Bersama Impact Academy —{' '}
+                            <br className="hidden md:block" /> Make a Greatest
+                            and Sustainable Impact.
                         </h2>
                     </div>
                     {/* <div className="w-full min-w-[320px] lg:w-auto">

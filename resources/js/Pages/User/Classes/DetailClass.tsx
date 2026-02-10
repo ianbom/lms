@@ -214,13 +214,13 @@ export default function DetailClass({
                                         onClick={() =>
                                             handlePreviewSelect(video)
                                         }
-                                        className={`group relative min-w-[200px] flex-shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all ${selectedVideo?.id === video.id
-                                            ? 'border-primary ring-2 ring-primary ring-opacity-50'
-                                            : 'border-gray-200 hover:border-gray-300'
-                                            }`}
+                                        className={`group relative min-w-[200px] flex-shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all ${
+                                            selectedVideo?.id === video.id
+                                                ? 'border-primary ring-2 ring-primary ring-opacity-50'
+                                                : 'border-gray-200 hover:border-gray-300'
+                                        }`}
                                     >
                                         <div className="relative aspect-video w-full bg-gray-100">
-                                           
                                             {video.youtube_url ? (
                                                 <img
                                                     src={`https://img.youtube.com/vi/${video.youtube_url.split('v=')[1]?.split('&')[0]}/mqdefault.jpg`}
@@ -235,7 +235,6 @@ export default function DetailClass({
                                                 </div>
                                             )}
 
-                                          
                                             {selectedVideo?.id === video.id && (
                                                 <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                                                     <div className="rounded-full bg-primary p-1.5 text-white">
@@ -252,11 +251,12 @@ export default function DetailClass({
                                         </div>
                                         <div className="p-2 text-left">
                                             <p
-                                                className={`line-clamp-2 text-sm font-medium ${selectedVideo?.id ===
+                                                className={`line-clamp-2 text-sm font-medium ${
+                                                    selectedVideo?.id ===
                                                     video.id
-                                                    ? 'text-primary'
-                                                    : 'text-gray-900 group-hover:text-primary'
-                                                    }`}
+                                                        ? 'text-primary'
+                                                        : 'text-gray-900 group-hover:text-primary'
+                                                }`}
                                             >
                                                 {video.title}
                                             </p>

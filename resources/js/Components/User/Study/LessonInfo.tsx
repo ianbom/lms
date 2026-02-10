@@ -84,14 +84,14 @@ function LessonResources({ resources }: LessonResourcesProps) {
                             rel="noopener noreferrer"
                             download
                         >
-                            <div className="flex items-center gap-3">
+                            <div className="flex min-w-0 flex-1 items-center gap-3">
                                 <div
-                                    className={`flex h-8 w-8 items-center justify-center rounded ${colors.bg} ${colors.text}`}
+                                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded ${colors.bg} ${colors.text}`}
                                 >
                                     <Icon name={icon} size={18} />
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className="text-sm font-medium text-slate-700 group-hover:text-primary">
+                                <div className="flex min-w-0 flex-1 flex-col">
+                                    <span className="truncate text-sm font-medium text-slate-700 group-hover:text-primary">
                                         {resource.title}
                                     </span>
                                     <span className="text-xs text-slate-400">

@@ -62,6 +62,7 @@ export default function EditModuleModal({
                         isUploading: false,
                         uploadedAt: 'Uploaded',
                         existingUrl: r.file_url,
+                        existingFileSize: r.file_size,
                     })),
                 };
             });
@@ -134,10 +135,16 @@ export default function EditModuleModal({
                         f.file,
                     );
                 }
-                if ((f as any).existingUrl) {
+                if (f.existingUrl) {
                     data.append(
                         `videos[${index}][resources][${fIndex}][existing_url]`,
-                        (f as any).existingUrl,
+                        f.existingUrl,
+                    );
+                }
+                if (f.existingFileSize) {
+                    data.append(
+                        `videos[${index}][resources][${fIndex}][existing_file_size]`,
+                        f.existingFileSize.toString(),
                     );
                 }
             });

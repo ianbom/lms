@@ -233,10 +233,11 @@ function PageHeader({ classData, onEdit, onPublish }: PageHeaderProps) {
             <div>
                 <div className="mb-2 flex items-center gap-2">
                     <span
-                        className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${classData.status === 'published'
+                        className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                            classData.status === 'published'
                                 ? 'bg-green-100 text-green-800'
                                 : 'bg-yellow-100 text-yellow-800'
-                            }`}
+                        }`}
                     >
                         {classData.status === 'published' ? 'Publish' : 'Draf'}
                     </span>
@@ -336,10 +337,10 @@ function CurriculumSection({
             <div className="rounded-xl border-2 border-dashed border-[#e2e8f0] bg-[#f8fafc]/50 p-8 text-center transition-all hover:border-[#cbd5e1] hover:bg-[#f8fafc]">
                 <button
                     onClick={() =>
-                    (window.location.href = route(
-                        'admin.module.create',
-                        classId,
-                    ))
+                        (window.location.href = route(
+                            'admin.module.create',
+                            classId,
+                        ))
                     }
                     className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f1f5f9] text-[#64748b] transition-transform hover:scale-110 hover:bg-[#e2e8f0] hover:text-[#1e293b]"
                 >
@@ -396,11 +397,7 @@ function ReorderSection({
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Icon
-                        name="swap_vert"
-                        size={20}
-                        className="text-primary"
-                    />
+                    <Icon name="swap_vert" size={20} className="text-primary" />
                     <h2 className="text-sm font-bold text-[#1e293b]">
                         Edit Urutan Modul
                     </h2>
@@ -440,10 +437,11 @@ function ReorderSection({
                         onDragEnter={() => handleDragEnter(index)}
                         onDragEnd={handleDragEnd}
                         onDragOver={(e) => e.preventDefault()}
-                        className={`group flex items-center gap-4 border-b border-[#f1f5f9] px-5 py-4 transition-colors last:border-b-0 hover:bg-[#f8fafc] ${dragItem.current === index
+                        className={`group flex items-center gap-4 border-b border-[#f1f5f9] px-5 py-4 transition-colors last:border-b-0 hover:bg-[#f8fafc] ${
+                            dragItem.current === index
                                 ? 'bg-primary/5 opacity-50'
                                 : ''
-                            }`}
+                        }`}
                         style={{ cursor: 'grab' }}
                     >
                         {/* Drag Handle */}

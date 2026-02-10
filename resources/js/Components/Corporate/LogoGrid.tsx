@@ -1,5 +1,3 @@
-import Icon from '@/Components/Icon';
-
 export default function LogoGrid() {
     return (
         <section className="w-full border-t border-[#f0f4f2] bg-white py-16">

@@ -44,9 +44,10 @@ export default function ContactSection() {
                             Perkuat Kapasitas Tim Anda Bersama Impact Academy
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-gray-600">
-                            Tingkatkan kapabilitas tim melalui Program Corporate Training 
-                            berbasis dampak yang dirancang untuk menjawab tantangan bisnis 
-                            modern dan agenda keberlanjutan perusahaan.
+                            Tingkatkan kapabilitas tim melalui Program Corporate
+                            Training berbasis dampak yang dirancang untuk
+                            menjawab tantangan bisnis modern dan agenda
+                            keberlanjutan perusahaan.
                         </p>
                     </div>
                     {/* Editorial Testimonial */}
@@ -103,10 +104,11 @@ export default function ContactSection() {
                                         Nama Lengkap *
                                     </label>
                                     <input
-                                        className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.full_name
+                                        className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                            errors.full_name
                                                 ? 'ring-2 ring-red-500'
                                                 : ''
-                                            }`}
+                                        }`}
                                         id="fullName"
                                         placeholder="Budi Santoso"
                                         type="text"
@@ -152,10 +154,11 @@ export default function ContactSection() {
                                             Nama Perusahaan *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_name
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.company_name
                                                     ? 'ring-2 ring-red-500'
                                                     : ''
-                                                }`}
+                                            }`}
                                             id="companyName"
                                             placeholder="PT Dampak Sosial Indonesia"
                                             type="text"
@@ -184,10 +187,11 @@ export default function ContactSection() {
                                             Email Kerja *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.email
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.email
                                                     ? 'ring-2 ring-red-500'
                                                     : ''
-                                                }`}
+                                            }`}
                                             id="email"
                                             placeholder="ptputrajaya@company.com"
                                             type="email"
@@ -210,10 +214,11 @@ export default function ContactSection() {
                                             Nomor Handphone *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.phone
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.phone
                                                     ? 'ring-2 ring-red-500'
                                                     : ''
-                                                }`}
+                                            }`}
                                             id="phone"
                                             placeholder="+62 812 3456 7890"
                                             type="tel"
@@ -261,10 +266,11 @@ export default function ContactSection() {
                                         </label>
                                         <div className="relative">
                                             <select
-                                                className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_size
+                                                className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                    errors.company_size
                                                         ? 'ring-2 ring-red-500'
                                                         : ''
-                                                    }`}
+                                                }`}
                                                 id="companySize"
                                                 value={data.company_size}
                                                 onChange={(e) =>
@@ -317,10 +323,11 @@ export default function ContactSection() {
                                     </label>
                                     <div className="relative">
                                         <select
-                                            className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.interest
+                                            className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.interest
                                                     ? 'ring-2 ring-red-500'
                                                     : ''
-                                                }`}
+                                            }`}
                                             id="interest"
                                             value={data.interest}
                                             onChange={(e) =>
@@ -430,4 +437,3 @@ export default function ContactSection() {
         </section>
     );
 }
-

@@ -43,6 +43,9 @@ class VideoService
                 'zip' => 'zip',
                 default => 'other',
             };
+        } elseif (!empty($resourceData['existing_url'])) {
+            $fileUrl = $resourceData['existing_url'];
+            $fileSize = $resourceData['existing_file_size'] ?? null;
         }
 
         return VideoResource::create([
