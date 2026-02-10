@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\EnsureClassIsPublished;
 use App\Http\Middleware\HasCourseAccessMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,7 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Register custom middleware aliases
         $middleware->alias([
             'has.course.access' => HasCourseAccessMiddleware::class,
-            'isAdmin' => AdminMiddleware::class
+            'isAdmin' => AdminMiddleware::class,
+            'class.published' => EnsureClassIsPublished::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

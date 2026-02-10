@@ -70,11 +70,11 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
     Route::prefix('user')->name('user.')->group(function () {
        
        Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
-       Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->name('classes.show');
+       Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->middleware('class.published')->name('classes.show');
        
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
 
-       Route::middleware(['auth', 'verified', 'has.course.access'])->group(function () {
+       Route::middleware(['auth', 'verified', 'has.course.access', 'class.published'])->group(function () {
 
            Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
            Route::post('/study/{classId}/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
@@ -92,8 +92,8 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
 
        Route::middleware(['auth', 'verified'])->group(function () {
            Route::get('/dashboard', [UserDashboardController::class, 'dashboardPage'])->name('dashboard');
-           Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->name('classes.purchase');
-           Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->name('classes.order');
+           Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->middleware('class.published')->name('classes.purchase');
+           Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->middleware('class.published')->name('classes.order');
 
            Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
            Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
@@ -109,7 +109,7 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::get('/certificates/{certificateId}/view', [CertificateController::class, 'viewCertificate'])->name('certificates.view');
 
            // Class Review Routes
-           Route::post('/classes/{classId}/reviews', [ClassReviewController::class, 'store'])->name('reviews.store');
+           Route::post('/classes/{classId}/reviews', [ClassReviewController::class, 'store'])->middleware('class.published')->name('reviews.store');
            Route::put('/reviews/{reviewId}', [ClassReviewController::class, 'update'])->name('reviews.update');
            Route::delete('/reviews/{reviewId}', [ClassReviewController::class, 'destroy'])->name('reviews.destroy');
        });
