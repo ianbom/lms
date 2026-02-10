@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
+use App\Services\AdminOtpService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,13 @@ use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
+    protected AdminOtpService $otpService;
+
+    public function __construct(AdminOtpService $otpService)
+    {
+        $this->otpService = $otpService;
+    }
+
     /**
      * Display the login view.
      */
@@ -31,13 +40,32 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        $user = Auth::user();
 
-        if (Auth::user()->role === 'admin') {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
+        // Admin requires OTP verification
+        if ($user->role === 'admin') {
+            $userId = $user->id;
+            $remember = $request->boolean('remember');
+
+            // Logout admin — they need to verify OTP first
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            $request->session()->regenerate();
+
+            // Store user info in session for OTP flow
+            $request->session()->put('admin_otp_user_id', $userId);
+            $request->session()->put('admin_otp_remember', $remember);
+
+            // Generate and send OTP
+            $this->otpService->generateAndSend(User::find($userId));
+
+            return redirect()->route('admin.otp.show');
         }
 
-        if (Auth::user()->role === 'user') {
+        $request->session()->regenerate();
+
+        if ($user->role === 'user') {
             return redirect()->intended(route('user.dashboard', absolute: false));
         }
 

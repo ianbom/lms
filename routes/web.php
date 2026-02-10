@@ -17,6 +17,7 @@ use App\Http\Controllers\User\CertificateController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\User\ClassReviewController;
 use App\Http\Controllers\User\StudyController;
+use App\Http\Controllers\Auth\AdminOtpController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -116,7 +117,14 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
     });
 
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
+// Admin OTP Verification Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/otp', [AdminOtpController::class, 'show'])->name('otp.show');
+    Route::post('/otp/verify', [AdminOtpController::class, 'verify'])->name('otp.verify');
+    Route::post('/otp/resend', [AdminOtpController::class, 'resend'])->name('otp.resend');
+});
+
+Route::middleware(['auth', 'isAdmin', 'admin.otp'])->group(function () {
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\EnsureAdminOtpVerified;
 use App\Http\Middleware\EnsureClassIsPublished;
 use App\Http\Middleware\HasCourseAccessMiddleware;
 use Illuminate\Foundation\Application;
@@ -24,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'has.course.access' => HasCourseAccessMiddleware::class,
             'isAdmin' => AdminMiddleware::class,
             'class.published' => EnsureClassIsPublished::class,
+            'admin.otp' => EnsureAdminOtpVerified::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
