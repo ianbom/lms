@@ -146,11 +146,11 @@ export default function ModuleForm({
                     data.videos.map((v) =>
                         v.id === id
                             ? {
-                                  ...v,
-                                  thumbnailUrl,
-                                  youtubeUrl: youtubeWatchUrl,
-                                  duration: 'Loading...',
-                              }
+                                ...v,
+                                thumbnailUrl,
+                                youtubeUrl: youtubeWatchUrl,
+                                duration: 'Loading...',
+                            }
                             : v,
                     ),
                 );
@@ -199,12 +199,12 @@ export default function ModuleForm({
                                     videos: prevData.videos.map((v) =>
                                         v.id === id
                                             ? {
-                                                  ...v,
-                                                  thumbnailUrl,
-                                                  youtubeUrl: youtubeWatchUrl,
-                                                  duration: formattedDuration,
-                                                  durationSec: duration,
-                                              }
+                                                ...v,
+                                                thumbnailUrl,
+                                                youtubeUrl: youtubeWatchUrl,
+                                                duration: formattedDuration,
+                                                durationSec: duration,
+                                            }
                                             : v,
                                     ),
                                 }));
@@ -222,11 +222,11 @@ export default function ModuleForm({
                     data.videos.map((v) =>
                         v.id === id
                             ? {
-                                  ...v,
-                                  thumbnailUrl: undefined,
-                                  duration: 'Invalid URL',
-                                  durationSec: 0,
-                              }
+                                ...v,
+                                thumbnailUrl: undefined,
+                                duration: 'Invalid URL',
+                                durationSec: 0,
+                            }
                             : v,
                     ),
                 );
@@ -244,10 +244,16 @@ export default function ModuleForm({
                 type: file.name.endsWith('.pdf')
                     ? 'pdf'
                     : file.name.endsWith('.docx') || file.name.endsWith('.doc')
-                      ? 'doc'
-                      : file.name.endsWith('.zip')
-                        ? 'zip'
-                        : 'other',
+                        ? 'doc'
+                        : file.name.endsWith('.xlsx') ||
+                            file.name.endsWith('.xls')
+                            ? 'xls'
+                            : file.name.endsWith('.pptx') ||
+                                file.name.endsWith('.ppt')
+                                ? 'ppt'
+                                : file.name.endsWith('.zip')
+                                    ? 'zip'
+                                    : 'other',
                 progress: 100,
                 isUploading: false,
                 uploadedAt: 'Ready to submit',

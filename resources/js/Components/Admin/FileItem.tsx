@@ -4,7 +4,7 @@ export interface UploadedFile {
     id: number;
     name: string;
     size: string;
-    type: 'pdf' | 'doc' | 'zip' | 'other';
+    type: 'pdf' | 'doc' | 'xls' | 'ppt' | 'zip' | 'other';
     uploadedAt?: string;
     progress?: number;
     isUploading?: boolean;
@@ -29,6 +29,16 @@ const iconConfig: Record<
         icon: 'description',
         bgColor: 'bg-blue-50',
         iconColor: 'text-blue-500',
+    },
+    xls: {
+        icon: 'table_view',
+        bgColor: 'bg-green-50',
+        iconColor: 'text-green-600',
+    },
+    ppt: {
+        icon: 'slideshow',
+        bgColor: 'bg-orange-50',
+        iconColor: 'text-orange-500',
     },
     zip: {
         icon: 'folder_zip',
@@ -90,11 +100,10 @@ export default function FileItem({ file, onRemove }: FileItemProps) {
             <button
                 type="button"
                 onClick={() => onRemove?.(file.id)}
-                className={`rounded-md p-2 transition-colors ${
-                    file.isUploading
+                className={`rounded-md p-2 transition-colors ${file.isUploading
                         ? 'text-[#a0b3a9] hover:text-[#5e6a62]'
                         : 'text-[#a0b3a9] opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100'
-                }`}
+                    }`}
             >
                 <Icon name={file.isUploading ? 'close' : 'delete'} size={20} />
             </button>

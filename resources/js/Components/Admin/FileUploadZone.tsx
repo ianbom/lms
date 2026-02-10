@@ -9,7 +9,7 @@ interface FileUploadZoneProps {
 
 export default function FileUploadZone({
     onFilesSelected,
-    accept = '.pdf,.docx,.zip',
+    accept = '.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip',
     maxSize = '25MB',
     className = '',
 }: FileUploadZoneProps) {
@@ -46,7 +46,7 @@ export default function FileUploadZone({
                 Click to upload or drag and drop
             </p>
             <p className="mt-1 text-xs text-[#a0b3a9]">
-                PDF, DOCX, or ZIP (max {maxSize})
+                PDF, Office Docs, or ZIP (max {maxSize})
             </p>
         </label>
     );
