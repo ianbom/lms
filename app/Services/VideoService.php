@@ -28,7 +28,7 @@ class VideoService
         $fileSize = null;
         $fileType = $resourceData['file_type'] ?? 'other';
 
-        if (isset($resourceData['file']) && $resourceData['file'] instanceof UploadedFile) {
+        if (isset($resourceData['file']) && $resourceData['file'] instanceof UploadedFile && $resourceData['file']->isValid()) {
             $file = $resourceData['file'];
             $path = $file->store('resources', 'public');
             $fileUrl = '/storage/' . $path;

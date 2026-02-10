@@ -82,9 +82,20 @@ export default function FileItem({ file, onRemove }: FileItemProps) {
 
             {/* File Info */}
             <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-[#101814]">
-                    {file.name}
-                </p>
+                {file.existingUrl ? (
+                    <a
+                        href={file.existingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block truncate text-sm font-medium text-primary hover:underline"
+                    >
+                        {file.name}
+                    </a>
+                ) : (
+                    <p className="truncate text-sm font-medium text-[#101814]">
+                        {file.name}
+                    </p>
+                )}
                 {file.isUploading ? (
                     <p className="flex items-center gap-1 text-xs text-[#5e6a62]">
                         <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
@@ -103,8 +114,8 @@ export default function FileItem({ file, onRemove }: FileItemProps) {
                 type="button"
                 onClick={() => onRemove?.(file.id)}
                 className={`rounded-md p-2 transition-colors ${file.isUploading
-                        ? 'text-[#a0b3a9] hover:text-[#5e6a62]'
-                        : 'text-[#a0b3a9] opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100'
+                    ? 'text-[#a0b3a9] hover:text-[#5e6a62]'
+                    : 'text-[#a0b3a9] opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100'
                     }`}
             >
                 <Icon name={file.isUploading ? 'close' : 'delete'} size={20} />

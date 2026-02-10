@@ -32,10 +32,24 @@ class UpdateModuleRequest extends FormRequest
             'videos.*.duration_sec' => ['nullable', 'integer'],
             'videos.*.resources' => ['nullable', 'array'],
             'videos.*.resources.*.title' => ['required_with:videos.*.resources', 'string', 'max:200'],
-            'videos.*.resources.*.file' => ['nullable', 'file', 'max:25600', 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/zip,application/octet-stream'],
+            'videos.*.resources.*.file' => ['nullable', 'file', 'max:25600', function ($attribute, $value, $fail) {
+                $allowed = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'zip'];
+                $ext = strtolower($value->getClientOriginalExtension());
+                if (!in_array($ext, $allowed)) {
+                    $fail('File harus berformat: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, atau ZIP.');
+                }
+            }],
             'videos.*.resources.*.file_type' => ['nullable', 'string', 'in:pdf,doc,docx,ppt,pptx,xls,xlsx,zip,other'],
             'videos.*.resources.*.existing_url' => ['nullable', 'string'],
             'videos.*.resources.*.existing_file_size' => ['nullable', 'integer'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'videos.*.resources.*.file.mimes' => 'File harus berformat: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, atau ZIP.',
+            'videos.*.resources.*.file.max' => 'Ukuran file maksimal 25MB.',
         ];
     }
 }
