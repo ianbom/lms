@@ -25,10 +25,13 @@ class ModuleService
     public function createModule(array $data, int $classId): Module
     {
         return DB::transaction(function () use ($data, $classId) {
+            $maxSortOrder = Module::where('class_id', $classId)->max('sort_order') ?? 0;
+
             $module = Module::create([
                 'class_id' => $classId,
                 'title' => $data['title'],
                 'description' => $data['description'] ?? null,
+                'sort_order' => $maxSortOrder + 1,
             ]);
 
             if (isset($data['videos']) && is_array($data['videos'])) {
@@ -77,4 +80,16 @@ class ModuleService
             return $module->fresh(['videos.resources']);
         });
     }
+
+    public function reorderModules(int $classId, array $moduleIds): void
+    {
+        DB::transaction(function () use ($classId, $moduleIds) {
+            foreach ($moduleIds as $index => $moduleId) {
+                Module::where('id', $moduleId)
+                    ->where('class_id', $classId)
+                    ->update(['sort_order' => $index + 1]);
+            }
+        });
+    }
 }
+

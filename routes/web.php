@@ -135,6 +135,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/classes/{classId}/modules/create', [AdmModuleController::class, 'createModulePage'])->name('module.create');
         Route::post('/classes/{classId}/modules', [AdmModuleController::class, 'storeModule'])->name('module.store');
         Route::put('/modules/{moduleId}', [AdmModuleController::class, 'updateModule'])->name('module.update');
+        Route::post('/classes/{classId}/modules/reorder', [AdmModuleController::class, 'reorderModules'])->name('module.reorder');
 
         Route::get('/classes/{classId}/quiz/create', [AdmQuizController::class, 'createQuizPage'])->name('quiz.create');
         Route::post('/classes/quiz/create', [AdmQuizController::class, 'storeQuiz'])->name('quiz.store');

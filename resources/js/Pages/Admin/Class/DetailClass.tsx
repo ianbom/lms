@@ -6,8 +6,8 @@ import CourseStats from '@/Components/Admin/Course/CourseStats';
 import ModuleCard, { ModuleData } from '@/Components/Admin/Course/ModuleCard';
 import Icon from '@/Components/Icon';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, router } from '@inertiajs/react';
+import { useRef, useState } from 'react';
 import ClassDetailSidebar from './ClassDetailSidebar';
 import {
     EditClassModal,
@@ -15,7 +15,7 @@ import {
     EditQuizModal,
     PublishConfirmModal,
 } from './Modals';
-import { ClassData, ClassStats, formatDuration } from './types';
+import { ClassData, ClassStats, Module, formatDuration } from './types';
 
 interface DetailClassProps {
     classData: ClassData;
@@ -40,6 +40,11 @@ export default function DetailClass({
     );
     const [selectedQuizId, setSelectedQuizId] = useState<number | null>(null);
 
+    // Reorder states
+    const [isReordering, setIsReordering] = useState(false);
+    const [reorderModules, setReorderModules] = useState<Module[]>([]);
+    const [isSavingOrder, setIsSavingOrder] = useState(false);
+
     // Modal handlers
     const openEditModuleModal = (moduleId: number) => {
         setSelectedModuleId(moduleId);
@@ -49,6 +54,42 @@ export default function DetailClass({
     const openEditQuizModal = (quizId: number) => {
         setSelectedQuizId(quizId);
         setIsEditQuizModalOpen(true);
+    };
+
+    // Reorder handlers
+    const startReordering = () => {
+        setReorderModules([...classData.modules]);
+        setIsReordering(true);
+    };
+
+    const cancelReordering = () => {
+        setIsReordering(false);
+        setReorderModules([]);
+    };
+
+    const saveReorder = () => {
+        setIsSavingOrder(true);
+        const moduleIds = reorderModules.map((m) => m.id);
+        router.post(
+            route('admin.module.reorder', classData.id),
+            { module_ids: moduleIds },
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    setIsReordering(false);
+                    setReorderModules([]);
+                },
+                onFinish: () => setIsSavingOrder(false),
+            },
+        );
+    };
+
+    const moveModule = (fromIndex: number, toIndex: number) => {
+        if (toIndex < 0 || toIndex >= reorderModules.length) return;
+        const updated = [...reorderModules];
+        const [moved] = updated.splice(fromIndex, 1);
+        updated.splice(toIndex, 0, moved);
+        setReorderModules(updated);
     };
 
     // Transform backend modules to ModuleData format
@@ -115,12 +156,24 @@ export default function DetailClass({
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                     {/* Curriculum Structure */}
                     <div className="space-y-8 lg:col-span-2">
-                        <CurriculumSection
-                            modules={modules}
-                            classId={classData.id}
-                            onEditModule={openEditModuleModal}
-                            onEditQuiz={openEditQuizModal}
-                        />
+                        {isReordering ? (
+                            <ReorderSection
+                                modules={reorderModules}
+                                onMove={moveModule}
+                                onSave={saveReorder}
+                                onCancel={cancelReordering}
+                                isSaving={isSavingOrder}
+                            />
+                        ) : (
+                            <CurriculumSection
+                                modules={modules}
+                                classId={classData.id}
+                                onEditModule={openEditModuleModal}
+                                onEditQuiz={openEditQuizModal}
+                                onStartReorder={startReordering}
+                                hasModules={classData.modules.length > 1}
+                            />
+                        )}
                     </div>
 
                     {/* Sidebar Info */}
@@ -180,11 +233,10 @@ function PageHeader({ classData, onEdit, onPublish }: PageHeaderProps) {
             <div>
                 <div className="mb-2 flex items-center gap-2">
                     <span
-                        className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
-                            classData.status === 'published'
+                        className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${classData.status === 'published'
                                 ? 'bg-green-100 text-green-800'
                                 : 'bg-yellow-100 text-yellow-800'
-                        }`}
+                            }`}
                     >
                         {classData.status === 'published' ? 'Publish' : 'Draf'}
                     </span>
@@ -232,6 +284,8 @@ interface CurriculumSectionProps {
     classId: number;
     onEditModule: (moduleId: number) => void;
     onEditQuiz: (quizId: number) => void;
+    onStartReorder: () => void;
+    hasModules: boolean;
 }
 
 function CurriculumSection({
@@ -239,6 +293,8 @@ function CurriculumSection({
     classId,
     onEditModule,
     onEditQuiz,
+    onStartReorder,
+    hasModules,
 }: CurriculumSectionProps) {
     return (
         <div className="space-y-4">
@@ -246,6 +302,15 @@ function CurriculumSection({
                 <h2 className="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">
                     Struktur Kurikulum
                 </h2>
+                {hasModules && (
+                    <button
+                        onClick={onStartReorder}
+                        className="inline-flex items-center gap-1.5 rounded-md border border-[#e2e8f0] bg-white px-3 py-1.5 text-xs font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
+                    >
+                        <Icon name="swap_vert" size={16} />
+                        Edit Urutan
+                    </button>
+                )}
             </div>
 
             <div className="space-y-4">
@@ -271,10 +336,10 @@ function CurriculumSection({
             <div className="rounded-xl border-2 border-dashed border-[#e2e8f0] bg-[#f8fafc]/50 p-8 text-center transition-all hover:border-[#cbd5e1] hover:bg-[#f8fafc]">
                 <button
                     onClick={() =>
-                        (window.location.href = route(
-                            'admin.module.create',
-                            classId,
-                        ))
+                    (window.location.href = route(
+                        'admin.module.create',
+                        classId,
+                    ))
                     }
                     className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f1f5f9] text-[#64748b] transition-transform hover:scale-110 hover:bg-[#e2e8f0] hover:text-[#1e293b]"
                 >
@@ -284,6 +349,154 @@ function CurriculumSection({
                     Tambah Modul Baru
                 </p>
             </div>
+        </div>
+    );
+}
+
+// Reorder Section with drag-and-drop
+interface ReorderSectionProps {
+    modules: Module[];
+    onMove: (fromIndex: number, toIndex: number) => void;
+    onSave: () => void;
+    onCancel: () => void;
+    isSaving: boolean;
+}
+
+function ReorderSection({
+    modules,
+    onMove,
+    onSave,
+    onCancel,
+    isSaving,
+}: ReorderSectionProps) {
+    const dragItem = useRef<number | null>(null);
+    const dragOverItem = useRef<number | null>(null);
+
+    const handleDragStart = (index: number) => {
+        dragItem.current = index;
+    };
+
+    const handleDragEnter = (index: number) => {
+        dragOverItem.current = index;
+    };
+
+    const handleDragEnd = () => {
+        if (
+            dragItem.current !== null &&
+            dragOverItem.current !== null &&
+            dragItem.current !== dragOverItem.current
+        ) {
+            onMove(dragItem.current, dragOverItem.current);
+        }
+        dragItem.current = null;
+        dragOverItem.current = null;
+    };
+
+    return (
+        <div className="space-y-4">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                    <Icon
+                        name="swap_vert"
+                        size={20}
+                        className="text-primary"
+                    />
+                    <h2 className="text-sm font-bold text-[#1e293b]">
+                        Edit Urutan Modul
+                    </h2>
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-700">
+                        Mode Edit
+                    </span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={onCancel}
+                        disabled={isSaving}
+                        className="inline-flex items-center gap-1.5 rounded-md border border-[#e2e8f0] bg-white px-3 py-1.5 text-xs font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b] disabled:opacity-50"
+                    >
+                        <Icon name="close" size={16} />
+                        Batal
+                    </button>
+                    <button
+                        onClick={onSave}
+                        disabled={isSaving}
+                        className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-all hover:bg-primary/90 disabled:opacity-50"
+                    >
+                        <Icon
+                            name={isSaving ? 'hourglass_empty' : 'save'}
+                            size={16}
+                        />
+                        {isSaving ? 'Menyimpan...' : 'Simpan Urutan'}
+                    </button>
+                </div>
+            </div>
+
+            <div className="overflow-hidden rounded-xl border border-[#e2e8f0] bg-white">
+                {modules.map((module, index) => (
+                    <div
+                        key={module.id}
+                        draggable
+                        onDragStart={() => handleDragStart(index)}
+                        onDragEnter={() => handleDragEnter(index)}
+                        onDragEnd={handleDragEnd}
+                        onDragOver={(e) => e.preventDefault()}
+                        className={`group flex items-center gap-4 border-b border-[#f1f5f9] px-5 py-4 transition-colors last:border-b-0 hover:bg-[#f8fafc] ${dragItem.current === index
+                                ? 'bg-primary/5 opacity-50'
+                                : ''
+                            }`}
+                        style={{ cursor: 'grab' }}
+                    >
+                        {/* Drag Handle */}
+                        <div className="flex-shrink-0 text-[#94a3b8] transition-colors group-hover:text-[#64748b]">
+                            <Icon name="drag_indicator" size={20} />
+                        </div>
+
+                        {/* Sort Number */}
+                        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm font-bold text-primary">
+                            {index + 1}
+                        </div>
+
+                        {/* Module Title */}
+                        <div className="min-w-0 flex-1">
+                            <p className="truncate text-sm font-semibold text-[#1e293b]">
+                                {module.title}
+                            </p>
+                            <p className="mt-0.5 text-xs text-[#94a3b8]">
+                                {module.videos.length} Video &bull;{' '}
+                                {module.quizzes.length} Quiz
+                            </p>
+                        </div>
+
+                        {/* Up/Down Buttons */}
+                        <div className="flex items-center gap-1">
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onMove(index, index - 1);
+                                }}
+                                disabled={index === 0}
+                                className="rounded-md p-1 text-[#94a3b8] transition-colors hover:bg-[#f1f5f9] hover:text-[#1e293b] disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#94a3b8]"
+                            >
+                                <Icon name="keyboard_arrow_up" size={20} />
+                            </button>
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onMove(index, index + 1);
+                                }}
+                                disabled={index === modules.length - 1}
+                                className="rounded-md p-1 text-[#94a3b8] transition-colors hover:bg-[#f1f5f9] hover:text-[#1e293b] disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#94a3b8]"
+                            >
+                                <Icon name="keyboard_arrow_down" size={20} />
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <p className="text-center text-xs text-[#94a3b8]">
+                Seret modul atau gunakan tombol panah untuk mengubah urutan
+            </p>
         </div>
     );
 }

@@ -42,4 +42,19 @@ class ModuleController extends Controller
             return redirect()->back()->with('error', 'Failed to update module: ' . $th->getMessage());
         }
     }
+
+    public function reorderModules(Request $request, $classId)
+    {
+        $request->validate([
+            'module_ids' => ['required', 'array'],
+            'module_ids.*' => ['required', 'integer', 'exists:modules,id'],
+        ]);
+
+        try {
+            $this->moduleService->reorderModules((int) $classId, $request->input('module_ids'));
+            return redirect()->back()->with('success', 'Urutan modul berhasil diperbarui');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Gagal mengubah urutan modul: ' . $th->getMessage());
+        }
+    }
 }

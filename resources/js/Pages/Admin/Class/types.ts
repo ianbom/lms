@@ -48,6 +48,7 @@ export interface Module {
     id: number;
     title: string;
     description: string;
+    sort_order: number;
     videos: Video[];
     quizzes: Quiz[];
 }
