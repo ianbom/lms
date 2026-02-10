@@ -32,7 +32,7 @@ class CreateModuleRequest extends FormRequest
             'videos.*.duration_sec' => ['nullable', 'integer'],
             'videos.*.resources' => ['nullable', 'array'],
             'videos.*.resources.*.title' => ['required_with:videos.*.resources', 'string', 'max:200'],
-            'videos.*.resources.*.file' => ['required_with:videos.*.resources', 'file', 'max:25600', 'mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,zip'],
+            'videos.*.resources.*.file' => ['required_with:videos.*.resources', 'file', 'max:25600', 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/zip,application/octet-stream'],
             'videos.*.resources.*.file_type' => ['nullable', 'string', 'in:pdf,doc,docx,ppt,pptx,xls,xlsx,zip,other'],
         ];
     }
