@@ -1,6 +1,7 @@
 import {
     ClassCard,
     EmptyState,
+    FilterChips,
     FilterDropdown,
     Pagination,
     SearchInput,
@@ -178,11 +179,11 @@ export default function ListClass({
             {(showCategoryDropdown ||
                 showMentorDropdown ||
                 showSortDropdown) && (
-                <div
-                    className="fixed inset-0 z-30"
-                    onClick={closeAllDropdowns}
-                />
-            )}
+                    <div
+                        className="fixed inset-0 z-30"
+                        onClick={closeAllDropdowns}
+                    />
+                )}
 
             <div className="space-y-8">
                 {/* Hero Section */}
@@ -207,10 +208,10 @@ export default function ListClass({
 
                         {/* Filter Group */}
                         <div className="flex flex-wrap items-center gap-3">
-                            {/* <FilterChips
+                            <FilterChips
                                 activeTab={activeTab}
                                 onTabChange={handleTabChange}
-                            /> */}
+                            />
 
                             <div className="hidden h-8 w-px bg-slate-200 sm:block" />
 

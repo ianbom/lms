@@ -82,14 +82,22 @@ export default function ClassCard({ item, className = '' }: ClassCardProps) {
                 <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
                     {/* Price */}
                     <div>
-                        {hasDiscount && (
-                            <span className="text-xs text-slate-400 line-through">
-                                {formatPrice(item.price)}
-                            </span>
+                        {isFree ? (
+                            <p className="text-lg font-bold text-emerald-500">
+                                Gratis
+                            </p>
+                        ) : (
+                            <>
+                                {hasDiscount && (
+                                    <span className="text-xs text-slate-400 line-through">
+                                        {formatPrice(item.price)}
+                                    </span>
+                                )}
+                                <p className="text-lg font-bold text-primary">
+                                    {formatPrice(item.price_final)}
+                                </p>
+                            </>
                         )}
-                        <p className="text-lg font-bold text-primary">
-                            {formatPrice(item.price_final)}
-                        </p>
                     </div>
 
                     {/* Arrow Icon CTA */}

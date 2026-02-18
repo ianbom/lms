@@ -1,66 +1,136 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+const images = [
+    '/ImpactCompressed/fotonew.jpeg',
+    '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg',
+    '/ImpactCompressed/DSC00288.jpg',
+    '/ImpactCompressed/DSC03612.jpg',
+    '/ImpactCompressed/DSC00350.jpg',
+    '/ImpactCompressed/DSC01305.jpg',
+    '/ImpactCompressed/DSC08419.JPG',
+    '/ImpactCompressed/presentasi.jpeg',
+];
+
 export default function HeroSection() {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const totalSlides = images.length;
+
+    const goToSlide = useCallback(
+        (index: number) => {
+            if (isTransitioning) return;
+            setIsTransitioning(true);
+            setCurrentIndex(index);
+            setTimeout(() => setIsTransitioning(false), 700);
+        },
+        [isTransitioning],
+    );
+
+    const nextSlide = useCallback(() => {
+        goToSlide((currentIndex + 1) % totalSlides);
+    }, [currentIndex, totalSlides, goToSlide]);
+
+    const prevSlide = useCallback(() => {
+        goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+    }, [currentIndex, totalSlides, goToSlide]);
+
+    useEffect(() => {
+        intervalRef.current = setInterval(() => {
+            nextSlide();
+        }, 4000);
+        return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+        };
+    }, [nextSlide]);
+
+    const handleDotClick = (index: number) => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        goToSlide(index);
+    };
+
     return (
         <section className="w-full max-w-[1440px] px-4 pb-16 pt-10 md:px-10">
-            <div className="mb-10 flex flex-col gap-6 text-center md:text-left">
-                <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-[#111814] md:text-6xl">
-                    Perkuat Kapasitas Tim Anda Bersama{' '}
-                    <span className="text-primary">Impact Academy</span> <br />
-                </h1>
-            </div>
-            <div className="grid w-full grid-cols-1 gap-4 md:h-[500px] md:grid-cols-4">
-                {/* Tall Image Left */}
-                <div className="group relative h-64 overflow-hidden rounded-2xl md:col-span-1 md:h-full">
-                    <div
-                        className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                        style={{
-                            backgroundImage:
-                                "url('/ImpactCompressed/fotonew.jpeg')",
-                        }}
-                    ></div>
-                    <div className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent"></div>
-                </div>
-                {/* Wide Image Top Middle */}
-                <div className="flex h-64 flex-col gap-4 md:col-span-2 md:h-full">
-                    <div className="group relative h-1/2 w-full overflow-hidden rounded-2xl">
+            {/* Slider Container */}
+            <div className="group/slider relative w-full overflow-hidden rounded-2xl md:h-[500px]">
+                {/* Slides */}
+                <div
+                    className="flex h-full transition-transform duration-700 ease-in-out"
+                    style={{
+                        transform: `translateX(-${currentIndex * 100}%)`,
+                    }}
+                >
+                    {images.map((src, index) => (
                         <div
-                            className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                            style={{
-                                backgroundImage:
-                                    "url('/ImpactCompressed/CSR, ESG and Sustainability Training.jpg')",
-                            }}
-                        ></div>
-                    </div>
-                    <div className="flex h-1/2 w-full gap-4">
-                        <div className="group relative h-full w-1/2 overflow-hidden rounded-2xl">
+                            key={index}
+                            className="relative h-64 w-full flex-shrink-0 md:h-full"
+                        >
                             <div
-                                className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                                style={{
-                                    backgroundImage:
-                                        "url('/ImpactCompressed/DSC00288.jpg')",
-                                }}
-                            ></div>
+                                className="h-full w-full bg-cover bg-center"
+                                style={{ backgroundImage: `url('${src}')` }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </div>
-                        <div className="group relative h-full w-1/2 overflow-hidden rounded-2xl">
-                            <div
-                                className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                                style={{
-                                    backgroundImage:
-                                        "url('/ImpactCompressed/DSC03612.jpg')",
-                                }}
-                            ></div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
-                {/* Tall Image Right */}
-                <div className="group relative h-64 overflow-hidden rounded-2xl md:col-span-1 md:h-full">
-                    <div
-                        className="h-full w-full bg-cover bg-right transition-transform duration-700 group-hover:scale-105"
-                        style={{
-                            backgroundImage:
-                                "url('/ImpactCompressed/DSC00350.jpg')",
-                        }}
-                    ></div>
-                    <div className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent"></div>
+
+                {/* Left Arrow */}
+                <button
+                    onClick={prevSlide}
+                    className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-[#111814] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-110 opacity-0 group-hover/slider:opacity-100"
+                    aria-label="Previous slide"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                        className="h-5 w-5"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 19.5L8.25 12l7.5-7.5"
+                        />
+                    </svg>
+                </button>
+
+                {/* Right Arrow */}
+                <button
+                    onClick={nextSlide}
+                    className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-[#111814] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-110 opacity-0 group-hover/slider:opacity-100"
+                    aria-label="Next slide"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                        className="h-5 w-5"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                        />
+                    </svg>
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                    {images.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleDotClick(index)}
+                            className={`h-2.5 rounded-full transition-all duration-500 ${index === currentIndex
+                                    ? 'w-8 bg-white'
+                                    : 'w-2.5 bg-white/50 hover:bg-white/80'
+                                }`}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
+                    ))}
                 </div>
             </div>
         </section>

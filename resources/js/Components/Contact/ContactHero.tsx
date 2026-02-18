@@ -5,7 +5,7 @@ export default function ContactHero() {
                 <img
                     alt="Corporate Training Session"
                     className="h-full w-full object-cover"
-                    src="/ContactImage/dikontak.jpeg"
+                    src="/ImpactCompressed/presentasi.jpeg"
                 />
                 {/* <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-primary/40 mix-blend-multiply"></div>
                 <div className="absolute inset-0 bg-black/10"></div> */}

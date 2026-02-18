@@ -2,7 +2,16 @@ import Icon from '@/Components/Icon';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useEffect, useState } from 'react';
 
-export default function ContactSection() {
+interface Category {
+    id: number;
+    name: string;
+}
+
+interface Props {
+    categories: Category[];
+}
+
+export default function ContactSection({ categories }: Props) {
     const { flash } = usePage().props as { flash?: { success?: string } };
     const [showSuccess, setShowSuccess] = useState(false);
 
@@ -104,11 +113,10 @@ export default function ContactSection() {
                                         Nama Lengkap *
                                     </label>
                                     <input
-                                        className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
-                                            errors.full_name
-                                                ? 'ring-2 ring-red-500'
-                                                : ''
-                                        }`}
+                                        className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.full_name
+                                            ? 'ring-2 ring-red-500'
+                                            : ''
+                                            }`}
                                         id="fullName"
                                         placeholder="Budi Santoso"
                                         type="text"
@@ -154,11 +162,10 @@ export default function ContactSection() {
                                             Nama Perusahaan *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
-                                                errors.company_name
-                                                    ? 'ring-2 ring-red-500'
-                                                    : ''
-                                            }`}
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_name
+                                                ? 'ring-2 ring-red-500'
+                                                : ''
+                                                }`}
                                             id="companyName"
                                             placeholder="PT Dampak Sosial Indonesia"
                                             type="text"
@@ -187,11 +194,10 @@ export default function ContactSection() {
                                             Email Kerja *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
-                                                errors.email
-                                                    ? 'ring-2 ring-red-500'
-                                                    : ''
-                                            }`}
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.email
+                                                ? 'ring-2 ring-red-500'
+                                                : ''
+                                                }`}
                                             id="email"
                                             placeholder="ptputrajaya@company.com"
                                             type="email"
@@ -214,11 +220,10 @@ export default function ContactSection() {
                                             Nomor Handphone *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
-                                                errors.phone
-                                                    ? 'ring-2 ring-red-500'
-                                                    : ''
-                                            }`}
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.phone
+                                                ? 'ring-2 ring-red-500'
+                                                : ''
+                                                }`}
                                             id="phone"
                                             placeholder="+62 812 3456 7890"
                                             type="tel"
@@ -266,11 +271,10 @@ export default function ContactSection() {
                                         </label>
                                         <div className="relative">
                                             <select
-                                                className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
-                                                    errors.company_size
-                                                        ? 'ring-2 ring-red-500'
-                                                        : ''
-                                                }`}
+                                                className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_size
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                                    }`}
                                                 id="companySize"
                                                 value={data.company_size}
                                                 onChange={(e) =>
@@ -323,11 +327,10 @@ export default function ContactSection() {
                                     </label>
                                     <div className="relative">
                                         <select
-                                            className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
-                                                errors.interest
-                                                    ? 'ring-2 ring-red-500'
-                                                    : ''
-                                            }`}
+                                            className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.interest
+                                                ? 'ring-2 ring-red-500'
+                                                : ''
+                                                }`}
                                             id="interest"
                                             value={data.interest}
                                             onChange={(e) =>
@@ -340,26 +343,14 @@ export default function ContactSection() {
                                             <option disabled value="">
                                                 Pilih program
                                             </option>
-                                            <option value="Sertifikasi BNSP">
-                                                Sertifikasi BNSP
-                                            </option>
-                                            <option value="Impact Measurement">
-                                                Impact Measurement
-                                            </option>
-                                            <option value="ISO 26000">
-                                                ISO 26000
-                                            </option>
-                                            <option value="ESG">ESG</option>
-                                            <option value="Theory of Change">
-                                                Theory of Change
-                                            </option>
-                                            <option value="Logical Framework Approach">
-                                                Logical Framework Approach
-                                            </option>
-                                            <option value="System Thinking">
-                                                System Thinking
-                                            </option>
-                                            <option value="GHG">GHG</option>
+                                            {categories.map((category) => (
+                                                <option
+                                                    key={category.id}
+                                                    value={category.name}
+                                                >
+                                                    {category.name}
+                                                </option>
+                                            ))}
                                         </select>
                                         <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
                                             <Icon name="expand_more" />

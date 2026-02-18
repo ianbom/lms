@@ -1,3 +1,4 @@
+import LogoGrid from '@/Components/Corporate/LogoGrid';
 import {
     AboutSection,
     CoursesSection,
@@ -135,6 +136,8 @@ export default function Home({ classes }: HomeProps) {
                     description="Ribuan alumni telah berhasil mengembangkan karir mereka bersama kami"
                     testimonials={testimonials}
                 /> */}
+
+                <LogoGrid />
 
                 {/* FAQ Section */}
                 <FAQSection
