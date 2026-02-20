@@ -6,8 +6,8 @@ const images = [
     '/ImpactCompressed/DSC00288.jpg',
     '/ImpactCompressed/DSC03612.jpg',
     '/ImpactCompressed/DSC00350.jpg',
-    '/ImpactCompressed/DSC01305.jpg',
-    '/ImpactCompressed/DSC08419.JPG',
+    // '/ImpactCompressed/DSC01305.jpg',
+    // '/ImpactCompressed/DSC08419.JPG',
     '/ImpactCompressed/presentasi.jpeg',
 ];
 

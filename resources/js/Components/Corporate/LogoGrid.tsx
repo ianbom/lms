@@ -82,7 +82,7 @@ const rows = [
     allLogos.slice(chunkSize * 3),
 ];
 
-const speeds = ['30s', '35s', '28s', '32s'];
+const speeds = ['60s', '70s', '55s', '65s'];
 
 export default function LogoGrid() {
     return (
