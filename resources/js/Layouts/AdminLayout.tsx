@@ -37,6 +37,12 @@ export default function AdminLayout({
             active: route().current('admin.dashboard'),
         },
         {
+            label: 'Testimonies',
+            href: route('admin.testimonies'),
+            icon: 'reviews',
+            active: route().current('admin.testimonies'),
+        },
+        {
             label: 'Categories',
             href: route('admin.categories'),
             icon: 'category',

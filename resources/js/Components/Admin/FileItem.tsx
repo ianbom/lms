@@ -113,10 +113,11 @@ export default function FileItem({ file, onRemove }: FileItemProps) {
             <button
                 type="button"
                 onClick={() => onRemove?.(file.id)}
-                className={`rounded-md p-2 transition-colors ${file.isUploading
-                    ? 'text-[#a0b3a9] hover:text-[#5e6a62]'
-                    : 'text-[#a0b3a9] opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100'
-                    }`}
+                className={`rounded-md p-2 transition-colors ${
+                    file.isUploading
+                        ? 'text-[#a0b3a9] hover:text-[#5e6a62]'
+                        : 'text-[#a0b3a9] opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100'
+                }`}
             >
                 <Icon name={file.isUploading ? 'close' : 'delete'} size={20} />
             </button>

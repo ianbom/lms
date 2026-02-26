@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController as AdmUserController;
+use App\Http\Controllers\Admin\TestimonyController;
 use App\Http\Controllers\CorporateContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ClassController as UserClassController;
@@ -171,6 +172,11 @@ Route::middleware(['auth', 'isAdmin', 'admin.otp'])->group(function () {
 
         Route::get('/users', [AdmUserController::class, 'listUserPage'])->name('users');
         Route::delete('/users/{userId}', [AdmUserController::class, 'deleteUser'])->name('users.delete');
+
+        Route::get('/testimonies', [TestimonyController::class, 'listTestimonyPage'])->name('testimonies');
+        Route::post('/testimonies', [TestimonyController::class, 'storeTestimony'])->name('testimonies.store');
+        Route::put('/testimonies/{testimonyId}', [TestimonyController::class, 'updateTestimony'])->name('testimonies.update');
+        Route::delete('/testimonies/{testimonyId}', [TestimonyController::class, 'deleteTestimony'])->name('testimonies.delete');
 
     });
 });

@@ -12,4 +12,5 @@ export { default as MotivationSection } from './MotivationSection';
 export { default as Navbar } from './Navbar';
 export { default as TestimonialCard } from './TestimonialCard';
 export { default as TestimonialsSection } from './TestimonialsSection';
+export { default as TestimonySection } from './TestimonySection';
 export { default as WhyChooseUsSection } from './WhyChooseUsSection';

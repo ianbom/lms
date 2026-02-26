@@ -77,7 +77,7 @@ export default function HeroSection() {
                 {/* Left Arrow */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-[#111814] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-110 opacity-0 group-hover/slider:opacity-100"
+                    className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-[#111814] opacity-0 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white group-hover/slider:opacity-100"
                     aria-label="Previous slide"
                 >
                     <svg
@@ -99,7 +99,7 @@ export default function HeroSection() {
                 {/* Right Arrow */}
                 <button
                     onClick={nextSlide}
-                    className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-[#111814] shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-110 opacity-0 group-hover/slider:opacity-100"
+                    className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-[#111814] opacity-0 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white group-hover/slider:opacity-100"
                     aria-label="Next slide"
                 >
                     <svg
@@ -124,10 +124,11 @@ export default function HeroSection() {
                         <button
                             key={index}
                             onClick={() => handleDotClick(index)}
-                            className={`h-2.5 rounded-full transition-all duration-500 ${index === currentIndex
+                            className={`h-2.5 rounded-full transition-all duration-500 ${
+                                index === currentIndex
                                     ? 'w-8 bg-white'
                                     : 'w-2.5 bg-white/50 hover:bg-white/80'
-                                }`}
+                            }`}
                             aria-label={`Go to slide ${index + 1}`}
                         />
                     ))}

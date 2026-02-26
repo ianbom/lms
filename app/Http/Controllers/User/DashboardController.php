@@ -26,7 +26,11 @@ class DashboardController extends Controller
 
     public function homePage(){ 
         $classes = $this->classService->getAllPublishedClasses()->take(6);
-        return Inertia::render('User/Home/Home', ['classes' => $classes]);
+        $testimonies = \App\Models\Testimony::orderBy('created_at', 'desc')->get();
+        return Inertia::render('User/Home/Home', [
+            'classes' => $classes,
+            'testimonies' => $testimonies,
+        ]);
     }
 
     public function dashboardPage(){

@@ -4,52 +4,27 @@ import {
     CoursesSection,
     FAQSection,
     HeroSection,
+    TestimonySection,
     WhyChooseUsSection,
 } from '@/Components/Home';
 import UserLayout from '@/Layouts/UserLayout';
 import { Head } from '@inertiajs/react';
 
-interface HomeProps {
-    classes: any[];
+interface Testimony {
+    id: number;
+    content: string;
+    rating: number;
+    person_name: string;
+    person_position: string;
+    person_photo_url: string | null;
 }
 
-export default function Home({ classes }: HomeProps) {
-    const testimonials = [
-        {
-            rating: 5,
-            title: 'Kursus yang sangat membantu!',
-            content:
-                'Saya berhasil mendapatkan pekerjaan sebagai web developer setelah menyelesaikan kursus di sini. Materinya sangat praktis dan trainernya sangat helpful!',
-            user: {
-                name: 'Andi Pratama',
-                role: 'Web Developer di TechCorp',
-                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&fit=crop',
-            },
-        },
-        {
-            rating: 5,
-            title: 'Fleksibel dan berkualitas',
-            content:
-                'Sebagai ibu rumah tangga, saya bisa belajar di waktu luang. Kursus UI/UX di sini membuat saya bisa memulai karir freelance dengan percaya diri.',
-            user: {
-                name: 'Siti Nurhaliza',
-                role: 'Freelance UI/UX Designer',
-                image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&fit=crop',
-            },
-        },
-        {
-            rating: 4.8,
-            title: 'Worth every penny!',
-            content:
-                'Investasi terbaik untuk pengembangan diri. Materi selalu update mengikuti trend industri dan ada komunitas yang sangat supportive.',
-            user: {
-                name: 'Budi Santoso',
-                role: 'Data Analyst di StartupXYZ',
-                image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&fit=crop',
-            },
-        },
-    ];
+interface HomeProps {
+    classes: any[];
+    testimonies: Testimony[];
+}
 
+export default function Home({ classes, testimonies }: HomeProps) {
     const faqs = [
         {
             question: 'Bagaimana cara memulai belajar di platform ini?',
@@ -130,14 +105,10 @@ export default function Home({ classes }: HomeProps) {
                 {/* Why Choose Us Section */}
                 <WhyChooseUsSection />
 
-                {/* Testimonials Section */}
-                {/* <TestimonialsSection
-                    title="Apa Kata Alumni Kami"
-                    description="Ribuan alumni telah berhasil mengembangkan karir mereka bersama kami"
-                    testimonials={testimonials}
-                /> */}
-
                 <LogoGrid />
+
+                {/* Testimony Section */}
+                <TestimonySection testimonies={testimonies} />
 
                 {/* FAQ Section */}
                 <FAQSection

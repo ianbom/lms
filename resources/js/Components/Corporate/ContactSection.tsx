@@ -113,10 +113,11 @@ export default function ContactSection({ categories }: Props) {
                                         Nama Lengkap *
                                     </label>
                                     <input
-                                        className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.full_name
-                                            ? 'ring-2 ring-red-500'
-                                            : ''
-                                            }`}
+                                        className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                            errors.full_name
+                                                ? 'ring-2 ring-red-500'
+                                                : ''
+                                        }`}
                                         id="fullName"
                                         placeholder="Budi Santoso"
                                         type="text"
@@ -162,10 +163,11 @@ export default function ContactSection({ categories }: Props) {
                                             Nama Perusahaan *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_name
-                                                ? 'ring-2 ring-red-500'
-                                                : ''
-                                                }`}
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.company_name
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                            }`}
                                             id="companyName"
                                             placeholder="PT Dampak Sosial Indonesia"
                                             type="text"
@@ -194,10 +196,11 @@ export default function ContactSection({ categories }: Props) {
                                             Email Kerja *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.email
-                                                ? 'ring-2 ring-red-500'
-                                                : ''
-                                                }`}
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.email
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                            }`}
                                             id="email"
                                             placeholder="ptputrajaya@company.com"
                                             type="email"
@@ -220,10 +223,11 @@ export default function ContactSection({ categories }: Props) {
                                             Nomor Handphone *
                                         </label>
                                         <input
-                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.phone
-                                                ? 'ring-2 ring-red-500'
-                                                : ''
-                                                }`}
+                                            className={`bg-input-bg h-12 w-full rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.phone
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                            }`}
                                             id="phone"
                                             placeholder="+62 812 3456 7890"
                                             type="tel"
@@ -271,10 +275,11 @@ export default function ContactSection({ categories }: Props) {
                                         </label>
                                         <div className="relative">
                                             <select
-                                                className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.company_size
-                                                    ? 'ring-2 ring-red-500'
-                                                    : ''
-                                                    }`}
+                                                className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                    errors.company_size
+                                                        ? 'ring-2 ring-red-500'
+                                                        : ''
+                                                }`}
                                                 id="companySize"
                                                 value={data.company_size}
                                                 onChange={(e) =>
@@ -327,10 +332,11 @@ export default function ContactSection({ categories }: Props) {
                                     </label>
                                     <div className="relative">
                                         <select
-                                            className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${errors.interest
-                                                ? 'ring-2 ring-red-500'
-                                                : ''
-                                                }`}
+                                            className={`bg-input-bg h-12 w-full appearance-none rounded-lg border-none bg-[#E6F4EF] px-4 text-[#111814] transition-all focus:bg-white focus:ring-2 focus:ring-[#13ec7c] ${
+                                                errors.interest
+                                                    ? 'ring-2 ring-red-500'
+                                                    : ''
+                                            }`}
                                             id="interest"
                                             value={data.interest}
                                             onChange={(e) =>

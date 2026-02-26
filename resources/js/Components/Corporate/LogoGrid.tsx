@@ -87,7 +87,7 @@ const speeds = ['60s', '70s', '55s', '65s'];
 export default function LogoGrid() {
     return (
         <section className="w-full border-t border-[#f0f4f2] bg-white py-16">
-            <h3 className="mb-10 text-center text-2xl font-bold uppercase tracking-widest text-gray-400">
+            <h3 className="mb-10 text-center text-2xl font-bold uppercase tracking-widest">
                 Mitra Kami
             </h3>
 
@@ -116,7 +116,7 @@ export default function LogoGrid() {
                                     (logo, index) => (
                                         <div
                                             key={index}
-                                            className="mx-6 flex h-12 flex-shrink-0 items-center justify-center opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                                            className="mx-6 flex h-12 flex-shrink-0 items-center justify-center transition-all duration-300"
                                         >
                                             <img
                                                 src={`/mitra-baru/${encodeURIComponent(logo)}`}
