@@ -46,7 +46,7 @@ export default function TestimonySection({
                         Apa Kata Mereka
                     </h2>
                     <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
-                        Testimoni dari peserta pelatihan kami
+                        Tentang Impact Academy
                     </p>
                 </div>
 
