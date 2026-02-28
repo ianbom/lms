@@ -60,7 +60,7 @@ export default function Home({ classes, testimonies }: HomeProps) {
                     badge="🚀 Diskon 50% untuk Kelas Baru!"
                     title={
                         <>
-                            Berdampak Bersama
+                            Tingkatkan Inovasi dan Dampak Organisasi Anda Bersama
                             <br />
                             <span className="text-green-500">
                                 Impact Academy

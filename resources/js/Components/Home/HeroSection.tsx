@@ -75,7 +75,7 @@ export default function HeroSection({
                         </div> */}
 
                         {/* Title */}
-                        <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+                        <h1 className="mb-6 text-2xl font-bold leading-tight sm:text-4xl lg:text-5xl">
                             {title}
                         </h1>
 
