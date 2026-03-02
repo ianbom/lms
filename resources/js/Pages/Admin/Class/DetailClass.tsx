@@ -262,13 +262,7 @@ function PageHeader({ classData, onEdit, onPublish }: PageHeaderProps) {
                     Edit
                 </button>
                 {classData.status === 'draft' ? (
-                    <button
-                        onClick={onPublish}
-                        className="inline-flex items-center justify-center gap-2 rounded-md bg-[#059669] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#059669]/20 transition-all hover:bg-[#047857]"
-                    >
-                        <Icon name="save" size={20} />
-                        Publish Kelas
-                    </button>
+                    <></>
                 ) : (
                     <span className="inline-flex items-center justify-center gap-2 rounded-md bg-green-100 px-4 py-2.5 text-sm font-bold text-green-800">
                         <Icon name="check" size={20} />
