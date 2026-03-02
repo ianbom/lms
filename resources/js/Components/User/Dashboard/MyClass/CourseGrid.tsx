@@ -33,10 +33,16 @@ export default function CourseGrid({ enrollments }: CourseGridProps) {
                                 ? 'bg-green-100 text-green-700'
                                 : 'bg-white/90 text-primary'
                         }
-                        href={route('user.study.watch', {
-                            classId: enrollment.class.id,
-                            videoId: enrollment.class.first_video_id,
-                        })}
+                        href={
+                            enrollment.class.first_video_id
+                                ? route('user.study.watch', {
+                                      classId: enrollment.class.id,
+                                      videoId: enrollment.class.first_video_id,
+                                  })
+                                : route('user.classes.show', {
+                                      classId: enrollment.class.id,
+                                  })
+                        }
                     />
                 );
             })}

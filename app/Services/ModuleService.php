@@ -44,11 +44,10 @@ class ModuleService
         });
     }
 
-    public function updateModule(int $moduleId, array $data): Module
+    public function updateModule(int $moduleId, array $data, bool $clearVideos = false): Module
     {
-        return DB::transaction(function () use ($moduleId, $data) {
+        return DB::transaction(function () use ($moduleId, $data, $clearVideos) {
             $module = Module::findOrFail($moduleId);
-
 
             $module->update([
                 'title' => $data['title'],
@@ -56,18 +55,27 @@ class ModuleService
             ]);
 
             // Handle videos
-            if (isset($data['videos']) && is_array($data['videos'])) {
+            $hasVideosData = isset($data['videos']) && is_array($data['videos']);
+
+            if ($clearVideos || $hasVideosData) {
+                $videos = [];
                 $preservedUrls = [];
-                foreach ($data['videos'] as $videoData) {
-                    if (isset($videoData['resources']) && is_array($videoData['resources'])) {
-                        foreach ($videoData['resources'] as $resourceData) {
-                            if (!empty($resourceData['existing_url'])) {
-                                $preservedUrls[] = $resourceData['existing_url'];
+
+                if ($hasVideosData) {
+                    $videos = array_filter($data['videos'], fn($v) => is_array($v) && !empty($v['title']));
+
+                    foreach ($videos as $videoData) {
+                        if (isset($videoData['resources']) && is_array($videoData['resources'])) {
+                            foreach ($videoData['resources'] as $resourceData) {
+                                if (!empty($resourceData['existing_url'])) {
+                                    $preservedUrls[] = $resourceData['existing_url'];
+                                }
                             }
                         }
                     }
                 }
 
+                // Delete existing videos and their resources
                 $existingVideoIds = $module->videos()->pluck('id')->toArray();
                 foreach ($existingVideoIds as $videoId) {
                     $video = Video::find($videoId);
@@ -83,7 +91,8 @@ class ModuleService
                     }
                 }
 
-                foreach ($data['videos'] as $index => $videoData) {
+                // Create new videos
+                foreach ($videos as $index => $videoData) {
                     $this->videoService->createVideoWithResources($module->id, $videoData, $index);
                 }
             }

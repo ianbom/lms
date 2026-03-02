@@ -36,7 +36,8 @@ class ModuleController extends Controller
 
     public function updateModule(UpdateModuleRequest $request, $moduleId){
         try {
-            $this->moduleService->updateModule($moduleId, $request->validated());
+            $clearVideos = $request->input('clear_videos') === '1';
+            $this->moduleService->updateModule($moduleId, $request->validated(), $clearVideos);
             return redirect()->back()->with('success', 'Modul berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Failed to update module: ' . $th->getMessage());

@@ -47,10 +47,10 @@ class ClassController extends Controller
             $isEnrolled = $this->orderService->checkOwnedClass($classId, $userId);
             
             // Get first video ID if enrolled
-            if ($isEnrolled && !empty($class['modules'])) {
-                foreach ($class['modules'] as $module) {
-                    if (!empty($module['videos'])) {
-                        $firstVideoId = $module['videos'][0]['id'];
+            if ($isEnrolled && $class->modules->isNotEmpty()) {
+                foreach ($class->modules as $module) {
+                    if ($module->videos->isNotEmpty()) {
+                        $firstVideoId = $module->videos->first()->id;
                         break;
                     }
                 }

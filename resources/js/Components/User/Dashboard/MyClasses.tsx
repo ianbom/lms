@@ -31,7 +31,7 @@ function CourseCard({ classItem }: CourseCardProps) {
                           classId: classItem.classId,
                           videoId: classItem.firstVideoId,
                       })
-                    : route('user.classes.detail', { slug: classItem.slug })
+                    : route('user.classes.show', { classId: classItem.classId })
             }
             className="border-border-light shadow-card hover:shadow-card-hover group flex flex-col overflow-hidden rounded-xl border bg-white transition-all"
         >

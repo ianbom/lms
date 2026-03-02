@@ -167,12 +167,7 @@ class UserDashboardService
             $progress = $totalVideos > 0 ? round(($completedVideos / $totalVideos) * 100) : 0;
 
             // Get first video for continue learning link
-            $firstVideo = $class->modules()
-                ->orderBy('sort_order')
-                ->first()
-                ?->videos()
-                ->orderBy('sort_order')
-                ->first();
+            $firstVideoId = $this->getFirstVideoId($class);
 
             $mentor = $class->mentors->first();
 
@@ -184,7 +179,7 @@ class UserDashboardService
                 'thumbnail_url' => $class->thumbnail_url,
                 'progress' => $progress,
                 'status' => $enrollment->status,
-                'firstVideoId' => $firstVideo?->id,
+                'firstVideoId' => $firstVideoId,
                 'mentor' => $mentor ? [
                     'name' => $mentor->name,
                     'avatar_url' => $mentor->avatar_url,
@@ -256,12 +251,15 @@ class UserDashboardService
 
     private function getFirstVideoId($class): ?int
     {
-        return $class->modules()
-            ->orderBy('sort_order')
-            ->first()
-            ?->videos()
-            ->orderBy('sort_order')
-            ->first()
-            ?->id;
+        $modules = $class->modules()->orderBy('sort_order')->get();
+
+        foreach ($modules as $module) {
+            $firstVideo = $module->videos()->orderBy('sort_order')->first();
+            if ($firstVideo) {
+                return $firstVideo->id;
+            }
+        }
+
+        return null;
     }
 }

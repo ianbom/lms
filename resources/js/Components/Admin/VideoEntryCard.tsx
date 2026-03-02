@@ -37,7 +37,6 @@ interface VideoEntryCardProps {
 export default function VideoEntryCard({
     video,
     index,
-    isFirst = false,
     onChange,
     onRemove,
     onCheckUrl,
@@ -56,16 +55,14 @@ export default function VideoEntryCard({
                     />
                     <h2 className="text-base font-bold">Video {index + 1}</h2>
                 </div>
-                {!isFirst && (
-                    <button
-                        type="button"
-                        onClick={() => onRemove(video.id)}
-                        className="flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
-                    >
-                        <Icon name="delete" size={18} />
-                        Remove
-                    </button>
-                )}
+                <button
+                    type="button"
+                    onClick={() => onRemove(video.id)}
+                    className="flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
+                >
+                    <Icon name="delete" size={18} />
+                    Remove
+                </button>
             </div>
 
             {/* Two Column Layout */}

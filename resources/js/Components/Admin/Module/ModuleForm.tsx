@@ -99,9 +99,7 @@ export default function ModuleForm({
 
     // Remove video
     const handleRemoveVideo = (id: number) => {
-        if (data.videos.length > 1) {
-            updateVideos(data.videos.filter((v) => v.id !== id));
-        }
+        updateVideos(data.videos.filter((v) => v.id !== id));
     };
 
     // Extract YouTube video ID from URL
@@ -335,7 +333,7 @@ export default function ModuleForm({
                             <VideoEntryCard
                                 video={video}
                                 index={index}
-                                isFirst={index === 0}
+                                isFirst={false}
                                 onChange={handleVideoChange}
                                 onRemove={handleRemoveVideo}
                                 onCheckUrl={handleCheckUrl}

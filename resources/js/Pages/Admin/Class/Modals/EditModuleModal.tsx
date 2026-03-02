@@ -1,5 +1,4 @@
 import ModuleForm, {
-    createEmptyVideo,
     ModuleFormData,
     ModuleFormErrors,
 } from '@/Components/Admin/Module/ModuleForm';
@@ -27,7 +26,7 @@ export default function EditModuleModal({
     const [formData, setFormData] = useState<ModuleFormData>({
         title: '',
         description: '',
-        videos: [createEmptyVideo(1)],
+        videos: [],
     });
 
     // Transform module data when modal opens
@@ -70,7 +69,7 @@ export default function EditModuleModal({
             setFormData({
                 title: moduleToEdit.title,
                 description: moduleToEdit.description || '',
-                videos: videos.length > 0 ? videos : [createEmptyVideo(1)],
+                videos: videos,
             });
             setErrors({});
         }
@@ -80,7 +79,7 @@ export default function EditModuleModal({
         setFormData({
             title: '',
             description: '',
-            videos: [createEmptyVideo(1)],
+            videos: [],
         });
         setErrors({});
         onClose();
@@ -107,48 +106,58 @@ export default function EditModuleModal({
         data.append('description', formData.description);
         data.append('_method', 'PUT');
 
-        formData.videos.forEach((v, index) => {
-            data.append(`videos[${index}][title]`, v.title);
-            data.append(`videos[${index}][description]`, v.description);
-            data.append(`videos[${index}][youtube_url]`, v.youtubeUrl);
-            data.append(
-                `videos[${index}][is_preview]`,
-                v.isPreview ? '1' : '0',
-            );
-            data.append(
-                `videos[${index}][duration_sec]`,
-                v.durationSec.toString(),
-            );
+        // Filter out empty video entries
+        const validVideos = formData.videos.filter(
+            (v) => v.title.trim() || v.youtubeUrl.trim(),
+        );
 
-            v.files.forEach((f, fIndex) => {
+        if (validVideos.length === 0) {
+            // Send flag to tell backend to delete all existing videos
+            data.append('clear_videos', '1');
+        } else {
+            validVideos.forEach((v, index) => {
+                data.append(`videos[${index}][title]`, v.title);
+                data.append(`videos[${index}][description]`, v.description);
+                data.append(`videos[${index}][youtube_url]`, v.youtubeUrl);
                 data.append(
-                    `videos[${index}][resources][${fIndex}][title]`,
-                    f.name,
+                    `videos[${index}][is_preview]`,
+                    v.isPreview ? '1' : '0',
                 );
                 data.append(
-                    `videos[${index}][resources][${fIndex}][file_type]`,
-                    f.type,
+                    `videos[${index}][duration_sec]`,
+                    v.durationSec.toString(),
                 );
-                if (f.file) {
+
+                v.files.forEach((f, fIndex) => {
                     data.append(
-                        `videos[${index}][resources][${fIndex}][file]`,
-                        f.file,
+                        `videos[${index}][resources][${fIndex}][title]`,
+                        f.name,
                     );
-                }
-                if (f.existingUrl) {
                     data.append(
-                        `videos[${index}][resources][${fIndex}][existing_url]`,
-                        f.existingUrl,
+                        `videos[${index}][resources][${fIndex}][file_type]`,
+                        f.type,
                     );
-                }
-                if (f.existingFileSize) {
-                    data.append(
-                        `videos[${index}][resources][${fIndex}][existing_file_size]`,
-                        f.existingFileSize.toString(),
-                    );
-                }
+                    if (f.file) {
+                        data.append(
+                            `videos[${index}][resources][${fIndex}][file]`,
+                            f.file,
+                        );
+                    }
+                    if (f.existingUrl) {
+                        data.append(
+                            `videos[${index}][resources][${fIndex}][existing_url]`,
+                            f.existingUrl,
+                        );
+                    }
+                    if (f.existingFileSize) {
+                        data.append(
+                            `videos[${index}][resources][${fIndex}][existing_file_size]`,
+                            f.existingFileSize.toString(),
+                        );
+                    }
+                });
             });
-        });
+        }
 
         router.post(route('admin.module.update', moduleId), data, {
             forceFormData: true,

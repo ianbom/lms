@@ -1,5 +1,4 @@
 import ModuleForm, {
-    createEmptyVideo,
     ModuleFormData,
 } from '@/Components/Admin/Module/ModuleForm';
 import Icon from '@/Components/Icon';
@@ -17,7 +16,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
         useForm<ModuleFormData>({
             title: '',
             description: '',
-            videos: [createEmptyVideo(1)],
+            videos: [],
         });
 
     // Handle data change from ModuleForm
@@ -35,22 +34,28 @@ export default function CreateModule({ classId }: CreateModuleProps) {
         e.preventDefault();
 
         // Transform data before sending to match backend expectations
-        transform((formData) => ({
-            title: formData.title,
-            description: formData.description,
-            videos: formData.videos.map((v) => ({
-                title: v.title,
-                description: v.description,
-                youtube_url: v.youtubeUrl,
-                is_preview: v.isPreview,
-                duration_sec: v.durationSec,
-                resources: v.files.map((f) => ({
-                    title: f.name,
-                    file: f.file, // Include actual File object
-                    file_type: f.type,
+        transform((formData) => {
+            const filteredVideos = formData.videos.filter(
+                (v) => v.title.trim() || v.youtubeUrl.trim(),
+            );
+
+            return {
+                title: formData.title,
+                description: formData.description,
+                videos: filteredVideos.map((v) => ({
+                    title: v.title,
+                    description: v.description,
+                    youtube_url: v.youtubeUrl,
+                    is_preview: v.isPreview,
+                    duration_sec: v.durationSec,
+                    resources: v.files.map((f) => ({
+                        title: f.name,
+                        file: f.file,
+                        file_type: f.type,
+                    })),
                 })),
-            })),
-        }));
+            };
+        });
 
         post(route('admin.module.store', classId), {
             forceFormData: true, // Required for file uploads
