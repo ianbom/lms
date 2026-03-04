@@ -59,7 +59,9 @@ export default function ListClass({
 
         // Filter by Category
         if (selectedCategory !== null) {
-            result = result.filter((c) => c.category_id === selectedCategory);
+            result = result.filter(
+                (c) => Number(c.category_id) === selectedCategory,
+            );
         }
 
         // Filter by Mentor
@@ -179,11 +181,11 @@ export default function ListClass({
             {(showCategoryDropdown ||
                 showMentorDropdown ||
                 showSortDropdown) && (
-                <div
-                    className="fixed inset-0 z-30"
-                    onClick={closeAllDropdowns}
-                />
-            )}
+                    <div
+                        className="fixed inset-0 z-30"
+                        onClick={closeAllDropdowns}
+                    />
+                )}
 
             <div className="space-y-8">
                 {/* Hero Section */}
