@@ -23,14 +23,16 @@ class ClassController extends Controller
         $this->orderService = $orderService;
     }
 
-    public function listClassPage(){
-        $classes = $this->classService->getAllPublishedClasses();
+    public function listClassPage(Request $request){
+        $type = $request->query('type', 'e-learning');
+        $classes = $this->classService->getAllPublishedClasses($type);
         $mentors = $this->mentorService->getAllMentors();
         $categories = $this->categoryService->getAllCategories();
         return Inertia::render('User/Classes/ListClass', [
             'classes' => $classes,
             'mentors' => $mentors,
-            'categories' => $categories
+            'categories' => $categories,
+            'selectedType' => $type,
         ]);
     }
 

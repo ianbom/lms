@@ -39,13 +39,30 @@ export default function UserLayout({
             children: [
                 {
                     label: 'E-Learning',
-                    href: route('user.classes'), // Temporary mapping to existing page
-                    active: route().current('user.classes'),
+                    href: route('user.classes', { type: 'e-learning' }),
+                    active:
+                        route().current('user.classes') &&
+                        new URLSearchParams(window.location.search).get(
+                            'type',
+                        ) === 'e-learning',
                 },
                 {
                     label: 'Learning Package',
-                    href: '#', // Temporary mapping to existing page
-                    active: false,
+                    href: route('user.classes', { type: 'learning-package' }),
+                    active:
+                        route().current('user.classes') &&
+                        new URLSearchParams(window.location.search).get(
+                            'type',
+                        ) === 'learning-package',
+                },
+                {
+                    label: 'Webinar',
+                    href: route('user.classes', { type: 'webinar' }),
+                    active:
+                        route().current('user.classes') &&
+                        new URLSearchParams(window.location.search).get(
+                            'type',
+                        ) === 'webinar',
                 },
             ],
         },

@@ -47,6 +47,14 @@ export default function ClassDetailSidebar({
                     </div>
                     <div>
                         <label className="text-xs font-bold uppercase text-slate-500">
+                            Tipe
+                        </label>
+                        <div className="mt-1 text-sm font-medium text-slate-700">
+                            {classData.type || 'Belum Diatur'}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-xs font-bold uppercase text-slate-500">
                             Tanggal Publikasi
                         </label>
                         <div className="mt-1 text-sm font-medium text-slate-700">
@@ -58,7 +66,7 @@ export default function ClassDetailSidebar({
                                       month: 'long',
                                       year: 'numeric',
                                   })
-                                : 'Belum Dipublis'}
+                                : 'Belum Dipublish'}
                         </div>
                     </div>
                     <div>

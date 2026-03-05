@@ -30,6 +30,7 @@ export default function EditClassModal({
         title: '',
         description: '',
         category_id: '',
+        type: '',
         price: '0',
         discount: '0',
         status: 'draft',
@@ -47,6 +48,7 @@ export default function EditClassModal({
                 title: classData.title || '',
                 description: classData.description || '',
                 category_id: classData.category?.id?.toString() || '',
+                type: classData.type || '',
                 price: classData.price?.toString() || '0',
                 discount: classData.discount?.toString() || '0',
                 status: classData.status || 'draft',
@@ -102,6 +104,7 @@ export default function EditClassModal({
         data.append('title', formData.title);
         data.append('description', formData.description);
         data.append('category_id', formData.category_id);
+        data.append('type', formData.type);
         data.append('price', formData.price);
         data.append('discount', formData.discount);
         data.append('status', formData.status);

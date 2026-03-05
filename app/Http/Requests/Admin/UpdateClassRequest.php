@@ -25,6 +25,7 @@ class UpdateClassRequest extends FormRequest
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
             'category_id' => 'nullable|exists:categories,id',
+            'type' => 'nullable|string|in:e-learning,webinar,learning-package',
             'price' => 'required|numeric|min:0',
             'discount' => 'nullable|numeric|min:0|max:100',
             'mentors' => 'required|array',

@@ -63,6 +63,7 @@ export interface ClassData {
     id: number;
     title: string;
     description: string;
+    type: string;
     price: number;
     discount: number;
     price_final: number;

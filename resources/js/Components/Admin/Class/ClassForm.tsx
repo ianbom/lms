@@ -22,6 +22,7 @@ export interface ClassFormData {
     title: string;
     description: string;
     category_id: string;
+    type: string;
     price: string;
     discount: string;
     status: string;
@@ -31,6 +32,7 @@ export interface ClassFormErrors {
     title?: string;
     description?: string;
     category_id?: string;
+    type?: string;
     price?: string;
     discount?: string;
     thumbnail?: string;
@@ -114,6 +116,26 @@ export default function ClassForm({
                                     handleFieldChange('category_id', val)
                                 }
                                 error={errors.category_id}
+                            />
+                            <FormSelect
+                                label="Tipe Kelas"
+                                placeholder="Pilih tipe kelas"
+                                options={[
+                                    {
+                                        value: 'e-learning',
+                                        label: 'E-Learning',
+                                    },
+                                    { value: 'webinar', label: 'Webinar' },
+                                    {
+                                        value: 'learning-package',
+                                        label: 'Learning Package',
+                                    },
+                                ]}
+                                value={formData.type}
+                                onChange={(val) =>
+                                    handleFieldChange('type', val)
+                                }
+                                error={errors.type}
                             />
                         </div>
                     </div>

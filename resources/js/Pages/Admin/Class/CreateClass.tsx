@@ -20,6 +20,7 @@ export default function CreateClass({ categories, mentors }: Props) {
         title: '',
         description: '',
         category_id: '',
+        type: '',
         price: '0',
         discount: '0',
         status: 'draft',
@@ -60,6 +61,7 @@ export default function CreateClass({ categories, mentors }: Props) {
         data.append('title', formData.title);
         data.append('description', formData.description);
         data.append('category_id', formData.category_id);
+        data.append('type', formData.type);
         data.append('price', formData.price);
         data.append('discount', formData.discount);
         data.append('status', 'draft');

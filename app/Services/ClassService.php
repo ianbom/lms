@@ -21,9 +21,14 @@ class ClassService
         return $classes;
     }
 
-    public function getAllPublishedClasses(){
-        $classes = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->where('status', 'published')->get();
-        return $classes;
+    public function getAllPublishedClasses($type = null){
+        $query = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->where('status', 'published');
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        return $query->get();
     }
 
     public function createClass(array $data, $thumbnail = null)

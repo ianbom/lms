@@ -25,6 +25,7 @@ class CreateClassRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
+            'type' => 'nullable|string|in:e-learning,webinar,learning-package',
             'thumbnail' => 'nullable|image|max:2048',
             'price' => 'required|numeric|min:0',
             'discount' => 'nullable|numeric|min:0|max:100',

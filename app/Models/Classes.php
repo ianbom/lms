@@ -18,6 +18,7 @@ class Classes extends Model
     protected $fillable = [
         'created_by',
         'category_id',
+        'type',
         'title',
         'slug',
         'description',
