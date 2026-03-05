@@ -147,6 +147,7 @@ export default function ClassForm({
                     onRemoveMentor={onRemoveMentor}
                     availableMentors={mentors}
                     onAddMentor={onAddMentor}
+                    error={errors.mentors}
                 />
             </div>
 

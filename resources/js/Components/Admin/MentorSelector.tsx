@@ -18,6 +18,7 @@ interface MentorSelectorProps {
     onSearchChange?: (value: string) => void;
     searchPlaceholder?: string;
     className?: string;
+    error?: string;
 }
 
 export default function MentorSelector({
@@ -29,6 +30,7 @@ export default function MentorSelector({
     onSearchChange,
     searchPlaceholder = 'Search mentors by name...',
     className = '',
+    error,
 }: MentorSelectorProps) {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [isFocused, setIsFocused] = React.useState(false);
@@ -163,6 +165,9 @@ export default function MentorSelector({
                     </div>
                 ))}
             </div>
+
+            {/* Error Message */}
+            {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
         </div>
     );
 }

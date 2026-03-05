@@ -23,15 +23,15 @@ class UpdateClassRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:200',
-            'description' => 'nullable|string',
-            'category_id' => 'nullable|exists:categories,id',
-            'type' => 'nullable|string|in:e-learning,webinar,learning-package',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'type' => 'required|string|in:e-learning,webinar,learning-package',
             'price' => 'required|numeric|min:0',
-            'discount' => 'nullable|numeric|min:0|max:100',
+            'discount' => 'required|numeric|min:0|max:100',
             'mentors' => 'required|array',
             'mentors.*' => 'exists:mentors,id',
-            'thumbnail' => 'nullable|image|max:2048',
-            'status' => 'nullable|in:draft,published',
+            'thumbnail' => 'required|image|max:2048',
+            'status' => 'required|in:draft,published',
         ];
     }
 
@@ -45,6 +45,9 @@ class UpdateClassRequest extends FormRequest
         return [
             'title.required' => 'Judul kelas wajib diisi.',
             'title.max' => 'Judul kelas maksimal 200 karakter.',
+            'type.required' => 'Tipe wajib diisi',
+            'description.required' => 'Deskripsi wajib diisi',
+            'category_id.required' => 'Kategori wajib diisi',
             'category_id.exists' => 'Kategori tidak valid.',
             'price.required' => 'Harga wajib diisi.',
             'price.numeric' => 'Harga harus berupa angka.',
@@ -52,8 +55,9 @@ class UpdateClassRequest extends FormRequest
             'discount.numeric' => 'Diskon harus berupa angka.',
             'discount.min' => 'Diskon tidak boleh negatif.',
             'discount.max' => 'Diskon maksimal 100%.',
-            // 'mentors.required' => 'Mentor wajib diisi.',
+            'mentors.required' => 'Mentor wajib diisi.',
             'mentors.*.exists' => 'Mentor tidak valid.',
+            'thumbnail.required' => 'Thumbnail wajib diisi.',
             'thumbnail.image' => 'Thumbnail harus berupa gambar.',
             'thumbnail.max' => 'Ukuran thumbnail maksimal 2MB.',
             'status.in' => 'Status tidak valid.',
