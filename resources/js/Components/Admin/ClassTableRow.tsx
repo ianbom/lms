@@ -11,6 +11,8 @@ interface ClassTableRowProps {
 export default function ClassTableRow({ classItem }: ClassTableRowProps) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -106,16 +108,29 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                 <StatusBadge status={classItem.status} />
             </td>
             <td className="px-6 py-4 align-middle">
-                <div className="flex items-center justify-end" ref={dropdownRef}>
+                <div className="relative flex items-center justify-end" ref={dropdownRef}>
                     <button
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        ref={buttonRef}
+                        onClick={() => {
+                            if (!isDropdownOpen && buttonRef.current) {
+                                const rect = buttonRef.current.getBoundingClientRect();
+                                setDropdownPos({
+                                    top: rect.top,
+                                    left: rect.right - 176, // 176px = w-44
+                                });
+                            }
+                            setIsDropdownOpen(!isDropdownOpen);
+                        }}
                         className="flex h-8 w-8 items-center justify-center rounded-md border border-[#e5e7eb] bg-white text-[#5e6a62] transition-colors hover:border-primary hover:text-primary"
                     >
                         <Icon name="more_vert" size={18} />
                     </button>
 
                     {isDropdownOpen && (
-                        <div className="absolute right-8 z-20 mt-1 w-44 overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+                        <div
+                            className="fixed z-[9999] w-44 overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
+                            style={{ top: dropdownPos.top, left: dropdownPos.left, transform: 'translateY(-100%)' }}
+                        >
                             <Link
                                 href={route('admin.classes.show', classItem.id)}
                                 className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"

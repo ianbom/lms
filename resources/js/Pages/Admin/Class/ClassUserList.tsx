@@ -63,8 +63,8 @@ interface Props {
 const SORT_OPTIONS = [
     { value: 'created_at', direction: 'desc' as const, label: 'Terbaru' },
     { value: 'created_at', direction: 'asc' as const, label: 'Terlama' },
-    { value: 'activated_at', direction: 'desc' as const, label: 'Aktivasi Terbaru' },
-    { value: 'activated_at', direction: 'asc' as const, label: 'Aktivasi Terlama' },
+    { value: 'activated_at', direction: 'desc' as const, label: 'Bergabung Terbaru' },
+    { value: 'activated_at', direction: 'asc' as const, label: 'Bergabung Terlama' },
 ];
 
 export default function ClassUserList({ classData, enrollments, filters }: Props) {
@@ -128,7 +128,7 @@ export default function ClassUserList({ classData, enrollments, filters }: Props
             },
             {
                 key: 'activated_at',
-                header: 'Tanggal Aktivasi',
+                header: 'Tanggal Gabung Kelas',
                 headerClassName: 'whitespace-nowrap',
                 render: (enrollment: Enrollment) => (
                     <span className="whitespace-nowrap text-sm text-slate-600">
