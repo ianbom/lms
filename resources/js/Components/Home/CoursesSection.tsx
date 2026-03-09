@@ -19,8 +19,8 @@ interface CoursesSectionProps {
 const defaultCategories: Category[] = [
     { id: 'all', label: 'Semua' },
     { id: 'sertifikasi-bnsp', label: 'Sertifikasi BNSP' },
-    { id: 'impact-measurement', label: 'Impact Measurement' },
-    { id: 'iso-26000', label: 'ISO 26000' },
+    { id: 'community-involvement-and-development', label: 'Community Involvement and Development' },
+    { id: 'esg', label: 'ESG' },
 ];
 
 export default function CoursesSection({
