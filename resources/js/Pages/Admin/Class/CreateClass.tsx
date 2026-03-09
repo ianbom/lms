@@ -24,6 +24,10 @@ export default function CreateClass({ categories, mentors }: Props) {
         price: '0',
         discount: '0',
         status: 'draft',
+        location: '',
+        is_priority: false,
+        url_link: '',
+        implementation_date: '',
     });
     const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
     const [thumbnailPreview, setThumbnailPreview] = useState<
@@ -65,6 +69,10 @@ export default function CreateClass({ categories, mentors }: Props) {
         data.append('price', formData.price);
         data.append('discount', formData.discount);
         data.append('status', 'draft');
+        if (formData.location) data.append('location', formData.location);
+        data.append('is_priority', formData.is_priority ? '1' : '0');
+        if (formData.url_link) data.append('url_link', formData.url_link);
+        if (formData.implementation_date) data.append('implementation_date', formData.implementation_date);
         selectedMentors.forEach((mentor) => {
             data.append('mentors[]', mentor.id.toString());
         });

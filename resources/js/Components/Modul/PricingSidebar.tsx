@@ -11,6 +11,8 @@ interface PricingSidebarProps {
     onBuy?: () => void;
     onAddWishlist?: () => void;
     isEnrolled?: boolean;
+    type?: string;
+    location?: string | null;
 }
 
 export default function PricingSidebar({
@@ -24,6 +26,8 @@ export default function PricingSidebar({
     onBuy,
     onAddWishlist,
     isEnrolled = false,
+    type,
+    location,
 }: PricingSidebarProps) {
     const formatPrice = (amount: number) => {
         return `Rp ${amount.toLocaleString('id-ID')}`;
@@ -56,38 +60,63 @@ export default function PricingSidebar({
 
             {/* Stats Grid */}
             <div className="mb-6 grid grid-cols-2 gap-x-2 gap-y-4">
-                <div className="flex items-center gap-2.5 text-sm">
-                    <Icon
-                        name="play_circle"
-                        size={20}
-                        className="text-primary"
-                    />
-                    <span className="font-medium text-gray-700">
-                        {videoCount} Video
-                    </span>
-                </div>
-                <div className="flex items-center gap-2.5 text-sm">
-                    <Icon name="schedule" size={20} className="text-primary" />
-                    <span className="font-medium text-gray-700">
-                        {duration}
-                    </span>
-                </div>
-                <div className="flex items-center gap-2.5 text-sm">
-                    <Icon
-                        name="view_module"
-                        size={20}
-                        className="text-primary"
-                    />
-                    <span className="font-medium text-gray-700">
-                        {moduleCount} Modul
-                    </span>
-                </div>
-                <div className="flex items-center gap-2.5 text-sm">
-                    <Icon name="quiz" size={20} className="text-primary" />
-                    <span className="font-medium text-gray-700">
-                        {quizCount} Kuis
-                    </span>
-                </div>
+                {type === 'learning-package' ? (
+                    location ? (
+                        <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                            <Icon
+                                name="location_on"
+                                size={20}
+                                className="text-primary"
+                            />
+                            <span className="font-medium text-gray-700">
+                                {location}
+                            </span>
+                        </div>
+                    ) : null
+                ) : (
+                    <>
+                        {videoCount > 0 && (
+                            <div className="flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="play_circle"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {videoCount} Video
+                                </span>
+                            </div>
+                        )}
+                        {duration && duration !== '0m' && (
+                            <div className="flex items-center gap-2.5 text-sm">
+                                <Icon name="schedule" size={20} className="text-primary" />
+                                <span className="font-medium text-gray-700">
+                                    {duration}
+                                </span>
+                            </div>
+                        )}
+                        {moduleCount > 0 && (
+                            <div className="flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="view_module"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {moduleCount} Modul
+                                </span>
+                            </div>
+                        )}
+                        {quizCount > 0 && (
+                            <div className="flex items-center gap-2.5 text-sm">
+                                <Icon name="quiz" size={20} className="text-primary" />
+                                <span className="font-medium text-gray-700">
+                                    {quizCount} Kuis
+                                </span>
+                            </div>
+                        )}
+                    </>
+                )}
             </div>
 
             {/* Buttons */}
@@ -100,7 +129,7 @@ export default function PricingSidebar({
                             : 'bg-primary shadow-primary/20 hover:bg-primary-dark hover:shadow-primary/40'
                     }`}
                 >
-                    {isEnrolled ? 'Belajar Sekarang' : 'Beli Modul Sekarang'}
+                    {isEnrolled ? 'Belajar Sekarang' : type === 'learning-package' ? 'Daftar Sekarang' : 'Beli Modul Sekarang'}
                     <Icon
                         name={isEnrolled ? 'play_arrow' : 'arrow_forward'}
                         size={20}

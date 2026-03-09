@@ -3,28 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\ClassService;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class OrderController extends Controller
 {
-    protected $orderService;
+    protected $orderService, $classService;
 
-    public function __construct(OrderService $orderService){
+    public function __construct(OrderService $orderService, ClassService $classService){
         $this->orderService = $orderService;
+        $this->classService = $classService;
     }
 
 
     public function listOrderPage(Request $request){
-        $filters = $request->only(['search', 'status', 'sort', 'direction', 'per_page']);
+        $filters = $request->only(['search', 'status', 'sort', 'direction', 'per_page', 'class_id']);
         $orders = $this->orderService->getAllOrders($filters);
         $stats = $this->orderService->getOrderStats();
+        $classes = $this->classService->getAllClasses()->map(fn($c) => ['id' => $c->id, 'title' => $c->title]);
 
         return Inertia::render('Admin/Order/ListOrder', [
             'orders' => $orders,
             'stats' => $stats,
             'filters' => $filters,
+            'classes' => $classes,
         ]);
     }
 
@@ -46,7 +50,7 @@ class OrderController extends Controller
         }
     }
 
-    public function pendingOrder($orderId){ 
+    public function pendingOrder($orderId){
         try {
         $this->orderService->pendingOrder($orderId);
         return redirect()->back()->with('success', 'Order berhasil dipending.');

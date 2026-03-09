@@ -28,6 +28,10 @@ class Classes extends Model
         'thumbnail_url',
         'status',
         'published_at',
+        'location',
+        'is_priority',
+        'url_link',
+        'implementation_date',
     ];
 
     protected $casts = [
@@ -35,6 +39,8 @@ class Classes extends Model
         'discount' => 'integer',
         'price_final' => 'integer',
         'published_at' => 'datetime',
+        'is_priority' => 'boolean',
+        'implementation_date' => 'date',
     ];
 
     /**

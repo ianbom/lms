@@ -30,8 +30,12 @@ class UpdateClassRequest extends FormRequest
             'discount' => 'required|numeric|min:0|max:100',
             'mentors' => 'required|array',
             'mentors.*' => 'exists:mentors,id',
-            'thumbnail' => 'required|image|max:2048',
+            'thumbnail' => 'nullable|image|max:2048',
             'status' => 'required|in:draft,published',
+            'location' => 'nullable|string|max:255',
+            'is_priority' => 'nullable|boolean',
+            'url_link' => 'nullable|string|max:500',
+            'implementation_date' => 'nullable|date',
         ];
     }
 
@@ -57,7 +61,7 @@ class UpdateClassRequest extends FormRequest
             'discount.max' => 'Diskon maksimal 100%.',
             'mentors.required' => 'Mentor wajib diisi.',
             'mentors.*.exists' => 'Mentor tidak valid.',
-            'thumbnail.required' => 'Thumbnail wajib diisi.',
+            // 'thumbnail.required' => 'Thumbnail wajib diisi.',
             'thumbnail.image' => 'Thumbnail harus berupa gambar.',
             'thumbnail.max' => 'Ukuran thumbnail maksimal 2MB.',
             'status.in' => 'Status tidak valid.',

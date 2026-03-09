@@ -32,6 +32,10 @@ class CreateClassRequest extends FormRequest
             'mentors' => 'required|array',
             'mentors.*' => 'exists:mentors,id',
             'status' => 'required|in:published,draft',
+            'location' => 'nullable|string|max:255',
+            'is_priority' => 'nullable|boolean',
+            'url_link' => 'nullable|string|max:500',
+            'implementation_date' => 'nullable|date',
         ];
     }
 

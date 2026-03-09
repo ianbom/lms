@@ -73,10 +73,10 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
 
     // User Modul Routes
     Route::prefix('user')->name('user.')->group(function () {
-       
+
        Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
        Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->middleware('class.published')->name('classes.show');
-       
+
        Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
 
        Route::middleware(['auth', 'verified', 'has.course.access', 'class.published'])->group(function () {
@@ -89,7 +89,7 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
            Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
            Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
            Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
-           
+
            // Review Page
            Route::get('/study/{classId}/review', [ClassReviewController::class, 'reviewPage'])->name('study.review');
        });
@@ -138,6 +138,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.otp'])->group(function () {
         Route::put('/classes/{classId}', [AdmClassController::class, 'updateClass'])->name('classes.update');
         Route::post('/classes/{classId}/publish', [AdmClassController::class, 'publishClass'])->name('classes.publish');
         Route::get('/classes/{classId}/review', [AdmClassController::class, 'reviewClassPage'])->name('classes.review');
+        Route::get('/classes/{classId}/users', [AdmClassController::class, 'classUserListPage'])->name('classes.users');
         Route::delete('/classes/{classId}', [AdmClassController::class, 'deleteClass'])->name('classes.delete');
 
         Route::get('/classes', [AdmClassController::class, 'listClassPage'])->name('classes');

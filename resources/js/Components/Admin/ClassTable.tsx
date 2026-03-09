@@ -24,6 +24,9 @@ export default function ClassTable({ classes }: ClassTableProps) {
                             Modul
                         </th>
                         <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
+                            Revenue
+                        </th>
+                        <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
                             Status
                         </th>
                         <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-[#5e6a62]">
@@ -35,7 +38,7 @@ export default function ClassTable({ classes }: ClassTableProps) {
                     {classes.length === 0 ? (
                         <tr>
                             <td
-                                colSpan={6}
+                                colSpan={7}
                                 className="px-6 py-12 text-center text-sm text-[#5e6a62]"
                             >
                                 Tidak ada data kelas ditemukan.

@@ -50,7 +50,7 @@ export default function ClassDetailSidebar({
                             Tipe
                         </label>
                         <div className="mt-1 text-sm font-medium text-slate-700">
-                            {classData.type || 'Belum Diatur'}
+                            {classData.type || '-'}
                         </div>
                     </div>
                     <div>
@@ -87,6 +87,65 @@ export default function ClassDetailSidebar({
                                         0}
                                 </span>
                             )}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-xs font-bold uppercase text-slate-500">
+                            Lokasi
+                        </label>
+                        <div className="mt-1 text-sm font-medium text-slate-700">
+                            {classData.location || '-'}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-xs font-bold uppercase text-slate-500">
+                            Tanggal Pelaksanaan
+                        </label>
+                        <div className="mt-1 text-sm font-medium text-slate-700">
+                            {classData.implementation_date
+                                ? new Date(
+                                      classData.implementation_date,
+                                  ).toLocaleDateString('id-ID', {
+                                      day: 'numeric',
+                                      month: 'long',
+                                      year: 'numeric',
+                                  })
+                                : '-'}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-xs font-bold uppercase text-slate-500">
+                            URL Link
+                        </label>
+                        <div className="mt-1 text-sm font-medium text-slate-700">
+                            {classData.url_link ? (
+                                <a
+                                    href={classData.url_link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-primary hover:underline"
+                                >
+                                    {classData.url_link}
+                                </a>
+                            ) : (
+                                '-'
+                            )}
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-xs font-bold uppercase text-slate-500">
+                            Prioritas
+                        </label>
+                        <div className="mt-1">
+                            <span
+                                className={`rounded px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${
+                                    classData.is_priority
+                                        ? 'bg-red-100 text-red-800'
+                                        : 'bg-slate-100 text-slate-600'
+                                }`}
+                            >
+                                {classData.is_priority ? 'Ya' : 'Tidak'}
+                            </span>
                         </div>
                     </div>
                     <div>

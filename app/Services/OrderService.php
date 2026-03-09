@@ -69,6 +69,10 @@ class OrderService
             $query->where('status', $filters['status']);
         }
 
+        if (!empty($filters['class_id'])) {
+            $query->where('class_id', $filters['class_id']);
+        }
+
         // Handle sorting
         if (!empty($filters['sort']) && !empty($filters['direction'])) {
             $query->orderBy($filters['sort'], $filters['direction']);

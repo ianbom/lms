@@ -1,6 +1,7 @@
 import Icon from '@/Components/Icon';
 import { ClassItem } from '@/types/admin';
 import { Link, router } from '@inertiajs/react';
+import { useEffect, useRef, useState } from 'react';
 import StatusBadge from './StatusBadge';
 
 interface ClassTableRowProps {
@@ -8,6 +9,23 @@ interface ClassTableRowProps {
 }
 
 export default function ClassTableRow({ classItem }: ClassTableRowProps) {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const formatPrice = () => {
         if (classItem.isFree) {
             return (
@@ -80,51 +98,72 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                 </div>
             </td>
             <td className="px-6 py-4 align-middle">
+                <span className="text-sm font-bold text-[#101814]">
+                    Rp {classItem.totalRevenue.toLocaleString('id-ID')}
+                </span>
+            </td>
+            <td className="px-6 py-4 align-middle">
                 <StatusBadge status={classItem.status} />
             </td>
             <td className="px-6 py-4 align-middle">
-                <div className="flex items-center justify-end gap-2">
-                    <Link
-                        href={route('admin.classes.show', classItem.id)}
-                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-primary hover:text-primary"
-                        title="Detail"
+                <div className="flex items-center justify-end" ref={dropdownRef}>
+                    <button
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="flex h-8 w-8 items-center justify-center rounded-md border border-[#e5e7eb] bg-white text-[#5e6a62] transition-colors hover:border-primary hover:text-primary"
                     >
-                        <Icon name="visibility" size={14} />
-                        Detail
-                    </Link>
-                    <Link
-                        href={route('admin.module.create', classItem.id)}
-                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-blue-500 hover:text-blue-500"
-                        title="Buat Modul"
-                    >
-                        <Icon name="library_add" size={14} />
-                        Modul
-                    </Link>
-                    <Link
-                        href={route('admin.quiz.create', classItem.id)}
-                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-amber-500 hover:text-amber-500"
-                        title="Buat Kuis"
-                    >
-                        <Icon name="quiz" size={14} />
-                        Kuis
-                    </Link>
-                    <Link
-                        href={route('admin.classes.review', classItem.id)}
-                        className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-purple-500 hover:text-purple-500"
-                        title="Lihat Review"
-                    >
-                        <Icon name="reviews" size={14} />
-                        Review
-                    </Link>
-                    {classItem.status === 'draft' && (
-                        <button
-                            onClick={handleDelete}
-                            className="flex h-8 items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#5e6a62] transition-colors hover:border-red-500 hover:bg-red-50 hover:text-red-500"
-                            title="Hapus Kelas"
-                        >
-                            <Icon name="delete" size={14} />
-                            Hapus
-                        </button>
+                        <Icon name="more_vert" size={18} />
+                    </button>
+
+                    {isDropdownOpen && (
+                        <div className="absolute right-8 z-20 mt-1 w-44 overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+                            <Link
+                                href={route('admin.classes.show', classItem.id)}
+                                className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
+                            >
+                                <Icon name="visibility" size={16} className="text-primary" />
+                                Detail
+                            </Link>
+                            <Link
+                                href={route('admin.module.create', classItem.id)}
+                                className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
+                            >
+                                <Icon name="library_add" size={16} className="text-blue-500" />
+                                Buat Modul
+                            </Link>
+                            <Link
+                                href={route('admin.quiz.create', classItem.id)}
+                                className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
+                            >
+                                <Icon name="quiz" size={16} className="text-amber-500" />
+                                Buat Kuis
+                            </Link>
+                            <Link
+                                href={route('admin.classes.review', classItem.id)}
+                                className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
+                            >
+                                <Icon name="reviews" size={16} className="text-purple-500" />
+                                Review
+                            </Link>
+                            <Link
+                                href={route('admin.classes.users', classItem.id)}
+                                className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
+                            >
+                                <Icon name="group" size={16} className="text-teal-500" />
+                                Peserta
+                            </Link>
+                            {classItem.status === 'draft' && (
+                                <>
+                                    <div className="my-1 border-t border-slate-100" />
+                                    <button
+                                        onClick={handleDelete}
+                                        className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-red-600 transition-colors hover:bg-red-50"
+                                    >
+                                        <Icon name="delete" size={16} />
+                                        Hapus
+                                    </button>
+                                </>
+                            )}
+                        </div>
                     )}
                 </div>
             </td>

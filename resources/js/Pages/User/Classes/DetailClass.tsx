@@ -138,6 +138,10 @@ export default function DetailClass({
     };
 
     const handleBuy = () => {
+        if (classData.type === 'learning-package' && classData.url_link) {
+            window.open(classData.url_link, '_blank', 'noopener,noreferrer');
+            return;
+        }
         if (isEnrolled && firstVideoId) {
             router.visit(
                 route('user.study.watch', {
@@ -192,11 +196,11 @@ export default function DetailClass({
                                     alt={classData.title}
                                     className="h-full w-full object-cover"
                                 />
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                {/* <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                                     <span className="text-white/80">
                                         Pilih video preview untuk diputar
                                     </span>
-                                </div>
+                                </div> */}
                             </div>
                         )}
                     </div>
@@ -435,6 +439,8 @@ export default function DetailClass({
                         onBuy={handleBuy}
                         onAddWishlist={handleAddWishlist}
                         isEnrolled={isEnrolled}
+                        type={classData.type}
+                        location={classData.location}
                     />
 
                     {/* Mentors */}

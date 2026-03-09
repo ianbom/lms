@@ -70,6 +70,10 @@ export interface ClassData {
     thumbnail_url: string;
     status: 'draft' | 'published';
     published_at: string | null;
+    location: string | null;
+    is_priority: boolean;
+    url_link: string | null;
+    implementation_date: string | null;
     category: Category;
     mentors: Mentor[];
     modules: Module[];

@@ -18,6 +18,7 @@ interface BackendClass {
     thumbnail_url: string;
     status: 'published' | 'draft';
     modules_count: number;
+    total_revenue: number;
     category: {
         id: number;
         name: string;
@@ -48,6 +49,7 @@ export default function ClassManagement({ classes }: Props) {
         status: item.status,
         thumbnail: item.thumbnail_url || '',
         isFree: item.price_final === 0,
+        totalRevenue: item.total_revenue || 0,
     }));
 
     // Get unique categories for filter

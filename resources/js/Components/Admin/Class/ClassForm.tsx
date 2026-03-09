@@ -26,6 +26,10 @@ export interface ClassFormData {
     price: string;
     discount: string;
     status: string;
+    location: string;
+    is_priority: boolean;
+    url_link: string;
+    implementation_date: string;
 }
 
 export interface ClassFormErrors {
@@ -137,6 +141,46 @@ export default function ClassForm({
                                 }
                                 error={errors.type}
                             />
+                        </div>
+
+                        <FormInput
+                            label="Lokasi"
+                            placeholder="Contoh: Jakarta, Online, dll"
+                            value={formData.location}
+                            onChange={(val) => handleFieldChange('location', val)}
+                            error={errors.location}
+                        />
+
+                        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                            <FormInput
+                                label="URL Link"
+                                placeholder="Contoh: https://zoom.us/j/123456"
+                                value={formData.url_link}
+                                onChange={(val) => handleFieldChange('url_link', val)}
+                                error={errors.url_link}
+                            />
+                            <FormInput
+                                label="Tanggal Pelaksanaan"
+                                type="date"
+                                value={formData.implementation_date}
+                                onChange={(val) => handleFieldChange('implementation_date', val)}
+                                error={errors.implementation_date}
+                            />
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <label className="relative inline-flex cursor-pointer items-center">
+                                <input
+                                    type="checkbox"
+                                    checked={formData.is_priority}
+                                    onChange={(e) =>
+                                        onFormDataChange({ ...formData, is_priority: e.target.checked })
+                                    }
+                                    className="peer sr-only"
+                                />
+                                <div className="peer h-6 w-11 rounded-full bg-slate-300 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full" />
+                            </label>
+                            <span className="text-sm font-medium text-slate-700">Prioritas</span>
                         </div>
                     </div>
                 </FormCard>

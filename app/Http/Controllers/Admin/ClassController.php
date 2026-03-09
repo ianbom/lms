@@ -125,5 +125,18 @@ class ClassController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function classUserListPage(Request $request, $classId)
+    {
+        $filters = $request->only(['search', 'sort', 'direction', 'per_page']);
+        $class = Classes::select('id', 'title')->findOrFail($classId);
+        $enrollments = $this->classService->getClassEnrolledUsers($classId, $filters);
+
+        return Inertia::render('Admin/Class/ClassUserList', [
+            'classData' => $class,
+            'enrollments' => $enrollments,
+            'filters' => $filters,
+        ]);
+    }
 }
 

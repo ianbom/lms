@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
+use App\Models\Testimony;
 use App\Services\ClassService;
 use App\Services\OrderService;
 use App\Services\UserDashboardService;
@@ -24,9 +25,9 @@ class DashboardController extends Controller
         $this->classService = $classService;
     }
 
-    public function homePage(){ 
-        $classes = $this->classService->getAllPublishedClasses()->take(6);
-        $testimonies = \App\Models\Testimony::orderBy('created_at', 'desc')->get();
+    public function homePage(){
+        $classes = $this->classService->getPriorityClasses();
+        $testimonies = Testimony::orderBy('created_at', 'desc')->get();
         return Inertia::render('User/Home/Home', [
             'classes' => $classes,
             'testimonies' => $testimonies,

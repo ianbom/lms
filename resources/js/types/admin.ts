@@ -66,6 +66,7 @@ export interface ClassItem {
     modules: number;
     status: ClassStatus;
     thumbnail: string;
+    totalRevenue: number;
 }
 
 // Status badge variant mapping

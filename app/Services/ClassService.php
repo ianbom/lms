@@ -17,9 +17,29 @@ class ClassService
     }
 
     public function getAllClasses(){
-        $classes = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->get();
+        $classes = Classes::with(['category', 'mentors'])
+            ->withCount('modules')
+            ->withSum(['orders as total_revenue' => function ($query) {
+                $query->where('status', 'approved');
+            }], 'amount')
+            ->orderBy('title', 'asc')
+            ->get();
         return $classes;
     }
+
+    public function getPriorityClasses($type = null){
+        $query = Classes::with(['category', 'mentors'])->withCount('modules')
+        ->orderBy('title', 'asc')
+        ->where('status', 'published')
+        ->where('is_priority', true);
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        return $query->get();
+    }
+
 
     public function getAllPublishedClasses($type = null){
         $query = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->where('status', 'published');
@@ -133,6 +153,35 @@ class ClassService
         return $class;
     }
 
+    public function getClassEnrolledUsers($classId, array $filters = [])
+    {
+        $query = \App\Models\Enrollment::with('user')
+            ->where('class_id', $classId)
+            ->where('status', 'active');
+
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $sortField = $filters['sort'] ?? 'created_at';
+        $sortDirection = $filters['direction'] ?? 'desc';
+
+        $allowedSorts = ['created_at', 'activated_at'];
+        if (in_array($sortField, $allowedSorts)) {
+            $query->orderBy($sortField, $sortDirection);
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $perPage = $filters['per_page'] ?? 10;
+
+        return $query->paginate($perPage)->withQueryString();
+    }
+
     /**
      * Delete a class by ID.
      * Only draft classes can be deleted.
@@ -160,7 +209,7 @@ class ClassService
                 $video->progress()->delete();
                 $video->delete();
             }
-            
+
             // Delete quizzes and their children
             foreach ($module->quizzes as $quiz) {
                 foreach ($quiz->questions as $question) {
@@ -170,16 +219,16 @@ class ClassService
                 $quiz->attempts()->delete();
                 $quiz->delete();
             }
-            
+
             $module->delete();
         }
 
         // Delete enrollments and related
         $class->enrollments()->delete();
-        
+
         // Delete orders
         $class->orders()->delete();
-        
+
         // Delete reviews
         $class->reviews()->delete();
 

@@ -16,6 +16,12 @@ interface Filters {
     sort?: string;
     direction?: string;
     per_page?: number;
+    class_id?: string;
+}
+
+interface ClassOption {
+    id: number;
+    title: string;
 }
 
 interface PaginationLink {
@@ -39,9 +45,10 @@ interface ListOrderProps {
     orders: PaginatedOrders;
     stats: Stats;
     filters: Filters;
+    classes: ClassOption[];
 }
 
-export default function ListOrder({ orders, stats, filters }: ListOrderProps) {
+export default function ListOrder({ orders, stats, filters, classes }: ListOrderProps) {
     return (
         <AdminLayout
             breadcrumbs={[
@@ -69,6 +76,7 @@ export default function ListOrder({ orders, stats, filters }: ListOrderProps) {
                 <OrderTable
                     orders={orders.data}
                     filters={filters}
+                    classes={classes}
                     pagination={{
                         currentPage: orders.current_page,
                         lastPage: orders.last_page,

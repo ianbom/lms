@@ -44,6 +44,7 @@ interface Filters {
     sort?: string;
     direction?: string;
     per_page?: number;
+    class_id?: string;
 }
 
 interface PaginationLink {
@@ -66,6 +67,7 @@ interface OrderTableProps {
     orders: Order[];
     filters: Filters;
     pagination: PaginationData;
+    classes?: { id: number; title: string }[];
 }
 
 const FILTER_OPTIONS = [
@@ -79,6 +81,7 @@ export default function OrderTable({
     orders,
     filters,
     pagination,
+    classes = [],
 }: OrderTableProps) {
     const [processing, setProcessing] = useState(false);
     const [confirmModal, setConfirmModal] = useState<ConfirmModal>({
@@ -339,11 +342,11 @@ export default function OrderTable({
             icon: 'shopping_cart',
             title: 'Tidak ada order',
             description:
-                filters.search || filters.status
+                filters.search || filters.status || filters.class_id
                     ? 'Tidak ada order yang cocok dengan filter pencarian.'
                     : 'Belum ada order yang masuk.',
         }),
-        [filters.search, filters.status],
+        [filters.search, filters.status, filters.class_id],
     );
 
     const modalConfig = getModalConfig();
@@ -355,7 +358,31 @@ export default function OrderTable({
                 routeName="admin.orders"
                 searchPlaceholder="Search by Order ID, User..."
                 filterOptions={FILTER_OPTIONS}
-            />
+            >
+                {/* Class Filter */}
+                <select
+                    value={filters.class_id || ''}
+                    onChange={(e) => {
+                        router.get(
+                            route('admin.orders'),
+                            { ...filters, class_id: e.target.value || undefined, page: undefined },
+                            { preserveState: true, replace: true },
+                        );
+                    }}
+                    className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+                        filters.class_id
+                            ? 'border-primary bg-primary/5 text-primary'
+                            : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                    }`}
+                >
+                    <option value="">Semua Kelas</option>
+                    {classes.map((c) => (
+                        <option key={c.id} value={c.id}>
+                            {c.title}
+                        </option>
+                    ))}
+                </select>
+            </TableToolbar>
 
             {/* Per Page Selector */}
             <div className="flex items-center justify-end px-5 py-2">

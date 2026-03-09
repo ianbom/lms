@@ -17,12 +17,14 @@ interface SortOption {
 interface TableToolbarProps {
     filters: Record<string, string | undefined>;
     routeName: string;
+    routeParams?: Record<string, string | number>;
     searchPlaceholder?: string;
     filterOptions?: FilterOption[];
     filterKey?: string;
     sortOptions?: SortOption[];
     showSort?: boolean;
     showFilter?: boolean;
+    children?: React.ReactNode;
 }
 
 const DEFAULT_SORT_OPTIONS: SortOption[] = [
@@ -37,12 +39,14 @@ const DEFAULT_SORT_OPTIONS: SortOption[] = [
 export default function TableToolbar({
     filters,
     routeName,
+    routeParams,
     searchPlaceholder = 'Cari...',
     filterOptions = [],
     filterKey = 'status',
     sortOptions = DEFAULT_SORT_OPTIONS,
     showSort = true,
     showFilter = true,
+    children,
 }: TableToolbarProps) {
     const [search, setSearch] = useState(filters.search || '');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -72,15 +76,17 @@ export default function TableToolbar({
             document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    const routeUrl = routeParams ? route(routeName, routeParams) : route(routeName);
+
     const handleSearch = useCallback(
         debounce((query: string) => {
             router.get(
-                route(routeName),
+                routeUrl,
                 { ...filters, search: query },
                 { preserveState: true, replace: true },
             );
         }, 300),
-        [filters, routeName],
+        [filters, routeName, routeParams],
     );
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +97,7 @@ export default function TableToolbar({
     const handleFilter = (value: string | null) => {
         const newFilters = { ...filters, [filterKey]: value || undefined };
         router.get(
-            route(routeName),
+            routeUrl,
             newFilters as unknown as Record<string, string>,
             { preserveState: true, replace: true },
         );
@@ -100,7 +106,7 @@ export default function TableToolbar({
 
     const handleSort = (sortOption: SortOption) => {
         router.get(
-            route(routeName),
+            routeUrl,
             {
                 ...filters,
                 sort: sortOption.value,
@@ -258,6 +264,8 @@ export default function TableToolbar({
                         )}
                     </div>
                 )}
+
+                {children}
             </div>
 
             {/* Search */}

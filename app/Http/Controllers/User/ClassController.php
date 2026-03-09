@@ -24,7 +24,7 @@ class ClassController extends Controller
     }
 
     public function listClassPage(Request $request){
-        $type = $request->query('type', 'e-learning');
+        $type = $request->query('type', null);
         $classes = $this->classService->getAllPublishedClasses($type);
         $mentors = $this->mentorService->getAllMentors();
         $categories = $this->categoryService->getAllCategories();
@@ -40,14 +40,14 @@ class ClassController extends Controller
         $userId = Auth::id();
         $class = $this->classService->getClassDetailsById($classId);
         $previewVideos = $this->classService->getClassPreviewVideoById($classId);
-        
+
         // Check if user has enrollment for this class
         $isEnrolled = false;
         $firstVideoId = null;
-        
+
         if ($userId) {
             $isEnrolled = $this->orderService->checkOwnedClass($classId, $userId);
-            
+
             // Get first video ID if enrolled
             if ($isEnrolled && $class->modules->isNotEmpty()) {
                 foreach ($class->modules as $module) {
@@ -58,7 +58,7 @@ class ClassController extends Controller
                 }
             }
         }
-        
+
         return Inertia::render('User/Classes/DetailClass', [
             'class' => $class,
             'previewVideos' => $previewVideos,

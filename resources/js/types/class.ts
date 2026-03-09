@@ -55,6 +55,7 @@ export interface ClassDetail {
     id: number;
     created_by: number;
     category_id: number;
+    type: string;
     title: string;
     slug: string;
     description?: string;
@@ -64,6 +65,10 @@ export interface ClassDetail {
     thumbnail_url?: string;
     status: 'draft' | 'published';
     published_at?: string;
+    location?: string | null;
+    is_priority?: boolean;
+    url_link?: string | null;
+    implementation_date?: string | null;
     created_at: string;
     updated_at: string;
     category: Category;
