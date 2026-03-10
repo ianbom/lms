@@ -57,6 +57,7 @@ class ClassController extends Controller
         $stats = $this->classService->calculateClassStats($class);
         $categories = $this->categoryService->getAllCategories();
         $mentors = $this->mentorService->getAllMentors();
+          
 
         return Inertia::render('Admin/Class/DetailClass', [
             'classData' => $class,

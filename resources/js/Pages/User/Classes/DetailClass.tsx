@@ -441,6 +441,7 @@ export default function DetailClass({
                         isEnrolled={isEnrolled}
                         type={classData.type}
                         location={classData.location}
+                        implementationDate={classData.implementation_date}
                     />
 
                     {/* Mentors */}

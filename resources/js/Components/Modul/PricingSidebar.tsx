@@ -13,6 +13,7 @@ interface PricingSidebarProps {
     isEnrolled?: boolean;
     type?: string;
     location?: string | null;
+    implementationDate?: string | null;
 }
 
 export default function PricingSidebar({
@@ -28,6 +29,7 @@ export default function PricingSidebar({
     isEnrolled = false,
     type,
     location,
+    implementationDate,
 }: PricingSidebarProps) {
     const formatPrice = (amount: number) => {
         return `Rp ${amount.toLocaleString('id-ID')}`;
@@ -61,18 +63,32 @@ export default function PricingSidebar({
             {/* Stats Grid */}
             <div className="mb-6 grid grid-cols-2 gap-x-2 gap-y-4">
                 {type === 'learning-package' ? (
-                    location ? (
-                        <div className="col-span-2 flex items-center gap-2.5 text-sm">
-                            <Icon
-                                name="location_on"
-                                size={20}
-                                className="text-primary"
-                            />
-                            <span className="font-medium text-gray-700">
-                                {location}
-                            </span>
-                        </div>
-                    ) : null
+                    <>
+                        {location && (
+                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="location_on"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {location}
+                                </span>
+                            </div>
+                        )}
+                        {implementationDate && (
+                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="event"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {new Date(implementationDate).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}
+                                </span>
+                            </div>
+                        )}
+                    </>
                 ) : (
                     <>
                         {videoCount > 0 && (

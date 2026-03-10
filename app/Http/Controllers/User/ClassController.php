@@ -39,6 +39,7 @@ class ClassController extends Controller
     public function detailClassPage($classId){
         $userId = Auth::id();
         $class = $this->classService->getClassDetailsById($classId);
+        //  dd($class);
         $previewVideos = $this->classService->getClassPreviewVideoById($classId);
 
         // Check if user has enrollment for this class
