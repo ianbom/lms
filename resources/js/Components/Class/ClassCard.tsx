@@ -1,6 +1,7 @@
 import Icon from '@/Components/Icon';
 import { ClassData, formatPrice } from '@/types/class';
 import { Link } from '@inertiajs/react';
+import RichContent from '../User/RichContent';
 
 interface ClassCardProps {
     item: ClassData;
@@ -55,8 +56,7 @@ export default function ClassCard({ item, className = '' }: ClassCardProps) {
 
                 {/* Description */}
                 <p className="mb-4 line-clamp-2 text-sm text-gray-500">
-                    {item.description ||
-                        'Pelajari materi ini bersama trainer berpengalaman.'}
+                    <RichContent html={item.description || ''} />
                 </p>
 
                 {/* Spacer - pushes next section to bottom */}

@@ -132,6 +132,7 @@ export default function PurchaseClass({
                     <UploadProofCard
                         onFileSelect={(file) => setData('proof_file', file)}
                         error={errors.proof_file}
+                        price={classData.price_final}
                     />
 
                     {/* Action Button */}

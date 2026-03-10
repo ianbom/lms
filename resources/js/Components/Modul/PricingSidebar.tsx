@@ -42,18 +42,20 @@ export default function PricingSidebar({
                 <p className="mb-1 text-sm font-medium text-gray-600">
                     Harga Spesial
                 </p>
-                <div className="flex items-center gap-3">
-                    <span className="text-3xl font-bold text-gray-900">
-                        {price === null ? 'GRATIS' : formatPrice(price)}
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <span className="whitespace-nowrap text-2xl font-bold text-gray-900 md:text-3xl">
+                        {price === null || price === 0
+                            ? 'GRATIS'
+                            : formatPrice(price)}
                     </span>
                     {originalPrice && (
-                        <span className="text-lg text-gray-400 line-through decoration-gray-400 decoration-1">
+                        <span className="whitespace-nowrap text-base text-gray-400 line-through decoration-gray-400 decoration-1 md:text-lg">
                             {formatPrice(originalPrice)}
                         </span>
                     )}
                 </div>
                 {discount && (
-                    <div className="mt-2 inline-flex items-center gap-1 rounded bg-red-50 px-2 py-1 text-xs font-bold text-red-600">
+                    <div className="mt-3 inline-flex items-center gap-1 rounded bg-red-50 px-2 py-1 text-xs font-bold text-red-600">
                         <Icon name="local_fire_department" size={14} />
                         HEMAT {discount}% HARI INI
                     </div>
@@ -84,7 +86,13 @@ export default function PricingSidebar({
                                     className="text-primary"
                                 />
                                 <span className="font-medium text-gray-700">
-                                    {new Date(implementationDate).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}
+                                    {new Date(
+                                        implementationDate,
+                                    ).toLocaleDateString('id-ID', {
+                                        day: '2-digit',
+                                        month: 'long',
+                                        year: 'numeric',
+                                    })}
                                 </span>
                             </div>
                         )}
@@ -105,7 +113,11 @@ export default function PricingSidebar({
                         )}
                         {duration && duration !== '0m' && (
                             <div className="flex items-center gap-2.5 text-sm">
-                                <Icon name="schedule" size={20} className="text-primary" />
+                                <Icon
+                                    name="schedule"
+                                    size={20}
+                                    className="text-primary"
+                                />
                                 <span className="font-medium text-gray-700">
                                     {duration}
                                 </span>
@@ -125,9 +137,43 @@ export default function PricingSidebar({
                         )}
                         {quizCount > 0 && (
                             <div className="flex items-center gap-2.5 text-sm">
-                                <Icon name="quiz" size={20} className="text-primary" />
+                                <Icon
+                                    name="quiz"
+                                    size={20}
+                                    className="text-primary"
+                                />
                                 <span className="font-medium text-gray-700">
                                     {quizCount} Kuis
+                                </span>
+                            </div>
+                        )}
+                        {location && (
+                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="location_on"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {location}
+                                </span>
+                            </div>
+                        )}
+                        {implementationDate && (
+                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="event"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {new Date(
+                                        implementationDate,
+                                    ).toLocaleDateString('id-ID', {
+                                        day: '2-digit',
+                                        month: 'long',
+                                        year: 'numeric',
+                                    })}
                                 </span>
                             </div>
                         )}
@@ -145,7 +191,13 @@ export default function PricingSidebar({
                             : 'bg-primary shadow-primary/20 hover:bg-primary-dark hover:shadow-primary/40'
                     }`}
                 >
-                    {isEnrolled ? 'Belajar Sekarang' : type === 'learning-package' ? 'Daftar Sekarang' : 'Beli Modul Sekarang'}
+                    {isEnrolled
+                        ? 'Belajar Sekarang'
+                        : type === 'learning-package'
+                          ? 'Daftar Sekarang'
+                          : price === 0
+                            ? 'Dapatkan Modul Sekarang'
+                            : 'Beli Modul Sekarang'}
                     <Icon
                         name={isEnrolled ? 'play_arrow' : 'arrow_forward'}
                         size={20}

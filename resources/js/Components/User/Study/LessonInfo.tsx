@@ -6,6 +6,7 @@ import {
     VideoResource,
     VideoWithProgress,
 } from '@/types/study';
+import RichContent from '../RichContent';
 
 interface LessonInfoProps {
     video: VideoWithProgress & { module: { id: number; title: string } };
@@ -29,8 +30,7 @@ export default function LessonInfo({
                         Tentang Video Ini
                     </h3>
                     <p className="leading-relaxed text-slate-600">
-                        {video.description ||
-                            'Tidak ada deskripsi untuk video ini.'}
+                        <RichContent html={video.description || ''} />
                     </p>
                 </div>
 

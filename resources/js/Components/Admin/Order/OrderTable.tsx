@@ -365,7 +365,11 @@ export default function OrderTable({
                     onChange={(e) => {
                         router.get(
                             route('admin.orders'),
-                            { ...filters, class_id: e.target.value || undefined, page: undefined },
+                            {
+                                ...filters,
+                                class_id: e.target.value || undefined,
+                                page: undefined,
+                            },
                             { preserveState: true, replace: true },
                         );
                     }}

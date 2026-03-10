@@ -76,7 +76,9 @@ export default function TableToolbar({
             document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const routeUrl = routeParams ? route(routeName, routeParams) : route(routeName);
+    const routeUrl = routeParams
+        ? route(routeName, routeParams)
+        : route(routeName);
 
     const handleSearch = useCallback(
         debounce((query: string) => {
@@ -96,11 +98,10 @@ export default function TableToolbar({
 
     const handleFilter = (value: string | null) => {
         const newFilters = { ...filters, [filterKey]: value || undefined };
-        router.get(
-            routeUrl,
-            newFilters as unknown as Record<string, string>,
-            { preserveState: true, replace: true },
-        );
+        router.get(routeUrl, newFilters as unknown as Record<string, string>, {
+            preserveState: true,
+            replace: true,
+        });
         setIsFilterOpen(false);
     };
 

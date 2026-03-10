@@ -63,11 +63,23 @@ interface Props {
 const SORT_OPTIONS = [
     { value: 'created_at', direction: 'desc' as const, label: 'Terbaru' },
     { value: 'created_at', direction: 'asc' as const, label: 'Terlama' },
-    { value: 'activated_at', direction: 'desc' as const, label: 'Bergabung Terbaru' },
-    { value: 'activated_at', direction: 'asc' as const, label: 'Bergabung Terlama' },
+    {
+        value: 'activated_at',
+        direction: 'desc' as const,
+        label: 'Bergabung Terbaru',
+    },
+    {
+        value: 'activated_at',
+        direction: 'asc' as const,
+        label: 'Bergabung Terlama',
+    },
 ];
 
-export default function ClassUserList({ classData, enrollments, filters }: Props) {
+export default function ClassUserList({
+    classData,
+    enrollments,
+    filters,
+}: Props) {
     const routeName = 'admin.classes.users';
     const routeParams = { classId: classData.id };
 
@@ -133,7 +145,9 @@ export default function ClassUserList({ classData, enrollments, filters }: Props
                 render: (enrollment: Enrollment) => (
                     <span className="whitespace-nowrap text-sm text-slate-600">
                         {enrollment.activated_at
-                            ? new Date(enrollment.activated_at).toLocaleDateString('id-ID', {
+                            ? new Date(
+                                  enrollment.activated_at,
+                              ).toLocaleDateString('id-ID', {
                                   day: 'numeric',
                                   month: 'short',
                                   year: 'numeric',
@@ -148,11 +162,14 @@ export default function ClassUserList({ classData, enrollments, filters }: Props
                 headerClassName: 'whitespace-nowrap',
                 render: (enrollment: Enrollment) => (
                     <span className="whitespace-nowrap text-sm text-slate-600">
-                        {new Date(enrollment.created_at).toLocaleDateString('id-ID', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric',
-                        })}
+                        {new Date(enrollment.created_at).toLocaleDateString(
+                            'id-ID',
+                            {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                            },
+                        )}
                     </span>
                 ),
             },
@@ -175,7 +192,10 @@ export default function ClassUserList({ classData, enrollments, filters }: Props
         <AdminLayout
             breadcrumbs={[
                 { label: 'Kelas', href: route('admin.classes') },
-                { label: classData.title, href: route('admin.classes.show', classData.id) },
+                {
+                    label: classData.title,
+                    href: route('admin.classes.show', classData.id),
+                },
                 { label: 'Peserta' },
             ]}
         >
@@ -192,7 +212,9 @@ export default function ClassUserList({ classData, enrollments, filters }: Props
                     </div>
                     <div className="flex items-center gap-2 rounded-md bg-white px-4 py-2 shadow-sm">
                         <Icon name="group" size={20} className="text-primary" />
-                        <span className="text-sm text-slate-500">Total Peserta:</span>
+                        <span className="text-sm text-slate-500">
+                            Total Peserta:
+                        </span>
                         <span className="text-sm font-bold text-slate-900">
                             {enrollments.total}
                         </span>
@@ -220,7 +242,10 @@ export default function ClassUserList({ classData, enrollments, filters }: Props
                             onChange={(e) => {
                                 router.get(
                                     route(routeName, routeParams),
-                                    { ...filters, per_page: parseInt(e.target.value) },
+                                    {
+                                        ...filters,
+                                        per_page: parseInt(e.target.value),
+                                    },
                                     { preserveState: true, replace: true },
                                 );
                             }}

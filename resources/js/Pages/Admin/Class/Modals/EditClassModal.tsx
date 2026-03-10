@@ -119,7 +119,8 @@ export default function EditClassModal({
         data.append('location', formData.location ?? '');
         data.append('is_priority', formData.is_priority ? '1' : '0');
         data.append('url_link', formData.url_link ?? '');
-        if (formData.implementation_date) data.append('implementation_date', formData.implementation_date);
+        if (formData.implementation_date)
+            data.append('implementation_date', formData.implementation_date);
         selectedMentors.forEach((mentor) => {
             data.append('mentors[]', mentor.id.toString());
         });

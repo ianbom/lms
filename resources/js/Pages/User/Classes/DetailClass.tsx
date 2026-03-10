@@ -2,6 +2,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import LessonList from '@/Components/Modul/LessonList';
 import PricingSidebar from '@/Components/Modul/PricingSidebar';
 import TagList from '@/Components/Modul/TagList';
+import RichContent from '@/Components/User/RichContent';
 import VideoPlayer from '@/Components/User/Study/VideoPlayer';
 import UserLayout from '@/Layouts/UserLayout';
 import {
@@ -110,7 +111,7 @@ export default function DetailClass({
             tagList.push(classData.category.name.toUpperCase());
         }
         if (classData.discount > 0) {
-            tagList.push(`DISKON ${classData.discount}%`);
+            tagList.push(`DISKON ${classData.discount}% `);
         }
         if (classData.price === 0 || classData.price_final === 0) {
             tagList.push('GRATIS');
@@ -218,11 +219,11 @@ export default function DetailClass({
                                         onClick={() =>
                                             handlePreviewSelect(video)
                                         }
-                                        className={`group relative min-w-[200px] flex-shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all ${
+                                        className={`min - w - [200px] - - 0 cursor - pointer overflow - - md - all group relative flex hidden shrink rounded border transition ${
                                             selectedVideo?.id === video.id
                                                 ? 'border-primary ring-2 ring-primary ring-opacity-50'
                                                 : 'border-gray-200 hover:border-gray-300'
-                                        }`}
+                                        } `}
                                     >
                                         <div className="relative aspect-video w-full bg-gray-100">
                                             {video.youtube_url ? (
@@ -285,9 +286,9 @@ export default function DetailClass({
                     <h1 className="mb-3 text-2xl font-bold text-gray-900 md:text-3xl">
                         {classData.title}
                     </h1>
-                    <p className="mb-8 leading-relaxed text-gray-600">
-                        {classData.description || 'Tidak ada deskripsi.'}
-                    </p>
+                    <div className="mb-8">
+                        <RichContent html={classData.description || ''} />
+                    </div>
 
                     {/* Modules and Lessons */}
                     {classData.modules.length > 0 ? (
@@ -306,16 +307,29 @@ export default function DetailClass({
                                         </h3>
                                         {module.description && (
                                             <p className="mt-1 text-sm text-gray-500">
-                                                {module.description}
+                                                <RichContent
+                                                    html={
+                                                        module.description || ''
+                                                    }
+                                                />
                                             </p>
                                         )}
                                         <div className="mt-2 flex items-center gap-4 text-xs text-gray-500">
-                                            <span>
-                                                {module.videos.length} video
-                                            </span>
-                                            <span>
-                                                {module.quizzes.length} kuis
-                                            </span>
+                                            {module.videos.length ? (
+                                                <span>
+                                                    {module.videos.length} video
+                                                </span>
+                                            ) : (
+                                                <></>
+                                            )}
+
+                                            {module.quizzes.length ? (
+                                                <span>
+                                                    {module.quizzes.length} kuis
+                                                </span>
+                                            ) : (
+                                                <></>
+                                            )}
                                         </div>
                                     </div>
                                     <ul className="divide-y divide-gray-100">

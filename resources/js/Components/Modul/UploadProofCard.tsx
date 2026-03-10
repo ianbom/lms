@@ -4,11 +4,13 @@ import { useState } from 'react';
 interface UploadProofCardProps {
     onFileSelect: (file: File) => void;
     error?: string;
+    price?: number | null;
 }
 
 export default function UploadProofCard({
     onFileSelect,
     error,
+    price,
 }: UploadProofCardProps) {
     const [isDragging, setIsDragging] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
@@ -55,7 +57,9 @@ export default function UploadProofCard({
                     <Icon name="upload_file" size={22} />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900">
-                    Upload Bukti Pembayaran
+                    {price === 0
+                        ? 'Upload Bukti Screenshot Halaman Ini'
+                        : 'Upload Bukti Pembayaran'}
                 </h3>
             </div>
 

@@ -48,7 +48,12 @@ interface ListOrderProps {
     classes: ClassOption[];
 }
 
-export default function ListOrder({ orders, stats, filters, classes }: ListOrderProps) {
+export default function ListOrder({
+    orders,
+    stats,
+    filters,
+    classes,
+}: ListOrderProps) {
     return (
         <AdminLayout
             breadcrumbs={[

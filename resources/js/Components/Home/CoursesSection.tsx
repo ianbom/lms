@@ -19,7 +19,10 @@ interface CoursesSectionProps {
 const defaultCategories: Category[] = [
     { id: 'all', label: 'Semua' },
     { id: 'sertifikasi-bnsp', label: 'Sertifikasi BNSP' },
-    { id: 'community-involvement-and-development', label: 'Community Involvement and Development' },
+    {
+        id: 'community-involvement-and-development',
+        label: 'Community Involvement and Development',
+    },
     { id: 'esg', label: 'ESG' },
 ];
 

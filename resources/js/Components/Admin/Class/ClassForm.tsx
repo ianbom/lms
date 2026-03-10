@@ -147,7 +147,9 @@ export default function ClassForm({
                             label="Lokasi"
                             placeholder="Contoh: Jakarta, Online, dll"
                             value={formData.location}
-                            onChange={(val) => handleFieldChange('location', val)}
+                            onChange={(val) =>
+                                handleFieldChange('location', val)
+                            }
                             error={errors.location}
                         />
 
@@ -156,14 +158,21 @@ export default function ClassForm({
                                 label="URL Link"
                                 placeholder="Contoh: https://zoom.us/j/123456"
                                 value={formData.url_link}
-                                onChange={(val) => handleFieldChange('url_link', val)}
+                                onChange={(val) =>
+                                    handleFieldChange('url_link', val)
+                                }
                                 error={errors.url_link}
                             />
                             <FormInput
                                 label="Tanggal Pelaksanaan"
                                 type="date"
                                 value={formData.implementation_date}
-                                onChange={(val) => handleFieldChange('implementation_date', val)}
+                                onChange={(val) =>
+                                    handleFieldChange(
+                                        'implementation_date',
+                                        val,
+                                    )
+                                }
                                 error={errors.implementation_date}
                             />
                         </div>
@@ -174,13 +183,18 @@ export default function ClassForm({
                                     type="checkbox"
                                     checked={formData.is_priority}
                                     onChange={(e) =>
-                                        onFormDataChange({ ...formData, is_priority: e.target.checked })
+                                        onFormDataChange({
+                                            ...formData,
+                                            is_priority: e.target.checked,
+                                        })
                                     }
                                     className="peer sr-only"
                                 />
                                 <div className="peer h-6 w-11 rounded-full bg-slate-300 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full" />
                             </label>
-                            <span className="text-sm font-medium text-slate-700">Prioritas</span>
+                            <span className="text-sm font-medium text-slate-700">
+                                Prioritas
+                            </span>
                         </div>
                     </div>
                 </FormCard>

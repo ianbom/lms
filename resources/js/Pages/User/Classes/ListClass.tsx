@@ -181,11 +181,11 @@ export default function ListClass({
             {(showCategoryDropdown ||
                 showMentorDropdown ||
                 showSortDropdown) && (
-                    <div
-                        className="fixed inset-0 z-30"
-                        onClick={closeAllDropdowns}
-                    />
-                )}
+                <div
+                    className="fixed inset-0 z-30"
+                    onClick={closeAllDropdowns}
+                />
+            )}
 
             <div className="space-y-8">
                 {/* Hero Section */}

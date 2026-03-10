@@ -80,3 +80,138 @@
     background-color: #cbd5e1;
     border-radius: 20px;
 }
+
+/* Tiptap Editor Styles */
+.tiptap-editor {
+    line-height: 1.7;
+}
+
+.tiptap-editor p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #a0b3a9;
+    pointer-events: none;
+    height: 0;
+}
+
+.tiptap-editor h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.tiptap-editor h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.tiptap-editor h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.tiptap-editor ul,
+.tiptap-editor ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.tiptap-editor ul {
+    list-style-type: disc;
+}
+
+.tiptap-editor ol {
+    list-style-type: decimal;
+}
+
+.tiptap-editor blockquote {
+    border-left: 3px solid #dae7e0;
+    padding-left: 1rem;
+    margin: 0.75rem 0;
+    color: #5e6a62;
+    font-style: italic;
+}
+
+.tiptap-editor a {
+    color: #007a33;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Rich Content Renderer */
+.rich-content h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #111827;
+}
+
+.rich-content h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: #111827;
+}
+
+.rich-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    color: #111827;
+}
+
+.rich-content p {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+}
+
+.rich-content ul,
+.rich-content ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.rich-content ul {
+    list-style-type: disc;
+}
+
+.rich-content ol {
+    list-style-type: decimal;
+}
+
+.rich-content li {
+    margin-bottom: 0.25rem;
+}
+
+.rich-content blockquote {
+    border-left: 3px solid #dae7e0;
+    padding-left: 1rem;
+    margin: 0.75rem 0;
+    color: #5e6a62;
+    font-style: italic;
+}
+
+.rich-content a {
+    color: #007a33;
+    text-decoration: underline;
+}
+
+.rich-content strong {
+    font-weight: 600;
+}
+
+.rich-content em {
+    font-style: italic;
+}
+
+.rich-content s {
+    text-decoration: line-through;
+}

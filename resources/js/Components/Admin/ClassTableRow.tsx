@@ -108,12 +108,16 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                 <StatusBadge status={classItem.status} />
             </td>
             <td className="px-6 py-4 align-middle">
-                <div className="relative flex items-center justify-end" ref={dropdownRef}>
+                <div
+                    className="relative flex items-center justify-end"
+                    ref={dropdownRef}
+                >
                     <button
                         ref={buttonRef}
                         onClick={() => {
                             if (!isDropdownOpen && buttonRef.current) {
-                                const rect = buttonRef.current.getBoundingClientRect();
+                                const rect =
+                                    buttonRef.current.getBoundingClientRect();
                                 setDropdownPos({
                                     top: rect.top,
                                     left: rect.right - 176, // 176px = w-44
@@ -129,41 +133,74 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                     {isDropdownOpen && (
                         <div
                             className="fixed z-[9999] w-44 overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
-                            style={{ top: dropdownPos.top, left: dropdownPos.left, transform: 'translateY(-100%)' }}
+                            style={{
+                                top: dropdownPos.top,
+                                left: dropdownPos.left,
+                                transform: 'translateY(-100%)',
+                            }}
                         >
                             <Link
                                 href={route('admin.classes.show', classItem.id)}
                                 className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
                             >
-                                <Icon name="visibility" size={16} className="text-primary" />
+                                <Icon
+                                    name="visibility"
+                                    size={16}
+                                    className="text-primary"
+                                />
                                 Detail
                             </Link>
                             <Link
-                                href={route('admin.module.create', classItem.id)}
+                                href={route(
+                                    'admin.module.create',
+                                    classItem.id,
+                                )}
                                 className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
                             >
-                                <Icon name="library_add" size={16} className="text-blue-500" />
+                                <Icon
+                                    name="library_add"
+                                    size={16}
+                                    className="text-blue-500"
+                                />
                                 Buat Modul
                             </Link>
                             <Link
                                 href={route('admin.quiz.create', classItem.id)}
                                 className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
                             >
-                                <Icon name="quiz" size={16} className="text-amber-500" />
+                                <Icon
+                                    name="quiz"
+                                    size={16}
+                                    className="text-amber-500"
+                                />
                                 Buat Kuis
                             </Link>
                             <Link
-                                href={route('admin.classes.review', classItem.id)}
+                                href={route(
+                                    'admin.classes.review',
+                                    classItem.id,
+                                )}
                                 className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
                             >
-                                <Icon name="reviews" size={16} className="text-purple-500" />
+                                <Icon
+                                    name="reviews"
+                                    size={16}
+                                    className="text-purple-500"
+                                />
                                 Review
                             </Link>
                             <Link
-                                href={route('admin.classes.users', classItem.id)}
+                                href={route(
+                                    'admin.classes.users',
+                                    classItem.id,
+                                )}
                                 className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50"
                             >
-                                <Icon name="group" size={16} className="text-teal-500" />
+                                <Icon
+                                    name="group"
+                                    size={16}
+                                    className="text-teal-500"
+                                />
                                 Peserta
                             </Link>
                             {classItem.status === 'draft' && (
