@@ -132,11 +132,13 @@ class ClassController extends Controller
         $filters = $request->only(['search', 'sort', 'direction', 'per_page']);
         $class = Classes::select('id', 'title')->findOrFail($classId);
         $enrollments = $this->classService->getClassEnrolledUsers($classId, $filters);
+        $revenueSplit = $this->classService->getClassRevenueSplit($classId);
 
         return Inertia::render('Admin/Class/ClassUserList', [
-            'classData' => $class,
-            'enrollments' => $enrollments,
-            'filters' => $filters,
+            'classData'    => $class,
+            'enrollments'  => $enrollments,
+            'filters'      => $filters,
+            'revenueSplit' => $revenueSplit,
         ]);
     }
 }

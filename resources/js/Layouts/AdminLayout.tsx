@@ -79,6 +79,12 @@ export default function AdminLayout({
             icon: 'settings',
             active: route().current('admin.profile'),
         },
+        {
+            label: 'Page Setting',
+            href: route('admin.page-settings'),
+            icon: 'pages',
+            active: route().current('admin.page-settings'),
+        },
     ];
 
     const handleLogout = () => {

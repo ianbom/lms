@@ -183,6 +183,38 @@ class ClassService
     }
 
     /**
+     * Calculate revenue split for a class (40% app, 60% split among mentors).
+     */
+    public function getClassRevenueSplit($classId): array
+    {
+        $class = Classes::with('mentors')->findOrFail($classId);
+
+        $totalRevenue = ClassOrder::where('class_id', $classId)
+            ->where('status', 'approved')
+            ->sum('amount');
+
+        $appShare = $totalRevenue * 0.40;
+        $mentorTotal = $totalRevenue * 0.60;
+
+        $mentors = $class->mentors;
+        $mentorCount = $mentors->count();
+        $perMentorShare = $mentorCount > 0 ? $mentorTotal / $mentorCount : 0;
+
+        return [
+            'total_revenue'    => (int) $totalRevenue,
+            'app_share'        => (int) round($appShare),
+            'mentor_total'     => (int) round($mentorTotal),
+            'per_mentor_share' => (int) round($perMentorShare),
+            'mentor_count'     => $mentorCount,
+            'mentors'          => $mentors->map(fn($m) => [
+                'id'     => $m->id,
+                'name'   => $m->name,
+                'share'  => (int) round($perMentorShare),
+            ])->values()->toArray(),
+        ];
+    }
+
+    /**
      * Delete a class by ID.
      * Only draft classes can be deleted.
      * All related data will be cascaded deleted.

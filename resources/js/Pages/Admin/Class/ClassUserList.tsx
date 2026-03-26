@@ -54,10 +54,26 @@ interface ClassData {
     title: string;
 }
 
+interface MentorShare {
+    id: number;
+    name: string;
+    share: number;
+}
+
+interface RevenueSplit {
+    total_revenue: number;
+    app_share: number;
+    mentor_total: number;
+    per_mentor_share: number;
+    mentor_count: number;
+    mentors: MentorShare[];
+}
+
 interface Props {
     classData: ClassData;
     enrollments: PaginatedEnrollments;
     filters: Filters;
+    revenueSplit: RevenueSplit;
 }
 
 const SORT_OPTIONS = [
@@ -75,10 +91,15 @@ const SORT_OPTIONS = [
     },
 ];
 
+function formatRupiah(amount: number): string {
+    return 'Rp ' + amount.toLocaleString('id-ID');
+}
+
 export default function ClassUserList({
     classData,
     enrollments,
     filters,
+    revenueSplit,
 }: Props) {
     const routeName = 'admin.classes.users';
     const routeParams = { classId: classData.id };
@@ -219,6 +240,120 @@ export default function ClassUserList({
                             {enrollments.total}
                         </span>
                     </div>
+                </div>
+
+                {/* Revenue Split Section */}
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <div className="mb-5 flex items-center gap-2">
+                        <Icon
+                            name="payments"
+                            size={22}
+                            className="text-primary"
+                        />
+                        <h2 className="text-lg font-bold text-slate-900">
+                            Pembagian Hasil Penjualan
+                        </h2>
+                    </div>
+
+                    {/* Summary Cards */}
+                    <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        {/* Total Revenue */}
+                        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                            <p className="mb-1 text-xs font-medium uppercase tracking-wide text-slate-500">
+                                Total Pendapatan
+                            </p>
+                            <p className="text-xl font-extrabold text-slate-900">
+                                {formatRupiah(revenueSplit.total_revenue)}
+                            </p>
+                            <p className="mt-1 text-xs text-slate-400">
+                                Dari {enrollments.total} peserta aktif
+                            </p>
+                        </div>
+
+                        {/* App Share */}
+                        <div className="rounded-lg border border-indigo-100 bg-indigo-50 p-4">
+                            <p className="mb-1 text-xs font-medium uppercase tracking-wide text-indigo-500">
+                                Bagian Aplikasi (40%)
+                            </p>
+                            <p className="text-xl font-extrabold text-indigo-700">
+                                {formatRupiah(revenueSplit.app_share)}
+                            </p>
+                            <p className="mt-1 text-xs text-indigo-400">
+                                Dari total pendapatan
+                            </p>
+                        </div>
+
+                        {/* Mentor Total */}
+                        <div className="rounded-lg border border-emerald-100 bg-emerald-50 p-4">
+                            <p className="mb-1 text-xs font-medium uppercase tracking-wide text-emerald-600">
+                                Bagian Mentor (60%)
+                            </p>
+                            <p className="text-xl font-extrabold text-emerald-700">
+                                {formatRupiah(revenueSplit.mentor_total)}
+                            </p>
+                            <p className="mt-1 text-xs text-emerald-500">
+                                Dibagi ke {revenueSplit.mentor_count} mentor
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Per-Mentor breakdown */}
+                    {revenueSplit.mentors.length > 0 ? (
+                        <div>
+                            <p className="mb-3 text-sm font-semibold text-slate-700">
+                                Rincian per Mentor
+                            </p>
+                            <div className="overflow-hidden rounded-lg border border-slate-200">
+                                <table className="w-full text-sm">
+                                    <thead>
+                                        <tr className="border-b border-slate-200 bg-slate-50">
+                                            <th className="px-4 py-2.5 text-left font-semibold text-slate-600">
+                                                Mentor
+                                            </th>
+                                            <th className="px-4 py-2.5 text-right font-semibold text-slate-600">
+                                                Bagian (
+                                                {revenueSplit.mentor_count > 0
+                                                    ? Math.round(
+                                                          60 /
+                                                              revenueSplit.mentor_count,
+                                                      )
+                                                    : 0}
+                                                %)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-100">
+                                        {revenueSplit.mentors.map((mentor) => (
+                                            <tr
+                                                key={mentor.id}
+                                                className="hover:bg-slate-50"
+                                            >
+                                                <td className="px-4 py-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-700">
+                                                            {mentor.name
+                                                                .charAt(0)
+                                                                .toUpperCase()}
+                                                        </div>
+                                                        <span className="font-medium text-slate-800">
+                                                            {mentor.name}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-3 text-right font-semibold text-emerald-700">
+                                                    {formatRupiah(mentor.share)}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    ) : (
+                        <p className="text-sm text-slate-400">
+                            Belum ada mentor yang terdaftar di kelas ini.
+                        </p>
+                    )}
                 </div>
 
                 {/* Table */}

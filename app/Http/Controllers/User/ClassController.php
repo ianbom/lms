@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\PageSetting;
 use App\Services\CategoryService;
 use App\Services\ClassService;
 use App\Services\MentorService;
@@ -28,11 +29,17 @@ class ClassController extends Controller
         $classes = $this->classService->getAllPublishedClasses($type);
         $mentors = $this->mentorService->getAllMentors();
         $categories = $this->categoryService->getAllCategories();
+
+        // Load page setting matching the selected type (default e-learning)
+        $settingType = $type ?: 'e-learning';
+        $pageSetting = PageSetting::where('type', $settingType)->first();
+
         return Inertia::render('User/Classes/ListClass', [
-            'classes' => $classes,
-            'mentors' => $mentors,
-            'categories' => $categories,
+            'classes'      => $classes,
+            'mentors'      => $mentors,
+            'categories'   => $categories,
             'selectedType' => $type,
+            'pageSetting'  => $pageSetting,
         ]);
     }
 

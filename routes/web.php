@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
 use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PageSettingController;
 use App\Http\Controllers\Admin\UserController as AdmUserController;
 use App\Http\Controllers\Admin\TestimonyController;
 use App\Http\Controllers\CorporateContactController;
@@ -178,6 +179,11 @@ Route::middleware(['auth', 'isAdmin', 'admin.otp'])->group(function () {
         Route::post('/testimonies', [TestimonyController::class, 'storeTestimony'])->name('testimonies.store');
         Route::put('/testimonies/{testimonyId}', [TestimonyController::class, 'updateTestimony'])->name('testimonies.update');
         Route::delete('/testimonies/{testimonyId}', [TestimonyController::class, 'deleteTestimony'])->name('testimonies.delete');
+
+        Route::get('/page-settings', [PageSettingController::class, 'listPageSettingPage'])->name('page-settings');
+        Route::post('/page-settings', [PageSettingController::class, 'store'])->name('page-settings.store');
+        Route::put('/page-settings/{id}', [PageSettingController::class, 'update'])->name('page-settings.update');
+        Route::delete('/page-settings/{id}', [PageSettingController::class, 'destroy'])->name('page-settings.destroy');
 
     });
 });

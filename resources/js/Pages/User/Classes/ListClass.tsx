@@ -18,10 +18,19 @@ import {
 import { Head } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 
+interface PageSetting {
+    id: number;
+    type: string;
+    title: string;
+    description: string;
+}
+
 interface ListClassProps {
     classes: ClassData[];
     mentors: Mentor[];
     categories: Category[];
+    selectedType?: string | null;
+    pageSetting?: PageSetting | null;
 }
 
 const ITEMS_PER_PAGE = 12;
@@ -30,6 +39,7 @@ export default function ListClass({
     classes = [],
     mentors = [],
     categories = [],
+    pageSetting = null,
 }: ListClassProps) {
     // State
     const [searchQuery, setSearchQuery] = useState('');
@@ -191,11 +201,11 @@ export default function ListClass({
                 {/* Hero Section */}
                 <div className="space-y-2 text-center sm:space-y-4 sm:text-left">
                     <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
-                        Eksplorasi Modul Pembelajaran
+                        {pageSetting?.title ?? 'Eksplorasi Modul Pembelajaran'}
                     </h1>
                     <p className="mx-auto max-w-2xl text-sm text-slate-500 sm:mx-0 sm:text-base md:text-lg">
-                        Tingkatkan keahlian Anda dengan kurikulum terstruktur
-                        dari trainer berpengalaman.
+                        {pageSetting?.description ??
+                            'Tingkatkan keahlian Anda dengan kurikulum terstruktur dari trainer berpengalaman.'}
                     </p>
                 </div>
 
