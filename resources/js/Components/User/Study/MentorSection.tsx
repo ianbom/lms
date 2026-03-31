@@ -9,7 +9,7 @@ export default function MentorSection({ mentors }: MentorSectionProps) {
     if (mentors.length === 0) return null;
 
     return (
-        <div className="shadow-card rounded-2xl border border-slate-100 bg-white p-6">
+        <div className="shadow-card rounded-2xl p-6">
             {/* Section Header */}
             <div className="mb-6 flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light">
@@ -81,7 +81,7 @@ function MentorCard({ mentor }: MentorCardProps) {
             <div className="mt-3 flex items-center gap-2">
                 <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700">
                     <Icon name="star" size={12} className="mr-1 inline" />
-                    Mentor
+                    Trainer
                 </span>
             </div>
 

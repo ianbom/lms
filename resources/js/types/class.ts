@@ -46,6 +46,7 @@ export interface ClassModule {
     description?: string;
     sort_order: number;
     is_active: boolean;
+    url_link?: string | null;
     videos: Video[];
     quizzes: Quiz[];
 }

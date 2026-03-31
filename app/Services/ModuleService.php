@@ -31,6 +31,7 @@ class ModuleService
                 'class_id' => $classId,
                 'title' => $data['title'],
                 'description' => $data['description'] ?? null,
+                'url_link' => $data['url_link'] ?? null,
                 'sort_order' => $maxSortOrder + 1,
             ]);
 
@@ -52,6 +53,7 @@ class ModuleService
             $module->update([
                 'title' => $data['title'],
                 'description' => $data['description'] ?? null,
+                'url_link' => array_key_exists('url_link', $data) ? ($data['url_link'] ?: null) : $module->url_link,
             ]);
 
             // Handle videos

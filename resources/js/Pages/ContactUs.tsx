@@ -52,7 +52,7 @@ export default function ContactUs() {
 
                     <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-lg">
                         <iframe
-                            src="https://www.google.com/maps?q=-6.2655639,106.9456263&z=19&output=embed"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.0!2d106.9454703!3d-6.2655639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d00018ebf8f%3A0x33d30f8db400c7d7!2sSocial%20Impact%20Labs%20Indonesia!5e0!3m2!1sid!2sid!4v1711900000000!5m2!1sid!2sid"
                             className="h-[400px] w-full border-0"
                             allowFullScreen
                             loading="lazy"

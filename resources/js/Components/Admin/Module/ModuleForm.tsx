@@ -32,12 +32,14 @@ interface YTPlayer {
 export interface ModuleFormData {
     title: string;
     description: string;
+    url_link: string;
     videos: VideoEntry[];
 }
 
 export interface ModuleFormErrors {
     title?: string;
     description?: string;
+    url_link?: string;
     videos?: string;
     [key: string]: string | undefined; // For dynamic video errors like 'videos.0.title'
 }
@@ -309,6 +311,16 @@ export default function ModuleForm({
                             placeholder="Jelaskan apa yang akan dipelajari siswa di modul ini..."
                             maxLength={500}
                             error={errors.description}
+                        />
+
+                        <FormInput
+                            label="URL Link Materi"
+                            placeholder="https://example.com/materi"
+                            value={data.url_link}
+                            onChange={(val) =>
+                                onDataChange({ ...data, url_link: val })
+                            }
+                            error={errors.url_link}
                         />
                     </div>
                 </FormCard>

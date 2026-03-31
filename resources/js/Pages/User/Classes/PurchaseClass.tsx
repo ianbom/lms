@@ -126,7 +126,7 @@ export default function PurchaseClass({
                 {/* Left Column: Payment & Action */}
                 <div className="flex flex-col gap-6">
                     {/* Payment Instructions Card */}
-                    <PaymentInstructionCard />
+                    {classData.price_final > 0 && <PaymentInstructionCard />}
 
                     {/* Upload Proof Card */}
                     <UploadProofCard
@@ -147,9 +147,7 @@ export default function PurchaseClass({
                             }`}
                         >
                             <span>
-                                {processing
-                                    ? 'Mengirim...'
-                                    : 'Kirim Bukti Pembayaran'}
+                                {processing ? 'Mengirim...' : 'Kirim Bukti'}
                             </span>
                             {!processing && <Icon name="send" size={20} />}
                         </button>

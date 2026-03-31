@@ -147,6 +147,25 @@ export interface WatchVideoProps {
     certificateStatus: CertificateStatus;
 }
 
+// Current module data for study page
+export interface CurrentModuleData {
+    id: number;
+    class_id: number;
+    title: string;
+    description?: string;
+    sort_order: number;
+    is_active: boolean;
+    url_link?: string | null;
+}
+
+// Props for WatchModule page
+export interface WatchModuleProps {
+    classData: StudyClassData;
+    currentModule: CurrentModuleData;
+    progressStats: ProgressStats;
+    certificateStatus: CertificateStatus;
+}
+
 // Helper function to format seconds to mm:ss or hh:mm:ss
 export const formatTime = (seconds: number): string => {
     if (!seconds || seconds <= 0) return '0:00';

@@ -26,6 +26,7 @@ export default function EditModuleModal({
     const [formData, setFormData] = useState<ModuleFormData>({
         title: '',
         description: '',
+        url_link: '',
         videos: [],
     });
 
@@ -69,6 +70,7 @@ export default function EditModuleModal({
             setFormData({
                 title: moduleToEdit.title,
                 description: moduleToEdit.description || '',
+                url_link: moduleToEdit.url_link || '',
                 videos: videos,
             });
             setErrors({});
@@ -79,6 +81,7 @@ export default function EditModuleModal({
         setFormData({
             title: '',
             description: '',
+            url_link: '',
             videos: [],
         });
         setErrors({});
@@ -104,6 +107,7 @@ export default function EditModuleModal({
         const data = new FormData();
         data.append('title', formData.title);
         data.append('description', formData.description);
+        data.append('url_link', formData.url_link || '');
         data.append('_method', 'PUT');
 
         // Filter out empty video entries

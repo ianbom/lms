@@ -17,6 +17,7 @@ class Module extends Model
         'description',
         'sort_order',
         'is_active',
+        'url_link',
     ];
 
     protected $casts = [

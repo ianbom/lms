@@ -16,6 +16,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
         useForm<ModuleFormData>({
             title: '',
             description: '',
+            url_link: '',
             videos: [],
         });
 
@@ -42,6 +43,7 @@ export default function CreateModule({ classId }: CreateModuleProps) {
             return {
                 title: formData.title,
                 description: formData.description,
+                url_link: formData.url_link || null,
                 videos: filteredVideos.map((v) => ({
                     title: v.title,
                     description: v.description,

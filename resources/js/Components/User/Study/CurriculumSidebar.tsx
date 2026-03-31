@@ -13,6 +13,7 @@ import { useState } from 'react';
 interface CurriculumSidebarProps {
     classData: StudyClassData;
     currentVideoId: number;
+    currentModuleId?: number;
     progressStats: ProgressStats;
     onVideoSelect: (videoId: number) => void;
     certificateStatus?: CertificateStatus;
@@ -21,6 +22,7 @@ interface CurriculumSidebarProps {
 export default function CurriculumSidebar({
     classData,
     currentVideoId,
+    currentModuleId,
     progressStats,
     onVideoSelect,
     certificateStatus,
@@ -56,6 +58,11 @@ export default function CurriculumSidebar({
     // Check if video is current
     const isCurrentVideo = (videoId: number): boolean => {
         return videoId === currentVideoId;
+    };
+
+    // Navigate to module page
+    const navigateToModule = (moduleId: number) => {
+        router.visit(`/user/study/${classData.id}/module/${moduleId}`);
     };
 
     // Navigate to quiz page
@@ -127,9 +134,16 @@ export default function CurriculumSidebar({
             <div className="custom-scrollbar flex-1 space-y-6 overflow-y-auto p-4">
                 {classData.modules.map((module, moduleIndex) => (
                     <div key={module.id}>
-                        <h4 className="mb-3 px-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+                        <button
+                            onClick={() => navigateToModule(module.id)}
+                            className={`mb-3 w-full rounded-lg px-2 py-1.5 text-left text-xs font-bold uppercase tracking-wider transition-colors ${
+                                currentModuleId === module.id
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'text-slate-400 hover:bg-slate-50 hover:text-slate-600'
+                            }`}
+                        >
                             Modul {moduleIndex + 1}: {module.title}
-                        </h4>
+                        </button>
                         <div className="flex flex-col gap-2">
                             {module.videos.map((video) => {
                                 const completed = isVideoCompleted(video);

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Classes;
+use App\Models\Module;
 use App\Models\Quiz;
 use App\Models\QuizAnswer;
 use App\Models\QuizAttempt;
@@ -72,6 +73,59 @@ class StudyService
             'current_video' => $currentVideo,
             'progress_stats' => $progressStats,
             'navigation' => $navigation,
+            'certificate_status' => $certificateStatus,
+        ];
+    }
+
+    /**
+     * Get class study details for the module-only page (no video)
+     */
+    public function getModuleStudyDetails($classId, $moduleId, $userId = null)
+    {
+        $userId = $userId ?? Auth::id();
+
+        // Get class with modules, videos, and user's progress (same as video page for sidebar)
+        $class = Classes::with([
+            'category',
+            'mentors',
+            'modules' => function ($query) use ($userId) {
+                $query->orderBy('sort_order')
+                    ->with([
+                        'videos' => function ($q) use ($userId) {
+                            $q->orderBy('sort_order')
+                                ->with([
+                                    'progress' => function ($p) use ($userId) {
+                                        $p->where('user_id', $userId);
+                                    }
+                                ]);
+                        },
+                        'quizzes' => function ($q) use ($userId) {
+                            $q->withCount('questions')
+                                ->with(['attempts' => function ($a) use ($userId) {
+                                    $a->where('user_id', $userId)
+                                        ->whereNotNull('submitted_at')
+                                        ->orderBy('score', 'desc');
+                                }]);
+                        }
+                    ]);
+            }
+        ])->findOrFail($classId);
+
+        // Get the current module
+        $currentModule = Module::where('id', $moduleId)
+            ->where('class_id', $classId)
+            ->firstOrFail();
+
+        // Calculate overall progress
+        $progressStats = $this->calculateStudyProgress($class, $userId);
+
+        // Check certificate eligibility
+        $certificateStatus = $this->checkCertificateEligibility($class, $userId);
+
+        return [
+            'class' => $class,
+            'current_module' => $currentModule,
+            'progress_stats' => $progressStats,
             'certificate_status' => $certificateStatus,
         ];
     }

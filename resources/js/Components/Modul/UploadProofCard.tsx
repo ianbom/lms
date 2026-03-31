@@ -52,15 +52,38 @@ export default function UploadProofCard({
     return (
         <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
             {/* Header */}
-            <div className="flex items-center gap-3 border-b border-gray-100 bg-gray-50/50 px-6 py-4">
-                <div className="flex size-10 items-center justify-center rounded-md bg-primary-light text-primary">
-                    <Icon name="upload_file" size={22} />
+            <div
+                className={`flex items-center gap-3 border-b border-gray-100 px-6 py-4 ${price === 0 ? 'bg-gray-50/50' : 'bg-gray-50/50'}`}
+            >
+                {/* <div
+                    className={`flex size-10 shrink-0 items-center justify-center rounded-md ${price === 0 ? 'bg-primary-light text-primary' : 'bg-primary-light text-primary'}`}
+                >
+                    <Icon
+                        name={price === 0 ? 'favorite' : 'upload_file'}
+                        size={22}
+                    />
+                </div> */}
+                <div>
+                    <h3 className="text-lg font-bold text-gray-900">
+                        {price === 0
+                            ? 'Upload Bukti Follow Instagram'
+                            : 'Upload Bukti Pembayaran'}
+                    </h3>
+                    {price === 0 && (
+                        <p className="mt-1 text-sm text-gray-600">
+                            Silakan follow Instagram{' '}
+                            <a
+                                href="https://www.instagram.com/impactacademy.id/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold text-pink-600 transition-colors hover:text-pink-700 hover:underline"
+                            >
+                                @impactacademy.id
+                            </a>{' '}
+                            serta letakkan bukti screenshot di sini.
+                        </p>
+                    )}
                 </div>
-                <h3 className="text-lg font-bold text-gray-900">
-                    {price === 0
-                        ? 'Upload Bukti Screenshot Halaman Ini'
-                        : 'Upload Bukti Pembayaran'}
-                </h3>
             </div>
 
             {/* Content */}

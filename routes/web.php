@@ -82,6 +82,7 @@ Route::get('/certificate/verify', [CertificateController::class, 'downloadCertif
 
        Route::middleware(['auth', 'verified', 'has.course.access', 'class.published'])->group(function () {
 
+           Route::get('/study/{classId}/module/{moduleId}', [StudyController::class, 'watchModulePage'])->name('study.module');
            Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
            Route::post('/study/{classId}/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
            Route::post('/study/{classId}/video/{videoId}/complete', [StudyController::class, 'markCompleted'])->name('study.complete');

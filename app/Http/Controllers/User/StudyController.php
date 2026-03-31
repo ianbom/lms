@@ -31,6 +31,18 @@ class StudyController extends Controller
         ]);
     }
 
+    public function watchModulePage($classId, $moduleId)
+    {
+        $studyData = $this->studyService->getModuleStudyDetails($classId, $moduleId);
+
+        return Inertia::render('User/Study/WatchModule', [
+            'classData' => $studyData['class'],
+            'currentModule' => $studyData['current_module'],
+            'progressStats' => $studyData['progress_stats'],
+            'certificateStatus' => $studyData['certificate_status'],
+        ]);
+    }
+
     /**
      * Update video progress (AJAX)
      */

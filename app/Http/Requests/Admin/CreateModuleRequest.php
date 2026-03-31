@@ -24,6 +24,7 @@ class CreateModuleRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:200'],
             'description' => ['nullable', 'string'],
+            'url_link' => ['nullable', 'string', 'url', 'max:500'],
             'videos' => ['nullable', 'array'],
             'videos.*.title' => ['required_with:videos', 'string', 'max:200'],
             'videos.*.description' => ['nullable', 'string'],
