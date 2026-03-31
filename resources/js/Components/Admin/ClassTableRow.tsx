@@ -100,6 +100,24 @@ export default function ClassTableRow({ classItem }: ClassTableRowProps) {
                 </div>
             </td>
             <td className="px-6 py-4 align-middle">
+                {classItem.studentsCount === 0 ? (
+                    <span className="text-sm italic text-gray-500">
+                        New Class
+                    </span>
+                ) : (
+                    <div className="flex items-center gap-1.5">
+                        <Icon
+                            name="group"
+                            size={16}
+                            className="text-[#5e8d74]"
+                        />
+                        <span className="text-sm text-[#5e6a62]">
+                            {classItem.studentsCount} Siswa
+                        </span>
+                    </div>
+                )}
+            </td>
+            <td className="px-6 py-4 align-middle">
                 <span className="text-sm font-bold text-[#101814]">
                     Rp {classItem.totalRevenue.toLocaleString('id-ID')}
                 </span>

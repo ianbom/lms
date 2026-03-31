@@ -18,6 +18,7 @@ interface BackendClass {
     thumbnail_url: string;
     status: 'published' | 'draft';
     modules_count: number;
+    students_count: number;
     total_revenue: number;
     category: {
         id: number;
@@ -46,6 +47,7 @@ export default function ClassManagement({ classes }: Props) {
         price: item.price_final,
         originalPrice: item.discount > 0 ? item.price : undefined,
         modules: item.modules_count,
+        studentsCount: item.students_count || 0,
         status: item.status,
         thumbnail: item.thumbnail_url || '',
         isFree: item.price_final === 0,

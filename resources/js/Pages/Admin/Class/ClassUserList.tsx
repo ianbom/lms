@@ -1,10 +1,12 @@
 import Icon from '@/Components/Icon';
+import Modal from '@/Components/Modal';
 import DataTable from '@/Components/User/Dashboard/DataTable';
 import Pagination from '@/Components/User/Dashboard/Pagination';
 import TableToolbar from '@/Components/User/Dashboard/TableToolbar';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router } from '@inertiajs/react';
-import { useMemo } from 'react';
+import axios from 'axios';
+import { useCallback, useMemo, useState } from 'react';
 
 interface User {
     id: number;
@@ -76,6 +78,15 @@ interface Props {
     revenueSplit: RevenueSplit;
 }
 
+interface QuizScore {
+    no: number;
+    module_title: string;
+    quiz_title: string;
+    score: number | null;
+    is_passed: boolean | null;
+    attempted: boolean;
+}
+
 const SORT_OPTIONS = [
     { value: 'created_at', direction: 'desc' as const, label: 'Terbaru' },
     { value: 'created_at', direction: 'asc' as const, label: 'Terlama' },
@@ -103,6 +114,37 @@ export default function ClassUserList({
 }: Props) {
     const routeName = 'admin.classes.users';
     const routeParams = { classId: classData.id };
+
+    const [selectedUserForQuiz, setSelectedUserForQuiz] = useState<User | null>(
+        null,
+    );
+    const [isQuizModalOpen, setIsQuizModalOpen] = useState(false);
+    const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
+    const [isLoadingScores, setIsLoadingScores] = useState(false);
+
+    const handleViewQuizScores = useCallback(
+        async (user: User) => {
+            setSelectedUserForQuiz(user);
+            setIsQuizModalOpen(true);
+            setIsLoadingScores(true);
+            try {
+                const response = await axios.get(
+                    route('admin.classes.users.quizzes', {
+                        classId: classData.id,
+                        userId: user.id,
+                    }),
+                );
+                if (response.data.status === 'success') {
+                    setQuizScores(response.data.data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch quiz scores:', error);
+            } finally {
+                setIsLoadingScores(false);
+            }
+        },
+        [classData.id],
+    );
 
     const columns = useMemo(
         () => [
@@ -194,8 +236,21 @@ export default function ClassUserList({
                     </span>
                 ),
             },
+            {
+                key: 'action',
+                header: 'Aksi',
+                render: (enrollment: Enrollment) => (
+                    <button
+                        onClick={() => handleViewQuizScores(enrollment.user)}
+                        className="inline-flex items-center gap-1 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                    >
+                        <Icon name="visibility" size={14} />
+                        Lihat Skor Quiz
+                    </button>
+                ),
+            },
         ],
-        [],
+        [handleViewQuizScores],
     );
 
     const emptyState = useMemo(
@@ -408,6 +463,114 @@ export default function ClassUserList({
                     />
                 </div>
             </div>
+
+            {/* Quiz Modal */}
+            <Modal
+                show={isQuizModalOpen}
+                onClose={() => setIsQuizModalOpen(false)}
+                maxWidth="2xl"
+            >
+                <div className="p-6">
+                    <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-4">
+                        <h2 className="text-lg font-bold text-slate-900">
+                            Skor Quiz - {selectedUserForQuiz?.name}
+                        </h2>
+                        <button
+                            onClick={() => setIsQuizModalOpen(false)}
+                            className="rounded-full p-1 transition-colors hover:bg-slate-100"
+                        >
+                            <Icon
+                                name="close"
+                                size={20}
+                                className="text-slate-500"
+                            />
+                        </button>
+                    </div>
+
+                    {isLoadingScores ? (
+                        <div className="flex justify-center py-8">
+                            <span className="text-sm text-slate-500">
+                                Memuat skor...
+                            </span>
+                        </div>
+                    ) : (
+                        <div className="overflow-x-auto rounded-lg border border-slate-200">
+                            <table className="w-full text-left text-sm">
+                                <thead>
+                                    <tr className="border-b border-slate-200 bg-slate-50">
+                                        <th className="px-4 py-3 font-semibold text-slate-700">
+                                            No
+                                        </th>
+                                        <th className="px-4 py-3 font-semibold text-slate-700">
+                                            Modul
+                                        </th>
+                                        <th className="px-4 py-3 font-semibold text-slate-700">
+                                            Quiz
+                                        </th>
+                                        <th className="px-4 py-3 font-semibold text-slate-700">
+                                            Skor
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                    {quizScores.length > 0 ? (
+                                        quizScores.map((score) => (
+                                            <tr
+                                                key={`${score.no}`}
+                                                className="hover:bg-slate-50"
+                                            >
+                                                <td className="px-4 py-3 text-slate-600">
+                                                    {score.no}
+                                                </td>
+                                                <td className="px-4 py-3 text-slate-600">
+                                                    {score.module_title}
+                                                </td>
+                                                <td className="px-4 py-3 font-medium text-slate-900">
+                                                    {score.quiz_title}
+                                                </td>
+                                                <td className="px-4 py-3">
+                                                    {!score.attempted ? (
+                                                        <span className="text-slate-400">
+                                                            Belum dikerjakan
+                                                        </span>
+                                                    ) : (
+                                                        <span
+                                                            className={
+                                                                score.is_passed
+                                                                    ? 'font-bold text-green-600'
+                                                                    : 'font-bold text-red-600'
+                                                            }
+                                                        >
+                                                            {score.score}
+                                                            {score.is_passed !==
+                                                                null && (
+                                                                <span className="ml-2 rounded-full border border-current px-1.5 py-0.5 text-[10px] uppercase">
+                                                                    {score.is_passed
+                                                                        ? 'Lulus'
+                                                                        : 'Gagal'}
+                                                                </span>
+                                                            )}
+                                                        </span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td
+                                                colSpan={4}
+                                                className="px-4 py-8 text-center text-slate-500"
+                                            >
+                                                Tidak ada quiz di kelas ini.
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            </Modal>
         </AdminLayout>
     );
 }

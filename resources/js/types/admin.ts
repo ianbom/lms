@@ -64,6 +64,7 @@ export interface ClassItem {
     originalPrice?: number;
     isFree?: boolean;
     modules: number;
+    studentsCount: number;
     status: ClassStatus;
     thumbnail: string;
     totalRevenue: number;

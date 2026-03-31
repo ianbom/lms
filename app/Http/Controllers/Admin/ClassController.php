@@ -141,5 +141,21 @@ class ClassController extends Controller
             'revenueSplit' => $revenueSplit,
         ]);
     }
+
+    public function userQuizScores($classId, $userId)
+    {
+        try {
+            $scores = $this->classService->getUserQuizScores($classId, $userId);
+            return response()->json([
+                'status' => 'success',
+                'data' => $scores
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }
 

@@ -140,6 +140,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.otp'])->group(function () {
         Route::post('/classes/{classId}/publish', [AdmClassController::class, 'publishClass'])->name('classes.publish');
         Route::get('/classes/{classId}/review', [AdmClassController::class, 'reviewClassPage'])->name('classes.review');
         Route::get('/classes/{classId}/users', [AdmClassController::class, 'classUserListPage'])->name('classes.users');
+        Route::get('/classes/{classId}/users/{userId}/quiz-scores', [AdmClassController::class, 'userQuizScores'])->name('classes.users.quizzes');
         Route::delete('/classes/{classId}', [AdmClassController::class, 'deleteClass'])->name('classes.delete');
 
         Route::get('/classes', [AdmClassController::class, 'listClassPage'])->name('classes');

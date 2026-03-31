@@ -19,6 +19,9 @@ class ClassService
     public function getAllClasses(){
         $classes = Classes::with(['category', 'mentors'])
             ->withCount('modules')
+            ->withCount(['enrollments as students_count' => function($q) {
+                $q->whereIn('status', ['active', 'completed']);
+            }])
             ->withSum(['orders as total_revenue' => function ($query) {
                 $query->where('status', 'approved');
             }], 'amount')
@@ -266,6 +269,49 @@ class ClassService
 
         // Finally delete the class
         return $class->delete();
+    }
+
+    /**
+     * Get user quiz scores for a specific class.
+     */
+    public function getUserQuizScores($classId, $userId)
+    {
+        $modules = \App\Models\Module::where('class_id', $classId)
+            ->with(['quizzes' => function($q) {
+                $q->orderBy('sort_order');
+            }])
+            ->orderBy('sort_order')
+            ->get();
+
+        $quizIds = $modules->flatMap->quizzes->pluck('id');
+
+        $attempts = \App\Models\QuizAttempt::where('user_id', $userId)
+            ->whereIn('quiz_id', $quizIds)
+            ->get()
+            ->groupBy('quiz_id');
+
+        $results = [];
+        $no = 1;
+
+        foreach($modules as $module) {
+            foreach($module->quizzes as $quiz) {
+                $quizAttempts = $attempts->get($quiz->id) ?? collect();
+                
+                // Get highest score
+                $bestAttempt = $quizAttempts->sortByDesc('score')->first();
+
+                $results[] = [
+                    'no' => $no++,
+                    'module_title' => $module->title,
+                    'quiz_title' => $quiz->title,
+                    'score' => $bestAttempt ? ((float)$bestAttempt->score) : null,
+                    'is_passed' => $bestAttempt ? $bestAttempt->is_passed : null,
+                    'attempted' => $bestAttempt ? true : false,
+                ];
+            }
+        }
+
+        return $results;
     }
 }
 
