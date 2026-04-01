@@ -79,6 +79,7 @@ export interface ClassDetail {
     };
     mentors: Mentor[];
     modules: ClassModule[];
+    students_count?: number;
 }
 
 // Helper function to format price in IDR
@@ -159,6 +160,7 @@ export interface ClassData {
     category?: Category;
     mentors: Mentor[];
     modules_count?: number; // Count of modules in the class
+    students_count?: number; // Count of enrolled users
 }
 
 // Filter tab type

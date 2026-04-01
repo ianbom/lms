@@ -32,6 +32,9 @@ class ClassService
 
     public function getPriorityClasses($type = null){
         $query = Classes::with(['category', 'mentors'])->withCount('modules')
+        ->withCount(['enrollments as students_count' => function($q) {
+            $q->whereIn('status', ['active', 'completed']);
+        }])
         ->orderBy('title', 'asc')
         ->where('status', 'published')
         ->where('is_priority', true);
@@ -45,7 +48,12 @@ class ClassService
 
 
     public function getAllPublishedClasses($type = null){
-        $query = Classes::with(['category', 'mentors'])->withCount('modules')->orderBy('title', 'asc')->where('status', 'published');
+        $query = Classes::with(['category', 'mentors'])->withCount('modules')
+        ->withCount(['enrollments as students_count' => function($q) {
+            $q->whereIn('status', ['active', 'completed']);
+        }])
+        ->orderBy('title', 'asc')
+        ->where('status', 'published');
 
         if ($type) {
             $query->where('type', $type);
@@ -86,7 +94,11 @@ class ClassService
             }, 'quizzes' => function($q) {
                 $q->withCount('questions');
             }]);
-        }])->findOrFail($classId);
+        }])
+        ->withCount(['enrollments as students_count' => function($q) {
+            $q->whereIn('status', ['active', 'completed']);
+        }])
+        ->findOrFail($classId);
     }
 
     public function getClassPreviewVideoById($clasId){
@@ -104,7 +116,11 @@ class ClassService
             $query->with(['videos', 'quizzes' => function($q) {
                 $q->withCount('questions');
             }]);
-        }])->findOrFail($slug);
+        }])
+        ->withCount(['enrollments as students_count' => function($q) {
+            $q->whereIn('status', ['active', 'completed']);
+        }])
+        ->findOrFail($slug);
     }
 
     public function calculateClassStats($class)

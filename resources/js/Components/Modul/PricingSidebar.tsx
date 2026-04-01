@@ -14,6 +14,7 @@ interface PricingSidebarProps {
     type?: string;
     location?: string | null;
     implementationDate?: string | null;
+    studentsCount?: number;
 }
 
 export default function PricingSidebar({
@@ -30,6 +31,7 @@ export default function PricingSidebar({
     type,
     location,
     implementationDate,
+    studentsCount,
 }: PricingSidebarProps) {
     const formatPrice = (amount: number) => {
         return `Rp ${amount.toLocaleString('id-ID')}`;
@@ -66,6 +68,18 @@ export default function PricingSidebar({
             <div className="mb-6 grid grid-cols-2 gap-x-2 gap-y-4">
                 {type === 'learning-package' ? (
                     <>
+                        {/* {studentsCount !== undefined && studentsCount > 0 && (
+                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="group"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {studentsCount} Siswa Terdaftar
+                                </span>
+                            </div>
+                        )} */}
                         {location && (
                             <div className="col-span-2 flex items-center gap-2.5 text-sm">
                                 <Icon
@@ -147,6 +161,18 @@ export default function PricingSidebar({
                                 </span>
                             </div>
                         )}
+                        {/* {studentsCount !== undefined && studentsCount > 0 && (
+                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                                <Icon
+                                    name="group"
+                                    size={20}
+                                    className="text-primary"
+                                />
+                                <span className="font-medium text-gray-700">
+                                    {studentsCount} Siswa Terdaftar
+                                </span>
+                            </div>
+                        )} */}
                         {location && (
                             <div className="col-span-2 flex items-center gap-2.5 text-sm">
                                 <Icon

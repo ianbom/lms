@@ -20,7 +20,7 @@ export default function MentorSection({ mentors }: MentorSectionProps) {
                         Trainer Kelas
                     </h3>
                     <p className="text-sm text-slate-500">
-                        {mentors.length} mentor{' '}
+                        {mentors.length} trainer{' '}
                         {mentors.length > 1
                             ? 'siap membimbing Anda'
                             : 'membimbing kelas ini'}

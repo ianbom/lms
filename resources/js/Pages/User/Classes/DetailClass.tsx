@@ -450,6 +450,7 @@ export default function DetailClass({
                         duration={formattedDuration}
                         moduleCount={classData.modules.length}
                         quizCount={totalQuizzes}
+                        studentsCount={classData.students_count}
                         onBuy={handleBuy}
                         onAddWishlist={handleAddWishlist}
                         isEnrolled={isEnrolled}
