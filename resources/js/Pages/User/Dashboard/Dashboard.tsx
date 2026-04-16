@@ -13,6 +13,7 @@ interface CurrentLearning {
     currentModule: number;
     currentVideo: number;
     currentVideoId: number | null;
+    currentModuleId: number | null;
     mentors: Array<{
         id: number;
         name: string;
@@ -29,6 +30,7 @@ interface MyClass {
     progress: number;
     status: 'active' | 'completed';
     firstVideoId: number | null;
+    firstModuleId: number | null;
     mentor: {
         name: string;
         avatar_url: string | null;

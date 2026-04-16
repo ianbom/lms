@@ -23,6 +23,7 @@ interface DetailClassProps {
     previewVideos?: ClassDetail;
     isEnrolled?: boolean;
     firstVideoId?: number | null;
+    firstModuleId?: number | null;
 }
 
 export default function DetailClass({
@@ -30,6 +31,7 @@ export default function DetailClass({
     previewVideos,
     isEnrolled = false,
     firstVideoId = null,
+    firstModuleId = null,
 }: DetailClassProps) {
     // Helper function to extract YouTube video ID from URL
     const extractYouTubeId = (url: string | undefined): string | null => {
@@ -143,13 +145,26 @@ export default function DetailClass({
             window.open(classData.url_link, '_blank', 'noopener,noreferrer');
             return;
         }
-        if (isEnrolled && firstVideoId) {
-            router.visit(
-                route('user.study.watch', {
-                    classId: classData.id,
-                    videoId: firstVideoId,
-                }),
-            );
+        if (isEnrolled) {
+            if (firstVideoId) {
+                router.visit(
+                    route('user.study.watch', {
+                        classId: classData.id,
+                        videoId: firstVideoId,
+                    }),
+                );
+            } else if (firstModuleId) {
+                router.visit(
+                    route('user.study.module', {
+                        classId: classData.id,
+                        moduleId: firstModuleId,
+                    }),
+                );
+            } else {
+                router.visit(
+                    route('user.classes.purchase', { classId: classData.id }),
+                );
+            }
         } else {
             router.visit(
                 route('user.classes.purchase', { classId: classData.id }),
@@ -452,7 +467,6 @@ export default function DetailClass({
                         quizCount={totalQuizzes}
                         studentsCount={classData.students_count}
                         onBuy={handleBuy}
-                        onAddWishlist={handleAddWishlist}
                         isEnrolled={isEnrolled}
                         type={classData.type}
                         location={classData.location}

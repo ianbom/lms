@@ -39,9 +39,14 @@ export default function CourseGrid({ enrollments }: CourseGridProps) {
                                       classId: enrollment.class.id,
                                       videoId: enrollment.class.first_video_id,
                                   })
-                                : route('user.classes.show', {
-                                      classId: enrollment.class.id,
-                                  })
+                                : enrollment.class.first_module_id
+                                  ? route('user.study.module', {
+                                        classId: enrollment.class.id,
+                                        moduleId: enrollment.class.first_module_id,
+                                    })
+                                  : route('user.classes.show', {
+                                        classId: enrollment.class.id,
+                                    })
                         }
                     />
                 );

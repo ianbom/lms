@@ -11,6 +11,7 @@ export interface ClassData {
     thumbnail_url: string | null;
     mentors: Mentor[];
     first_video_id: number | null;
+    first_module_id: number | null;
 }
 
 export interface Enrollment {

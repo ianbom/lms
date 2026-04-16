@@ -122,6 +122,7 @@ class UserDashboardService
             'currentModule' => $currentModuleIndex,
             'currentVideo' => $currentVideoIndex,
             'currentVideoId' => $currentVideo?->id,
+            'currentModuleId' => $currentVideo ? null : $this->getFirstModuleId($class),
             'mentors' => $class->mentors->map(fn($m) => [
                 'id' => $m->id,
                 'name' => $m->name,
@@ -168,6 +169,7 @@ class UserDashboardService
 
             // Get first video for continue learning link
             $firstVideoId = $this->getFirstVideoId($class);
+            $firstModuleId = $firstVideoId ? null : $this->getFirstModuleId($class);
 
             $mentor = $class->mentors->first();
 
@@ -180,6 +182,7 @@ class UserDashboardService
                 'progress' => $progress,
                 'status' => $enrollment->status,
                 'firstVideoId' => $firstVideoId,
+                'firstModuleId' => $firstModuleId,
                 'mentor' => $mentor ? [
                     'name' => $mentor->name,
                     'avatar_url' => $mentor->avatar_url,
@@ -205,6 +208,7 @@ class UserDashboardService
             $class = $enrollment->class;
             $progress = $this->calculateClassProgress($enrollment->user_id, $class);
             $firstVideoId = $this->getFirstVideoId($class);
+            $firstModuleId = $firstVideoId ? null : $this->getFirstModuleId($class);
 
             return [
                 'id' => $enrollment->id,
@@ -219,6 +223,7 @@ class UserDashboardService
                     'slug' => $class->slug,
                     'thumbnail_url' => $class->thumbnail_url,
                     'first_video_id' => $firstVideoId,
+                    'first_module_id' => $firstModuleId,
                     'mentors' => $class->mentors->map(fn($mentor) => [
                         'id' => $mentor->id,
                         'name' => $mentor->name,
@@ -261,5 +266,10 @@ class UserDashboardService
         }
 
         return null;
+    }
+
+    private function getFirstModuleId($class): ?int
+    {
+        return $class->modules()->orderBy('sort_order')->value('id');
     }
 }

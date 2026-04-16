@@ -63,15 +63,20 @@ export default function ClassCard({ item, className = '' }: ClassCardProps) {
                 <div className="flex-1" />
 
                 {/* Meta Info - Enrollment Stats */}
-                {/* {item.students_count !== undefined &&
-                    item.students_count > 0 && (
-                        <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
-                            <Icon name="group" size={16} />
-                            <span className="text-xs font-medium">
-                                {item.students_count} Siswa Terdaftar
-                            </span>
-                        </div>
-                    )} */}
+                {item.students_count !== undefined &&
+                item.students_count > 0 ? (
+                    <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
+                        <Icon name="group" size={16} />
+                        <span className="text-xs font-medium">
+                            {item.students_count} Siswa
+                        </span>
+                    </div>
+                ) : (
+                    <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
+                        <Icon name="group" size={16} />
+                        <span className="text-xs font-medium">Coming Soon</span>
+                    </div>
+                )}
 
                 {/* Footer - Price & CTA */}
                 <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">

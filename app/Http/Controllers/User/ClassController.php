@@ -52,6 +52,7 @@ class ClassController extends Controller
         // Check if user has enrollment for this class
         $isEnrolled = false;
         $firstVideoId = null;
+        $firstModuleId = null;
 
         if ($userId) {
             $isEnrolled = $this->orderService->checkOwnedClass($classId, $userId);
@@ -64,6 +65,11 @@ class ClassController extends Controller
                         break;
                     }
                 }
+
+                // Fallback: get first module ID if no video found
+                if (!$firstVideoId) {
+                    $firstModuleId = $class->modules->first()->id;
+                }
             }
         }
 
@@ -72,6 +78,7 @@ class ClassController extends Controller
             'previewVideos' => $previewVideos,
             'isEnrolled' => $isEnrolled,
             'firstVideoId' => $firstVideoId,
+            'firstModuleId' => $firstModuleId,
         ]);
     }
 

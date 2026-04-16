@@ -9,7 +9,6 @@ interface PricingSidebarProps {
     moduleCount: number;
     quizCount: number;
     onBuy?: () => void;
-    onAddWishlist?: () => void;
     isEnrolled?: boolean;
     type?: string;
     location?: string | null;
@@ -26,7 +25,6 @@ export default function PricingSidebar({
     moduleCount,
     quizCount,
     onBuy,
-    onAddWishlist,
     isEnrolled = false,
     type,
     location,
@@ -68,18 +66,22 @@ export default function PricingSidebar({
             <div className="mb-6 grid grid-cols-2 gap-x-2 gap-y-4">
                 {type === 'learning-package' ? (
                     <>
-                        {/* {studentsCount !== undefined && studentsCount > 0 && (
-                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
-                                <Icon
-                                    name="group"
-                                    size={20}
-                                    className="text-primary"
-                                />
+                        <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                            <Icon
+                                name="group"
+                                size={20}
+                                className="text-primary"
+                            />
+                            {studentsCount !== undefined && studentsCount > 0 ? (
                                 <span className="font-medium text-gray-700">
-                                    {studentsCount} Siswa Terdaftar
+                                    {studentsCount} Siswa 
                                 </span>
-                            </div>
-                        )} */}
+                            ) : (
+                                <span className="text-xs font-medium italic text-gray-400">
+                                    Coming Soon
+                                </span>
+                            )}
+                        </div>
                         {location && (
                             <div className="col-span-2 flex items-center gap-2.5 text-sm">
                                 <Icon
@@ -161,19 +163,25 @@ export default function PricingSidebar({
                                 </span>
                             </div>
                         )}
-                        {/* {studentsCount !== undefined && studentsCount > 0 && (
-                            <div className="col-span-2 flex items-center gap-2.5 text-sm">
-                                <Icon
-                                    name="group"
-                                    size={20}
-                                    className="text-primary"
-                                />
+                        {/* Students Count */}
+                        <div className="col-span-2 flex items-center gap-2.5 text-sm">
+                            <Icon
+                                name="group"
+                                size={20}
+                                className="text-primary"
+                            />
+                            {studentsCount !== undefined && studentsCount > 0 ? (
                                 <span className="font-medium text-gray-700">
-                                    {studentsCount} Siswa Terdaftar
+                                    {studentsCount} Siswa 
                                 </span>
-                            </div>
-                        )} */}
+                            ) : (
+                                <span className="text-xs font-medium italic text-gray-400">
+                                    Coming Soon
+                                </span>
+                            )}
+                        </div>
                         {location && (
+
                             <div className="col-span-2 flex items-center gap-2.5 text-sm">
                                 <Icon
                                     name="location_on"

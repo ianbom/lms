@@ -10,6 +10,7 @@ interface CurrentLearning {
     currentModule: number;
     currentVideo: number;
     currentVideoId: number | null;
+    currentModuleId: number | null;
     mentors: Array<{
         id: number;
         name: string;
@@ -103,9 +104,14 @@ export default function HeroCard({ currentLearning }: HeroCardProps) {
                                   classId: currentLearning.id,
                                   videoId: currentLearning.currentVideoId,
                               })
-                            : route('user.classes.show', {
-                                  classId: currentLearning.id,
-                              })
+                            : currentLearning.currentModuleId
+                              ? route('user.study.module', {
+                                    classId: currentLearning.id,
+                                    moduleId: currentLearning.currentModuleId,
+                                })
+                              : route('user.classes.show', {
+                                    classId: currentLearning.id,
+                                })
                     }
                     className="hover:bg-primary-hover flex w-fit items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors"
                 >

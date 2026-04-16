@@ -10,6 +10,7 @@ interface MyClass {
     progress: number;
     status: 'active' | 'completed';
     firstVideoId: number | null;
+    firstModuleId: number | null;
     mentor: {
         name: string;
         avatar_url: string | null;
@@ -31,7 +32,12 @@ function CourseCard({ classItem }: CourseCardProps) {
                           classId: classItem.classId,
                           videoId: classItem.firstVideoId,
                       })
-                    : route('user.classes.show', { classId: classItem.classId })
+                    : classItem.firstModuleId
+                      ? route('user.study.module', {
+                            classId: classItem.classId,
+                            moduleId: classItem.firstModuleId,
+                        })
+                      : route('user.classes.show', { classId: classItem.classId })
             }
             className="border-border-light shadow-card hover:shadow-card-hover group flex flex-col overflow-hidden rounded-xl border bg-white transition-all"
         >
