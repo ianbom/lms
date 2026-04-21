@@ -87,51 +87,56 @@ const speeds = ['60s', '70s', '55s', '65s'];
 export default function LogoGrid() {
     return (
         <section className="w-full border-t border-[#f0f4f2] bg-white py-16">
-            <h3 className="mb-10 text-center text-2xl font-bold uppercase tracking-widest">
-                Mitra Kami
-            </h3>
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h3 className="mb-10 text-center text-2xl font-bold uppercase tracking-widest">
+                    Mitra Kami
+                </h3>
 
-            <div className="relative w-full overflow-hidden">
-                {/* Fade edges */}
-                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+                <div className="relative w-full overflow-hidden">
+                    {/* Fade edges */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
 
-                <div className="flex flex-col gap-6">
-                    {rows.map((rowLogos, rowIndex) => {
-                        const isReverse = rowIndex % 2 === 1;
-                        const speed = speeds[rowIndex];
+                    <div className="flex flex-col gap-6">
+                        {rows.map((rowLogos, rowIndex) => {
+                            const isReverse = rowIndex % 2 === 1;
+                            const speed = speeds[rowIndex];
 
-                        return (
-                            <div
-                                key={rowIndex}
-                                className="marquee-track flex w-max"
-                                style={{
-                                    animationDuration: speed,
-                                    animationDirection: isReverse
-                                        ? 'reverse'
-                                        : 'normal',
-                                }}
-                            >
-                                {[...rowLogos, ...rowLogos].map(
-                                    (logo, index) => (
-                                        <div
-                                            key={index}
-                                            className="mx-6 flex h-12 flex-shrink-0 items-center justify-center transition-all duration-300"
-                                        >
-                                            <img
-                                                src={`/mitra-baru/${encodeURIComponent(logo)}`}
-                                                alt={logo
-                                                    .replace(/\.[^.]+$/, '')
-                                                    .replace(/^\d+\.\s*/, '')}
-                                                className="h-full w-auto object-contain"
-                                                loading="lazy"
-                                            />
-                                        </div>
-                                    ),
-                                )}
-                            </div>
-                        );
-                    })}
+                            return (
+                                <div
+                                    key={rowIndex}
+                                    className="marquee-track flex w-max"
+                                    style={{
+                                        animationDuration: speed,
+                                        animationDirection: isReverse
+                                            ? 'reverse'
+                                            : 'normal',
+                                    }}
+                                >
+                                    {[...rowLogos, ...rowLogos].map(
+                                        (logo, index) => (
+                                            <div
+                                                key={index}
+                                                className="mx-6 flex h-12 flex-shrink-0 items-center justify-center transition-all duration-300"
+                                            >
+                                                <img
+                                                    src={`/mitra-baru/${encodeURIComponent(logo)}`}
+                                                    alt={logo
+                                                        .replace(/\.[^.]+$/, '')
+                                                        .replace(
+                                                            /^\d+\.\s*/,
+                                                            '',
+                                                        )}
+                                                    className="h-full w-auto object-contain"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        ),
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
 
