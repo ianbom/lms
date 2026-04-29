@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const images = [
-    '/HeroImg/1.png',
-    '/HeroImg/3.png',
-    '/HeroImg/4.png',
-    '/HeroImg/5.png',
-    '/HeroImg/6.png',
+    '/ImpactCompressed/fotonew.jpeg',
+    // '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg',
+    '/ImpactCompressed/DSC00288.jpg',
+    '/ImpactCompressed/DSC03612.jpg',
+    '/ImpactCompressed/DSC00350.jpg',
+    // '/ImpactCompressed/DSC01305.jpg',
+    // '/ImpactCompressed/DSC08419.JPG',
+    // '/ImpactCompressed/presentasi.jpeg',
 ];
 
 export default function HeroSection() {
