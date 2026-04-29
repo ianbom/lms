@@ -24,6 +24,14 @@ interface Enrollment {
     status: string;
     activated_at: string | null;
     created_at: string;
+    video_progress?: {
+        completed: number;
+        total: number;
+        percent: number;
+    };
+    has_reviewed?: boolean;
+    certificate_eligible?: boolean;
+    certificate_issued?: boolean;
     user: User;
 }
 
@@ -229,21 +237,81 @@ export default function ClassUserList({
                 ),
             },
             {
-                key: 'created_at',
-                header: 'Tanggal Daftar',
+                key: 'video_progress',
+                header: 'Progress Video',
                 headerClassName: 'whitespace-nowrap',
+                render: (enrollment: Enrollment) => {
+                    const progress = enrollment.video_progress;
+
+                    if (!progress) {
+                        return (
+                            <span className="text-sm text-slate-400">-</span>
+                        );
+                    }
+
+                    return (
+                        <div className="flex min-w-[140px] flex-col gap-1">
+                            <div className="flex items-center justify-between gap-2 text-xs text-slate-500">
+                                <span>
+                                    {progress.completed}/{progress.total} video
+                                </span>
+                                <span className="font-semibold text-slate-700">
+                                    {progress.percent}%
+                                </span>
+                            </div>
+                            <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                                <div
+                                    className="h-full rounded-full bg-primary transition-all"
+                                    style={{ width: `${progress.percent}%` }}
+                                />
+                            </div>
+                        </div>
+                    );
+                },
+            },
+            {
+                key: 'review_status',
+                header: 'Review',
                 render: (enrollment: Enrollment) => (
-                    <span className="whitespace-nowrap text-sm text-slate-600">
-                        {new Date(enrollment.created_at).toLocaleDateString(
-                            'id-ID',
-                            {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric',
-                            },
-                        )}
+                    <span
+                        className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${
+                            enrollment.has_reviewed
+                                ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20'
+                                : 'bg-amber-50 text-amber-700 ring-amber-600/20'
+                        }`}
+                    >
+                        {enrollment.has_reviewed
+                            ? 'Sudah'
+                            : 'Belum'}
                     </span>
                 ),
+            },
+            {
+                key: 'certificate_status',
+                header: 'Sertifikat',
+                render: (enrollment: Enrollment) => {
+                    if (enrollment.certificate_issued) {
+                        return (
+                            <span className="inline-flex items-center rounded-full bg-sky-50 px-2.5 py-1 text-xs font-semibold text-sky-700 ring-1 ring-inset ring-sky-600/20">
+                                Terbit
+                            </span>
+                        );
+                    }
+
+                    return (
+                        <span
+                            className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${
+                                enrollment.certificate_eligible
+                                    ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20'
+                                    : 'bg-slate-100 text-slate-600 ring-slate-400/20'
+                            }`}
+                        >
+                            {enrollment.certificate_eligible
+                                ? 'Bisa Klaim'
+                                : 'Belum'}
+                        </span>
+                    );
+                },
             },
             {
                 key: 'action',
@@ -254,7 +322,7 @@ export default function ClassUserList({
                         className="inline-flex items-center gap-1 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10 transition-colors hover:bg-slate-100 hover:text-slate-900"
                     >
                         <Icon name="visibility" size={14} />
-                        Lihat Skor Quiz
+                        Lihat
                     </button>
                 ),
             },
@@ -502,7 +570,7 @@ export default function ClassUserList({
                                 className="inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700 transition-colors hover:bg-emerald-100"
                             >
                                 <Icon name="download" size={18} />
-                                Export CSV Excel
+                                Export
                             </button>
                         </div>
                     </TableToolbar>

@@ -2,10 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\CertificateIssuance;
 use App\Models\Classes;
 use App\Models\ClassOrder;
+use App\Models\ClassReview;
 use App\Models\Enrollment;
+use App\Models\Quiz;
 use App\Models\QuizAttempt;
+use App\Models\Video;
+use App\Models\VideoProgress;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -200,7 +205,11 @@ class ClassService
 
         $perPage = $filters['per_page'] ?? 10;
 
-        return $query->paginate($perPage)->withQueryString();
+        $enrollments = $query->paginate($perPage)->withQueryString();
+
+        $this->appendEnrollmentLearningStatus((int) $classId, $enrollments->getCollection());
+
+        return $enrollments;
     }
 
     public function getClassEnrollmentExportData($classId, array $filters = []): array
@@ -417,6 +426,89 @@ class ClassService
         }
 
         return $query;
+    }
+
+    protected function appendEnrollmentLearningStatus(int $classId, Collection $enrollments): void
+    {
+        if ($enrollments->isEmpty()) {
+            return;
+        }
+
+        $userIds = $enrollments->pluck('user_id')->unique()->values();
+        $totalVideos = Video::query()
+            ->whereHas('module', function ($query) use ($classId) {
+                $query->where('class_id', $classId);
+            })
+            ->count();
+
+        $totalQuizzes = Quiz::query()
+            ->whereHas('module', function ($query) use ($classId) {
+                $query->where('class_id', $classId);
+            })
+            ->count();
+
+        $completedVideosByUser = VideoProgress::query()
+            ->selectRaw('video_progress.user_id, COUNT(DISTINCT video_progress.video_id) as completed_videos')
+            ->join('videos', 'videos.id', '=', 'video_progress.video_id')
+            ->join('modules', 'modules.id', '=', 'videos.module_id')
+            ->where('modules.class_id', $classId)
+            ->whereIn('video_progress.user_id', $userIds)
+            ->where('video_progress.is_completed', true)
+            ->groupBy('video_progress.user_id')
+            ->pluck('completed_videos', 'video_progress.user_id');
+
+        $passedQuizzesByUser = QuizAttempt::query()
+            ->selectRaw('quiz_attempts.user_id, quiz_attempts.quiz_id, MAX(quiz_attempts.score) as best_score')
+            ->join('quizzes', 'quizzes.id', '=', 'quiz_attempts.quiz_id')
+            ->join('modules', 'modules.id', '=', 'quizzes.module_id')
+            ->where('modules.class_id', $classId)
+            ->whereIn('quiz_attempts.user_id', $userIds)
+            ->whereNotNull('quiz_attempts.submitted_at')
+            ->groupBy('quiz_attempts.user_id', 'quiz_attempts.quiz_id')
+            ->get()
+            ->groupBy('user_id')
+            ->map(function ($attempts) {
+                return $attempts->filter(function ($attempt) {
+                    return (int) $attempt->best_score >= 80;
+                })->count();
+            });
+
+        $reviewsByUser = ClassReview::query()
+            ->where('class_id', $classId)
+            ->whereIn('user_id', $userIds)
+            ->whereNotNull('rating')
+            ->whereNotNull('comment')
+            ->whereRaw('TRIM(comment) <> ""')
+            ->pluck('id', 'user_id');
+
+        $certificatesByUser = CertificateIssuance::query()
+            ->where('class_id', $classId)
+            ->whereIn('user_id', $userIds)
+            ->pluck('id', 'user_id');
+
+        $enrollments->transform(function ($enrollment) use ($completedVideosByUser, $passedQuizzesByUser, $reviewsByUser, $certificatesByUser, $totalVideos, $totalQuizzes) {
+            $completedVideos = (int) ($completedVideosByUser[$enrollment->user_id] ?? 0);
+            $passedQuizzes = (int) ($passedQuizzesByUser[$enrollment->user_id] ?? 0);
+            $hasReviewed = $reviewsByUser->has($enrollment->user_id);
+            $hasCertificate = $certificatesByUser->has($enrollment->user_id);
+
+            $allVideosCompleted = $totalVideos > 0 && $completedVideos >= $totalVideos;
+            $allQuizzesPassed = $totalQuizzes === 0 || $passedQuizzes >= $totalQuizzes;
+            $isCertificateEligible = $allVideosCompleted && $allQuizzesPassed && $hasReviewed;
+
+            $enrollment->setAttribute('video_progress', [
+                'completed' => $completedVideos,
+                'total' => $totalVideos,
+                'percent' => $totalVideos > 0
+                    ? (int) round(($completedVideos / $totalVideos) * 100)
+                    : 0,
+            ]);
+            $enrollment->setAttribute('has_reviewed', $hasReviewed);
+            $enrollment->setAttribute('certificate_eligible', $isCertificateEligible);
+            $enrollment->setAttribute('certificate_issued', $hasCertificate);
+
+            return $enrollment;
+        });
     }
 
     protected function getBestQuizScoresForUsers(array $userIds, array $quizIds): Collection
