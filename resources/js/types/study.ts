@@ -65,6 +65,8 @@ export interface CertificateStatus {
     is_eligible: boolean;
     all_videos_completed: boolean;
     all_quizzes_passed: boolean;
+    has_reviewed: boolean;
+    review_required: boolean;
     total_videos: number;
     completed_videos: number;
     total_quizzes: number;

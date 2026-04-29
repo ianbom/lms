@@ -5,22 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateClassRequest;
 use App\Http\Requests\Admin\UpdateClassRequest;
-use App\Models\Category;
 use App\Models\Classes;
-use App\Models\Mentor;
 use App\Services\CategoryService;
 use App\Services\ClassReviewService;
 use App\Services\ClassService;
 use App\Services\MentorService;
 use App\Services\ModuleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class ClassController extends Controller
 {
-    protected $classService, $mentorService, $categoryService, $moduleService, $classReviewService;
+    protected $classService;
 
-    public function __construct(ClassService $classService, MentorService $mentorService, CategoryService $categoryService, ModuleService $moduleService, ClassReviewService $classReviewService){
+    protected $mentorService;
+
+    protected $categoryService;
+
+    protected $moduleService;
+
+    protected $classReviewService;
+
+    public function __construct(ClassService $classService, MentorService $mentorService, CategoryService $categoryService, ModuleService $moduleService, ClassReviewService $classReviewService)
+    {
         $this->classService = $classService;
         $this->mentorService = $mentorService;
         $this->categoryService = $categoryService;
@@ -28,36 +36,42 @@ class ClassController extends Controller
         $this->classReviewService = $classReviewService;
     }
 
-    public function listClassPage(){
+    public function listClassPage()
+    {
 
         $classes = $this->classService->getAllClasses();
+
         return Inertia::render('Admin/Class/ListClass', ['classes' => $classes]);
     }
 
-    public function createClassPage(){
+    public function createClassPage()
+    {
         $categories = $this->categoryService->getAllCategories();
         $mentors = $this->mentorService->getAllMentors();
+
         return Inertia::render('Admin/Class/CreateClass', ['categories' => $categories, 'mentors' => $mentors]);
     }
 
-    public function storeClass(CreateClassRequest $request){
+    public function storeClass(CreateClassRequest $request)
+    {
         $data = $request->validated();
         $thumbnail = $request->file('thumbnail');
 
         try {
             $this->classService->createClass($data, $thumbnail);
+
             return redirect()->route('admin.classes')->with('success', 'Kelas berhasil dibuat');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Terjadi kesalahan');
         }
     }
 
-    public function detailClassPage($classId){
+    public function detailClassPage($classId)
+    {
         $class = $this->classService->getClassDetailsById($classId);
         $stats = $this->classService->calculateClassStats($class);
         $categories = $this->categoryService->getAllCategories();
         $mentors = $this->mentorService->getAllMentors();
-          
 
         return Inertia::render('Admin/Class/DetailClass', [
             'classData' => $class,
@@ -67,21 +81,25 @@ class ClassController extends Controller
         ]);
     }
 
-    public function updateClass(UpdateClassRequest $request, $classId){
+    public function updateClass(UpdateClassRequest $request, $classId)
+    {
         $data = $request->validated();
         $thumbnail = $request->file('thumbnail');
 
         try {
             $this->classService->updateClass($classId, $data, $thumbnail);
+
             return redirect()->back()->with('success', 'Kelas berhasil diperbarui');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan: '.$th->getMessage());
         }
     }
 
-    public function publishClass($classId){
+    public function publishClass($classId)
+    {
         try {
             $this->classService->publishClass($classId);
+
             return redirect()->back()->with('success', 'Kelas berhasil dipublikasikan');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Terjadi kesalahan');
@@ -121,6 +139,7 @@ class ClassController extends Controller
     {
         try {
             $this->classService->deleteClass((int) $classId);
+
             return redirect()->route('admin.classes')->with('success', 'Kelas berhasil dihapus');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -129,16 +148,30 @@ class ClassController extends Controller
 
     public function classUserListPage(Request $request, $classId)
     {
-        $filters = $request->only(['search', 'sort', 'direction', 'per_page']);
+        $filters = $this->validatedUserListFilters($request);
         $class = Classes::select('id', 'title')->findOrFail($classId);
         $enrollments = $this->classService->getClassEnrolledUsers($classId, $filters);
         $revenueSplit = $this->classService->getClassRevenueSplit($classId);
 
         return Inertia::render('Admin/Class/ClassUserList', [
-            'classData'    => $class,
-            'enrollments'  => $enrollments,
-            'filters'      => $filters,
+            'classData' => $class,
+            'enrollments' => $enrollments,
+            'filters' => $filters,
             'revenueSplit' => $revenueSplit,
+        ]);
+    }
+
+    public function exportClassUsers(Request $request, $classId)
+    {
+        $filters = $this->validatedUserListFilters($request);
+        $exportData = $this->classService->getClassEnrollmentExportData($classId, $filters);
+
+        $filename = 'class-users-'.$classId.'-'.Str::slug(Str::limit($exportData['class_title'], 40, '')).'-'.now()->format('Ymd_His').'.csv';
+
+        return response()->streamDownload(function () use ($exportData) {
+            echo $this->buildClassUserExportCsv($exportData['rows']);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
         ]);
     }
 
@@ -146,16 +179,58 @@ class ClassController extends Controller
     {
         try {
             $scores = $this->classService->getUserQuizScores($classId, $userId);
+
             return response()->json([
                 'status' => 'success',
-                'data' => $scores
+                'data' => $scores,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ], 500);
         }
     }
-}
 
+    protected function validatedUserListFilters(Request $request): array
+    {
+        return $request->validate([
+            'search' => ['nullable', 'string'],
+            'sort' => ['nullable', 'string', 'in:created_at,activated_at'],
+            'direction' => ['nullable', 'string', 'in:asc,desc'],
+            'per_page' => ['nullable', 'integer', 'in:10,25,50,100'],
+            'joined_from' => ['nullable', 'date'],
+            'joined_to' => ['nullable', 'date', 'after_or_equal:joined_from'],
+        ]);
+    }
+
+    protected function buildClassUserExportCsv(array $rows): string
+    {
+        $headers = ! empty($rows) ? array_keys($rows[0]) : [
+            'Nama Kelas',
+            'Nama User',
+            'Telepon',
+            'Perusahaan',
+            'Position',
+            'Tanggal Gabung Kelas',
+        ];
+
+        $stream = fopen('php://temp', 'r+');
+
+        fwrite($stream, "\xEF\xBB\xBF");
+        fputcsv($stream, $headers);
+
+        foreach ($rows as $row) {
+            fputcsv(
+                $stream,
+                collect($headers)->map(fn ($header) => $row[$header] ?? '-')->all()
+            );
+        }
+
+        rewind($stream);
+        $csv = stream_get_contents($stream) ?: '';
+        fclose($stream);
+
+        return $csv;
+    }
+}

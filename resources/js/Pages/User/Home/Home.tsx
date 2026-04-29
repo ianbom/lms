@@ -68,7 +68,6 @@ export default function Home({ classes, testimonies }: HomeProps) {
                             </span>
                         </>
                     }
-                    description="Platform pembelajaran keberlanjutan dengan kurikulum terstruktur, trainer yang merupakan praktisi berpengalaman, bersertifikasi sesuai dengan standard nasional sehingga dapat meningkatkan pengetahuan dan keahlian untuk menciptakan dampak positif berkelanjutan."
                     buttons={[
                         {
                             text: 'Mulai Belajar',

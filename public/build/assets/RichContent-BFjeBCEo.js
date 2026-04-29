@@ -1,1 +1,0 @@
-import{j as a}from"./app-BA_G5dEc.js";function i({html:e,className:r=""}){return!e||e==="<p></p>"?a.jsx("p",{className:"italic leading-relaxed text-gray-400",children:"Tidak ada deskripsi."}):a.jsx("div",{className:`rich-content leading-relaxed text-gray-600 ${r}`,dangerouslySetInnerHTML:{__html:e}})}export{i as R};

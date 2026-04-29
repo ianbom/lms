@@ -47,7 +47,26 @@ export default function HeroSection({
     rating = 4.9,
 }: HeroSectionProps) {
     return (
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] pb-40 pt-40 text-white">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] text-white">
+            <style>{`
+                @keyframes slide-up {
+                    0% { transform: translateY(0); }
+                    100% { transform: translateY(-50%); }
+                }
+                @keyframes slide-down {
+                    0% { transform: translateY(-50%); }
+                    100% { transform: translateY(0); }
+                }
+                .animate-slide-up {
+                    animation: slide-up 25s linear infinite;
+                }
+                .animate-slide-down {
+                    animation: slide-down 25s linear infinite;
+                }
+                .pause-animation:hover {
+                    animation-play-state: paused;
+                }
+            `}</style>
             {/* Grid Pattern Overlay */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -64,10 +83,63 @@ export default function HeroSection({
             <div className="absolute right-0 top-0 h-96 w-96 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
             <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2 rounded-full bg-teal-500/10 blur-3xl" />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col items-center gap-12 lg:flex-row">
+            {/* Right Content - Animated Grid (Desktop) */}
+            <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[45%] overflow-hidden group perspective-1000 z-10 pointer-events-auto">
+                {/* Fading Blur Overlays for Top and Bottom Boundaries */}
+                <div className="absolute top-0 left-0 right-0 h-32 z-20 pointer-events-none" style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(12px)', maskImage: 'linear-gradient(to bottom, black 10%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, black 10%, transparent)' }} />
+                <div className="absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none" style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(12px)', maskImage: 'linear-gradient(to top, black 10%, transparent)', WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent)' }} />
+
+                <div className="absolute inset-0 flex gap-6 px-8">
+                    {/* Column 1 - Sliding Up */}
+                    <div className="flex-1 relative">
+                        <div className="flex flex-col gap-6 w-full absolute top-0 animate-slide-up pause-animation">
+                            {/* Original items + Duplicates for seamless loop */}
+                            {[
+                                '/ImpactCompressed/fotonew.jpeg',
+                                '/ImpactCompressed/DSC00288.jpg',
+                                '/ImpactCompressed/DSC03612.jpg',
+                                '/ImpactCompressed/DSC00350.jpg',
+                                '/ImpactCompressed/fotonew.jpeg',
+                                '/ImpactCompressed/DSC00288.jpg',
+                                '/ImpactCompressed/DSC03612.jpg',
+                                '/ImpactCompressed/DSC00350.jpg',
+                            ].map((src, i) => (
+                                <div key={`desk-col1-${i}`} className="relative w-full pt-[130%] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.3)] border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
+                                    <img src={src} className="absolute inset-0 w-full h-full object-cover" alt="" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    
+                    {/* Column 2 - Sliding Down */}
+                    <div className="flex-1 relative">
+                        <div className="flex flex-col gap-6 w-full absolute top-0 animate-slide-down pause-animation">
+                            {/* Original items + Duplicates for seamless loop */}
+                            {[
+                                '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg',
+                                '/ImpactCompressed/DSC01305.jpg',
+                                '/ImpactCompressed/DSC08419.JPG',
+                                '/ImpactCompressed/presentasi.jpeg',
+                                '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg',
+                                '/ImpactCompressed/DSC01305.jpg',
+                                '/ImpactCompressed/DSC08419.JPG',
+                                '/ImpactCompressed/presentasi.jpeg',
+                            ].map((src, i) => (
+                                <div key={`desk-col2-${i}`} className="relative w-full pt-[130%] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.3)] border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
+                                    <img src={src} className="absolute inset-0 w-full h-full object-cover" alt="" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-40 flex min-h-[600px] items-center pointer-events-none">
+                <div className="flex flex-col items-center gap-12 lg:flex-row w-full">
                     {/* Left Content */}
-                    <div className="w-full text-center lg:w-1/2 lg:text-left">
+                    <div className="w-full text-center lg:w-[55%] lg:text-left lg:pr-12 pointer-events-auto">
                         {/* Badge */}
                         {/* <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-emerald-300 backdrop-blur-md">
                             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
@@ -78,11 +150,6 @@ export default function HeroSection({
                         <h1 className="mb-6 text-2xl font-bold leading-tight sm:text-4xl lg:text-5xl">
                             {title}
                         </h1>
-
-                        {/* Description */}
-                        <p className="mx-auto mb-8 max-w-lg leading-relaxed text-slate-300 lg:mx-0 lg:text-lg">
-                            {description}
-                        </p>
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
@@ -103,72 +170,58 @@ export default function HeroSection({
                                 </Link>
                             ))}
                         </div>
-
-                        {/* Stats */}
-                        {/* <div className="mt-12 flex items-center justify-center gap-8 lg:justify-start">
-                          
-                            <div className="flex items-center gap-2">
-                                <div className="flex -space-x-3">
-                                    {users.map((userImage, index) => (
-                                        <img
-                                            key={index}
-                                            alt={`User ${index + 1}`}
-                                            className="h-10 w-10 rounded-full border-2 border-teal-900 object-cover"
-                                            src={userImage}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="text-left">
-                                    <p className="font-bold text-white">
-                                        {userCount}
-                                    </p>
-                                    <p className="text-xs text-slate-400">
-                                        Telah bergabung
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="h-10 w-px bg-white/10" />
-
-                          
-                            <div className="flex items-center gap-2">
-                                <div className="text-left">
-                                    <p className="font-bold text-white">
-                                        {rating}/5
-                                    </p>
-                                    <p className="text-xs text-slate-400">
-                                        Rating rata-rata
-                                    </p>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
 
-                    {/* Right Content - Hero Image */}
-                    <div className="relative mt-8 w-full lg:mt-0 lg:w-1/2">
-                        <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
-                            <div className="absolute inset-0 z-10 bg-gradient-to-t from-teal-900/80 to-transparent" />
-                            <img
-                                alt="Modern Workspace"
-                                className="h-auto w-full transform object-cover transition-transform duration-700 hover:scale-105"
-                                src={
-                                    '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg'
-                                }
-                            />
-                            {/* Floating Card */}
-                            {/* <div className="absolute bottom-6 left-6 right-6 z-20 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white">
-                                    <Icon name="check_circle" size={24} />
+                    {/* Right Content - Animated Grid (Mobile Only) */}
+                    <div className="relative mt-8 w-full h-[400px] sm:h-[500px] lg:hidden overflow-hidden rounded-3xl group perspective-1000 pointer-events-auto">
+                        {/* Fading Blur Overlays for Top and Bottom Boundaries */}
+                        <div className="absolute top-0 left-0 right-0 h-24 z-20 pointer-events-none" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', maskImage: 'linear-gradient(to bottom, black 10%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, black 10%, transparent)' }} />
+                        <div className="absolute bottom-0 left-0 right-0 h-24 z-20 pointer-events-none" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', maskImage: 'linear-gradient(to top, black 10%, transparent)', WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent)' }} />
+
+                        <div className="absolute inset-0 flex gap-4 sm:gap-6 px-4 sm:px-0">
+                            {/* Column 1 - Sliding Up */}
+                            <div className="flex-1 relative">
+                                <div className="flex flex-col gap-4 sm:gap-6 w-full absolute top-0 animate-slide-up pause-animation">
+                                    {/* Original items + Duplicates for seamless loop */}
+                                    {[
+                                        '/ImpactCompressed/fotonew.jpeg',
+                                        '/ImpactCompressed/DSC00288.jpg',
+                                        '/ImpactCompressed/DSC03612.jpg',
+                                        '/ImpactCompressed/DSC00350.jpg',
+                                        '/ImpactCompressed/fotonew.jpeg',
+                                        '/ImpactCompressed/DSC00288.jpg',
+                                        '/ImpactCompressed/DSC03612.jpg',
+                                        '/ImpactCompressed/DSC00350.jpg',
+                                    ].map((src, i) => (
+                                        <div key={`col1-${i}`} className="relative w-full pt-[120%] sm:pt-[130%] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.3)] border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
+                                            <img src={src} className="absolute inset-0 w-full h-full object-cover" alt="" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                                        </div>
+                                    ))}
                                 </div>
-                                <div>
-                                    <p className="text-sm text-slate-300">
-                                        Status Belajar
-                                    </p>
-                                    <p className="font-bold text-white">
-                                        Target Tercapai 85%
-                                    </p>
+                            </div>
+                            
+                            {/* Column 2 - Sliding Down */}
+                            <div className="flex-1 relative hidden sm:block">
+                                <div className="flex flex-col gap-4 sm:gap-6 w-full absolute top-0 animate-slide-down pause-animation">
+                                    {/* Original items + Duplicates for seamless loop */}
+                                    {[
+                                        '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg',
+                                        '/ImpactCompressed/DSC01305.jpg',
+                                        '/ImpactCompressed/DSC08419.JPG',
+                                        '/ImpactCompressed/presentasi.jpeg',
+                                        '/ImpactCompressed/CSR, ESG and Sustainability Training.jpg',
+                                        '/ImpactCompressed/DSC01305.jpg',
+                                        '/ImpactCompressed/DSC08419.JPG',
+                                        '/ImpactCompressed/presentasi.jpeg',
+                                    ].map((src, i) => (
+                                        <div key={`col2-${i}`} className="relative w-full pt-[120%] sm:pt-[130%] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.3)] border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
+                                            <img src={src} className="absolute inset-0 w-full h-full object-cover" alt="" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                                        </div>
+                                    ))}
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>

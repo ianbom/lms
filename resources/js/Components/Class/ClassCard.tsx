@@ -1,5 +1,5 @@
 import Icon from '@/Components/Icon';
-import { ClassData, formatPrice } from '@/types/class';
+import { ClassData, formatPrice, getDummyClassRating } from '@/types/class';
 import { Link } from '@inertiajs/react';
 import RichContent from '../User/RichContent';
 
@@ -11,6 +11,9 @@ interface ClassCardProps {
 export default function ClassCard({ item, className = '' }: ClassCardProps) {
     const hasDiscount = item.discount > 0;
     const isFree = item.price_final === 0;
+    const isComingSoon =
+        item.students_count === undefined || item.students_count <= 0;
+    const dummyRating = getDummyClassRating(item.id, item.students_count);
 
     return (
         <Link
@@ -62,14 +65,25 @@ export default function ClassCard({ item, className = '' }: ClassCardProps) {
                 {/* Spacer - pushes next section to bottom */}
                 <div className="flex-1" />
 
-                {/* Meta Info - Enrollment Stats */}
-                {item.students_count !== undefined &&
-                item.students_count > 0 ? (
-                    <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
-                        <Icon name="group" size={16} />
-                        <span className="text-xs font-medium">
-                            {item.students_count} Siswa
-                        </span>
+                {/* Meta Info - Rating & Enrollment Stats */}
+                {!isComingSoon ? (
+                    <div className="mb-4 flex items-center gap-4 text-sm text-slate-500">
+                        <div className="flex items-center gap-1.5">
+                            <Icon
+                                name="star"
+                                size={16}
+                                className="fill-amber-400 text-amber-400"
+                            />
+                            <span className="text-xs font-semibold text-slate-700">
+                                {dummyRating}
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Icon name="group" size={16} />
+                            <span className="text-xs font-medium">
+                                {item.students_count} Siswa
+                            </span>
+                        </div>
                     </div>
                 ) : (
                     <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">

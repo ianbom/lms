@@ -5,6 +5,7 @@ import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 interface VideoPlayerProps {
     videoId: string;
     initialTime?: number;
+    autoplay?: boolean;
     onPlay?: () => void;
     onPause?: () => void;
     onEnd?: () => void;
@@ -14,6 +15,7 @@ interface VideoPlayerProps {
 export default function VideoPlayer({
     videoId,
     initialTime = 0,
+    autoplay = false,
     onPlay,
     onPause,
     onEnd,
@@ -42,7 +44,7 @@ export default function VideoPlayer({
         width: '100%',
         height: '100%',
         playerVars: {
-            autoplay: 0,
+            autoplay: autoplay ? 1 : 0,
             controls: 0, // Hide YouTube native controls (we use custom)
             disablekb: 0,
             fs: 0, // Disable YouTube fullscreen (we use custom)
@@ -105,6 +107,10 @@ export default function VideoPlayer({
         if (initialTime > 0 && !hasSeekToInitial.current) {
             event.target.seekTo(initialTime, true);
             hasSeekToInitial.current = true;
+        }
+
+        if (autoplay) {
+            event.target.playVideo();
         }
     };
 

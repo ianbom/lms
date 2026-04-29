@@ -200,6 +200,7 @@ export default function DetailClass({
                                         selectedVideo.youtube_url,
                                     ) || ''
                                 }
+                                autoplay
                                 onPlay={handlePlayPreview}
                             />
                         ) : (
@@ -222,7 +223,7 @@ export default function DetailClass({
                     </div>
 
                     {/* Preview List */}
-                    {allPreviewVideos.length > 0 && (
+                    {/* {allPreviewVideos.length > 0 && (
                         <div className="mt-4">
                             <h3 className="mb-2 text-sm font-semibold text-gray-900">
                                 Video Preview ({allPreviewVideos.length})
@@ -290,7 +291,7 @@ export default function DetailClass({
                                 ))}
                             </div>
                         </div>
-                    )}
+                    )} */}
 
                     {/* Tags */}
                     <div className="mt-6">
@@ -391,11 +392,6 @@ export default function DetailClass({
                                                         <span className="font-medium text-gray-900">
                                                             {video.title}
                                                         </span>
-                                                        {video.is_preview && (
-                                                            <span className="ml-2 rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-                                                                Preview
-                                                            </span>
-                                                        )}
                                                     </div>
                                                 </div>
                                                 <span className="text-sm text-gray-500">
@@ -452,6 +448,7 @@ export default function DetailClass({
                 {/* Right Column - Sidebar */}
                 <div className="lg:sticky lg:top-24 lg:h-fit">
                     <PricingSidebar
+                        classId={classData.id}
                         price={classData.price_final}
                         originalPrice={
                             classData.discount > 0 ? classData.price : undefined

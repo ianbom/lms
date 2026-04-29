@@ -4,6 +4,10 @@ namespace App\Services;
 
 use App\Models\Classes;
 use App\Models\ClassOrder;
+use App\Models\Enrollment;
+use App\Models\QuizAttempt;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class ClassService
@@ -16,10 +20,11 @@ class ClassService
         //
     }
 
-    public function getAllClasses(){
+    public function getAllClasses()
+    {
         $classes = Classes::with(['category', 'mentors'])
             ->withCount('modules')
-            ->withCount(['enrollments as students_count' => function($q) {
+            ->withCount(['enrollments as students_count' => function ($q) {
                 $q->whereIn('status', ['active', 'completed']);
             }])
             ->withSum(['orders as total_revenue' => function ($query) {
@@ -27,17 +32,19 @@ class ClassService
             }], 'amount')
             ->orderBy('title', 'asc')
             ->get();
+
         return $classes;
     }
 
-    public function getPriorityClasses($type = null){
+    public function getPriorityClasses($type = null)
+    {
         $query = Classes::with(['category', 'mentors'])->withCount('modules')
-        ->withCount(['enrollments as students_count' => function($q) {
-            $q->whereIn('status', ['active', 'completed']);
-        }])
-        ->orderBy('title', 'asc')
-        ->where('status', 'published')
-        ->where('is_priority', true);
+            ->withCount(['enrollments as students_count' => function ($q) {
+                $q->whereIn('status', ['active', 'completed']);
+            }])
+            ->orderBy('title', 'asc')
+            ->where('status', 'published')
+            ->where('is_priority', true);
 
         if ($type) {
             $query->where('type', $type);
@@ -46,14 +53,14 @@ class ClassService
         return $query->get();
     }
 
-
-    public function getAllPublishedClasses($type = null){
+    public function getAllPublishedClasses($type = null)
+    {
         $query = Classes::with(['category', 'mentors'])->withCount('modules')
-        ->withCount(['enrollments as students_count' => function($q) {
-            $q->whereIn('status', ['active', 'completed']);
-        }])
-        ->orderBy('title', 'asc')
-        ->where('status', 'published');
+            ->withCount(['enrollments as students_count' => function ($q) {
+                $q->whereIn('status', ['active', 'completed']);
+            }])
+            ->orderBy('title', 'asc')
+            ->where('status', 'published');
 
         if ($type) {
             $query->where('type', $type);
@@ -66,7 +73,7 @@ class ClassService
     {
         if ($thumbnail) {
             $path = $thumbnail->store('classes/thumbnails', 'public');
-            $data['thumbnail_url'] = '/storage/' . $path;
+            $data['thumbnail_url'] = '/storage/'.$path;
         }
 
         $data['created_by'] = Auth::id();
@@ -80,56 +87,59 @@ class ClassService
 
         $class = Classes::create($data);
 
-        if (!empty($mentors) && is_array($mentors)) {
+        if (! empty($mentors) && is_array($mentors)) {
             $class->mentors()->sync($mentors);
         }
 
         return $class;
     }
+
     public function getClassDetailsById($classId)
     {
-        return Classes::with(['category', 'creator', 'mentors', 'modules' => function($query) {
-            $query->orderBy('sort_order')->with(['videos' => function($q) {
+        return Classes::with(['category', 'creator', 'mentors', 'modules' => function ($query) {
+            $query->orderBy('sort_order')->with(['videos' => function ($q) {
                 $q->with('resources')->orderBy('sort_order');
-            }, 'quizzes' => function($q) {
+            }, 'quizzes' => function ($q) {
                 $q->withCount('questions');
             }]);
         }])
-        ->withCount(['enrollments as students_count' => function($q) {
-            $q->whereIn('status', ['active', 'completed']);
-        }])
-        ->findOrFail($classId);
+            ->withCount(['enrollments as students_count' => function ($q) {
+                $q->whereIn('status', ['active', 'completed']);
+            }])
+            ->findOrFail($classId);
     }
 
-    public function getClassPreviewVideoById($clasId){
-        $videos = Classes::with(['modules' => function($query) {
-            $query->with(['videos' => function($q) {
+    public function getClassPreviewVideoById($clasId)
+    {
+        $videos = Classes::with(['modules' => function ($query) {
+            $query->with(['videos' => function ($q) {
                 $q->where('is_preview', true);
             }]);
         }])->findOrFail($clasId);
+
         return $videos;
     }
 
     public function getClassDetailsBySlug($slug)
     {
-        return Classes::with(['category', 'creator', 'mentors', 'modules' => function($query) {
-            $query->with(['videos', 'quizzes' => function($q) {
+        return Classes::with(['category', 'creator', 'mentors', 'modules' => function ($query) {
+            $query->with(['videos', 'quizzes' => function ($q) {
                 $q->withCount('questions');
             }]);
         }])
-        ->withCount(['enrollments as students_count' => function($q) {
-            $q->whereIn('status', ['active', 'completed']);
-        }])
-        ->findOrFail($slug);
+            ->withCount(['enrollments as students_count' => function ($q) {
+                $q->whereIn('status', ['active', 'completed']);
+            }])
+            ->findOrFail($slug);
     }
 
     public function calculateClassStats($class)
     {
         return [
             'total_modules' => $class->modules->count(),
-            'total_videos' => $class->modules->sum(fn($module) => $module->videos->count()),
-            'total_quizzes' => $class->modules->sum(fn($module) => $module->quizzes->count()),
-            'total_duration_seconds' => $class->modules->sum(fn($module) => $module->total_duration),
+            'total_videos' => $class->modules->sum(fn ($module) => $module->videos->count()),
+            'total_quizzes' => $class->modules->sum(fn ($module) => $module->quizzes->count()),
+            'total_duration_seconds' => $class->modules->sum(fn ($module) => $module->total_duration),
         ];
     }
 
@@ -139,14 +149,14 @@ class ClassService
 
         if ($thumbnail) {
             $path = $thumbnail->store('classes/thumbnails', 'public');
-            $data['thumbnail_url'] = '/storage/' . $path;
+            $data['thumbnail_url'] = '/storage/'.$path;
         }
 
         $price = $data['price'] ?? $class->price;
         $discount = $data['discount'] ?? $class->discount;
         $data['price_final'] = $price * (1 - $discount / 100);
 
-        if (isset($data['status']) && $data['status'] === 'published' && !$class->published_at) {
+        if (isset($data['status']) && $data['status'] === 'published' && ! $class->published_at) {
             $data['published_at'] = now();
         }
 
@@ -155,36 +165,28 @@ class ClassService
 
         $class->update($data);
 
-        if (!empty($mentors) && is_array($mentors)) {
+        if (! empty($mentors) && is_array($mentors)) {
             $class->mentors()->sync($mentors);
         }
 
         return $class;
     }
 
-    public function publishClass($classId){
+    public function publishClass($classId)
+    {
         $class = Classes::findOrFail($classId);
-        if (!$class->published_at) {
+        if (! $class->published_at) {
             $class->published_at = now();
             $class->status = 'published';
             $class->save();
         }
+
         return $class;
     }
 
     public function getClassEnrolledUsers($classId, array $filters = [])
     {
-        $query = \App\Models\Enrollment::with('user')
-            ->where('class_id', $classId)
-            ->where('status', 'active');
-
-        if (!empty($filters['search'])) {
-            $search = $filters['search'];
-            $query->whereHas('user', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
-            });
-        }
+        $query = $this->buildClassEnrollmentQuery($classId, $filters);
 
         $sortField = $filters['sort'] ?? 'created_at';
         $sortDirection = $filters['direction'] ?? 'desc';
@@ -199,6 +201,67 @@ class ClassService
         $perPage = $filters['per_page'] ?? 10;
 
         return $query->paginate($perPage)->withQueryString();
+    }
+
+    public function getClassEnrollmentExportData($classId, array $filters = []): array
+    {
+        $class = Classes::with([
+            'modules' => function ($query) {
+                $query->orderBy('sort_order')
+                    ->with([
+                        'quizzes' => function ($quizQuery) {
+                            $quizQuery->orderBy('sort_order');
+                        },
+                    ]);
+            },
+        ])->findOrFail($classId);
+
+        $enrollments = $this->buildClassEnrollmentQuery($classId, $filters)
+            ->orderBy('activated_at')
+            ->orderBy('created_at')
+            ->get();
+
+        $quizzes = $class->modules
+            ->flatMap(function ($module) {
+                return $module->quizzes->map(function ($quiz) use ($module) {
+                    return [
+                        'id' => $quiz->id,
+                        'label' => trim($module->title.' - '.$quiz->title),
+                    ];
+                });
+            })
+            ->values();
+
+        $scoresByUser = $this->getBestQuizScoresForUsers(
+            $enrollments->pluck('user_id')->all(),
+            $quizzes->pluck('id')->all(),
+        );
+
+        $rows = $enrollments->map(function ($enrollment) use ($quizzes, $scoresByUser) {
+            $row = [
+                'Nama Kelas' => $enrollment->class->title ?? '-',
+                'Nama User' => $enrollment->user->name,
+                'Telepon' => $enrollment->user->phone ?: '-',
+                'Perusahaan' => $enrollment->user->company ?: '-',
+                'Position' => $enrollment->user->position ?: '-',
+                'Tanggal Gabung Kelas' => ($enrollment->activated_at ?? $enrollment->created_at)
+                    ?->format('d-m-Y H:i:s') ?? '-',
+            ];
+
+            $userScores = $scoresByUser->get($enrollment->user_id, collect());
+
+            foreach ($quizzes as $quiz) {
+                $score = $userScores->get($quiz['id']);
+                $row[$quiz['label']] = $score !== null ? $score : '-';
+            }
+
+            return $row;
+        })->all();
+
+        return [
+            'class_title' => $class->title,
+            'rows' => $rows,
+        ];
     }
 
     /**
@@ -220,15 +283,15 @@ class ClassService
         $perMentorShare = $mentorCount > 0 ? $mentorTotal / $mentorCount : 0;
 
         return [
-            'total_revenue'    => (int) $totalRevenue,
-            'app_share'        => (int) round($appShare),
-            'mentor_total'     => (int) round($mentorTotal),
+            'total_revenue' => (int) $totalRevenue,
+            'app_share' => (int) round($appShare),
+            'mentor_total' => (int) round($mentorTotal),
             'per_mentor_share' => (int) round($perMentorShare),
-            'mentor_count'     => $mentorCount,
-            'mentors'          => $mentors->map(fn($m) => [
-                'id'     => $m->id,
-                'name'   => $m->name,
-                'share'  => (int) round($perMentorShare),
+            'mentor_count' => $mentorCount,
+            'mentors' => $mentors->map(fn ($m) => [
+                'id' => $m->id,
+                'name' => $m->name,
+                'share' => (int) round($perMentorShare),
             ])->values()->toArray(),
         ];
     }
@@ -293,7 +356,7 @@ class ClassService
     public function getUserQuizScores($classId, $userId)
     {
         $modules = \App\Models\Module::where('class_id', $classId)
-            ->with(['quizzes' => function($q) {
+            ->with(['quizzes' => function ($q) {
                 $q->orderBy('sort_order');
             }])
             ->orderBy('sort_order')
@@ -309,10 +372,10 @@ class ClassService
         $results = [];
         $no = 1;
 
-        foreach($modules as $module) {
-            foreach($module->quizzes as $quiz) {
+        foreach ($modules as $module) {
+            foreach ($module->quizzes as $quiz) {
                 $quizAttempts = $attempts->get($quiz->id) ?? collect();
-                
+
                 // Get highest score
                 $bestAttempt = $quizAttempts->sortByDesc('score')->first();
 
@@ -320,7 +383,7 @@ class ClassService
                     'no' => $no++,
                     'module_title' => $module->title,
                     'quiz_title' => $quiz->title,
-                    'score' => $bestAttempt ? ((float)$bestAttempt->score) : null,
+                    'score' => $bestAttempt ? ((float) $bestAttempt->score) : null,
                     'is_passed' => $bestAttempt ? $bestAttempt->is_passed : null,
                     'attempted' => $bestAttempt ? true : false,
                 ];
@@ -329,5 +392,50 @@ class ClassService
 
         return $results;
     }
-}
 
+    protected function buildClassEnrollmentQuery($classId, array $filters = []): Builder
+    {
+        $query = Enrollment::with('user')
+            ->with('class:id,title')
+            ->where('class_id', $classId)
+            ->where('status', 'active');
+
+        if (! empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        if (! empty($filters['joined_from'])) {
+            $query->whereDate('activated_at', '>=', $filters['joined_from']);
+        }
+
+        if (! empty($filters['joined_to'])) {
+            $query->whereDate('activated_at', '<=', $filters['joined_to']);
+        }
+
+        return $query;
+    }
+
+    protected function getBestQuizScoresForUsers(array $userIds, array $quizIds): Collection
+    {
+        if (empty($userIds) || empty($quizIds)) {
+            return collect();
+        }
+
+        return QuizAttempt::query()
+            ->selectRaw('user_id, quiz_id, MAX(score) as best_score')
+            ->whereIn('user_id', $userIds)
+            ->whereIn('quiz_id', $quizIds)
+            ->groupBy('user_id', 'quiz_id')
+            ->get()
+            ->groupBy('user_id')
+            ->map(function ($attempts) {
+                return $attempts->mapWithKeys(function ($attempt) {
+                    return [$attempt->quiz_id => $attempt->best_score];
+                });
+            });
+    }
+}

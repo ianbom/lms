@@ -6,7 +6,7 @@ import TableToolbar from '@/Components/User/Dashboard/TableToolbar';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router } from '@inertiajs/react';
 import axios from 'axios';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 interface User {
     id: number;
@@ -32,6 +32,8 @@ interface Filters {
     sort?: string;
     direction?: string;
     per_page?: number;
+    joined_from?: string;
+    joined_to?: string;
 }
 
 interface PaginationLink {
@@ -114,6 +116,8 @@ export default function ClassUserList({
 }: Props) {
     const routeName = 'admin.classes.users';
     const routeParams = { classId: classData.id };
+    const [joinedFrom, setJoinedFrom] = useState(filters.joined_from || '');
+    const [joinedTo, setJoinedTo] = useState(filters.joined_to || '');
 
     const [selectedUserForQuiz, setSelectedUserForQuiz] = useState<User | null>(
         null,
@@ -121,6 +125,11 @@ export default function ClassUserList({
     const [isQuizModalOpen, setIsQuizModalOpen] = useState(false);
     const [quizScores, setQuizScores] = useState<QuizScore[]>([]);
     const [isLoadingScores, setIsLoadingScores] = useState(false);
+
+    useEffect(() => {
+        setJoinedFrom(filters.joined_from || '');
+        setJoinedTo(filters.joined_to || '');
+    }, [filters.joined_from, filters.joined_to]);
 
     const handleViewQuizScores = useCallback(
         async (user: User) => {
@@ -263,6 +272,44 @@ export default function ClassUserList({
         }),
         [filters.search],
     );
+
+    const applyDateFilters = useCallback(() => {
+        router.get(
+            route(routeName, routeParams),
+            {
+                ...filters,
+                joined_from: joinedFrom || undefined,
+                joined_to: joinedTo || undefined,
+            },
+            { preserveState: true, replace: true },
+        );
+    }, [filters, joinedFrom, joinedTo, routeName, routeParams]);
+
+    const resetDateFilters = useCallback(() => {
+        setJoinedFrom('');
+        setJoinedTo('');
+
+        router.get(
+            route(routeName, routeParams),
+            {
+                ...filters,
+                joined_from: undefined,
+                joined_to: undefined,
+            },
+            { preserveState: true, replace: true },
+        );
+    }, [filters, routeName, routeParams]);
+
+    const handleExport = useCallback(() => {
+        const exportUrl = route('admin.classes.users.export', {
+            classId: classData.id,
+            ...filters,
+            joined_from: joinedFrom || undefined,
+            joined_to: joinedTo || undefined,
+        });
+
+        window.location.href = exportUrl;
+    }, [classData.id, filters, joinedFrom, joinedTo]);
 
     return (
         <AdminLayout
@@ -420,7 +467,45 @@ export default function ClassUserList({
                         searchPlaceholder="Cari nama atau email..."
                         sortOptions={SORT_OPTIONS}
                         showFilter={false}
-                    />
+                    >
+                        <div className="flex flex-wrap items-center gap-2">
+                            <input
+                                type="date"
+                                value={joinedFrom}
+                                onChange={(e) => setJoinedFrom(e.target.value)}
+                                className="rounded-md border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 focus:border-primary focus:bg-white focus:ring-primary"
+                                aria-label="Tanggal gabung dari"
+                            />
+                            <input
+                                type="date"
+                                value={joinedTo}
+                                onChange={(e) => setJoinedTo(e.target.value)}
+                                className="rounded-md border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 focus:border-primary focus:bg-white focus:ring-primary"
+                                aria-label="Tanggal gabung sampai"
+                            />
+                            <button
+                                onClick={applyDateFilters}
+                                className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                            >
+                                <Icon name="filter_alt" size={18} />
+                                Terapkan
+                            </button>
+                            <button
+                                onClick={resetDateFilters}
+                                className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                            >
+                                <Icon name="restart_alt" size={18} />
+                                Reset
+                            </button>
+                            <button
+                                onClick={handleExport}
+                                className="inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700 transition-colors hover:bg-emerald-100"
+                            >
+                                <Icon name="download" size={18} />
+                                Export CSV Excel
+                            </button>
+                        </div>
+                    </TableToolbar>
 
                     {/* Per Page Selector */}
                     <div className="flex items-center justify-end px-5 py-2">

@@ -2,7 +2,7 @@ import Icon from '@/Components/Icon';
 
 export default function PaymentInstructionCard() {
     const handleCopy = () => {
-        navigator.clipboard.writeText('5035288896');
+        navigator.clipboard.writeText('0700012656372');
     };
 
     return (
@@ -24,7 +24,7 @@ export default function PaymentInstructionCard() {
                     {/* Bank Header */}
                     <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
                         <div className="flex items-center gap-3">
-                            {/* BCA Logo */}
+                            {/* Mandiri Logo */}
                             <div className="flex h-10 w-16 items-center justify-center overflow-hidden rounded-md border border-gray-200 bg-white">
                                 <svg
                                     viewBox="0 0 100 32"
@@ -37,22 +37,40 @@ export default function PaymentInstructionCard() {
                                         fill="#003D79"
                                         rx="2"
                                     />
+                                    <path
+                                        d="M22 10.5C29 6.5 40 6.5 47 10.5"
+                                        stroke="#F5B335"
+                                        strokeWidth="2.2"
+                                        strokeLinecap="round"
+                                    />
+                                    <path
+                                        d="M22 14C29 10 40 10 47 14"
+                                        stroke="#F5B335"
+                                        strokeWidth="2.2"
+                                        strokeLinecap="round"
+                                    />
+                                    <path
+                                        d="M22 17.5C29 13.5 40 13.5 47 17.5"
+                                        stroke="#F5B335"
+                                        strokeWidth="2.2"
+                                        strokeLinecap="round"
+                                    />
                                     <text
-                                        x="50"
+                                        x="68"
                                         y="22"
                                         fill="white"
-                                        fontFamily="Arial Black, sans-serif"
-                                        fontSize="16"
+                                        fontFamily="Arial, sans-serif"
+                                        fontSize="13"
                                         fontWeight="900"
                                         textAnchor="middle"
                                     >
-                                        BCA
+                                        mandiri
                                     </text>
                                 </svg>
                             </div>
                             <div>
                                 <p className="text-sm font-semibold text-gray-900">
-                                    Bank Central Asia
+                                    Bank Mandiri
                                 </p>
                             </div>
                         </div>
@@ -65,7 +83,7 @@ export default function PaymentInstructionCard() {
                         </p>
                         <div className="flex items-center gap-3">
                             <span className="font-mono text-2xl font-bold tracking-wide text-gray-900">
-                                5035288896
+                                0700012656372
                             </span>
                             <button
                                 onClick={handleCopy}
@@ -76,7 +94,7 @@ export default function PaymentInstructionCard() {
                             </button>
                         </div>
                         <p className="mt-2 text-sm text-gray-600">
-                            a.n. DAMPAK SOSIAL INDONESIA
+                            a.n. PT Dampak Sosial Indonesia
                         </p>
                     </div>
 

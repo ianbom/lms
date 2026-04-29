@@ -92,6 +92,17 @@ export const formatPrice = (price: number): string => {
     }).format(price);
 };
 
+export const getDummyClassRating = (
+    classId: number | null | undefined,
+    studentsCount?: number,
+): string | null => {
+    if (studentsCount === undefined || studentsCount <= 0) {
+        return null;
+    }
+
+    return (4 + (((classId ?? 0) * 37) % 11) / 10).toFixed(1);
+};
+
 // Helper function to format duration from seconds to readable format
 export const formatDuration = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);

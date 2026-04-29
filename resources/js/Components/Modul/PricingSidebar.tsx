@@ -1,6 +1,8 @@
 import Icon from '@/Components/Icon';
+import { getDummyClassRating } from '@/types/class';
 
 interface PricingSidebarProps {
+    classId?: number;
     price: number | null;
     originalPrice?: number;
     discount?: number;
@@ -17,6 +19,7 @@ interface PricingSidebarProps {
 }
 
 export default function PricingSidebar({
+    classId,
     price,
     originalPrice,
     discount,
@@ -34,6 +37,7 @@ export default function PricingSidebar({
     const formatPrice = (amount: number) => {
         return `Rp ${amount.toLocaleString('id-ID')}`;
     };
+    const dummyRating = getDummyClassRating(classId, studentsCount);
 
     return (
         <div className="rounded-md border border-gray-200 bg-white p-6 shadow-sm">
@@ -66,20 +70,44 @@ export default function PricingSidebar({
             <div className="mb-6 grid grid-cols-2 gap-x-2 gap-y-4">
                 {type === 'learning-package' ? (
                     <>
-                        <div className="col-span-2 flex items-center gap-2.5 text-sm">
-                            <Icon
-                                name="group"
-                                size={20}
-                                className="text-primary"
-                            />
-                            {studentsCount !== undefined && studentsCount > 0 ? (
-                                <span className="font-medium text-gray-700">
-                                    {studentsCount} Siswa 
-                                </span>
+                        <div className="col-span-2 text-sm">
+                            {studentsCount !== undefined &&
+                            studentsCount > 0 ? (
+                                <div className="flex flex-col gap-2.5">
+                                    {dummyRating && (
+                                        <div className="flex items-center gap-2.5">
+                                            <Icon
+                                                name="star"
+                                                size={18}
+                                                className="fill-amber-400 text-amber-400"
+                                            />
+                                            <span className="font-semibold text-gray-700">
+                                                {dummyRating}
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className="flex items-center gap-2.5">
+                                        <Icon
+                                            name="group"
+                                            size={20}
+                                            className="text-primary"
+                                        />
+                                        <span className="font-medium text-gray-700">
+                                            {studentsCount} Siswa
+                                        </span>
+                                    </div>
+                                </div>
                             ) : (
-                                <span className="text-xs font-medium italic text-gray-400">
-                                    Coming Soon
-                                </span>
+                                <div className="flex items-center gap-2.5">
+                                    <Icon
+                                        name="group"
+                                        size={20}
+                                        className="text-primary"
+                                    />
+                                    <span className="text-xs font-medium italic text-gray-400">
+                                        Coming Soon
+                                    </span>
+                                </div>
                             )}
                         </div>
                         {location && (
@@ -164,24 +192,47 @@ export default function PricingSidebar({
                             </div>
                         )}
                         {/* Students Count */}
-                        <div className="col-span-2 flex items-center gap-2.5 text-sm">
-                            <Icon
-                                name="group"
-                                size={20}
-                                className="text-primary"
-                            />
-                            {studentsCount !== undefined && studentsCount > 0 ? (
-                                <span className="font-medium text-gray-700">
-                                    {studentsCount} Siswa 
-                                </span>
+                        <div className="col-span-2 text-sm">
+                            {studentsCount !== undefined &&
+                            studentsCount > 0 ? (
+                                <div className="flex flex-col gap-2.5">
+                                    {dummyRating && (
+                                        <div className="flex items-center gap-2.5">
+                                            <Icon
+                                                name="star"
+                                                size={18}
+                                                className="fill-amber-400 text-amber-400"
+                                            />
+                                            <span className="font-semibold text-gray-700">
+                                                {dummyRating}
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className="flex items-center gap-2.5">
+                                        <Icon
+                                            name="group"
+                                            size={20}
+                                            className="text-primary"
+                                        />
+                                        <span className="font-medium text-gray-700">
+                                            {studentsCount} Siswa
+                                        </span>
+                                    </div>
+                                </div>
                             ) : (
-                                <span className="text-xs font-medium italic text-gray-400">
-                                    Coming Soon
-                                </span>
+                                <div className="flex items-center gap-2.5">
+                                    <Icon
+                                        name="group"
+                                        size={20}
+                                        className="text-primary"
+                                    />
+                                    <span className="text-xs font-medium italic text-gray-400">
+                                        Coming Soon
+                                    </span>
+                                </div>
                             )}
                         </div>
                         {location && (
-
                             <div className="col-span-2 flex items-center gap-2.5 text-sm">
                                 <Icon
                                     name="location_on"

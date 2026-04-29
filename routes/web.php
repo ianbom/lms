@@ -1,26 +1,25 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClassController as AdmClassController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MentorController;
 use App\Http\Controllers\Admin\ModuleController as AdmModuleController;
-use App\Http\Controllers\Admin\QuizController as AdmQuizController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageSettingController;
-use App\Http\Controllers\Admin\UserController as AdmUserController;
+use App\Http\Controllers\Admin\QuizController as AdmQuizController;
 use App\Http\Controllers\Admin\TestimonyController;
+use App\Http\Controllers\Admin\UserController as AdmUserController;
+use App\Http\Controllers\Auth\AdminOtpController;
 use App\Http\Controllers\CorporateContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\CertificateController;
 use App\Http\Controllers\User\ClassController as UserClassController;
+use App\Http\Controllers\User\ClassReviewController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
-use App\Http\Controllers\User\CertificateController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
-use App\Http\Controllers\User\ClassReviewController;
 use App\Http\Controllers\User\StudyController;
-use App\Http\Controllers\Auth\AdminOtpController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -57,6 +56,7 @@ Route::post('/contact-us', [CorporateContactController::class, 'sendContactUs'])
 
 Route::get('/corporate-training', function () {
     $categories = \App\Models\Category::select('id', 'name')->orderBy('name')->get();
+
     return Inertia::render('CorporateTraining', [
         'categories' => $categories,
     ]);
@@ -72,56 +72,54 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 Route::get('/certificate/verify', [CertificateController::class, 'verifyCertificate'])->name('certificate.verify');
 Route::get('/certificate/verify', [CertificateController::class, 'downloadCertificatePublic']);
 
-    // User Modul Routes
-    Route::prefix('user')->name('user.')->group(function () {
+// User Modul Routes
+Route::prefix('user')->name('user.')->group(function () {
 
-       Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
-       Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->middleware('class.published')->name('classes.show');
+    Route::get('/classes', [UserClassController::class, 'listClassPage'])->name('classes');
+    Route::get('/classes/{classId}', [UserClassController::class, 'detailClassPage'])->middleware('class.published')->name('classes.show');
 
-       Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
+    Route::get('/order/success', [UserOrderController::class, 'orderSuccessPage'])->name('order.success');
 
-       Route::middleware(['auth', 'verified', 'has.course.access', 'class.published'])->group(function () {
+    Route::middleware(['auth', 'verified', 'has.course.access', 'class.published'])->group(function () {
 
-           Route::get('/study/{classId}/module/{moduleId}', [StudyController::class, 'watchModulePage'])->name('study.module');
-           Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
-           Route::post('/study/{classId}/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
-           Route::post('/study/{classId}/video/{videoId}/complete', [StudyController::class, 'markCompleted'])->name('study.complete');
-           Route::post('/study/{classId}/video/{videoId}/notes', [StudyController::class, 'addNote'])->name('study.notes.add');
+        Route::get('/study/{classId}/module/{moduleId}', [StudyController::class, 'watchModulePage'])->name('study.module');
+        Route::get('/study/{classId}/video/{videoId}', [StudyController::class, 'watchClassPage'])->name('study.watch');
+        Route::post('/study/{classId}/video/{videoId}/progress', [StudyController::class, 'updateProgress'])->name('study.progress');
+        Route::post('/study/{classId}/video/{videoId}/complete', [StudyController::class, 'markCompleted'])->name('study.complete');
+        Route::post('/study/{classId}/video/{videoId}/notes', [StudyController::class, 'addNote'])->name('study.notes.add');
 
-           Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
-           Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
-           Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
+        Route::get('/study/{classId}/quiz/{quizId}', [StudyController::class, 'takeQuizPage'])->name('study.quiz');
+        Route::post('/study/{classId}/quiz/{quizId}/start', [StudyController::class, 'startQuiz'])->name('study.quiz.start');
+        Route::post('/study/{classId}/quiz/{quizId}/submit', [StudyController::class, 'submitQuiz'])->name('study.quiz.submit');
 
-           // Review Page
-           Route::get('/study/{classId}/review', [ClassReviewController::class, 'reviewPage'])->name('study.review');
-       });
-
-
-       Route::middleware(['auth', 'verified'])->group(function () {
-           Route::get('/dashboard', [UserDashboardController::class, 'dashboardPage'])->name('dashboard');
-           Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->middleware('class.published')->name('classes.purchase');
-           Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->middleware('class.published')->name('classes.order');
-
-           Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
-           Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
-           Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
-           Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
-           Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
-           Route::patch('/profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
-           Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
-
-           Route::get('/certificates', [CertificateController::class, 'listCertificatePage'])->name('certificates');
-           Route::post('/certificates/claim/{classId}', [CertificateController::class, 'claimCertificate'])->name('certificates.claim');
-           Route::get('/certificates/{certificateId}/download', [CertificateController::class, 'downloadCertificate'])->name('certificates.download');
-           Route::get('/certificates/{certificateId}/view', [CertificateController::class, 'viewCertificate'])->name('certificates.view');
-
-           // Class Review Routes
-           Route::post('/classes/{classId}/reviews', [ClassReviewController::class, 'store'])->middleware('class.published')->name('reviews.store');
-           Route::put('/reviews/{reviewId}', [ClassReviewController::class, 'update'])->name('reviews.update');
-           Route::delete('/reviews/{reviewId}', [ClassReviewController::class, 'destroy'])->name('reviews.destroy');
-       });
+        // Review Page
+        Route::get('/study/{classId}/review', [ClassReviewController::class, 'reviewPage'])->name('study.review');
     });
 
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/dashboard', [UserDashboardController::class, 'dashboardPage'])->name('dashboard');
+        Route::get('/classes/{classId}/purchase', [UserClassController::class, 'purchaseClassPage'])->middleware('class.published')->name('classes.purchase');
+        Route::post('/classes/{classId}/purchase', [UserOrderController::class, 'orderClass'])->middleware('class.published')->name('classes.order');
+
+        Route::get('/myClass', [UserDashboardController::class, 'myClassPage'])->name('my-class');
+        Route::get('/myOrder', [UserDashboardController::class, 'myOrderPage'])->name('my-order');
+        Route::put('/study/notes/{noteId}', [StudyController::class, 'updateNote'])->name('study.notes.update');
+        Route::delete('/study/notes/{noteId}', [StudyController::class, 'deleteNote'])->name('study.notes.delete');
+        Route::get('/profile', [ProfileController::class, 'editUser'])->name('profile.edit');
+        Route::patch('/profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/study/quiz/result/{attemptId}', [StudyController::class, 'getQuizResult'])->name('study.quiz.result');
+
+        Route::get('/certificates', [CertificateController::class, 'listCertificatePage'])->name('certificates');
+        Route::post('/certificates/claim/{classId}', [CertificateController::class, 'claimCertificate'])->name('certificates.claim');
+        Route::get('/certificates/{certificateId}/download', [CertificateController::class, 'downloadCertificate'])->name('certificates.download');
+        Route::get('/certificates/{certificateId}/view', [CertificateController::class, 'viewCertificate'])->name('certificates.view');
+
+        // Class Review Routes
+        Route::post('/classes/{classId}/reviews', [ClassReviewController::class, 'store'])->middleware('class.published')->name('reviews.store');
+        Route::put('/reviews/{reviewId}', [ClassReviewController::class, 'update'])->name('reviews.update');
+        Route::delete('/reviews/{reviewId}', [ClassReviewController::class, 'destroy'])->name('reviews.destroy');
+    });
+});
 
 // Admin OTP Verification Routes
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -141,6 +139,7 @@ Route::middleware(['auth', 'isAdmin', 'admin.otp'])->group(function () {
         Route::post('/classes/{classId}/publish', [AdmClassController::class, 'publishClass'])->name('classes.publish');
         Route::get('/classes/{classId}/review', [AdmClassController::class, 'reviewClassPage'])->name('classes.review');
         Route::get('/classes/{classId}/users', [AdmClassController::class, 'classUserListPage'])->name('classes.users');
+        Route::get('/classes/{classId}/users/export', [AdmClassController::class, 'exportClassUsers'])->name('classes.users.export');
         Route::get('/classes/{classId}/users/{userId}/quiz-scores', [AdmClassController::class, 'userQuizScores'])->name('classes.users.quizzes');
         Route::delete('/classes/{classId}', [AdmClassController::class, 'deleteClass'])->name('classes.delete');
 
@@ -191,4 +190,3 @@ Route::middleware(['auth', 'isAdmin', 'admin.otp'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
-

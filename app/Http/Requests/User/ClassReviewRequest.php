@@ -21,7 +21,7 @@ class ClassReviewRequest extends FormRequest
     {
         return [
             'rating' => ['required', 'integer', 'min:1', 'max:5'],
-            'comment' => ['nullable', 'string', 'max:1000'],
+            'comment' => ['required', 'string', 'min:10', 'max:1000'],
         ];
     }
 
@@ -35,6 +35,8 @@ class ClassReviewRequest extends FormRequest
             'rating.integer' => 'Rating harus berupa angka',
             'rating.min' => 'Rating minimal 1 bintang',
             'rating.max' => 'Rating maksimal 5 bintang',
+            'comment.required' => 'Komentar wajib diisi',
+            'comment.min' => 'Komentar minimal 10 karakter',
             'comment.max' => 'Komentar maksimal 1000 karakter',
         ];
     }

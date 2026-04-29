@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Classes;
+use App\Models\ClassReview;
 use App\Models\Module;
 use App\Models\Quiz;
 use App\Models\QuizAnswer;
@@ -240,12 +241,21 @@ class StudyService
 
         $allVideosCompleted = $totalVideos > 0 && $completedVideos === $totalVideos;
         $allQuizzesPassed = $totalQuizzes === 0 || $passedQuizzes === $totalQuizzes;
-        $isEligible = $allVideosCompleted && $allQuizzesPassed;
+
+        // Check if user has submitted a review for this class
+        $hasReviewed = ClassReview::where('user_id', $userId)
+            ->where('class_id', $class->id)
+            ->whereNotNull('comment')
+            ->exists();
+
+        $isEligible = $allVideosCompleted && $allQuizzesPassed && $hasReviewed;
 
         return [
             'is_eligible' => $isEligible,
             'all_videos_completed' => $allVideosCompleted,
             'all_quizzes_passed' => $allQuizzesPassed,
+            'has_reviewed' => $hasReviewed,
+            'review_required' => true,
             'total_videos' => $totalVideos,
             'completed_videos' => $completedVideos,
             'total_quizzes' => $totalQuizzes,

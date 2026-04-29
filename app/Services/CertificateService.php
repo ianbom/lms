@@ -84,7 +84,7 @@ class CertificateService
             ];
         }
 
-        // Check eligibility (all videos completed + all quizzes passed)
+        // Check eligibility (all videos completed + all quizzes passed + reviewed)
         $class = Classes::with([
             'modules' => function ($query) use ($userId) {
                 $query->orderBy('sort_order')
@@ -112,9 +112,13 @@ class CertificateService
         $eligibility = $this->studyService->checkCertificateEligibility($class, $userId);
 
         if (!$eligibility['is_eligible']) {
+            $reason = 'not_eligible';
+            if (!$eligibility['has_reviewed']) {
+                $reason = 'review_required';
+            }
             return [
                 'can_claim' => false,
-                'reason' => 'not_eligible',
+                'reason' => $reason,
                 'eligibility' => $eligibility,
             ];
         }

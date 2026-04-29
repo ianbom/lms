@@ -372,6 +372,32 @@ export default function CurriculumSidebar({
                                 </span>
                             </div>
                         )}
+                        {/* Review requirement row */}
+                        <div className="flex items-center gap-2 text-sm">
+                            <Icon
+                                name={
+                                    certificateStatus.has_reviewed
+                                        ? 'check_circle'
+                                        : 'radio_button_unchecked'
+                                }
+                                size={16}
+                                className={
+                                    certificateStatus.has_reviewed
+                                        ? 'text-green-500'
+                                        : 'text-amber-400'
+                                }
+                            />
+                            <span
+                                className={
+                                    certificateStatus.has_reviewed
+                                        ? 'text-green-600'
+                                        : 'text-amber-600 font-medium'
+                                }
+                            >
+                                Review kelas{' '}
+                                {!certificateStatus.has_reviewed && '— Belum diisi'}
+                            </span>
+                        </div>
                     </div>
                 </div>
             )}
@@ -385,15 +411,23 @@ export default function CurriculumSidebar({
                             : 'grid-cols-1'
                     }`}
                 >
-                    {/* Review Kelas Button - Primary Green */}
+                    {/* Review Kelas Button */}
                     <button
                         onClick={() =>
                             router.visit(`/user/study/${classData.id}/review`)
                         }
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-dark hover:shadow-primary/40"
+                        className={
+                            certificateStatus && !certificateStatus.has_reviewed
+                                ? 'flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 px-4 py-3 font-bold text-white shadow-lg shadow-amber-400/30 transition-all hover:from-amber-500 hover:to-yellow-500 hover:shadow-amber-400/40 animate-pulse'
+                                : 'flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-dark hover:shadow-primary/40'
+                        }
                     >
                         <Icon name="rate_review" size={20} />
-                        <span className="text-sm">Review</span>
+                        <span className="text-sm">
+                            {certificateStatus && !certificateStatus.has_reviewed
+                                ? 'Isi Review'
+                                : 'Review'}
+                        </span>
                     </button>
 
                     {/* Certificate Claim Button - Yellow */}
