@@ -77,7 +77,7 @@ export default function HeroSection({
     rating = 4.9,
 }: HeroSectionProps) {
     return (
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#022C22] to-[#011E17] text-white">
+        <section className="relative overflow-hidden bg-[#1c4b42] text-white">
             <style>{`
                 @keyframes slide-up {
                     0% { transform: translateY(0); }

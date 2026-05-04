@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 
 export default function Footer() {
     return (
-        <footer className="w-full bg-[#1C1C1C] text-white">
+        <footer className="w-full bg-[#1c4b42] text-white">
             <div className="mx-auto w-full max-w-[1200px] px-8 py-12 md:px-12 md:py-16">
                 <div className="mb-16 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
                     <div className="max-w-xl">
@@ -38,18 +38,18 @@ export default function Footer() {
                     </div> */}
                 </div>
 
-                <div className="grid grid-cols-1 gap-10 border-t border-gray-800 pb-4 pt-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+                <div className="grid grid-cols-1 gap-10 border-t border-white/15 pb-4 pt-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
                     <div className="space-y-6">
-                        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                        <h3 className="text-xs font-bold uppercase tracking-widest text-white/60">
                             Contact Information
                         </h3>
                         <ul className="space-y-4">
                             <li>
                                 <a
-                                    className="group flex items-center gap-3 text-gray-300 transition-colors hover:text-[#00753D]"
+                                    className="group flex items-center gap-3 text-white/85 transition-colors hover:text-white"
                                     href="mailto:info@socialimpact.id"
                                 >
-                                    <div className="flex h-5 w-5 items-center justify-center text-[#00753D] transition-transform group-hover:scale-110">
+                                    <div className="flex h-5 w-5 items-center justify-center text-[#9ee5d5] transition-transform group-hover:scale-110 group-hover:text-white">
                                         <Icon name="mail" size={20} />
                                     </div>
                                     <span>info@socialimpact.id</span>
@@ -57,10 +57,10 @@ export default function Footer() {
                             </li>
                             <li>
                                 <a
-                                    className="group flex items-center gap-3 text-gray-300 transition-colors hover:text-[#00753D]"
+                                    className="group flex items-center gap-3 text-white/85 transition-colors hover:text-white"
                                     href="tel:+62811106066"
                                 >
-                                    <div className="flex h-5 w-5 items-center justify-center text-[#00753D] transition-transform group-hover:scale-110">
+                                    <div className="flex h-5 w-5 items-center justify-center text-[#9ee5d5] transition-transform group-hover:scale-110 group-hover:text-white">
                                         <Icon name="call" size={20} />
                                     </div>
                                     <span>+62 811 106 066</span>
@@ -70,7 +70,7 @@ export default function Footer() {
                     </div>
 
                     <div className="space-y-6">
-                        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                        <h3 className="text-xs font-bold uppercase tracking-widest text-white/60">
                             Company
                         </h3>
                         <ul className="space-y-3">
@@ -85,7 +85,7 @@ export default function Footer() {
                     </div>
 
                     <div className="space-y-6">
-                        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                        <h3 className="text-xs font-bold uppercase tracking-widest text-white/60">
                             Help
                         </h3>
                         <ul className="space-y-3">
@@ -96,7 +96,7 @@ export default function Footer() {
                     </div>
 
                     <div className="space-y-6">
-                        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                        <h3 className="text-xs font-bold uppercase tracking-widest text-white/60">
                             Follow Us
                         </h3>
                         <div className="flex gap-4">
@@ -153,18 +153,18 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="w-full border-t border-gray-800">
-                <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-8 py-6 text-xs text-gray-500 md:flex-row md:px-12">
+            <div className="w-full border-t border-white/15">
+                <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-8 py-6 text-xs text-white/65 md:flex-row md:px-12">
                     <p>© 2026 Impact Academy. All Rights Reserved.</p>
                     <div className="flex gap-8">
                         <a
-                            className="transition-colors hover:text-white"
+                            className="transition-colors hover:text-white/90"
                             href="/privacy-policy"
                         >
                             Privacy
                         </a>
                         <a
-                            className="transition-colors hover:text-white"
+                            className="transition-colors hover:text-white/90"
                             href="/terms-and-conditions"
                         >
                             Terms & condition
@@ -186,7 +186,7 @@ function FooterLink({
     return (
         <li>
             <Link
-                className="text-gray-300 transition-colors hover:text-white"
+                className="text-white/85 transition-colors hover:text-white"
                 href={href}
             >
                 {children}
@@ -206,7 +206,7 @@ function SocialButton({
 }) {
     return (
         <a
-            className="flex h-10 w-10 transform items-center justify-center rounded-full bg-white text-black transition-all duration-300 hover:-translate-y-1 hover:bg-[#00753D] hover:text-white"
+            className="flex h-10 w-10 transform items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white hover:text-[#1c4b42]"
             href={href}
             aria-label={label}
         >
