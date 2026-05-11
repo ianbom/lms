@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Mail\ClassOrderCreatedAdminMail;
 use App\Models\Classes;
 use App\Models\ClassOrder;
 use App\Models\ClassOrderStatusLog;
 use App\Models\Enrollment;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class OrderService
@@ -36,7 +38,21 @@ class OrderService
             'status' => 'pending',
         ]);
 
+        $this->sendOrderCreatedAdminNotification($order);
+
         return $order;
+    }
+
+    protected function sendOrderCreatedAdminNotification(ClassOrder $order): void
+    {
+        try {
+            Mail::to([
+                'ianalebom@gmail.com',
+                // 'info@socialimpact.id',
+            ])->send(new ClassOrderCreatedAdminMail($order));
+        } catch (\Throwable $th) {
+            report($th);
+        }
     }
 
     public function getAllOrders(array $filters = [], $userId = null)
