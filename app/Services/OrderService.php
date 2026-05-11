@@ -48,7 +48,7 @@ class OrderService
         try {
             Mail::to([
                 'ianalebom@gmail.com',
-                // 'info@socialimpact.id',
+                'info@socialimpact.id',
             ])->send(new ClassOrderCreatedAdminMail($order));
         } catch (\Throwable $th) {
             report($th);
