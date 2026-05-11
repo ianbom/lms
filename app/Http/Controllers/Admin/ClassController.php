@@ -196,11 +196,13 @@ class ClassController extends Controller
     {
         return $request->validate([
             'search' => ['nullable', 'string'],
-            'sort' => ['nullable', 'string', 'in:created_at,activated_at'],
+            'sort' => ['nullable', 'string', 'in:created_at,activated_at,video_progress'],
             'direction' => ['nullable', 'string', 'in:asc,desc'],
             'per_page' => ['nullable', 'integer', 'in:10,25,50,100'],
             'joined_from' => ['nullable', 'date'],
             'joined_to' => ['nullable', 'date', 'after_or_equal:joined_from'],
+            'review_status' => ['nullable', 'string', 'in:reviewed,not_reviewed'],
+            'certificate_status' => ['nullable', 'string', 'in:issued,not_issued'],
         ]);
     }
 

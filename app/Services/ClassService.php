@@ -196,8 +196,10 @@ class ClassService
         $sortField = $filters['sort'] ?? 'created_at';
         $sortDirection = $filters['direction'] ?? 'desc';
 
-        $allowedSorts = ['created_at', 'activated_at'];
-        if (in_array($sortField, $allowedSorts)) {
+        if ($sortField === 'video_progress') {
+            $query->orderBy('completed_videos_count', $sortDirection)
+                ->orderBy('enrollments.created_at', 'desc');
+        } elseif (in_array($sortField, ['created_at', 'activated_at'], true)) {
             $query->orderBy($sortField, $sortDirection);
         } else {
             $query->orderBy('created_at', 'desc');
@@ -404,8 +406,21 @@ class ClassService
 
     protected function buildClassEnrollmentQuery($classId, array $filters = []): Builder
     {
+        $completedVideosQuery = VideoProgress::query()
+            ->selectRaw('video_progress.user_id, COUNT(DISTINCT video_progress.video_id) as completed_videos_count')
+            ->join('videos', 'videos.id', '=', 'video_progress.video_id')
+            ->join('modules', 'modules.id', '=', 'videos.module_id')
+            ->where('modules.class_id', $classId)
+            ->where('video_progress.is_completed', true)
+            ->groupBy('video_progress.user_id');
+
         $query = Enrollment::with('user')
             ->with('class:id,title')
+            ->select('enrollments.*')
+            ->selectRaw('COALESCE(video_progress_summary.completed_videos_count, 0) as completed_videos_count')
+            ->leftJoinSub($completedVideosQuery, 'video_progress_summary', function ($join) {
+                $join->on('video_progress_summary.user_id', '=', 'enrollments.user_id');
+            })
             ->where('class_id', $classId)
             ->where('status', 'active');
 
@@ -423,6 +438,33 @@ class ClassService
 
         if (! empty($filters['joined_to'])) {
             $query->whereDate('activated_at', '<=', $filters['joined_to']);
+        }
+
+        if (! empty($filters['review_status'])) {
+            $reviewConstraint = function ($query) use ($classId) {
+                $query->selectRaw('1')
+                    ->from('class_reviews')
+                    ->whereColumn('class_reviews.user_id', 'enrollments.user_id')
+                    ->where('class_reviews.class_id', $classId)
+                    ->whereNotNull('rating')
+                    ->whereNotNull('comment')
+                    ->whereRaw('TRIM(comment) <> ""');
+            };
+
+            $filters['review_status'] === 'reviewed'
+                ? $query->whereExists($reviewConstraint)
+                : $query->whereNotExists($reviewConstraint);
+        }
+
+        if (! empty($filters['certificate_status'])) {
+            $certificateConstraint = fn ($query) => $query->selectRaw('1')
+                ->from('certificate_issuances')
+                ->whereColumn('certificate_issuances.user_id', 'enrollments.user_id')
+                ->where('certificate_issuances.class_id', $classId);
+
+            $filters['certificate_status'] === 'issued'
+                ? $query->whereExists($certificateConstraint)
+                : $query->whereNotExists($certificateConstraint);
         }
 
         return $query;
